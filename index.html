@@ -3,137 +3,136 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <meta name="description" content="영일수산 | 신선한 제철회·모듬회·초밥·포장·배달 안내" />
- <title>  영일수산 | 제철회·모듬회·초밥</title>
+  <meta name="description" content="고물상·집게차 | 철거/정리/스크랩 매입·수거 | 빠른 견적·당일 출동" />
+  <title>고물상·집게차 | 빠른 견적 · 당일 출동</title>
 
   <style>
     :root{
-      --bg:#0b1220;
-      --card:#0f1a33;
-      --line:rgba(255,255,255,.10);
-      --txt:rgba(255,255,255,.92);
-      --mut:rgba(255,255,255,.70);
-      --acc:#22c55e;
-      --acc2:#38bdf8;
-      --shadow: 0 18px 55px rgba(0,0,0,.45);
+      --bg:#070a0f;
+      --card: rgba(255,255,255,.06);
+      --line: rgba(255,255,255,.10);
+      --txt: rgba(255,255,255,.92);
+      --mut: rgba(255,255,255,.68);
+
+      /* 산업/현장 톤 */
+      --acc: #f59e0b;   /* amber */
+      --acc2:#ef4444;   /* red */
+      --shadow: 0 18px 55px rgba(0,0,0,.55);
       --radius: 18px;
-      --max: 1080px;
+      --max: 1120px;
     }
+
     *{box-sizing:border-box}
     html,body{height:100%}
-
-    /* ✅ hero.jpg를 "홈 전체 배경"으로 적용 + 숨쉬기 오버레이(2.5초) */
     body{
       margin:0;
       color:var(--txt);
-
-      /* 배경 이미지 + 기존 그라데이션 톤을 함께 유지 */
-      background-image:
-        radial-gradient(1000px 650px at 70% -10%, rgba(56,189,248,.22), transparent 60%),
-        radial-gradient(900px 700px at 10% 10%, rgba(34,197,94,.18), transparent 55%),
-        linear-gradient(180deg, #071022 0%, #050814 60%, #040610 100%),
-        url("assets/images/hero.jpg");
-      background-size:
-        auto,
-        auto,
-        auto,
-        cover;
-      background-position:
-        center,
-        center,
-        center,
-        center;
-      background-repeat:
-        no-repeat,
-        no-repeat,
-        no-repeat,
-        no-repeat;
-      background-attachment:
-        scroll,
-        scroll,
-        scroll,
-        fixed;
-
       font-family: system-ui, -apple-system, Segoe UI, Roboto, "Noto Sans KR", sans-serif;
       line-height:1.55;
+
+      /* ✅ 홈 전체 배경 이미지(현장사진) */
+      background-image:
+        radial-gradient(1100px 700px at 15% 10%, rgba(245,158,11,.16), transparent 58%),
+        radial-gradient(900px 650px at 90% 0%, rgba(239,68,68,.14), transparent 60%),
+        linear-gradient(180deg, #070a0f 0%, #05070b 55%, #04060a 100%),
+        url("assets/images/hero.jpg");
+      background-size: auto, auto, auto, cover;
+      background-position: center, center, center, center;
+      background-repeat: no-repeat, no-repeat, no-repeat, no-repeat;
+      background-attachment: scroll, scroll, scroll, fixed;
 
       position:relative;
       overflow-x:hidden;
     }
 
-    /* ✅ [수정] 숨쉬기 오버레이 레이어 (실제 ‘움직임’이 느껴지도록 강화) */
+    /* ✅ 숨쉬기(눈에 보이게 좀 더 강하게) */
     body::before{
       content:"";
       position:fixed;
-      inset:-2%;               /* 가장자리 잘림 방지 */
+      inset:0;
       pointer-events:none;
       z-index:0;
 
+      /* 현장 느낌: 대비/틴트 강화 */
       background:
-        radial-gradient(1200px 720px at 20% 15%, rgba(56,189,248,.20), transparent 60%),
-        radial-gradient(1000px 700px at 80% 10%, rgba(34,197,94,.16), transparent 62%),
-        linear-gradient(180deg, rgba(4,6,16,.74) 0%, rgba(4,6,16,.80) 60%, rgba(4,6,16,.88) 100%);
-
-      opacity:.52;
-
-      /* ✅ 움직임 체감(확실) */
-      transform-origin: 50% 50%;
-      transform: translate3d(0,0,0) scale(1);
-      will-change: transform, opacity;
-      animation: breatheOverlay 3s ease-in-out infinite;
+        radial-gradient(1100px 720px at 18% 18%, rgba(245,158,11,.22), transparent 60%),
+        radial-gradient(900px 680px at 85% 10%, rgba(239,68,68,.18), transparent 62%),
+        linear-gradient(180deg, rgba(0,0,0,.58) 0%, rgba(0,0,0,.66) 55%, rgba(0,0,0,.78) 100%);
+      opacity:.62;
+      animation: breathe 2.5s ease-in-out infinite;
+      will-change: opacity, transform;
+      transform-origin: center;
+    }
+    @keyframes breathe{
+      0%   { opacity:.68; transform:scale(1); }
+      50%  { opacity:.50; transform:scale(1.02); }
+      100% { opacity:.68; transform:scale(1); }
     }
 
-    @keyframes breatheOverlay{
-      0%   { opacity:.85; transform: translate3d(0,0,0) scale(1); }
-      50%  { opacity:.45; transform: translate3d(0,-6px,0) scale(1.08); }
-      100% { opacity:.85; transform: translate3d(0,0,0) scale(1); }
-    }
-
-    /* 내용이 오버레이 위로 올라오게 */
-    body > *{ position:relative; z-index:1; }
+    /* 오버레이 위로 */
+    body > *{position:relative; z-index:1}
 
     a{color:inherit; text-decoration:none}
     .wrap{max-width:var(--max); margin:0 auto; padding:0 18px}
+
+    /* 상단 바 */
     .nav{
       position:sticky; top:0; z-index:10;
       backdrop-filter: blur(10px);
-      background: rgba(5,8,20,.55);
+      background: rgba(0,0,0,.45);
       border-bottom:1px solid var(--line);
     }
     .nav .inner{
       display:flex; align-items:center; justify-content:space-between;
-      padding:14px 0;
-      gap:14px;
+      padding:14px 0; gap:14px;
     }
-    .brand{display:flex; align-items:center; gap:10px; font-weight:800; letter-spacing:-.02em}
-    .dot{width:10px; height:10px; border-radius:999px; background:linear-gradient(135deg,var(--acc),var(--acc2)); box-shadow:0 0 0 4px rgba(34,197,94,.12)}
-    .menu{display:flex; align-items:center; gap:14px; font-size:14px; color:var(--mut)}
+    .brand{
+      display:flex; align-items:center; gap:10px;
+      font-weight:900; letter-spacing:-.02em;
+    }
+    .badge{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:6px 10px; border-radius:999px;
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(0,0,0,.28);
+      color:rgba(255,255,255,.86);
+      font-size:12px;
+      white-space:nowrap;
+    }
+    .mark{
+      width:12px; height:12px; border-radius:999px;
+      background: linear-gradient(135deg, var(--acc), var(--acc2));
+      box-shadow: 0 0 0 4px rgba(245,158,11,.12);
+    }
+    .menu{
+      display:flex; align-items:center; gap:14px;
+      font-size:14px; color:var(--mut);
+    }
     .menu a{padding:8px 10px; border-radius:12px}
     .menu a:hover{background:rgba(255,255,255,.06); color:var(--txt)}
+
     .btn{
       display:inline-flex; align-items:center; justify-content:center;
       padding:11px 14px; border-radius:14px;
       border:1px solid rgba(255,255,255,.14);
       background:rgba(255,255,255,.06);
-      font-weight:700;
+      font-weight:800;
       gap:8px;
-    }
-    .btn.primary{
-      background: linear-gradient(135deg, rgba(34,197,94,.95), rgba(56,189,248,.90));
-      border:none;
-      color:#041016;
-      box-shadow: 0 14px 38px rgba(34,197,94,.20);
+      transition: transform .15s ease;
     }
     .btn:hover{transform:translateY(-1px)}
-
-    /* ✅ [수정: 손가락 표시 부분] 네모칸(히어로 영역)만 "조금 위로" */
-    .hero{
-      padding:44px 0 44px;
+    .btn.primary{
+      border:none;
+      color:#0b0f14;
+      background: linear-gradient(135deg, rgba(245,158,11,.96), rgba(239,68,68,.92));
+      box-shadow: 0 14px 40px rgba(245,158,11,.18);
     }
 
+    /* 히어로 */
+    .hero{padding:44px 0 44px;}
     .grid{
       display:grid;
-      grid-template-columns: 1.2fr .8fr;
+      grid-template-columns: 1.25fr .75fr;
       gap:18px;
       align-items:stretch;
     }
@@ -141,89 +140,139 @@
       .grid{grid-template-columns:1fr}
       .menu{display:none}
     }
+
     .card{
-      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      background: linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.03));
       border:1px solid var(--line);
       border-radius: var(--radius);
       box-shadow: var(--shadow);
       overflow:hidden;
     }
     .heroCard{padding:28px}
-    .kicker{color:var(--mut); font-weight:700; font-size:13px; letter-spacing:.02em}
-    h1{margin:10px 0 10px; font-size:40px; line-height:1.1; letter-spacing:-.03em}
-    .sub{color:var(--mut); font-size:16px; margin:0 0 18px}
-    .pillRow{display:flex; flex-wrap:wrap; gap:10px; margin:16px 0 18px}
-    .pill{
-      display:inline-flex; align-items:center; gap:8px;
-      padding:8px 10px; border-radius:999px;
-      border:1px solid rgba(255,255,255,.14);
-      background:rgba(255,255,255,.04);
-      color:rgba(255,255,255,.86);
+    .kicker{
+      display:flex; gap:10px; align-items:center; flex-wrap:wrap;
+      color:rgba(255,255,255,.80);
+      font-weight:900;
+      letter-spacing:-.01em;
       font-size:13px;
     }
-    .ctaRow{display:flex; gap:10px; flex-wrap:wrap; margin-top:14px}
-    .side{
-      display:flex; flex-direction:column;
-      min-height:100%;
+    .kicker .pill{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:8px 10px; border-radius:999px;
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(0,0,0,.25);
+      color:rgba(255,255,255,.86);
+      font-size:12px;
+    }
+    h1{
+      margin:12px 0 10px;
+      font-size:44px;
+      line-height:1.08;
+      letter-spacing:-.04em;
+    }
+    .sub{
+      margin:0 0 16px;
+      color:var(--mut);
+      font-size:16px;
+    }
+    .strongLine{
+      margin:14px 0 18px;
+      padding:12px 14px;
+      border-radius:16px;
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(0,0,0,.20);
+      color:rgba(255,255,255,.86);
+      font-size:14px;
     }
 
-    /* ✅ [수정] 우측 상단 네모칸(회사/회 사진 자리) hero2.jpg 적용 */
+    .ctaRow{display:flex; gap:10px; flex-wrap:wrap; margin-top:14px}
+
+    /* 오른쪽 카드 */
+    .side{display:flex; flex-direction:column; min-height:100%;}
     .img{
       aspect-ratio: 16/10;
       background-image:
-        linear-gradient(180deg, rgba(0,0,0,.18), rgba(0,0,0,.34)),
+        linear-gradient(180deg, rgba(0,0,0,.18), rgba(0,0,0,.42)),
         url("assets/images/hero2.jpg");
       background-size: cover;
       background-position: center;
-      background-repeat: no-repeat;
+      background-repeat:no-repeat;
       border-bottom:1px solid var(--line);
     }
-
     .sideBody{padding:20px}
-    .miniTitle{font-weight:900; letter-spacing:-.02em}
+    .miniTitle{font-weight:950; letter-spacing:-.02em}
     .mini{margin:8px 0 0; color:var(--mut); font-size:14px}
-    .miniList{margin:14px 0 0; padding:0; list-style:none; display:grid; gap:10px}
+    .miniList{
+      margin:14px 0 0;
+      padding:0;
+      list-style:none;
+      display:grid;
+      gap:10px;
+    }
     .miniList li{
       padding:12px 12px;
       border-radius:14px;
       border:1px solid rgba(255,255,255,.10);
-      background:rgba(0,0,0,.15);
+      background:rgba(0,0,0,.22);
       color:rgba(255,255,255,.86);
       font-size:14px;
-      display:flex; justify-content:space-between; gap:10px;
+      display:flex;
+      justify-content:space-between;
+      gap:10px;
     }
     .tag{color:rgba(255,255,255,.62); font-size:12px}
+
     section{padding:26px 0}
-    .sectionHead{display:flex; align-items:end; justify-content:space-between; gap:14px; margin-bottom:14px}
+    .sectionHead{
+      display:flex; align-items:end; justify-content:space-between;
+      gap:14px; margin-bottom:14px;
+    }
     .sectionHead h2{margin:0; font-size:22px; letter-spacing:-.02em}
     .sectionHead p{margin:0; color:var(--mut); font-size:14px}
+
     .cards3{display:grid; grid-template-columns: repeat(3,1fr); gap:14px}
     @media (max-width: 900px){.cards3{grid-template-columns:1fr}}
     .feature{padding:16px}
-    .feature h3{margin:8px 0 6px; font-size:16px}
-    .feature p{margin:0; color:var(--mut); font-size:14px}
     .icon{
-      width:38px; height:38px; border-radius:14px;
+      width:40px; height:40px; border-radius:14px;
       display:grid; place-items:center;
-      background:rgba(255,255,255,.06);
+      background:rgba(0,0,0,.22);
       border:1px solid rgba(255,255,255,.12);
     }
-    .menuGrid{display:grid; grid-template-columns: repeat(2,1fr); gap:14px}
-    @media (max-width: 900px){.menuGrid{grid-template-columns:1fr}}
-    .menuCard{padding:16px}
-    .menuCard .row{display:flex; justify-content:space-between; gap:10px; align-items:flex-start}
-    .menuCard .name{font-weight:900}
-    .menuCard .desc{margin:8px 0 0; color:var(--mut); font-size:14px}
-    .menuCard .price{font-weight:900; color:#d9fff0}
+    .feature h3{margin:10px 0 6px; font-size:16px}
+    .feature p{margin:0; color:var(--mut); font-size:14px}
+
+    .split{display:grid; grid-template-columns:1fr 1fr; gap:14px}
+    @media (max-width: 900px){.split{grid-template-columns:1fr}}
+
+    .info{padding:16px}
+    .info .item{
+      display:flex; justify-content:space-between; gap:10px;
+      padding:10px 0;
+      border-bottom:1px solid rgba(255,255,255,.08);
+    }
+    .info .item:last-child{border-bottom:none}
+    .kbd{
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono","Courier New", monospace;
+      font-size:12px;
+      padding:2px 8px;
+      border-radius:10px;
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(0,0,0,.30);
+      color:rgba(255,255,255,.78);
+      white-space:nowrap;
+    }
+
     .notice{
       padding:14px 16px;
       border-radius:16px;
       border:1px dashed rgba(255,255,255,.18);
-      background:rgba(255,255,255,.04);
+      background:rgba(0,0,0,.18);
       color:var(--mut);
       font-size:13px;
       margin-top:14px;
     }
+
     .footer{
       padding:26px 0 40px;
       color:rgba(255,255,255,.55);
@@ -231,23 +280,11 @@
       border-top:1px solid var(--line);
       margin-top:10px;
     }
-    .split{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:14px;
-    }
-    @media (max-width: 900px){.split{grid-template-columns:1fr}}
-    .info{padding:16px}
-    .info .item{display:flex; justify-content:space-between; gap:10px; padding:10px 0; border-bottom:1px solid rgba(255,255,255,.08)}
-    .info .item:last-child{border-bottom:none}
-    .kbd{
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-      font-size:12px;
-      padding:2px 8px;
-      border-radius:10px;
-      border:1px solid rgba(255,255,255,.12);
-      background:rgba(0,0,0,.25);
-      color:rgba(255,255,255,.78);
+
+    /* 접근성: 애니메이션 줄이기 */
+    @media (prefers-reduced-motion: reduce){
+      body::before{animation:none}
+      .btn{transition:none}
     }
   </style>
 </head>
@@ -257,15 +294,18 @@
   <header class="nav">
     <div class="wrap inner">
       <div class="brand">
-        <span class="dot"></span>
-        <span>영일수산</span>
+        <span class="mark"></span>
+        <span>고물상 · 집게차</span>
+        <span class="badge">현장철거 · 정리 · 스크랩 매입</span>
       </div>
+
       <nav class="menu">
-        <a href="#menu">메뉴</a>
-        <a href="#info">매장정보</a>
-        <a href="#order">주문/문의</a>
+        <a href="#service">서비스</a>
+        <a href="#process">진행</a>
+        <a href="#info">견적/문의</a>
       </nav>
-      <a class="btn primary" href="#order">지금 주문 문의</a>
+
+      <a class="btn primary" href="#order">빠른 견적 문의</a>
     </div>
   </header>
 
@@ -273,182 +313,157 @@
   <main class="hero">
     <div class="wrap grid">
       <div class="card heroCard">
-        <div class="kicker">제철회 · 모듬회 · 초밥 · 포장/배달</div>
-        <h1>오늘 가장 신선한!<br/>영일수산</h1>
+        <div class="kicker">
+          <span class="pill">✅ 당일 출동 가능</span>
+          <span class="pill">✅ 철거/정리/수거</span>
+          <span class="pill">✅ 현장 사진으로 빠른 견적</span>
+        </div>
+
+        <h1>현장에 강한<br/>고물상 · 집게차</h1>
+
         <p class="sub">
-          산지/활어 수급 기준으로 구성합니다. 모임·가족식사·손님상에 맞춰
-          <b>예산/인원</b> 영일수산에게 공유하기
+          공장/창고/상가/주택 <b>철거·정리·스크랩 매입·수거</b>까지 한 번에.
+          시간 끌지 않고 <b>견적 → 일정 → 작업</b>까지 빠르게 잡습니다.
         </p>
 
-        <div class="pillRow">
-          <span class="pill">✅ 제철 추천 구성</span>
-          <span class="pill">✅ 포장/배달 가능</span>
-          <span class="pill">✅ 예약 픽업 OK</span>
-          <span class="pill">✅ 단체/상차림 상담</span>
+        <div class="strongLine">
+          <b>견적 빨라지는 3가지:</b> ① 위치 ② 현장 사진 ③ 대략 물량(톤/차량/평수)
         </div>
 
         <div class="ctaRow">
-          <a class="btn primary" href="tel:010-0000-0000">📞 전화하기</a>
-          <a class="btn" href="https://maps.google.com/?q=%EC%98%81%EC%9D%BC%EC%88%98%EC%82%B0" target="_blank" rel="noopener">📍 지도보기</a>
-          <a class="btn" href="#menu">🍣 메뉴 보기</a>
+          <a class="btn primary" href="tel:010-0000-0000">📞 전화 견적</a>
+          <a class="btn" href="https://open.kakao.com/" target="_blank" rel="noopener">💬 카톡 사진 견적</a>
+          <a class="btn" href="https://maps.google.com/" target="_blank" rel="noopener">📍 위치 공유</a>
         </div>
 
         <div class="notice">
-          ※ 샘플 페이지입니다. <b>전화번호/주소/영업시간/메뉴</b> (주)하비럴 기획브랜딩
+          ※ 샘플 페이지입니다. <b>상호/전화/지역/장비/허가</b> 정보로 바꾸면 바로 실사용 가능.
         </div>
       </div>
 
       <aside class="card side">
         <div class="img" aria-hidden="true"></div>
         <div class="sideBody">
-          <div class="miniTitle">빠른 안내</div>
-          <p class="mini">예)가장 자주 묻는 질문만 깔끔하게.</p>
+          <div class="miniTitle">빠른 체크</div>
+          <p class="mini">현장 들어가기 전에 이것만 확인합니다.</p>
 
           <ul class="miniList">
-            <li>
-              <span>오늘의 제철 추천</span>
-              <span class="tag">“예산/인원”</span>
-            </li>
-            <li>
-              <span>포장/배달</span>
-              <span class="tag">“픽업 시간”</span>
-            </li>
-            <li>
-              <span>단체/상차림</span>
-              <span class="tag">“예약 필수”</span>
-            </li>
-            <li>
-              <span>위생/보관</span>
-              <span class="tag">“보냉 포장”</span>
-            </li>
+            <li><span>출동 지역</span><span class="tag">“OO시/OO구”</span></li>
+            <li><span>진입/주차</span><span class="tag">“대형차 가능?”</span></li>
+            <li><span>물량</span><span class="tag">“톤/차량”</span></li>
+            <li><span>철거 범위</span><span class="tag">“부분/전체”</span></li>
           </ul>
         </div>
       </aside>
     </div>
   </main>
 
-  <!-- 강점 -->
-  <section>
+  <!-- 서비스 -->
+  <section id="service">
     <div class="wrap">
       <div class="sectionHead">
         <div>
-          <h2>왜 영일수산인가요?</h2>
-          <p>짧고 강하게, 신뢰 포인트만.</p>
+          <h2>가능 작업</h2>
+          <p>고물 매입부터 철거/정리까지 “현장 기준”으로.</p>
         </div>
       </div>
 
       <div class="cards3">
         <div class="card feature">
-          <div class="icon">🧊</div>
-          <h3>신선도 우선</h3>
-          <p>당일 수급/손질 원칙. 보냉 포장으로 퀄리티 유지.</p>
+          <div class="icon">🧲</div>
+          <h3>고물/스크랩 매입</h3>
+          <p>고철·비철·전선·스테인리스 등 품목별 단가 안내.</p>
         </div>
         <div class="card feature">
-          <div class="icon">🍱</div>
-          <h3>예산 맞춤 구성</h3>
-          <p>인원·예산에 맞춰 모듬/초밥/사이드 추천.</p>
+          <div class="icon">🏗️</div>
+          <h3>집게차 수거</h3>
+          <p>대형 폐기물·적재·상하차. 작업 동선 빠르게 정리.</p>
         </div>
         <div class="card feature">
-          <div class="icon">⏱️</div>
-          <h3>픽업/배달 동선 최적</h3>
-          <p>예약 픽업으로 대기 최소화. 시간 약속을 지킵니다.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 메뉴 -->
-  <section id="menu">
-    <div class="wrap">
-      <div class="sectionHead">
-        <div>
-          <h2>대표 메뉴 (샘플)</h2>
-          <p>샘플용) 실제 가격/구성으로 확인.</p>
-        </div>
-      </div>
-
-      <div class="menuGrid">
-        <div class="card menuCard">
-          <div class="row">
-            <div class="name">제철 모듬회 (2~3인)</div>
-            <div class="price">₩ 59,000~</div>
-          </div>
-          <p class="desc">제철 생선 중심 구성 · 기본 구성/양은 매일 변동</p>
-        </div>
-
-        <div class="card menuCard">
-          <div class="row">
-            <div class="name">프리미엄 모듬회 (3~4인)</div>
-            <div class="price">₩ 89,000~</div>
-          </div>
-          <p class="desc">특수부위/갑각류 옵션 추가 가능 · 손님상 추천</p>
-        </div>
-
-        <div class="card menuCard">
-          <div class="row">
-            <div class="name">초밥 모둠 (12pcs)</div>
-            <div class="price">₩ 18,000~</div>
-          </div>
-          <p class="desc">광어/연어/새우 등 기본 구성 · 요청 시 변경</p>
-        </div>
-
-        <div class="card menuCard">
-          <div class="row">
-            <div class="name">회+초밥 세트</div>
-            <div class="price">₩ 69,000~</div>
-          </div>
-          <p class="desc">모임용 올인원 · 예산/인원 말하면 최적 구성</p>
+          <div class="icon">🧹</div>
+          <h3>철거/정리</h3>
+          <p>공장/창고/상가 내부 정리, 철거 후 잔재 처리까지.</p>
         </div>
       </div>
 
       <div class="notice">
-        팁) 메뉴가 많은 업종은 “대표 4개 + 상담 CTA”가 전환율이 좋아요. (나머진 톡/전화로 안내)
+        포인트) “<b>얼마냐</b>”보다 “<b>어떻게 진행되냐</b>”가 먼저입니다. 진행이 보이면 결제는 따라옵니다.
       </div>
     </div>
   </section>
 
-  <!-- 매장정보/문의 -->
-  <section id="info">
+  <!-- 진행 -->
+  <section id="process">
     <div class="wrap">
       <div class="sectionHead">
         <div>
-          <h2>매장 정보</h2>
-          <p>아래 항목만 채우면 신뢰도 확 올라감.</p>
+          <h2>진행 방식</h2>
+          <p>설명보다 “절차”가 보이면 신뢰가 생깁니다.</p>
         </div>
       </div>
 
       <div class="split">
         <div class="card info">
-          <div class="item"><span>주소</span><span class="kbd">예) 충북 청주시 ○○로 123</span></div>
-          <div class="item"><span>전화</span><span class="kbd">010-0000-0000</span></div>
-          <div class="item"><span>영업시간</span><span class="kbd">매일 11:00~22:00</span></div>
-          <div class="item"><span>휴무</span><span class="kbd">예) 매주 월요일</span></div>
-          <div class="item"><span>포장/배달</span><span class="kbd">가능 (거리/시간 협의)</span></div>
+          <div class="item"><span>1) 사진/위치 접수</span><span class="kbd">카톡 30초</span></div>
+          <div class="item"><span>2) 1차 견적</span><span class="kbd">당일 안내</span></div>
+          <div class="item"><span>3) 현장 확인</span><span class="kbd">필요시 방문</span></div>
+          <div class="item"><span>4) 일정 확정</span><span class="kbd">출동/작업</span></div>
+          <div class="item"><span>5) 정산/마무리</span><span class="kbd">정리 완료</span></div>
         </div>
 
         <div class="card info" id="order">
           <div style="padding:16px">
-            <div class="miniTitle" style="font-size:18px">주문/문의</div>
+            <div class="miniTitle" style="font-size:18px">빠른 견적 문의</div>
             <p class="mini" style="margin-top:8px">
-              싱싱활어를 맛보기위해 아래 3가지만 영일수산에 공유하기
+              아래 3가지만 보내주면 <b>작업 가능/비용/일정</b>을 바로 잡아드려요.
             </p>
+
             <ol style="color:var(--mut); font-size:14px; margin:12px 0 18px; padding-left:18px">
-              <li>인원 (예: 3명)</li>
-              <li>예산 (예: 7만원대)</li>
-              <li>픽업/배달 시간</li>
+              <li>지역/주소 (대략)</li>
+              <li>현장 사진 2~3장</li>
+              <li>대략 물량(톤/차량/평수)</li>
             </ol>
 
             <div class="ctaRow">
-              <a class="btn primary" href="tel:010-9323-5937">📞 전화 문의</a>
-              <a class="btn" href="https://open.kakao.com/" target="_blank" rel="noopener">💬 카톡 문의</a>
-              <a class="btn" href="https://maps.google.com/?q=%EC%98%81%EC%9D%BC%EC%88%98%EC%82%B0" target="_blank" rel="noopener">📍 위치 확인</a>
+              <a class="btn primary" href="tel:010-0000-0000">📞 전화 문의</a>
+              <a class="btn" href="https://open.kakao.com/" target="_blank" rel="noopener">💬 카톡 견적</a>
+              <a class="btn" href="https://maps.google.com/" target="_blank" rel="noopener">📍 위치 공유</a>
             </div>
 
             <div class="notice" style="margin-top:16px">
-              배달의민족,쿠팡,요기요 등 플렛폼과 차별화 
-              (시스템 직접 자산화)
+              샘플용 문구) “플랫폼 의존 없이, 문의/견적 흐름을 우리 시스템으로 자산화”
             </div>
           </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 정보 -->
+  <section id="info">
+    <div class="wrap">
+      <div class="sectionHead">
+        <div>
+          <h2>사업자 정보</h2>
+          <p>아래만 채우면 ‘정상 업체’로 바로 인식됩니다.</p>
+        </div>
+      </div>
+
+      <div class="split">
+        <div class="card info">
+          <div class="item"><span>상호</span><span class="kbd">예) OO고물상</span></div>
+          <div class="item"><span>지역</span><span class="kbd">예) 충북 청주 전지역</span></div>
+          <div class="item"><span>연락처</span><span class="kbd">010-0000-0000</span></div>
+          <div class="item"><span>장비</span><span class="kbd">예) 5톤 집게차</span></div>
+          <div class="item"><span>가능 시간</span><span class="kbd">예) 24시 협의</span></div>
+        </div>
+
+        <div class="card info">
+          <div class="item"><span>주요 품목</span><span class="kbd">고철/비철/전선</span></div>
+          <div class="item"><span>작업 범위</span><span class="kbd">철거/정리/수거</span></div>
+          <div class="item"><span>견적 방식</span><span class="kbd">사진/현장</span></div>
+          <div class="item"><span>정산</span><span class="kbd">작업 후 정산</span></div>
+          <div class="item"><span>비고</span><span class="kbd">허가/폐기물 협의</span></div>
         </div>
       </div>
     </div>
@@ -457,8 +472,8 @@
   <footer class="footer">
     <div class="wrap">
       <div style="display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap">
-        <span>© <span id="y"></span> 영일수산</span>
-        <span style="opacity:.75">샘플 페이지 · (주)하비럴 Pages</span>
+        <span>© <span id="y"></span> 고물상·집게차</span>
+        <span style="opacity:.75">샘플 페이지 · GitHub Pages</span>
       </div>
     </div>
   </footer>
