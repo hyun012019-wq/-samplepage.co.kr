@@ -61,28 +61,32 @@
       overflow-x:hidden;
     }
 
-    /* ✅ 숨쉬기 오버레이 레이어 */
+    /* ✅ [수정] 숨쉬기 오버레이 레이어 (실제 ‘움직임’이 느껴지도록 강화) */
     body::before{
       content:"";
       position:fixed;
-      inset:0;
+      inset:-2%;               /* 가장자리 잘림 방지 */
       pointer-events:none;
       z-index:0;
 
-      /* 살짝 어두운 틴트 + 부드러운 하이라이트 */
       background:
-        radial-gradient(1200px 720px at 20% 15%, rgba(56,189,248,.18), transparent 60%),
-        radial-gradient(1000px 700px at 80% 10%, rgba(34,197,94,.14), transparent 62%),
-        linear-gradient(180deg, rgba(4,6,16,.72) 0%, rgba(4,6,16,.78) 60%, rgba(4,6,16,.86) 100%);
-      opacity:.55;
+        radial-gradient(1200px 720px at 20% 15%, rgba(56,189,248,.20), transparent 60%),
+        radial-gradient(1000px 700px at 80% 10%, rgba(34,197,94,.16), transparent 62%),
+        linear-gradient(180deg, rgba(4,6,16,.74) 0%, rgba(4,6,16,.80) 60%, rgba(4,6,16,.88) 100%);
 
+      opacity:.52;
+
+      /* ✅ 움직임 체감(확실) */
+      transform-origin: 50% 50%;
+      transform: translate3d(0,0,0) scale(1);
+      will-change: transform, opacity;
       animation: breatheOverlay 2.5s ease-in-out infinite;
     }
 
     @keyframes breatheOverlay{
-      0%   { opacity:.58; transform:scale(1); }
-      50%  { opacity:.42; transform:scale(1.01); }
-      100% { opacity:.58; transform:scale(1); }
+      0%   { opacity:.56; transform: translate3d(0,0,0) scale(1); }
+      50%  { opacity:.38; transform: translate3d(0,-6px,0) scale(1.035); }
+      100% { opacity:.56; transform: translate3d(0,0,0) scale(1); }
     }
 
     /* 내용이 오버레이 위로 올라오게 */
