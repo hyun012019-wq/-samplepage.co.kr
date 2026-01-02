@@ -21,16 +21,73 @@
     }
     *{box-sizing:border-box}
     html,body{height:100%}
+
+    /* ✅ [수정] hero.jpg를 "홈 전체 배경"으로 적용 + 숨쉬기 오버레이(2.5초) */
     body{
       margin:0;
       color:var(--txt);
-      background:
+
+      /* 배경 이미지 + 기존 그라데이션 톤을 함께 유지 */
+      background-image:
         radial-gradient(1000px 650px at 70% -10%, rgba(56,189,248,.22), transparent 60%),
         radial-gradient(900px 700px at 10% 10%, rgba(34,197,94,.18), transparent 55%),
-        linear-gradient(180deg, #071022 0%, #050814 60%, #040610 100%);
+        linear-gradient(180deg, #071022 0%, #050814 60%, #040610 100%),
+        url("assets/images/hero.jpg");
+      background-size:
+        auto,
+        auto,
+        auto,
+        cover;
+      background-position:
+        center,
+        center,
+        center,
+        center;
+      background-repeat:
+        no-repeat,
+        no-repeat,
+        no-repeat,
+        no-repeat;
+      background-attachment:
+        scroll,
+        scroll,
+        scroll,
+        fixed;
+
       font-family: system-ui, -apple-system, Segoe UI, Roboto, "Noto Sans KR", sans-serif;
       line-height:1.55;
+
+      position:relative;
+      overflow-x:hidden;
     }
+
+    /* ✅ 숨쉬기 오버레이 레이어 */
+    body::before{
+      content:"";
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      z-index:0;
+
+      /* 살짝 어두운 틴트 + 부드러운 하이라이트 */
+      background:
+        radial-gradient(1200px 720px at 20% 15%, rgba(56,189,248,.18), transparent 60%),
+        radial-gradient(1000px 700px at 80% 10%, rgba(34,197,94,.14), transparent 62%),
+        linear-gradient(180deg, rgba(4,6,16,.72) 0%, rgba(4,6,16,.78) 60%, rgba(4,6,16,.86) 100%);
+      opacity:.55;
+
+      animation: breatheOverlay 2.5s ease-in-out infinite;
+    }
+
+    @keyframes breatheOverlay{
+      0%   { opacity:.58; transform:scale(1); }
+      50%  { opacity:.42; transform:scale(1.01); }
+      100% { opacity:.58; transform:scale(1); }
+    }
+
+    /* 내용이 오버레이 위로 올라오게 */
+    body > *{ position:relative; z-index:1; }
+
     a{color:inherit; text-decoration:none}
     .wrap{max-width:var(--max); margin:0 auto; padding:0 18px}
     .nav{
@@ -102,19 +159,14 @@
       display:flex; flex-direction:column;
       min-height:100%;
     }
-
-    /* ✅ 여기만 변경: hero.jpg 배경 적용 */
     .img{
       aspect-ratio: 16/10;
-      background-image:
-        linear-gradient(180deg, rgba(0,0,0,.15), rgba(0,0,0,.55)),
-        url("assets/images/hero.jpg");
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
+      background:
+        radial-gradient(900px 520px at 20% 20%, rgba(56,189,248,.25), transparent 55%),
+        radial-gradient(800px 520px at 80% 0%, rgba(34,197,94,.22), transparent 60%),
+        linear-gradient(135deg, rgba(255,255,255,.08), rgba(255,255,255,.02));
       border-bottom:1px solid var(--line);
     }
-
     .sideBody{padding:20px}
     .miniTitle{font-weight:900; letter-spacing:-.02em}
     .mini{margin:8px 0 0; color:var(--mut); font-size:14px}
