@@ -8,26 +8,20 @@
 
   <style>
     :root{
-      /* ✅ Beige tone system */
-      --bg1:#f7f2ec;
-      --bg2:#efe7de;
-      --paper:#ffffff;
-      --card:#fbf7f1;
+      /* ✅ 베이지톤 */
+      --bg:#f6f1ea;
+      --panel:#ffffffcc;
+      --panel2:#ffffffb5;
+      --card:#ffffffd6;
       --line:rgba(30,20,10,.10);
-      --line2:rgba(30,20,10,.14);
-      --txt:#1b1b1b;
-      --mut:rgba(20,15,10,.68);
-      --mut2:rgba(20,15,10,.55);
-      --acc:#b89b7a;
-      --acc2:#8b6c52;
-      --chip:#f1e7dc;
-
-      --shadow: 0 18px 46px rgba(30,18,6,.12);
-      --shadow2: 0 8px 22px rgba(30,18,6,.10);
+      --txt:rgba(20,14,10,.92);
+      --mut:rgba(20,14,10,.60);
+      --mut2:rgba(20,14,10,.48);
+      --acc:#b49a82;  /* 메인 베이지 */
+      --acc2:#d6c0aa; /* 라이트 베이지 */
+      --shadow: 0 18px 60px rgba(30,18,10,.12);
       --radius: 22px;
       --max: 1120px;
-
-      --font: system-ui, -apple-system, Segoe UI, Roboto, "Noto Sans KR", sans-serif;
     }
 
     *{box-sizing:border-box}
@@ -35,639 +29,473 @@
     html{scroll-behavior:smooth}
     body{
       margin:0;
-      font-family:var(--font);
       color:var(--txt);
-      background:
-        radial-gradient(1200px 700px at 20% -10%, rgba(184,155,122,.20), transparent 60%),
-        radial-gradient(980px 640px at 90% 10%, rgba(139,108,82,.12), transparent 60%),
-        linear-gradient(180deg, var(--bg1) 0%, var(--bg2) 60%, #efe6dd 100%);
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, "Noto Sans KR", sans-serif;
+      line-height:1.6;
+      background: var(--bg);
       overflow-x:hidden;
+      position:relative;
     }
 
-    /* ✅ soft hero overlay (optional background image) */
-    body::before{
+    /* ✅ 배경 2장 번갈아 + 숨쉬기(교차 페이드) */
+    body::before,
+    body::after{
       content:"";
       position:fixed;
       inset:0;
-      pointer-events:none;
       z-index:0;
-      background:
-        radial-gradient(1200px 720px at 40% 15%, rgba(255,255,255,.72), transparent 55%),
-        linear-gradient(180deg, rgba(247,242,236,.20) 0%, rgba(239,231,222,.60) 40%, rgba(239,231,222,.88) 100%),
-        url("assets/images/eunhae-hero.jpg");
+      pointer-events:none;
       background-size:cover;
       background-position:center;
-      opacity:.55;
-      filter:saturate(1.02);
+      background-repeat:no-repeat;
+      will-change: opacity, transform;
+      transform: translate3d(0,0,0) scale(1.04);
+      filter:saturate(1.02) contrast(1.02);
+    }
+    /* 배경1 */
+    body::after{
+      background-image:
+        radial-gradient(1200px 700px at 20% 10%, rgba(255,255,255,.50), rgba(255,255,255,.12) 58%, rgba(246,241,234,.40) 100%),
+        linear-gradient(180deg, rgba(246,241,234,.80) 0%, rgba(246,241,234,.64) 55%, rgba(246,241,234,.78) 100%),
+        url("hero-office.jpg.jpg");
+      opacity:1;
+      animation: bgA 9s ease-in-out infinite;
+    }
+    /* 배경2 */
+    body::before{
+      background-image:
+        radial-gradient(1200px 700px at 80% 12%, rgba(255,255,255,.45), rgba(255,255,255,.10) 60%, rgba(246,241,234,.42) 100%),
+        linear-gradient(180deg, rgba(246,241,234,.78) 0%, rgba(246,241,234,.60) 55%, rgba(246,241,234,.76) 100%),
+        url("hero-office-2.jpg.jpg");
+      opacity:0;
+      animation: bgB 9s ease-in-out infinite;
+    }
+    @keyframes bgA{
+      0%   {opacity:1; transform:translate3d(0,0,0) scale(1.04)}
+      45%  {opacity:.15; transform:translate3d(0,-10px,0) scale(1.06)}
+      50%  {opacity:.05; transform:translate3d(0,-12px,0) scale(1.06)}
+      55%  {opacity:.15; transform:translate3d(0,-10px,0) scale(1.06)}
+      100% {opacity:1; transform:translate3d(0,0,0) scale(1.04)}
+    }
+    @keyframes bgB{
+      0%   {opacity:0; transform:translate3d(0,0,0) scale(1.04)}
+      45%  {opacity:.85; transform:translate3d(0,-10px,0) scale(1.06)}
+      50%  {opacity:.95; transform:translate3d(0,-12px,0) scale(1.06)}
+      55%  {opacity:.85; transform:translate3d(0,-10px,0) scale(1.06)}
+      100% {opacity:0; transform:translate3d(0,0,0) scale(1.04)}
+    }
+    @media (prefers-reduced-motion: reduce){
+      body::before, body::after{animation:none !important}
+      .btn:hover{transform:none !important}
     }
 
+    /* 배경 위로 */
     body > *{position:relative; z-index:1}
 
     a{color:inherit; text-decoration:none}
     .wrap{max-width:var(--max); margin:0 auto; padding:0 18px}
 
-    /* ===== NAV ===== */
+    /* 상단 */
     .nav{
-      position:sticky; top:0; z-index:50;
+      position:sticky; top:0; z-index:10;
       backdrop-filter: blur(10px);
-      background: rgba(247,242,236,.78);
+      background: rgba(246,241,234,.70);
       border-bottom:1px solid var(--line);
     }
     .nav .inner{
       display:flex; align-items:center; justify-content:space-between;
-      gap:12px; padding:14px 0;
+      padding:14px 0; gap:12px;
     }
     .brand{
       display:flex; align-items:center; gap:10px;
-      font-weight:900;
-      letter-spacing:-.03em;
-      min-width:220px;
+      font-weight:900; letter-spacing:-.02em;
+      white-space:nowrap;
+      min-width: 160px;
     }
-    .brandLogo{
-      width:42px; height:42px; border-radius:14px;
-      background: rgba(255,255,255,.70);
-      border:1px solid var(--line);
-      box-shadow: var(--shadow2);
-      display:grid; place-items:center;
-      overflow:hidden;
+    .brand img{
+      width:34px; height:34px; object-fit:contain;
+      filter: grayscale(1);
+      opacity:.85;
     }
-    .brandLogo img{width:100%; height:100%; object-fit:cover}
-    .brandTxt{display:flex; flex-direction:column; line-height:1.05}
-    .brandTxt .nm{font-size:16px}
-    .brandTxt .en{font-size:12px; color:var(--mut2); font-weight:800; letter-spacing:.02em}
+    .brand .t{
+      display:flex; flex-direction:column; line-height:1.1;
+    }
+    .brand .t .k{font-size:16px}
+    .brand .t .e{font-size:11px; color:var(--mut); font-weight:700; letter-spacing:.02em}
 
     .menu{
-      display:flex; gap:10px; flex-wrap:wrap;
+      display:flex; align-items:center; gap:10px;
+      font-size:14px; color:var(--mut);
+      flex-wrap:wrap;
       justify-content:center;
-      font-size:13px;
-      color:var(--mut);
     }
     .menu a{
-      padding:8px 10px;
-      border-radius:999px;
+      padding:8px 10px; border-radius:12px;
       border:1px solid transparent;
-      transition:.15s ease;
     }
     .menu a:hover{
-      border-color: var(--line2);
-      background: rgba(255,255,255,.60);
-      color: var(--txt);
+      background:rgba(255,255,255,.55);
+      color:var(--txt);
+      border-color: rgba(30,18,10,.08);
     }
+    .right{display:flex; align-items:center; gap:10px; white-space:nowrap}
 
-    .right{display:flex; gap:10px; align-items:center; white-space:nowrap}
     .btn{
       display:inline-flex; align-items:center; justify-content:center;
-      padding:11px 14px;
-      border-radius:999px;
-      border:1px solid var(--line2);
-      background: rgba(255,255,255,.64);
-      font-weight:900;
+      padding:11px 14px; border-radius:999px;
+      border:1px solid rgba(30,18,10,.12);
+      background:rgba(255,255,255,.55);
+      font-weight:800;
       gap:8px;
-      box-shadow: 0 10px 26px rgba(30,18,6,.08);
-      transition: transform .15s ease, background .15s ease;
+      transition: transform .15s ease;
       cursor:pointer;
     }
-    .btn:hover{transform:translateY(-1px); background: rgba(255,255,255,.78)}
     .btn.primary{
-      background: linear-gradient(135deg, #c7ae8f, #a68666);
-      border: none;
-      color: #1c120a;
-      box-shadow: 0 18px 42px rgba(184,155,122,.22);
+      background: linear-gradient(180deg, rgba(198,175,150,.95), rgba(180,154,130,.95));
+      border:none;
+      color:#2a1a10;
+      box-shadow: 0 14px 34px rgba(60,35,20,.14);
     }
-    .btn.ghost{
-      background: transparent;
-      border:1px solid var(--line2);
-      box-shadow:none;
-    }
-
+    .btn:hover{transform:translateY(-1px)}
     @media (max-width: 980px){
       .menu{display:none}
       .brand{min-width:auto}
     }
 
-    /* ===== COMMON ===== */
-    section{padding:26px 0}
+    /* 공통 카드 */
     .card{
-      background: rgba(255,255,255,.72);
-      border:1px solid var(--line);
+      background: linear-gradient(180deg, rgba(255,255,255,.80), rgba(255,255,255,.62));
+      border:1px solid rgba(30,18,10,.10);
       border-radius: var(--radius);
       box-shadow: var(--shadow);
       overflow:hidden;
     }
-    .soft{
-      background: linear-gradient(180deg, rgba(255,255,255,.78), rgba(251,247,241,.76));
-    }
     .badge{
       display:inline-flex; align-items:center; gap:8px;
-      padding:6px 10px;
-      border-radius:999px;
+      padding:7px 12px; border-radius:999px;
       font-size:12px;
-      color:rgba(25,18,12,.78);
-      border:1px solid var(--line2);
-      background: rgba(255,255,255,.70);
+      color:rgba(20,14,10,.68);
+      border:1px solid rgba(30,18,10,.10);
+      background:rgba(255,255,255,.55);
       width:fit-content;
-      font-weight:900;
-    }
-    .byHviral{
-      display:inline-flex; align-items:center; gap:8px;
-      padding:6px 10px;
-      border-radius:999px;
-      border:1px solid var(--line2);
-      background: rgba(255,255,255,.62);
-      color: rgba(25,18,12,.68);
-      font-size:12px;
-      font-weight:900;
-    }
-    .spark{
-      width:8px; height:8px; border-radius:999px;
-      background: linear-gradient(135deg, #c7ae8f, #a68666);
-      box-shadow: 0 0 0 3px rgba(184,155,122,.18);
+      font-weight:800;
     }
 
-    .sectionHead{
-      display:flex;
-      align-items:flex-end;
-      justify-content:space-between;
-      gap:14px;
-      margin-bottom:14px;
-    }
-    .sectionHead h2{
-      margin:0;
-      font-size:22px;
-      letter-spacing:-.03em;
-    }
-    .sectionHead p{
-      margin:6px 0 0;
-      color:var(--mut);
-      font-size:14px;
-    }
-
-    .notice{
-      padding:14px 16px;
-      border-radius:18px;
-      border:1px dashed rgba(30,20,10,.18);
-      background: rgba(255,255,255,.62);
-      color: var(--mut);
-      font-size:13px;
-    }
-
-    /* ===== HERO ===== */
-    .hero{padding:22px 0 10px}
-    .grid{
-      display:grid;
-      grid-template-columns: 1.12fr .88fr;
-      gap:14px;
-      align-items:stretch;
-    }
-    @media (max-width: 980px){
-      .grid{grid-template-columns:1fr}
-    }
-
+    /* 히어로 */
+    .hero{padding:26px 0 18px}
     .heroCard{padding:22px}
-    .kicker{
-      color: rgba(20,15,10,.55);
-      font-weight:1000;
-      font-size:12px;
-      letter-spacing:.10em;
-      text-transform:uppercase;
-    }
-    h1{
-      margin:10px 0 10px;
-      font-size:38px;
-      line-height:1.07;
-      letter-spacing:-.05em;
-    }
-    .sub{
-      margin:0 0 16px;
-      color:var(--mut);
-      font-size:15px;
-      line-height:1.7;
-    }
+    h1{margin:10px 0 12px; font-size:38px; line-height:1.12; letter-spacing:-.04em}
+    .sub{margin:0 0 16px; color:var(--mut); font-size:15px}
+
     .pillRow{display:flex; flex-wrap:wrap; gap:10px; margin:12px 0 16px}
     .pill{
       display:inline-flex; align-items:center; gap:8px;
-      padding:9px 12px;
-      border-radius:999px;
-      border:1px solid var(--line2);
-      background: rgba(255,255,255,.65);
+      padding:9px 12px; border-radius:999px;
+      border:1px solid rgba(30,18,10,.10);
+      background:rgba(255,255,255,.55);
       font-size:13px;
+      color:rgba(20,14,10,.82);
       font-weight:900;
-      color: rgba(25,18,12,.86);
     }
-    .pill .ok{color:#5b7a5a}
     .ctaRow{display:flex; gap:10px; flex-wrap:wrap; margin-top:10px}
+
+    .grid{
+      display:grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap:14px;
+      align-items:stretch;
+    }
+    @media (max-width: 980px){ .grid{grid-template-columns:1fr} }
 
     .side{display:flex; flex-direction:column; min-height:100%}
     .sideTop{
       aspect-ratio: 16/10;
       background-image:
-        linear-gradient(180deg, rgba(255,255,255,.10), rgba(120,90,60,.20)),
-        url("assets/images/eunhae-office.jpg");
+        linear-gradient(180deg, rgba(255,255,255,.10), rgba(180,154,130,.22)),
+        url("hero-office.jpg.jpg");
       background-size: cover;
       background-position: center;
-      border-bottom:1px solid var(--line);
+      background-repeat:no-repeat;
+      border-bottom:1px solid rgba(30,18,10,.10);
     }
     .sideBody{padding:18px}
     .miniTitle{font-weight:1000; letter-spacing:-.02em}
-    .mini{margin:8px 0 0; color:var(--mut); font-size:14px; line-height:1.7}
-    .miniList{
-      margin:12px 0 0; padding:0; list-style:none;
-      display:grid; gap:10px;
-    }
+    .mini{margin:6px 0 0; color:var(--mut); font-size:14px}
+    .miniList{margin:12px 0 0; padding:0; list-style:none; display:grid; gap:10px}
     .miniList li{
       padding:12px 12px;
       border-radius:16px;
-      border:1px solid var(--line);
-      background: rgba(255,255,255,.62);
-      color: rgba(25,18,12,.86);
+      border:1px solid rgba(30,18,10,.10);
+      background:rgba(255,255,255,.55);
+      color:rgba(20,14,10,.86);
+      font-size:14px;
       display:flex; justify-content:space-between; gap:10px;
       font-weight:900;
-      font-size:14px;
     }
-    .tag{color:var(--mut2); font-size:12px; font-weight:900}
+    .tag{color:rgba(20,14,10,.52); font-size:12px; font-weight:800}
 
-    /* ===== SERVICES CARDS ===== */
-    .cards3{
-      display:grid;
-      grid-template-columns: repeat(3,1fr);
-      gap:14px;
-    }
-    @media (max-width: 980px){.cards3{grid-template-columns:1fr}}
-    .feature{padding:16px}
-    .icon{
-      width:44px; height:44px;
-      border-radius:16px;
-      display:grid; place-items:center;
-      background: rgba(255,255,255,.70);
-      border:1px solid var(--line2);
-      font-weight:1000;
-      box-shadow: 0 10px 22px rgba(30,18,6,.08);
-    }
-    .feature h3{margin:10px 0 6px; font-size:16px; letter-spacing:-.02em}
-    .feature p{margin:0; color:var(--mut); font-size:14px; line-height:1.7}
-    .moreBtn{
-      display:inline-flex; align-items:center; justify-content:center;
-      margin-top:12px;
-      padding:11px 14px;
-      border-radius:999px;
-      border:1px solid var(--line2);
-      background: linear-gradient(135deg, #c7ae8f, #a68666);
-      color:#1c120a;
-      font-weight:1000;
-      width:100%;
-    }
+    /* 섹션 */
+    section{padding:22px 0}
+    .sectionHead{display:flex; align-items:end; justify-content:space-between; gap:14px; margin-bottom:12px}
+    .sectionHead h2{margin:0; font-size:22px; letter-spacing:-.02em}
+    .sectionHead p{margin:0; color:var(--mut); font-size:14px}
 
-    /* ===== SPLIT ===== */
-    .split{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap:14px;
-    }
-    @media (max-width: 980px){.split{grid-template-columns:1fr}}
-    .info{padding:16px}
-    .item{
-      display:flex;
-      justify-content:space-between;
-      gap:10px;
-      padding:10px 0;
-      border-bottom:1px solid rgba(30,20,10,.10);
-    }
-    .item:last-child{border-bottom:none}
-
-    .kbd{
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-      font-size:12px;
-      padding:3px 10px;
-      border-radius:999px;
-      border:1px solid var(--line2);
-      background: rgba(255,255,255,.62);
-      color: rgba(25,18,12,.72);
-      white-space:nowrap;
-    }
-
-    /* ===== PROFILE ===== */
+    /* 프로필 */
     .profileGrid{
       display:grid;
       grid-template-columns: .95fr 1.05fr;
       gap:14px;
     }
-    @media (max-width: 980px){.profileGrid{grid-template-columns:1fr}}
+    @media (max-width: 980px){ .profileGrid{grid-template-columns:1fr} }
     .profileLeft{padding:16px}
     .profilePhoto{
       aspect-ratio: 16/11;
       border-radius:18px;
-      border:1px solid var(--line);
+      border:1px solid rgba(30,18,10,.10);
       background-image:
-        linear-gradient(180deg, rgba(255,255,255,.08), rgba(120,90,60,.14)),
-        url("assets/images/eunhae-ceo.jpg");
-      background-size:cover;
+        linear-gradient(180deg, rgba(255,255,255,.08), rgba(180,154,130,.22)),
+        url("portrait.jpg.jpg");
+      background-size: cover;
       background-position:center;
-      box-shadow: var(--shadow2);
+      background-repeat:no-repeat;
     }
-    .profileMeta{margin-top:12px}
     .nameLine{
-      display:flex; align-items:baseline; justify-content:space-between;
-      gap:10px; flex-wrap:wrap;
+      display:flex; align-items:baseline; justify-content:space-between; gap:10px; flex-wrap:wrap;
+      margin-top:12px;
     }
-    .nameLine .nm{font-size:18px; font-weight:1000}
+    .nameLine .nm{font-size:18px; font-weight:1000; letter-spacing:-.02em}
     .nameLine .role{color:var(--mut); font-weight:900; font-size:13px}
-    .bullets{margin:10px 0 0; padding-left:18px; color:var(--mut); font-size:14px; line-height:1.8}
+    .bullets{margin:10px 0 0; padding-left:18px; color:var(--mut); font-size:14px}
     .profileRight{padding:16px}
+
     .quote{
-      border-left:4px solid rgba(184,155,122,.85);
+      border-left:4px solid rgba(180,154,130,.75);
       padding:12px 12px;
-      background: rgba(255,255,255,.62);
-      border-radius:18px;
-      font-weight:1000;
-      color: rgba(25,18,12,.82);
-    }
-    .para{margin:10px 0 0; color:var(--mut); font-size:14px; line-height:1.8}
-
-    /* ===== PRODUCTS / PRICING (KMONG STYLE) ===== */
-    .productWrap{display:grid; grid-template-columns: 1fr; gap:14px}
-    .productCard{padding:16px}
-    .productHead{
-      display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap;
-      margin-bottom:10px;
-    }
-    .productTitle{
-      display:flex; align-items:center; gap:10px; flex-wrap:wrap;
-    }
-    .avatar{
-      width:42px; height:42px; border-radius:999px;
-      background: rgba(255,255,255,.72);
-      border:1px solid var(--line);
-      overflow:hidden;
-      box-shadow: var(--shadow2);
-    }
-    .avatar img{width:100%; height:100%; object-fit:cover}
-    .ptxt{display:flex; flex-direction:column}
-    .ptxt b{font-size:15px; letter-spacing:-.02em}
-    .ptxt span{font-size:12px; color:var(--mut2); font-weight:900}
-    .rating{
-      display:inline-flex; align-items:center; gap:8px;
-      font-weight:1000;
-      color:rgba(25,18,12,.80);
-    }
-    .stars{letter-spacing:1px}
-    .tabs{
-      display:flex; gap:10px;
-      border-top:1px solid rgba(30,20,10,.10);
-      padding-top:12px;
-      margin-top:8px;
-      overflow:auto;
-    }
-    .tab{
-      flex:1;
-      min-width:140px;
-      text-align:center;
-      padding:12px 10px;
+      background:rgba(255,255,255,.55);
       border-radius:16px;
-      border:1px solid var(--line);
-      background: rgba(255,255,255,.62);
-      font-weight:1000;
-      color: rgba(25,18,12,.72);
-      cursor:pointer;
-      position:relative;
+      color:rgba(20,14,10,.86);
+      font-weight:900;
+      border:1px solid rgba(30,18,10,.08);
     }
-    .tab.active{
-      background: linear-gradient(135deg, #c7ae8f, #a68666);
-      color:#1c120a;
-      border:none;
-    }
-    .tab small{display:block; font-size:12px; font-weight:900; opacity:.8; margin-top:2px}
+    .para{margin:10px 0 0; color:var(--mut); font-size:14px}
 
-    .planGrid{
-      display:grid;
-      grid-template-columns: repeat(3,1fr);
-      gap:12px;
-      margin-top:12px;
+    /* 서비스 카드(3개) */
+    .cards3{display:grid; grid-template-columns: repeat(3,1fr); gap:14px}
+    @media (max-width: 980px){.cards3{grid-template-columns:1fr}}
+    .feature{padding:16px}
+    .feature h3{margin:10px 0 6px; font-size:16px}
+    .feature p{margin:0; color:var(--mut); font-size:14px}
+    .icon{
+      width:44px; height:44px; border-radius:18px;
+      display:grid; place-items:center;
+      background:rgba(255,255,255,.55);
+      border:1px solid rgba(30,18,10,.10);
+      font-weight:900;
     }
-    @media (max-width: 980px){.planGrid{grid-template-columns:1fr}}
-    .plan{
-      border-radius:20px;
-      border:1px solid var(--line);
-      background: rgba(255,255,255,.70);
-      box-shadow: var(--shadow2);
-      padding:14px;
-      display:flex; flex-direction:column; gap:10px;
-    }
-    .plan h4{margin:0; font-size:14px; letter-spacing:-.01em}
-    .price{
-      font-size:26px;
-      font-weight:1100;
-      letter-spacing:-.02em;
-    }
-    .vat{font-size:13px; color:var(--mut2); font-weight:900}
-    .plan .desc{margin:0; color:var(--mut); font-size:13px; line-height:1.7}
-    .metaRow{
+
+    /* 진행 방식 / 2열 */
+    .split{display:grid; grid-template-columns:1fr 1fr; gap:14px}
+    @media (max-width: 980px){.split{grid-template-columns:1fr}}
+
+    .info{padding:16px}
+    .info .item{
       display:flex; justify-content:space-between; gap:10px;
-      border-top:1px solid rgba(30,20,10,.10);
-      padding-top:10px;
-      color:rgba(25,18,12,.72);
-      font-weight:1000;
-      font-size:13px;
+      padding:10px 0;
+      border-bottom:1px solid rgba(30,18,10,.08);
+      align-items:flex-start;
     }
-    .buyRow{
-      display:flex; gap:10px; flex-wrap:wrap; margin-top:12px;
-    }
-    .buyRow .btn{flex:1}
-    .buyRow .btn.primary{flex:1.2}
+    .info .item:last-child{border-bottom:none}
 
-    .fineprint{
-      margin-top:12px;
-      color:var(--mut2);
+    .kbd{
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
       font-size:12px;
-      line-height:1.7;
+      padding:4px 10px;
+      border-radius:999px;
+      border:1px solid rgba(30,18,10,.10);
+      background:rgba(255,255,255,.55);
+      color:rgba(20,14,10,.70);
+      white-space:nowrap;
+      font-weight:800;
+    }
+    .notice{
+      padding:14px 16px;
+      border-radius:18px;
+      border:1px dashed rgba(30,18,10,.14);
+      background:rgba(255,255,255,.52);
+      color:var(--mut);
+      font-size:13px;
+      margin-top:14px;
     }
 
-    /* ===== SERVICE TABLE (AUTO SCROLL AREA) ===== */
-    .serviceTableCard{padding:16px}
-    .tableTitle{font-size:22px; margin:0 0 12px; letter-spacing:-.03em}
-    .tableBox{
-      border-radius:20px;
-      border:1px solid var(--line);
-      background: rgba(255,255,255,.70);
+    /* ✅ 서비스 표(자동 스크롤 영역) */
+    .tableCard{padding:16px}
+    .svcTableWrap{
+      margin-top:12px;
+      border-radius:18px;
+      border:1px solid rgba(30,18,10,.10);
+      background:rgba(255,255,255,.60);
       overflow:hidden;
     }
-    .tableHead{
+    .svcTableHead{
       display:grid;
-      grid-template-columns: 34% 66%;
-      padding:14px 14px;
-      background: rgba(241,231,220,.55);
-      border-bottom:1px solid rgba(30,20,10,.10);
-      font-weight:1100;
-      color: rgba(25,18,12,.80);
+      grid-template-columns: 38% 62%;
+      padding:12px 14px;
+      font-weight:1000;
+      border-bottom:1px solid rgba(30,18,10,.08);
+      background:rgba(255,255,255,.72);
     }
-    @media (max-width: 640px){
-      .tableHead{grid-template-columns: 38% 62%}
+    .svcTable{
+      max-height: 330px;           /* ✅ 여기서 (1)↔(2) 스크롤 */
+      overflow:auto;
+      scroll-behavior:auto;
     }
     .row{
       display:grid;
-      grid-template-columns: 34% 66%;
-      border-bottom:1px solid rgba(30,20,10,.10);
-      min-height:92px;
-    }
-    @media (max-width: 640px){
-      .row{grid-template-columns: 38% 62%}
+      grid-template-columns: 38% 62%;
+      gap:0;
+      padding:14px;
+      border-bottom:1px solid rgba(30,18,10,.07);
     }
     .row:last-child{border-bottom:none}
-    .cellL{
-      padding:14px;
-      display:flex; align-items:center;
-      font-weight:1100;
-      color: rgba(25,18,12,.84);
+    .leftCell{
+      font-weight:1000;
+      color:rgba(20,14,10,.88);
+      padding-right:10px;
+      display:flex;
+ encourages:?? no
     }
-    .cellR{
-      padding:14px;
-      color: var(--mut);
+    .rightCell{
+      color:var(--mut);
       font-size:14px;
-      line-height:1.8;
     }
-    .cellR ul{margin:0; padding-left:18px}
-    .cellR li{margin:2px 0}
+    .rightCell ul{
+      margin:0;
+      padding-left:18px;
+    }
+    .rightCell li{margin:4px 0}
 
-    /* ✅ Auto scroll viewport (this is the "1 -> 2" moving area) */
-    .autoScrollViewport{
-      height:128px;               /* 보이는 영역 (원하는 만큼 조절 가능) */
-      overflow:hidden;
-      border-radius:16px;
-      border:1px solid rgba(30,20,10,.10);
-      background: rgba(255,255,255,.62);
-      padding:10px 12px;
-    }
-    .autoScrollContent{
-      will-change: transform;
-    }
+    /* 상담/문의 */
+    .contactGrid .item{align-items:center}
+    .ctaRow2{display:flex; gap:10px; flex-wrap:wrap; margin-top:12px}
 
-    /* ===== LOCATION (fit inside box) ===== */
+    /* ✅ 오시는 길: 네모 안에 딱 맞게 */
+    .locCard{padding:16px}
     .locGrid{
       display:grid;
-      grid-template-columns: 92px 1fr;
+      grid-template-columns: 1fr;
+      gap:12px;
+    }
+    .locBox{
+      border:1px solid rgba(30,18,10,.10);
+      background:rgba(255,255,255,.60);
+      border-radius:18px;
+      padding:10px;
+    }
+    .locRow{
+      display:grid;
+      grid-template-columns: 64px 1fr;
       gap:10px;
       align-items:center;
-      padding:10px 0;
-      border-bottom:1px solid rgba(30,20,10,.10);
+      padding:10px 8px;
+      border-bottom:1px solid rgba(30,18,10,.07);
     }
-    .locGrid:last-child{border-bottom:none}
-    .locLabel{
-      font-weight:1100;
-      color: rgba(25,18,12,.84);
+    .locRow:last-child{border-bottom:none}
+    .locKey{
+      font-weight:1000;
+      color:rgba(20,14,10,.86);
+      letter-spacing:-.02em;
     }
-    .locValue{
-      justify-self:stretch;
+    .locVal{
+      min-width:0;               /* ✅ overflow 해결 핵심 */
+      display:flex;
+      justify-content:flex-end;
+    }
+    .pillInput{
       width:100%;
+      border:1px solid rgba(30,18,10,.10);
+      background:rgba(255,255,255,.74);
+      border-radius:999px;
       padding:10px 12px;
-      border-radius:16px;
-      border:1px solid rgba(30,20,10,.10);
-      background: rgba(255,255,255,.62);
-      color: rgba(25,18,12,.72);
-      font-weight:900;
-      line-height:1.6;
-
-      /* ✅ 핵심: 네모 안에서 딱 떨어지게 */
-      overflow:hidden;
-      text-overflow: ellipsis;
-      white-space: normal;
-      overflow-wrap:anywhere;
-      word-break: keep-all;
-    }
-    .locValue.small{
-      display:inline-flex;
-      align-items:center;
-      justify-content:flex-start;
+      color:rgba(20,14,10,.78);
+      font-weight:800;
+      font-size:13px;
+      line-height:1.2;
+      text-align:left;
       white-space:nowrap;
-      max-width:100%;
-    }
-    @media (max-width: 520px){
-      .locGrid{grid-template-columns: 64px 1fr}
-      .locLabel{font-size:14px}
-      .locValue{font-size:13px}
+      overflow:hidden;
+      text-overflow:ellipsis;    /* ✅ 길면 말줄임 */
     }
 
-    /* ===== FOOTER ===== */
     .footer{
-      padding:26px 0 40px;
-      color: rgba(20,15,10,.55);
+      padding:22px 0 36px;
+      color:rgba(20,14,10,.55);
       font-size:12px;
-      border-top:1px solid var(--line);
+      border-top:1px solid rgba(30,18,10,.10);
       margin-top:10px;
-      background: rgba(247,242,236,.45);
-    }
-
-    @media (prefers-reduced-motion: reduce){
-      *{scroll-behavior:auto}
+      background:rgba(246,241,234,.45);
     }
   </style>
 </head>
 
 <body>
-  <!-- NAV -->
+  <!-- 상단 메뉴 -->
   <header class="nav">
     <div class="wrap inner">
-      <a class="brand" href="#top" aria-label="홈으로">
-        <span class="brandLogo" aria-hidden="true">
-          <!-- 로고 경로 교체 -->
-          <img src="assets/images/eunhae-logo.png" alt="" />
-        </span>
-        <span class="brandTxt">
-          <span class="nm">은해 세무회계</span>
-          <span class="en">Tax Accounting</span>
-        </span>
-      </a>
+      <div class="brand">
+        <img src="logo.png.jpg" alt="은해세무회계 로고" />
+        <div class="t">
+          <div class="k">은해 세무회계</div>
+          <div class="e">Tax Accounting</div>
+        </div>
+      </div>
 
       <nav class="menu" aria-label="메인 메뉴">
         <a href="#ceo">대표 세무사</a>
         <a href="#services">서비스 안내</a>
-        <a href="#products">상품/가격</a>
         <a href="#process">진행 방식</a>
+        <a href="#prices">상품/가격</a>
         <a href="#contact">상담/문의</a>
         <a href="#location">오시는 길</a>
       </nav>
 
       <div class="right">
-        <a class="btn ghost" href="tel:010-9992-5105">📞 전화</a>
+        <a class="btn" href="tel:010-9992-5105">📞 전화</a>
         <a class="btn primary" href="#contact">상담 요청하기</a>
       </div>
     </div>
   </header>
 
-  <!-- HERO -->
-  <main id="top" class="hero">
+  <!-- 히어로 -->
+  <main class="hero" id="top">
     <div class="wrap grid">
-      <div class="card soft heroCard">
-        <div class="badge">
-          <span class="byHviral"><span class="spark"></span> (주)하비럴 샘플 페이지</span>
-          <span style="color:rgba(20,15,10,.55); font-weight:900">· 제안/체험용</span>
-        </div>
+      <div class="card heroCard">
+        <div class="badge">대표 세무사 김은해 · 1:1 직접 상담</div>
 
-        <div class="kicker" style="margin-top:10px">TAX · ACCOUNTING · BUSINESS SUPPORT</div>
         <h1>대표 세무사가<br/>직접 소통합니다</h1>
         <p class="sub">
-          편리함보다 <b>정확함</b>을, 거래보다 <b>신뢰</b>를 생각하겠습니다.<br/>
-          고객 상황을 “정리”해 드리고, 필요한 범위부터 단계적으로 진행합니다.
+          편리함보다 정확함을, 거래보다 신뢰를 쌓아가겠습니다.<br/>
+          사업자 상황을 기준으로 <b>리스크를 줄이고</b>, <b>정리된 답</b>을 드립니다.
         </p>
 
         <div class="pillRow">
-          <span class="pill"><span class="ok">✓</span> 길고 꼼꼼한 세무</span>
-          <span class="pill"><span class="ok">✓</span> 대표 세무사 1:1 직접 상담</span>
-          <span class="pill"><span class="ok">✓</span> 철저한 보안 / 비밀 유지</span>
-          <span class="pill"><span class="ok">✓</span> 기장·신고·양도·상속·증여</span>
+          <span class="pill">✅ 기장/부가세/종합소득세</span>
+          <span class="pill">✅ 법인세/급여·4대보험</span>
+          <span class="pill">✅ 양도/상속/증여</span>
+          <span class="pill">✅ 경정청구/사후관리(협의)</span>
         </div>
 
         <div class="ctaRow">
-          <a class="btn primary" href="#contact">🗓️ 상담 요청하기</a>
-          <a class="btn" href="#products">💳 상품/가격 보기</a>
-          <a class="btn" href="#services">📌 서비스 안내</a>
+          <a class="btn primary" href="#contact">🗓️ 상담 요청</a>
+          <a class="btn" href="#prices">💳 상품/가격 보기</a>
+          <a class="btn" href="#process">🧭 진행 방식</a>
         </div>
 
-        <div class="notice" style="margin-top:14px">
-          안내) 본 페이지는 <b>업무 제안/구조 설명을 위한 비공개 체험 자료</b>이며,
-          내부 테스트/개선 과정에서 내용이 업데이트될 수 있습니다.
+        <div class="notice">
+          ※ 상담 요청 시 “업종/형태 + 최근 매출 규모(대략) + 가장 불안한 이슈 1~2개”만 남겨주셔도 충분합니다.
         </div>
       </div>
 
-      <aside class="card soft side">
+      <aside class="card side">
         <div class="sideTop" aria-hidden="true"></div>
         <div class="sideBody">
           <div class="miniTitle">빠른 상담 체크</div>
@@ -676,327 +504,97 @@
           <ul class="miniList">
             <li><span>업종/형태</span><span class="tag">개인/법인</span></li>
             <li><span>매출/인원</span><span class="tag">대략</span></li>
-            <li><span>가장 불안한 이슈</span><span class="tag">1~2개</span></li>
+            <li><span>이슈</span><span class="tag">신고/리스크</span></li>
             <li><span>희망 방향</span><span class="tag">절세/정리</span></li>
           </ul>
 
           <div class="notice" style="margin-top:14px">
-            <span class="byHviral"><span class="spark"></span> (주)하비럴 샘플</span>
-            <div style="margin-top:8px">
-              세무사님 브랜드·신뢰를 “한 장의 화면”으로 정리해드립니다.
-            </div>
+            “상담은 말보다 정리가 먼저입니다.”<br/>
+            자료가 아니라 <b>정리된 정보</b>에서 정확한 답이 나옵니다.
           </div>
         </div>
       </aside>
     </div>
   </main>
 
-  <!-- CEO -->
+  <!-- 대표세무사 -->
   <section id="ceo">
     <div class="wrap">
       <div class="sectionHead">
         <div>
           <h2>대표 세무사</h2>
-          <p>상담은 “말”보다 “정리”가 먼저입니다.</p>
+          <p>꼼꼼함과 정확함을 최우선으로 합니다.</p>
         </div>
-        <span class="byHviral"><span class="spark"></span> (주)하비럴 샘플 페이지</span>
       </div>
 
       <div class="profileGrid">
-        <div class="card soft profileLeft">
+        <div class="card profileLeft">
           <div class="profilePhoto" aria-hidden="true"></div>
-          <div class="profileMeta">
-            <div class="nameLine">
-              <div class="nm">김은해 세무사</div>
-              <div class="role">은해세무회계 · 대표</div>
-            </div>
-            <ul class="bullets">
-              <li>업종/규모별 “필수 신고” 우선 정리</li>
-              <li>리스크(가산세/누락/증빙) 최소화 중심</li>
-              <li>운영 흐름에 맞춘 실무형 안내</li>
-            </ul>
+          <div class="nameLine">
+            <div class="nm">김은해 세무사</div>
+            <div class="role">은해세무회계 · 대표</div>
           </div>
-          <div class="notice" style="margin-top:14px">
-            * 사진/약력/경력 영역은 실제 자료로 교체하면 완성됩니다. (assets/images/eunhae-ceo.jpg)
-          </div>
+          <ul class="bullets">
+            <li>업종/규모별 “필수 신고” 우선 정리</li>
+            <li>가산세·누락·증빙 리스크 최소화 중심</li>
+            <li>사업 운영 흐름에 맞춘 실무형 안내</li>
+          </ul>
         </div>
 
-        <div class="card soft profileRight">
+        <div class="card profileRight">
           <div class="quote">
-            “세금은 ‘절세’보다 먼저, <b>불확실성을 줄여 사업을 안정</b>시키는 도구입니다.”
+            “사업자님 상황을 기준으로, 가능한 범위부터 정리해드리고
+            이후에 확장 가능한 구조로 이어지게 합니다.”
           </div>
           <p class="para">
-            은해세무회계는 단발성 신고가 아니라, 매달/분기 운영을 기준으로
+            단발성 신고가 아니라, 매달/분기 운영을 기준으로
             증빙·인건비·원가·현금흐름이 무너지지 않도록 <b>점검 → 정리 → 고정</b>하는 방식으로 진행합니다.
           </p>
           <p class="para">
-            그래서 상담은 “무엇을 해드릴까요?”가 아니라,
+            상담은 “무엇을 해드릴까요?”가 아니라,
             “지금 무엇이 가장 위험하고, 무엇을 먼저 고정하면 편해지는가”부터 잡습니다.
           </p>
 
-          <div class="notice" style="margin-top:14px">
-            샘플 문구) “현재 상황 기준으로 가능한 범위부터 정리해드리고, 이후 확장 가능한 구조로 이어지게 합니다.”
+          <div class="notice">
+            ✔ 길고 복잡한 설명보다 “필요한 것만 정확히” 안내드립니다.<br/>
+            ✔ 대표 세무사가 직접 소통합니다.
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- SERVICES -->
+  <!-- 서비스 안내(3카드) -->
   <section id="services">
     <div class="wrap">
       <div class="sectionHead">
         <div>
           <h2>서비스 안내</h2>
-          <p>구체적으로 “무엇을 해주는지”가 한눈에 보이면 문의가 빨라집니다.</p>
+          <p>구성은 간단하게, 내용은 정확하게.</p>
         </div>
-        <span class="byHviral"><span class="spark"></span> (주)하비럴 샘플 페이지</span>
       </div>
 
       <div class="cards3">
-        <div class="card soft feature">
+        <div class="card feature">
           <div class="icon">🧾</div>
           <h3>기장 대리</h3>
-          <p>기장 장부 작성/정리, 월별 관리 포인트 점검 등 운영 흐름에 맞춰 관리합니다.</p>
-          <a class="moreBtn" href="#serviceTable">더 알아보기</a>
+          <p>기장/부가세/원천세 등 주기별 업무를 운영 흐름에 맞춰 관리합니다.</p>
         </div>
-        <div class="card soft feature">
-          <div class="icon">🧩</div>
+        <div class="card feature">
+          <div class="icon">🗂️</div>
           <h3>신고 대리</h3>
-          <p>종합소득세/부가세/법인세 정기신고, 가결산·수정신고·경정청구까지 안내합니다.</p>
-          <a class="moreBtn" href="#products">가격/상품 보기</a>
+          <p>종합소득세/부가세/법인세 등 정기·수정·기한후 신고까지 안내합니다.</p>
         </div>
-        <div class="card soft feature">
+        <div class="card feature">
           <div class="icon">🏠</div>
           <h3>양도/상속/증여</h3>
-          <p>거래/이전 전 사전 검토 중심으로, 위험 구간을 먼저 잡아드립니다. (상황별 협의)</p>
-          <a class="moreBtn" href="#contact">문의하기</a>
-        </div>
-      </div>
-
-      <div class="notice" style="margin-top:14px">
-        팁) 서비스는 “전부 나열”보다 <b>대표 3~6개</b> + “상담에서 세부 조율”이 전환이 좋습니다.
-      </div>
-    </div>
-  </section>
-
-  <!-- SERVICE TABLE (AUTO SCROLL PART) -->
-  <section id="serviceTable">
-    <div class="wrap">
-      <div class="sectionHead">
-        <div>
-          <h2>제공 서비스 / 서비스 내용</h2>
-          <p>핵심만 깔끔하게 정리했습니다. (표 안에서 내용이 자동으로 위·아래로 움직입니다)</p>
-        </div>
-        <span class="byHviral"><span class="spark"></span> (주)하비럴 샘플 페이지</span>
-      </div>
-
-      <div class="card soft serviceTableCard">
-        <div class="tableBox" aria-label="서비스 표">
-          <div class="tableHead">
-            <div>제공 서비스</div>
-            <div>서비스 내용</div>
-          </div>
-
-          <div class="row">
-            <div class="cellL">1:1 맞춤 상담</div>
-            <div class="cellR">
-              신규 사업자 창업 전 기초세팅, 기초 세무상담 등
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="cellL">세무 기장</div>
-            <div class="cellR">
-              <!-- ✅ 이 영역이 자동으로 1 -> 2 처럼 위아래 움직임 -->
-              <div class="autoScrollViewport js-autoScroll" data-speed="26" data-pause="900">
-                <div class="autoScrollContent">
-                  <ul>
-                    <li>장부 작성 대행</li>
-                    <li>부가가치세/법인세/종합소득세 예상 세액 미리 고지</li>
-                    <li>각종 세금 신고 대행</li>
-                    <li>사업장 현황신고 대행</li>
-                    <li>4대보험 관련 업무 대행</li>
-                    <li>각종 민원서류 발급</li>
-                    <li>사업장 관련 자금금 안내/업종별 맞춤 세액감면 공제 검토</li>
-                    <li>필요 자료 최소화 + 월별 정리 루틴 고정</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="cellL">신고 대리</div>
-            <div class="cellR">
-              종합소득세/부가가치세/법인세 정기신고, 가결산·수정신고, 경정청구 등
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="cellL">양도 / 상속 / 증여</div>
-            <div class="cellR">
-              <ul>
-                <li>양도/상속/증여 세금문제 검토</li>
-                <li>1세대 1주택 비과세 검토</li>
-                <li>일시적 1세대 1주택 비과세 검토</li>
-                <li>다주택자 관련 세금 검토</li>
-                <li>보유세(재산세/종합부동산세) 검토</li>
-              </ul>
-            </div>
-          </div>
-
-        </div>
-
-        <div class="notice" style="margin-top:14px">
-          * 자동 스크롤 속도는 “실제 읽기 좋은 속도”로 설정했습니다. (원하면 더 느리게/빠르게도 가능)
+          <p>사전 검토 중심으로 리스크를 줄이고, 필요한 자료만 깔끔하게 정리합니다.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- PRODUCTS / PRICING -->
-  <section id="products">
-    <div class="wrap">
-      <div class="sectionHead">
-        <div>
-          <h2>상품 / 가격 안내</h2>
-          <p>크몽에 등록된 구성 그대로 “홈페이지에서도” 확인 가능하게 구성했습니다.</p>
-        </div>
-        <span class="byHviral"><span class="spark"></span> (주)하비럴 샘플 페이지</span>
-      </div>
-
-      <div class="card soft productCard">
-        <div class="productHead">
-          <div class="productTitle">
-            <div class="avatar" aria-hidden="true">
-              <img src="assets/images/eunhae-ceo.jpg" alt="">
-            </div>
-            <div class="ptxt">
-              <b>김은해세무사</b>
-              <span>친절하고 꼼꼼하게, 종합소득세 신고 도와드립니다</span>
-            </div>
-          </div>
-          <div class="rating">
-            <span class="stars">★★★★★</span>
-            <span>5.0</span>
-            <span style="color:var(--mut2); font-weight:900">(190)</span>
-          </div>
-        </div>
-
-        <div class="tabs" role="tablist" aria-label="상품 탭">
-          <button class="tab active" type="button" data-tab="income">
-            종합소득세 신고
-            <small>STANDARD / DELUXE / PREMIUM</small>
-          </button>
-          <button class="tab" type="button" data-tab="simple">
-            간편장부 신고
-            <small>DELUXE 기준</small>
-          </button>
-          <button class="tab" type="button" data-tab="ratio">
-            단순/기준경비율 신고
-            <small>STANDARD 기준</small>
-          </button>
-        </div>
-
-        <!-- TAB: 종합소득세 -->
-        <div class="tabPanel" id="tab-income" style="margin-top:12px">
-          <div class="planGrid">
-            <div class="plan">
-              <h4>STANDARD</h4>
-              <div>
-                <div class="price">55,000원 <span class="vat">(VAT 포함)</span></div>
-              </div>
-              <p class="desc">복식/간편 여부·자료량에 따라 범위 확인 후 진행합니다.</p>
-              <div class="metaRow">
-                <span>작업일</span><span>3일</span>
-              </div>
-              <div class="metaRow">
-                <span>수정 횟수</span><span>제한 없음</span>
-              </div>
-            </div>
-
-            <div class="plan">
-              <h4>DELUXE</h4>
-              <div>
-                <div class="price">220,000원 <span class="vat">(VAT 포함)</span></div>
-              </div>
-              <p class="desc">간편장부 신고 및 상황별 보완 안내(증빙/누락/리스크 최소화).</p>
-              <div class="metaRow">
-                <span>작업일</span><span>3일</span>
-              </div>
-              <div class="metaRow">
-                <span>수정 횟수</span><span>제한 없음</span>
-              </div>
-            </div>
-
-            <div class="plan">
-              <h4>PREMIUM</h4>
-              <div>
-                <div class="price">440,000원 <span class="vat">(VAT 포함)</span></div>
-              </div>
-              <p class="desc">복식부기 신고(상황별 복잡도 반영). 신고 후 정리 방향까지 안내.</p>
-              <div class="metaRow">
-                <span>작업일</span><span>3일</span>
-              </div>
-              <div class="metaRow">
-                <span>수정 횟수</span><span>제한 없음</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="fineprint">
-            * 해당 금액은 <b>보수 하한</b>으로, 작업 상황(자료량/복잡도/추가업무)에 따라 보수가 올라갈 수 있습니다.
-          </div>
-
-          <div class="buyRow">
-            <a class="btn" href="#contact">문의하기</a>
-            <a class="btn primary" href="#contact">구매/상담 요청</a>
-          </div>
-        </div>
-
-        <!-- TAB: 간편장부 -->
-        <div class="tabPanel" id="tab-simple" style="display:none; margin-top:12px">
-          <div class="planGrid">
-            <div class="plan" style="grid-column: 1 / -1">
-              <h4>간편장부 신고 (DELUXE 기준)</h4>
-              <div class="price">220,000원 <span class="vat">(VAT 포함)</span></div>
-              <p class="desc">간편장부 기준으로 신고 진행 + 누락/증빙 리스크 점검.</p>
-              <div class="metaRow"><span>작업일</span><span>3일</span></div>
-              <div class="metaRow"><span>수정 횟수</span><span>제한 없음</span></div>
-              <div class="fineprint">
-                * 해당 금액은 <b>보수 하한</b>으로, 작업 상황에 따라 보수가 올라갈 수 있습니다.
-              </div>
-              <div class="buyRow">
-                <a class="btn" href="#contact">문의하기</a>
-                <a class="btn primary" href="#contact">구매/상담 요청</a>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- TAB: 단순/기준경비율 -->
-        <div class="tabPanel" id="tab-ratio" style="display:none; margin-top:12px">
-          <div class="planGrid">
-            <div class="plan" style="grid-column: 1 / -1">
-              <h4>단순/기준경비율 신고 (STANDARD 기준)</h4>
-              <div class="price">55,000원 <span class="vat">(VAT 포함)</span></div>
-              <p class="desc">해당 금액은 보수 하한으로, 작업 상황에 따라 보수가 올라갈 수 있습니다.</p>
-              <div class="metaRow"><span>작업일</span><span>3일</span></div>
-              <div class="metaRow"><span>수정 횟수</span><span>제한 없음</span></div>
-              <div class="buyRow">
-                <a class="btn" href="#contact">문의하기</a>
-                <a class="btn primary" href="#contact">구매/상담 요청</a>
-              </div>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- PROCESS -->
+  <!-- 진행 방식 -->
   <section id="process">
     <div class="wrap">
       <div class="sectionHead">
@@ -1004,11 +602,10 @@
           <h2>진행 방식</h2>
           <p>문의 → 정리 → 실행. 흐름이 보이면 신뢰가 생깁니다.</p>
         </div>
-        <span class="byHviral"><span class="spark"></span> (주)하비럴 샘플 페이지</span>
       </div>
 
       <div class="split">
-        <div class="card soft info">
+        <div class="card info">
           <div class="item"><span>1) 간단 정보 접수</span><span class="kbd">업종/매출/이슈</span></div>
           <div class="item"><span>2) 자료 요청/정리</span><span class="kbd">필수만</span></div>
           <div class="item"><span>3) 처리/보고</span><span class="kbd">리스크 제거</span></div>
@@ -1016,31 +613,139 @@
           <div class="item"><span>소통 채널</span><span class="kbd">전화/메일/카톡</span></div>
         </div>
 
-        <div class="card soft info">
-          <div style="padding:16px">
-            <div class="miniTitle" style="font-size:18px">상담 전 미리 준비하면 좋은 것</div>
-            <p class="mini" style="margin-top:8px">
-              “정확한 답”은 자료가 아니라 <b>정리된 정보</b>에서 나옵니다.
-            </p>
-            <ol style="color:var(--mut); font-size:14px; margin:12px 0 18px; padding-left:18px; line-height:1.8">
-              <li>업종/형태(개인/법인)</li>
-              <li>최근 매출 규모(대략)</li>
-              <li>가장 불안한 이슈 1~2개</li>
-            </ol>
-            <div class="notice">
-              <span class="byHviral"><span class="spark"></span> (주)하비럴 샘플</span>
-              <div style="margin-top:8px">
-                이 섹션은 “상담이 쉬워 보이게” 만들어 문의 전환율이 올라갑니다.
+        <div class="card info">
+          <div class="miniTitle" style="font-size:18px">상담 전 미리 준비하면 좋은 것</div>
+          <p class="mini" style="margin-top:8px">
+            “정확한 답”은 자료가 아니라 <b>정리된 정보</b>에서 나옵니다.
+          </p>
+          <ol style="color:var(--mut); font-size:14px; margin:12px 0 0; padding-left:18px">
+            <li>업종/형태(개인/법인)</li>
+            <li>최근 매출 규모(대략)</li>
+            <li>가장 불안한 이슈 1~2개</li>
+          </ol>
+          <div class="notice" style="margin-top:14px">
+            ※ 간단히 남겨주시면, 가능한 범위부터 빠르게 정리해드립니다.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ✅ 제공 서비스 / 서비스 내용(자동 스크롤) -->
+  <section id="prices">
+    <div class="wrap">
+      <div class="sectionHead">
+        <div>
+          <h2>제공 서비스 / 서비스 내용</h2>
+          <p>필요한 업무를 한 번에 정리해드립니다.</p>
+        </div>
+      </div>
+
+      <div class="card tableCard">
+        <div class="svcTableWrap">
+          <div class="svcTableHead">
+            <div>제공 서비스</div>
+            <div>서비스 내용</div>
+          </div>
+
+          <!-- ✅ 이 영역이 (1)↔(2) 자동으로 위아래 이동 -->
+          <div class="svcTable" id="autoScrollArea">
+            <div class="row">
+              <div class="leftCell">1:1 맞춤 상담</div>
+              <div class="rightCell">
+                신규 사업자 창업 전 기초세팅, 기초 세무상담 등
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="leftCell">세무 기장</div>
+              <div class="rightCell">
+                <ul>
+                  <li>장부 작성 대행</li>
+                  <li>부가가치세/법인세/종합소득세 예상세액 미리 고지</li>
+                  <li>각종 세금 신고 대행</li>
+                  <li>사업자 현황신고 대행</li>
+                  <li>4대보험 관련 업무 대행</li>
+                  <li>각종 민원서류 발급</li>
+                  <li>사업장 관련 자문 및 업종별 맞춤 세액감면/공제 검토</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="leftCell">신고 대리</div>
+              <div class="rightCell">
+                종합소득세/부가가치세/법인세 정기신고, 기한후신고, 수정신고, 경정청구 등
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="leftCell">양도 / 상속 / 증여</div>
+              <div class="rightCell">
+                <ul>
+                  <li>양도/상속/증여 시 세금문제 검토</li>
+                  <li>1세대 1주택 비과세 검토</li>
+                  <li>일시적 1세대 1주택 비과세 검토</li>
+                  <li>다주택자 관련 세금 검토</li>
+                  <li>보유세(재산세, 종합부동산세) 검토</li>
+                </ul>
               </div>
             </div>
           </div>
         </div>
+
+        <div class="notice">
+          ※ 표는 자동으로 위/아래로 움직이며 내용을 확인할 수 있습니다.
+        </div>
       </div>
 
+      <!-- ✅ 크몽 가격(빠지지 않게 그대로) -->
+      <div class="split" style="margin-top:14px">
+        <div class="card info">
+          <div class="miniTitle" style="font-size:18px">종합소득세 신고 대행</div>
+          <div style="margin-top:10px; font-weight:1000; font-size:26px; letter-spacing:-.02em">
+            55,000원 <span style="font-size:13px; color:var(--mut); font-weight:900">(VAT 포함)</span>
+          </div>
+          <p class="mini" style="margin-top:10px">
+            단순/기준경비율 신고<br/>
+            <span style="color:var(--mut2)">해당 금액은 보수 하한으로, 작업 상황에 따라 보수가 올라갈 수 있습니다.</span>
+          </p>
+          <div class="item" style="margin-top:10px"><span>작업일</span><span class="kbd">3일</span></div>
+          <div class="item"><span>수정 횟수</span><span class="kbd">제한 없음</span></div>
+        </div>
+
+        <div class="card info">
+          <div class="miniTitle" style="font-size:18px">간편장부 신고 대행</div>
+          <div style="margin-top:10px; font-weight:1000; font-size:26px; letter-spacing:-.02em">
+            220,000원 <span style="font-size:13px; color:var(--mut); font-weight:900">(VAT 포함)</span>
+          </div>
+          <p class="mini" style="margin-top:10px">
+            간편장부 신고<br/>
+            <span style="color:var(--mut2)">해당 금액은 보수 하한으로, 작업 상황에 따라 보수가 올라갈 수 있습니다.</span>
+          </p>
+          <div class="item" style="margin-top:10px"><span>작업일</span><span class="kbd">3일</span></div>
+          <div class="item"><span>수정 횟수</span><span class="kbd">제한 없음</span></div>
+        </div>
+      </div>
+
+      <div class="card info" style="margin-top:14px">
+        <div class="miniTitle" style="font-size:18px">복식부기 신고 대행</div>
+        <div style="margin-top:10px; font-weight:1000; font-size:26px; letter-spacing:-.02em">
+          440,000원 <span style="font-size:13px; color:var(--mut); font-weight:900">(VAT 포함)</span>
+        </div>
+        <p class="mini" style="margin-top:10px">
+          복식부기 신고<br/>
+          <span style="color:var(--mut2)">해당 금액은 보수 하한으로, 작업 상황에 따라 보수가 올라갈 수 있습니다.</span>
+        </p>
+        <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:12px">
+          <span class="kbd">작업일: 3일</span>
+          <span class="kbd">수정 횟수: 제한 없음</span>
+        </div>
+      </div>
     </div>
   </section>
 
-  <!-- CONTACT -->
+  <!-- 상담/문의 -->
   <section id="contact">
     <div class="wrap">
       <div class="sectionHead">
@@ -1048,45 +753,38 @@
           <h2>상담/문의</h2>
           <p>편한 채널로 연락 주세요.</p>
         </div>
-        <span class="byHviral"><span class="spark"></span> (주)하비럴 샘플 페이지</span>
       </div>
 
       <div class="split">
-        <div class="card soft info">
+        <div class="card info contactGrid">
           <div class="item"><span>전화</span><span class="kbd">010-9992-5105</span></div>
           <div class="item"><span>이메일</span><span class="kbd">ehkimmm_@naver.com</span></div>
           <div class="item"><span>팩스</span><span class="kbd">0303-3444-7779</span></div>
-          <div class="item"><span>상담 시간</span><span class="kbd">예) 평일 10:00~17:30</span></div>
-          <div class="item"><span>자료 전달</span><span class="kbd">메일/카톡 가능</span></div>
-
-          <div class="notice" style="margin-top:14px">
-            팁) 주소/팩스/이메일은 <b>푸터(하단)</b>에도 한 번 더 넣어두면 신뢰도가 올라갑니다.
+          <div class="item"><span>상담 시간</span><span class="kbd">평일 10:00~17:30</span></div>
+          <div class="notice">
+            팁) 상담 요청 시 “방문 희망 시간”을 함께 남겨주시면 더 빠릅니다.
           </div>
         </div>
 
-        <div class="card soft info">
-          <div style="padding:16px">
-            <div class="miniTitle" style="font-size:18px">바로 연결</div>
-            <p class="mini" style="margin-top:8px">
-              상담 요청 시, “업종/형태 + 이슈 1개”만 적어도 충분합니다.
-            </p>
-
-            <div class="ctaRow" style="margin-top:12px">
-              <a class="btn primary" href="tel:010-9992-5105">📞 전화 상담</a>
-              <a class="btn" href="https://open.kakao.com/" target="_blank" rel="noopener">💬 카톡 상담하기</a>
-              <a class="btn" href="mailto:ehkimmm_@naver.com">✉️ 이메일</a>
-            </div>
-
-            <div class="notice" style="margin-top:14px">
-              샘플 문구) “현재 상황을 간단히 남겨주시면, 가능한 범위부터 빠르게 정리해드리겠습니다.”
-            </div>
+        <div class="card info">
+          <div class="miniTitle" style="font-size:18px">바로 연결</div>
+          <p class="mini" style="margin-top:8px">
+            “업종/형태 + 이슈 1개”만 적어도 충분합니다.
+          </p>
+          <div class="ctaRow2">
+            <a class="btn primary" href="tel:010-9992-5105">📞 전화 상담</a>
+            <a class="btn" href="https://open.kakao.com/" target="_blank" rel="noopener">💬 카톡 상담하기</a>
+            <a class="btn" href="mailto:ehkimmm_@naver.com">✉️ 이메일</a>
+          </div>
+          <div class="notice">
+            ※ 의뢰 여부의 상담만이 가볍게, 편하게 상담 가능합니다.
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- LOCATION -->
+  <!-- 오시는 길 -->
   <section id="location">
     <div class="wrap">
       <div class="sectionHead">
@@ -1094,65 +792,63 @@
           <h2>오시는 길</h2>
           <p>방문 상담은 사전 예약을 권장드립니다.</p>
         </div>
-        <span class="byHviral"><span class="spark"></span> (주)하비럴 샘플 페이지</span>
       </div>
 
-      <div class="card soft" style="padding:16px">
-        <div class="split">
-          <div class="info" style="padding:0">
-            <!-- ✅ 네모(카드) 안에 딱 맞게 떨어지도록 구성 -->
-            <div class="locGrid">
-              <div class="locLabel">주소</div>
-              <div class="locValue">서울시 영등포구 국제금융로6길 33(맨해튼빌딩), 1308호</div>
+      <div class="card locCard">
+        <div class="locGrid">
+          <div class="locBox">
+            <div class="locRow">
+              <div class="locKey">주 소</div>
+              <div class="locVal"><div class="pillInput" title="서울시 영등포구 국제금융로6길 33(맨해튼빌딩), 1308호">서울시 영등포구 국제금융로6길 33(맨해튼빌딩), 1308호</div></div>
             </div>
-            <div class="locGrid">
-              <div class="locLabel">호수</div>
-              <div class="locValue small">1308호</div>
+            <div class="locRow">
+              <div class="locKey">호 수</div>
+              <div class="locVal"><div class="pillInput">1308호</div></div>
             </div>
-            <div class="locGrid">
-              <div class="locLabel">주차</div>
-              <div class="locValue">건물 주차(현장 안내)</div>
+            <div class="locRow">
+              <div class="locKey">주 차</div>
+              <div class="locVal"><div class="pillInput">건물 주차(현장 안내)</div></div>
             </div>
-            <div class="locGrid">
-              <div class="locLabel">대중교통</div>
-              <div class="locValue">여의도/IFC 인근 (도보 이동 가능)</div>
+            <div class="locRow">
+              <div class="locKey">대중교통</div>
+              <div class="locVal"><div class="pillInput">여의도/IFC 인근</div></div>
             </div>
 
-            <div class="ctaRow" style="margin-top:12px">
+            <div style="display:flex; gap:10px; flex-wrap:wrap; padding:10px 6px 6px;">
               <a class="btn" href="https://maps.google.com/?q=%EC%84%9C%EC%9A%B8%EC%8B%9C%20%EC%98%81%EB%93%B1%ED%8F%AC%EA%B5%AC%20%EA%B5%AD%EC%A0%9C%EA%B8%88%EC%9C%B5%EB%A1%9C6%EA%B8%B8%2033" target="_blank" rel="noopener">🧭 지도 열기</a>
-              <a class="btn" href="#contact">📩 상담하기</a>
+              <a class="btn" href="#contact">✉️ 상담하기</a>
             </div>
 
-            <div class="notice" style="margin-top:12px">
-              실제 운영 시에는 네이버지도/카카오맵 링크로 교체 추천.
+            <div class="notice" style="margin:10px 6px 6px">
+              실제 운영 시 네이버지도/카카오맵 링크로 교체 추천.
             </div>
           </div>
 
-          <div class="card soft" style="border:1px solid rgba(30,20,10,.10); background:rgba(255,255,255,.60);">
-            <div style="padding:16px">
-              <div class="miniTitle">방문 전 안내</div>
+          <div class="locBox">
+            <div style="padding:6px 6px 2px">
+              <div class="miniTitle" style="font-size:18px">방문 전 안내</div>
               <p class="mini" style="margin-top:8px">
-                방문 상담은 사전 예약 시 대기 없이 진행됩니다.
+                방문 상담은 사전 예약 시 대기 없이 진행됩니다.<br/>
                 상담 요청 후 “방문 희망 시간”을 함께 남겨주세요.
               </p>
               <div class="notice" style="margin-top:12px">
                 문의: <b>010-9992-5105</b> / <b>ehkimmm_@naver.com</b>
               </div>
-              <div class="byHviral" style="margin-top:12px"><span class="spark"></span> (주)하비럴 샘플 페이지</div>
             </div>
           </div>
+
         </div>
       </div>
     </div>
   </section>
 
-  <!-- FOOTER -->
+  <!-- 푸터 -->
   <footer class="footer">
     <div class="wrap">
-      <div style="display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap; align-items:flex-end">
+      <div style="display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap; align-items:flex-end">
         <div>
-          <div style="font-weight:1000; color:rgba(25,18,12,.78)">은해세무회계</div>
-          <div style="margin-top:6px; color:rgba(25,18,12,.55); line-height:1.8">
+          <div style="font-weight:1000; color:rgba(20,14,10,.78)">은해세무회계</div>
+          <div style="margin-top:6px; color:rgba(20,14,10,.55)">
             주소: 서울시 영등포구 국제금융로6길 33(맨해튼빌딩), 1308호 ·
             팩스: 0303-3444-7779 ·
             이메일: ehkimmm_@naver.com
@@ -1160,86 +856,80 @@
         </div>
         <div style="text-align:right">
           <div>© <span id="y"></span> Eunhae Tax Accounting</div>
-          <div style="margin-top:6px; opacity:.9">
-            <span class="byHviral"><span class="spark"></span> (주)하비럴 샘플 페이지</span>
-          </div>
         </div>
       </div>
     </div>
   </footer>
 
   <script>
-    // Year
+    // 연도
     document.getElementById("y").textContent = new Date().getFullYear();
 
-    // ===== Products Tabs =====
-    const tabs = document.querySelectorAll(".tab");
-    const panels = {
-      income: document.getElementById("tab-income"),
-      simple: document.getElementById("tab-simple"),
-      ratio: document.getElementById("tab-ratio")
-    };
+    // ✅ (1)↔(2) 자동 스크롤: 사람이 보기 좋은 속도(부드럽게, 잠깐 멈춤 포함)
+    (function(){
+      const el = document.getElementById('autoScrollArea');
+      if(!el) return;
 
-    tabs.forEach(btn => {
-      btn.addEventListener("click", () => {
-        tabs.forEach(t => t.classList.remove("active"));
-        btn.classList.add("active");
+      // 모바일에서 스크롤바 숨김(기능 유지)
+      el.style.scrollbarWidth = 'none';
+      el.style.msOverflowStyle = 'none';
+      const style = document.createElement('style');
+      style.textContent = '#autoScrollArea::-webkit-scrollbar{display:none}';
+      document.head.appendChild(style);
 
-        Object.values(panels).forEach(p => p.style.display = "none");
-        const key = btn.dataset.tab;
-        const id = "tab-" + key;
-        const panel = document.getElementById(id);
-        if(panel) panel.style.display = "block";
-      });
-    });
+      let direction = 1; // 1: 아래로, -1: 위로
+      const pauseMs = 1800;      // 도착 후 멈춤
+      const travelMs = 1800;     // 이동 시간(부드럽게)
+      const idleBetween = 2200;  // 이동 사이 텀(자연스럽게)
+      let timer = null;
 
-    // ===== Auto up/down scroll (the "1 -> 2" part) =====
-    // data-speed: px/sec (낮을수록 느림), data-pause: 끝에서 멈추는 시간(ms)
-    function setupAutoScroll(el){
-      const speed = Number(el.dataset.speed || 26);  // px per second
-      const pause = Number(el.dataset.pause || 900); // ms
-
-      const content = el.querySelector(".autoScrollContent");
-      if(!content) return;
-
-      // measure
-      const maxScroll = Math.max(0, content.scrollHeight - el.clientHeight);
-      if(maxScroll <= 2) return; // nothing to scroll
-
-      let dir = 1; // 1 down, -1 up
-      let y = 0;
-      let last = performance.now();
-      let pausedUntil = 0;
-
-      function tick(now){
-        const dt = (now - last) / 1000;
-        last = now;
-
-        if(now < pausedUntil){
-          requestAnimationFrame(tick);
-          return;
-        }
-
-        y += dir * speed * dt;
-
-        if(y >= maxScroll){
-          y = maxScroll;
-          dir = -1;
-          pausedUntil = now + pause;
-        }else if(y <= 0){
-          y = 0;
-          dir = 1;
-          pausedUntil = now + pause;
-        }
-
-        content.style.transform = `translateY(${-y}px)`;
-        requestAnimationFrame(tick);
+      function easeInOut(t){
+        return t < 0.5 ? 2*t*t : 1 - Math.pow(-2*t+2,2)/2;
       }
 
-      requestAnimationFrame(tick);
-    }
+      function smoothScrollTo(targetTop, duration){
+        const startTop = el.scrollTop;
+        const delta = targetTop - startTop;
+        const start = performance.now();
 
-    document.querySelectorAll(".js-autoScroll").forEach(setupAutoScroll);
+        function step(now){
+          const t = Math.min(1, (now - start) / duration);
+          el.scrollTop = startTop + delta * easeInOut(t);
+          if(t < 1) requestAnimationFrame(step);
+        }
+        requestAnimationFrame(step);
+      }
+
+      function run(){
+        const maxTop = Math.max(0, el.scrollHeight - el.clientHeight);
+        // 내용이 짧으면 중단
+        if(maxTop <= 4) return;
+
+        const target = (direction === 1) ? maxTop : 0;
+        smoothScrollTo(target, travelMs);
+
+        // 다음 방향 전환 예약
+        clearTimeout(timer);
+        timer = setTimeout(() => {
+          direction *= -1;
+          // 약간의 텀 후 다시 이동
+          timer = setTimeout(run, idleBetween);
+        }, travelMs + pauseMs);
+      }
+
+      // 최초 실행(로딩 안정 후)
+      setTimeout(run, 700);
+
+      // 사용자가 손으로 스크롤하면 4초 뒤 다시 자동 재개
+      let userInteracted = false;
+      el.addEventListener('touchstart', () => { userInteracted = true; clearTimeout(timer); }, {passive:true});
+      el.addEventListener('wheel', () => { userInteracted = true; clearTimeout(timer); }, {passive:true});
+      el.addEventListener('scroll', () => {
+        if(!userInteracted) return;
+        clearTimeout(timer);
+        timer = setTimeout(() => { userInteracted = false; run(); }, 4000);
+      }, {passive:true});
+    })();
   </script>
 </body>
 </html>
