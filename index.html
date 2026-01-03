@@ -3,742 +3,786 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <meta name="description" content="은해세무회계 | 대표세무사 김은해 | 기장·신고·양도·상속·증여·세무조사 대응" />
+  <meta name="description" content="은해세무회계 | 대표세무사 김은해 | 소상공인/1인사업자 맞춤 세무 파트너" />
   <title>은해세무회계 | 대표세무사 김은해</title>
 
   <style>
     :root{
-      --bg:#070b14;
-      --card:rgba(255,255,255,.06);
-      --card2:rgba(0,0,0,.22);
-      --line:rgba(255,255,255,.12);
-      --txt:rgba(255,255,255,.92);
-      --mut:rgba(255,255,255,.70);
-      --mut2:rgba(255,255,255,.58);
-      --acc:#38bdf8;
-      --acc2:#22c55e;
-      --shadow: 0 20px 70px rgba(0,0,0,.55);
-      --radius: 18px;
+      --bg:#f6f3ef;
+      --bg2:#efe7df;
+      --paper:#ffffff;
+      --paper2:#faf7f3;
+      --line:rgba(32,28,24,.10);
+      --txt:#1f1b18;
+      --mut:rgba(31,27,24,.62);
+      --mut2:rgba(31,27,24,.46);
+      --brand:#b99d86;        /* 버튼/포인트 베이지 */
+      --brand2:#d8c3b1;
+      --shadow: 0 18px 48px rgba(0,0,0,.08);
+      --shadow2: 0 10px 28px rgba(0,0,0,.07);
+      --radius: 22px;
+      --radius2: 18px;
       --max: 1120px;
     }
+
     *{box-sizing:border-box}
     html,body{height:100%}
     html{scroll-behavior:smooth}
     body{
       margin:0;
-      color:var(--txt);
       font-family: system-ui, -apple-system, Segoe UI, Roboto, "Noto Sans KR", sans-serif;
+      color:var(--txt);
       line-height:1.6;
       background:
-        radial-gradient(1000px 700px at 80% -10%, rgba(56,189,248,.20), transparent 60%),
-        radial-gradient(900px 650px at 10% 10%, rgba(34,197,94,.14), transparent 55%),
-        linear-gradient(180deg, #060914 0%, #040613 55%, #03040d 100%);
+        radial-gradient(900px 480px at 30% 0%, rgba(185,157,134,.16), transparent 60%),
+        radial-gradient(900px 520px at 80% 10%, rgba(216,195,177,.22), transparent 60%),
+        linear-gradient(180deg, var(--bg) 0%, var(--bg2) 35%, var(--bg) 100%);
       overflow-x:hidden;
-      position:relative;
     }
-
-    /* ✅ 홈 배경(히어로 느낌) + 숨쉬기 오버레이 */
-    body::after{
-      content:"";
-      position:fixed;
-      inset:0;
-      z-index:0;
-      pointer-events:none;
-      background:
-        linear-gradient(180deg, rgba(2,4,10,.40) 0%, rgba(2,4,10,.70) 60%, rgba(2,4,10,.82) 100%),
-        url("assets/images/eunhae-hero.jpg");
-      background-size: cover;
-      background-position: center;
-      background-repeat:no-repeat;
-      opacity:.28;
-      filter:saturate(1.05);
-    }
-    body::before{
-      content:"";
-      position:fixed;
-      inset:-2%;
-      z-index:0;
-      pointer-events:none;
-      background:
-        radial-gradient(1200px 760px at 20% 15%, rgba(56,189,248,.18), transparent 62%),
-        radial-gradient(1100px 760px at 82% 18%, rgba(34,197,94,.12), transparent 64%),
-        linear-gradient(180deg, rgba(0,0,0,.26) 0%, rgba(0,0,0,.34) 50%, rgba(0,0,0,.44) 100%);
-      opacity:.62;
-      transform-origin:50% 50%;
-      transform:translate3d(0,0,0) scale(1);
-      will-change: transform, opacity;
-      animation: breathe 2.5s ease-in-out infinite;
-    }
-    @keyframes breathe{
-      0%   { opacity:.66; transform: translate3d(0,0,0) scale(1); }
-      50%  { opacity:.46; transform: translate3d(0,-10px,0) scale(1.05); }
-      100% { opacity:.66; transform: translate3d(0,0,0) scale(1); }
-    }
-    @media (prefers-reduced-motion: reduce){
-      body::before{animation:none !important}
-      .btn:hover{transform:none !important}
-    }
-
-    /* 오버레이 위로 */
-    body > *{position:relative; z-index:1}
 
     a{color:inherit; text-decoration:none}
     .wrap{max-width:var(--max); margin:0 auto; padding:0 18px}
 
-    /* 상단 */
+    /* Top Nav */
     .nav{
-      position:sticky; top:0; z-index:10;
+      position:sticky; top:0; z-index:30;
+      background: rgba(246,243,239,.72);
       backdrop-filter: blur(10px);
-      background: rgba(5,7,14,.62);
       border-bottom:1px solid var(--line);
     }
     .nav .inner{
       display:flex; align-items:center; justify-content:space-between;
-      padding:14px 0; gap:14px;
+      gap:14px; padding:14px 0;
     }
     .brand{
-      display:flex; align-items:center; gap:10px;
-      font-weight:900; letter-spacing:-.02em;
-      white-space:nowrap;
+      display:flex; align-items:center; gap:12px;
+      min-width:220px;
     }
-    .dot{
-      width:10px; height:10px; border-radius:999px;
-      background:linear-gradient(135deg,var(--acc),var(--acc2));
-      box-shadow:0 0 0 4px rgba(56,189,248,.10);
-    }
-    .menu{
-      display:flex; align-items:center; gap:10px;
-      font-size:14px; color:var(--mut);
-      flex-wrap:wrap;
-      justify-content:center;
-    }
-    .menu a{
-      padding:8px 10px; border-radius:12px;
-      border:1px solid transparent;
-    }
-    .menu a:hover{
-      background:rgba(255,255,255,.06);
-      color:var(--txt);
-      border-color: rgba(255,255,255,.08);
-    }
-    .right{
-      display:flex; align-items:center; gap:10px;
-      white-space:nowrap;
-    }
-    .btn{
-      display:inline-flex; align-items:center; justify-content:center;
-      padding:11px 14px; border-radius:14px;
-      border:1px solid rgba(255,255,255,.14);
-      background:rgba(255,255,255,.06);
-      font-weight:800;
-      gap:8px;
-      transition: transform .15s ease;
-      cursor:pointer;
-    }
-    .btn.primary{
-      background: linear-gradient(135deg, rgba(56,189,248,.96), rgba(34,197,94,.84));
-      border:none;
-      color:#051018;
-      box-shadow: 0 16px 46px rgba(56,189,248,.16);
-    }
-    .btn:hover{transform:translateY(-1px)}
-    @media (max-width: 980px){
-      .menu{display:none}
-    }
-
-    /* 공통 카드 */
-    .card{
-      background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.03));
+    .logoBox{
+      width:42px; height:42px;
+      border-radius:14px;
+      background: rgba(255,255,255,.75);
       border:1px solid var(--line);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
+      display:grid; place-items:center;
+      box-shadow: var(--shadow2);
       overflow:hidden;
     }
-    .badge{
-      display:inline-flex; align-items:center; gap:8px;
-      padding:6px 10px; border-radius:999px;
-      font-size:12px;
-      color:rgba(255,255,255,.80);
-      border:1px solid rgba(255,255,255,.14);
-      background:rgba(0,0,0,.18);
-      width:fit-content;
+    .logoBox img{width:28px; height:28px; object-fit:contain; opacity:.88}
+    .brandText{
+      display:flex; flex-direction:column; line-height:1.15;
     }
-    .badge strong{color:rgba(255,255,255,.92)}
-    .watermark{
-      color:rgba(255,255,255,.58);
-      font-size:12px;
-      border-top:1px dashed rgba(255,255,255,.18);
-      padding-top:12px;
-      margin-top:14px;
-    }
-
-    /* 히어로 */
-    .hero{padding:52px 0 24px}
-    .grid{
-      display:grid;
-      grid-template-columns: 1.15fr .85fr;
-      gap:18px;
-      align-items:stretch;
-    }
-    @media (max-width: 980px){ .grid{grid-template-columns:1fr} }
-
-    .heroCard{padding:28px}
-    .kicker{
-      color:rgba(255,255,255,.72);
-      font-weight:900;
-      font-size:12px;
-      letter-spacing:.08em;
-      text-transform:uppercase;
-    }
-    h1{margin:10px 0 12px; font-size:40px; line-height:1.08; letter-spacing:-.04em}
-    .sub{margin:0 0 18px; color:var(--mut); font-size:16px}
-    .pillRow{display:flex; flex-wrap:wrap; gap:10px; margin:14px 0 18px}
-    .pill{
-      display:inline-flex; align-items:center; gap:8px;
-      padding:8px 10px; border-radius:999px;
-      border:1px solid rgba(255,255,255,.14);
-      background:rgba(0,0,0,.18);
-      font-size:13px;
-      color:rgba(255,255,255,.88);
-      font-weight:800;
-    }
-    .pill .ok{color:var(--acc2)}
-    .ctaRow{display:flex; gap:10px; flex-wrap:wrap; margin-top:10px}
-
-    /* 우측 카드 */
-    .side{display:flex; flex-direction:column; min-height:100%}
-    .sideTop{
-      aspect-ratio: 16/10;
-      background-image:
-        linear-gradient(180deg, rgba(0,0,0,.12), rgba(0,0,0,.44)),
-        url("assets/images/eunhae-office.jpg");
-      background-size: cover;
-      background-position: center;
-      background-repeat:no-repeat;
-      border-bottom:1px solid var(--line);
-    }
-    .sideBody{padding:20px}
-    .miniTitle{font-weight:1000; letter-spacing:-.02em}
-    .mini{margin:8px 0 0; color:var(--mut); font-size:14px}
-    .miniList{margin:14px 0 0; padding:0; list-style:none; display:grid; gap:10px}
-    .miniList li{
-      padding:12px 12px;
-      border-radius:14px;
-      border:1px solid rgba(255,255,255,.10);
-      background:rgba(0,0,0,.18);
-      color:rgba(255,255,255,.88);
-      font-size:14px;
-      display:flex; justify-content:space-between; gap:10px;
-      font-weight:800;
-    }
-    .tag{color:rgba(255,255,255,.62); font-size:12px; font-weight:700}
-
-    /* 섹션 */
-    section{padding:26px 0}
-    .sectionHead{display:flex; align-items:end; justify-content:space-between; gap:14px; margin-bottom:14px}
-    .sectionHead h2{margin:0; font-size:22px; letter-spacing:-.02em}
-    .sectionHead p{margin:0; color:var(--mut); font-size:14px}
-
-    .cards3{display:grid; grid-template-columns: repeat(3,1fr); gap:14px}
-    @media (max-width: 980px){.cards3{grid-template-columns:1fr}}
-    .feature{padding:16px}
-    .feature h3{margin:8px 0 6px; font-size:16px}
-    .feature p{margin:0; color:var(--mut); font-size:14px}
-    .icon{
-      width:38px; height:38px; border-radius:14px;
-      display:grid; place-items:center;
-      background:rgba(255,255,255,.06);
-      border:1px solid rgba(255,255,255,.12);
-      font-weight:900;
-    }
-
-    .split{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:14px;
-    }
-    @media (max-width: 980px){.split{grid-template-columns:1fr}}
-
-    .info{padding:16px}
-    .info .item{
-      display:flex; justify-content:space-between; gap:10px;
-      padding:10px 0;
-      border-bottom:1px solid rgba(255,255,255,.08)
-    }
-    .info .item:last-child{border-bottom:none}
-
-    .kbd{
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-      font-size:12px;
-      padding:2px 8px;
-      border-radius:10px;
-      border:1px solid rgba(255,255,255,.12);
-      background:rgba(0,0,0,.25);
-      color:rgba(255,255,255,.78);
+    .brandText strong{font-size:18px; letter-spacing:-.02em}
+    .brandText span{font-size:12px; color:var(--mut2); letter-spacing:.12em}
+    .menu{
+      display:flex; gap:18px; align-items:center;
+      font-size:14px; color:var(--mut);
       white-space:nowrap;
     }
+    .menu a{
+      padding:10px 6px;
+      border-bottom:2px solid transparent;
+    }
+    .menu a:hover{color:var(--txt); border-bottom-color:rgba(185,157,134,.55)}
 
-    .notice{
-      padding:14px 16px;
-      border-radius:16px;
-      border:1px dashed rgba(255,255,255,.18);
-      background:rgba(255,255,255,.04);
-      color:var(--mut);
-      font-size:13px;
-      margin-top:14px;
+    .navRight{display:flex; align-items:center; gap:10px; white-space:nowrap}
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center;
+      height:40px; padding:0 14px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.68);
+      color:var(--txt);
+      font-weight:800;
+      box-shadow: var(--shadow2);
+    }
+    .btn.primary{
+      background: linear-gradient(180deg, rgba(185,157,134,.98), rgba(185,157,134,.86));
+      border:none;
+      color:#fff;
+      box-shadow: 0 14px 34px rgba(185,157,134,.22);
+    }
+    .btn:active{transform:translateY(1px)}
+
+    @media (max-width: 980px){
+      .menu{display:none}
+      .brand{min-width:auto}
     }
 
-    /* 대표세무사 섹션(좌: 프로필, 우: 철학/강점) */
-    .profileGrid{
-      display:grid;
-      grid-template-columns: .95fr 1.05fr;
-      gap:14px;
+    /* Hero Section */
+    .hero{
+      padding:28px 0 14px;
     }
-    @media (max-width: 980px){ .profileGrid{grid-template-columns:1fr} }
-    .profileLeft{padding:16px}
-    .profilePhoto{
-      aspect-ratio: 16/11;
-      border-radius:16px;
-      border:1px solid rgba(255,255,255,.12);
-      background-image:
-        linear-gradient(180deg, rgba(0,0,0,.12), rgba(0,0,0,.35)),
-        url("assets/images/eunhae-ceo.jpg");
+    .heroCard{
+      border-radius: 30px;
+      background: linear-gradient(180deg, rgba(255,255,255,.78), rgba(255,255,255,.66));
+      border:1px solid var(--line);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      position:relative;
+    }
+
+    .heroBg{
+      position:absolute; inset:0;
+      background:
+        radial-gradient(780px 420px at 22% 28%, rgba(185,157,134,.18), transparent 60%),
+        radial-gradient(700px 420px at 75% 20%, rgba(216,195,177,.22), transparent 58%),
+        url("assets/images/hero-office.jpg");
       background-size: cover;
-      background-position:center;
-      background-repeat:no-repeat;
+      background-position: center;
+      filter: blur(0px);
+      opacity:.35;
+      transform: scale(1.05);
     }
-    .profileMeta{margin-top:12px}
-    .nameLine{
-      display:flex; align-items:baseline; justify-content:space-between; gap:10px; flex-wrap:wrap;
+    .heroOverlay{
+      position:absolute; inset:0;
+      background: linear-gradient(90deg,
+        rgba(246,243,239,.92) 0%,
+        rgba(246,243,239,.86) 45%,
+        rgba(246,243,239,.38) 72%,
+        rgba(246,243,239,.10) 100%
+      );
     }
-    .nameLine .nm{font-size:18px; font-weight:1000; letter-spacing:-.02em}
-    .nameLine .role{color:var(--mut); font-weight:800; font-size:13px}
-    .bullets{margin:10px 0 0; padding-left:18px; color:var(--mut); font-size:14px}
-    .profileRight{padding:16px}
-    .quote{
-      border-left:3px solid rgba(56,189,248,.55);
-      padding:10px 12px;
-      background:rgba(0,0,0,.16);
-      border-radius:14px;
-      color:rgba(255,255,255,.85);
+
+    .heroInner{
+      position:relative;
+      display:grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap:22px;
+      padding:34px;
+      align-items:end;
+      min-height: 520px;
+    }
+    @media (max-width: 980px){
+      .heroInner{grid-template-columns:1fr; min-height:auto; padding:22px}
+    }
+
+    .heroTitle{
+      max-width: 520px;
+    }
+    .heroTitle h1{
+      margin:0;
+      font-size:46px;
+      line-height:1.05;
+      letter-spacing:-.05em;
+    }
+    .heroTitle .sub1{
+      margin:14px 0 0;
+      font-size:17px;
+      color:var(--mut);
+      font-weight:700;
+    }
+    .heroTitle .sub2{
+      margin:14px 0 0;
+      font-size:20px;
+      color:rgba(31,27,24,.72);
       font-weight:800;
     }
-    .para{margin:10px 0 0; color:var(--mut); font-size:14px}
 
-    /* 하비럴 표기(중간중간) */
-    .byHviral{
-      display:inline-flex; align-items:center; gap:8px;
-      padding:6px 10px;
+    .miniBox{
+      margin-top:18px;
+      background: rgba(255,255,255,.62);
+      border:1px solid var(--line);
+      border-radius: var(--radius);
+      padding:18px;
+      box-shadow: var(--shadow2);
+      max-width: 520px;
+    }
+    .miniBox .hd{
+      font-weight:1000;
+      font-size:20px;
+      letter-spacing:-.03em;
+      margin:0 0 10px;
+    }
+    .miniBox ul{margin:0; padding-left:18px; color:var(--mut); font-weight:700}
+    .miniBox li{margin:8px 0}
+
+    .heroCtas{
+      margin-top:16px;
+      display:flex; gap:10px; flex-wrap:wrap;
+    }
+    .btn.ghost{
+      background: rgba(255,255,255,.60);
+      border:1px solid rgba(31,27,24,.10);
+      color:rgba(31,27,24,.80);
+    }
+
+    /* Right portrait */
+    .portrait{
+      position:relative;
+      height: 100%;
+      display:flex;
+      justify-content:flex-end;
+      align-items:flex-end;
+    }
+    .portrait img{
+      width:min(420px, 100%);
+      height:auto;
+      object-fit:contain;
+      filter: saturate(1.02);
+      transform: translateY(6px);
+    }
+    @media (max-width: 980px){
+      .portrait{justify-content:center}
+      .portrait img{width:min(360px, 92vw); transform:none}
+    }
+
+    /* Section Base */
+    section{padding:22px 0}
+    .sectionHead{
+      display:flex; justify-content:space-between; align-items:flex-end;
+      gap:14px; margin-bottom:14px;
+    }
+    .sectionHead h2{
+      margin:0;
+      font-size:34px;
+      letter-spacing:-.05em;
+    }
+    .sectionHead p{
+      margin:10px 0 0;
+      color:var(--mut);
+      font-weight:700;
+      max-width: 560px;
+    }
+
+    /* Process cards row */
+    .cardsRow{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:16px;
+      align-items:stretch;
+    }
+    @media (max-width: 980px){
+      .cardsRow{grid-template-columns:1fr}
+    }
+    .procCard{
+      background: rgba(255,255,255,.72);
+      border:1px solid var(--line);
+      border-radius: 22px;
+      box-shadow: var(--shadow2);
+      padding:18px;
+      position:relative;
+      overflow:hidden;
+    }
+    .procCard .icon{
+      width:46px; height:46px;
+      border-radius: 16px;
+      background: rgba(185,157,134,.14);
+      border:1px solid rgba(185,157,134,.18);
+      display:grid; place-items:center;
+      font-size:22px;
+    }
+    .procCard h3{
+      margin:12px 0 6px;
+      font-size:20px;
+      letter-spacing:-.04em;
+    }
+    .procCard p{
+      margin:0;
+      color:var(--mut);
+      font-weight:700;
+      line-height:1.55;
+    }
+    .procCard .more{
+      margin-top:14px;
+      display:inline-flex; align-items:center; justify-content:center;
+      height:40px; padding:0 16px;
       border-radius:999px;
-      border:1px solid rgba(255,255,255,.14);
-      background:rgba(0,0,0,.18);
-      color:rgba(255,255,255,.78);
-      font-size:12px;
+      background: rgba(185,157,134,.90);
+      color:#fff;
+      font-weight:900;
+      box-shadow: 0 12px 26px rgba(185,157,134,.18);
+    }
+
+    /* CTA band */
+    .ctaBand{
+      margin-top:18px;
+      background: rgba(255,255,255,.70);
+      border:1px solid var(--line);
+      border-radius: 26px;
+      box-shadow: var(--shadow);
+      padding:20px;
+      display:grid;
+      grid-template-columns: .95fr 1.05fr;
+      gap:16px;
+      align-items:center;
+      overflow:hidden;
+      position:relative;
+    }
+    @media (max-width: 980px){
+      .ctaBand{grid-template-columns:1fr}
+    }
+    .ctaLeft{
+      display:flex; gap:16px; align-items:center;
+    }
+    .ctaLeft .thumb{
+      width:84px; height:84px;
+      border-radius: 22px;
+      border:1px solid var(--line);
+      background: rgba(250,247,243,.85);
+      overflow:hidden;
+      box-shadow: var(--shadow2);
+      flex:0 0 auto;
+    }
+    .ctaLeft .thumb img{width:100%; height:100%; object-fit:cover}
+    .ctaLeft .txt strong{
+      display:block;
+      font-size:20px;
+      letter-spacing:-.04em;
+    }
+    .ctaLeft .txt span{
+      display:block;
+      margin-top:6px;
+      color:var(--mut);
+      font-weight:700;
+    }
+
+    .ctaRight{
+      display:flex; flex-direction:column; gap:10px;
+      align-items:flex-start;
+    }
+    .phoneLine{
+      width:100%;
+      display:flex; align-items:center; gap:12px;
+      background: rgba(250,247,243,.92);
+      border:1px solid var(--line);
+      border-radius: 18px;
+      padding:12px 14px;
+      box-shadow: var(--shadow2);
       font-weight:900;
     }
-    .byHviral .spark{
-      width:8px; height:8px; border-radius:999px;
-      background:linear-gradient(135deg,var(--acc),var(--acc2));
-      box-shadow:0 0 0 3px rgba(56,189,248,.10);
+    .phoneLine .ph{font-size:18px; letter-spacing:-.02em}
+    .quickBtn{
+      display:inline-flex; align-items:center; gap:10px;
+      height:48px; padding:0 16px;
+      border-radius: 18px;
+      border:1px solid rgba(185,157,134,.20);
+      background: rgba(185,157,134,.14);
+      font-weight:1000;
+    }
+    .quickBtn .dot{
+      width:18px; height:18px;
+      border-radius:6px;
+      background: rgba(185,157,134,.60);
+      display:grid; place-items:center;
+      color:#fff; font-size:12px;
+    }
+    .bigCta{
+      margin-top:10px;
+      width:100%;
+      height:54px;
+      border-radius: 18px;
+      background: linear-gradient(180deg, rgba(185,157,134,.96), rgba(185,157,134,.84));
+      color:#fff;
+      display:flex; align-items:center; justify-content:center;
+      font-weight:1000;
+      letter-spacing:-.02em;
+      box-shadow: 0 16px 34px rgba(185,157,134,.22);
+    }
+    .smallNote{
+      margin-top:4px;
+      color:var(--mut2);
+      font-weight:700;
+      font-size:12px;
     }
 
-    .footer{
-      padding:26px 0 40px;
-      color:rgba(255,255,255,.55);
-      font-size:12px;
-      border-top:1px solid var(--line);
-      margin-top:10px;
+    /* CEO section (like screenshot “대표 세무사가 직접 소통”) */
+    .ceoCard{
+      border-radius: 30px;
+      background: rgba(255,255,255,.72);
+      border:1px solid var(--line);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      position:relative;
     }
+    .ceoBg{
+      position:absolute; inset:0;
+      background:
+        linear-gradient(90deg,
+          rgba(246,243,239,.92) 0%,
+          rgba(246,243,239,.82) 50%,
+          rgba(246,243,239,.32) 76%,
+          rgba(246,243,239,.12) 100%
+        ),
+        url("assets/images/hero-office.jpg");
+      background-size: cover;
+      background-position:center;
+      opacity:.65;
+    }
+    .ceoInner{
+      position:relative;
+      display:grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap:22px;
+      padding:34px;
+      align-items:center;
+      min-height: 520px;
+    }
+    @media (max-width: 980px){
+      .ceoInner{grid-template-columns:1fr; min-height:auto; padding:22px}
+    }
+    .ceoLeft h2{
+      margin:0;
+      font-size:44px;
+      line-height:1.05;
+      letter-spacing:-.06em;
+    }
+    .ceoLeft p{
+      margin:12px 0 0;
+      color:var(--mut);
+      font-weight:800;
+      font-size:16px;
+      max-width: 520px;
+    }
+    .refundBox{
+      margin-top:18px;
+      background: rgba(250,247,243,.92);
+      border:1px solid var(--line);
+      border-radius: 22px;
+      padding:18px;
+      box-shadow: var(--shadow2);
+      max-width: 520px;
+    }
+    .refundBox .t1{
+      font-weight:900;
+      color:rgba(31,27,24,.72);
+      margin:0;
+      font-size:16px;
+    }
+    .refundBox .t2{
+      margin:8px 0 0;
+      font-weight:1000;
+      font-size:30px;
+      letter-spacing:-.05em;
+    }
+    .refundBox .t3{
+      margin:10px 0 0;
+      font-size:12px;
+      color:var(--mut2);
+      font-weight:700;
+    }
+    .ceoBtns{
+      margin-top:14px;
+      display:flex; gap:10px; flex-wrap:wrap;
+    }
+    .ceoBtns .btn{
+      height:44px;
+      padding:0 16px;
+      border-radius: 14px;
+      background: rgba(255,255,255,.78);
+      border:1px solid rgba(31,27,24,.12);
+      box-shadow: var(--shadow2);
+      font-weight:1000;
+    }
+    .ceoBtns .btn.primary{
+      background: rgba(185,157,134,.92);
+      color:#fff;
+      border:none;
+      box-shadow: 0 14px 28px rgba(185,157,134,.20);
+    }
+
+    .ceoRight{
+      display:flex; flex-direction:column; align-items:flex-end; justify-content:flex-end;
+      gap:14px;
+    }
+    .ceoRight img{
+      width:min(440px, 100%);
+      height:auto;
+      object-fit:contain;
+      filter:saturate(1.02);
+      transform: translateY(8px);
+    }
+    @media (max-width: 980px){
+      .ceoRight{align-items:center}
+      .ceoRight img{transform:none; width:min(360px,92vw)}
+    }
+    .sig{
+      margin-top:-6px;
+      color:rgba(31,27,24,.62);
+      font-weight:900;
+      letter-spacing:-.02em;
+      text-align:right;
+      width:100%;
+    }
+    .sig b{color:var(--txt)}
+
+    /* Bottom check card */
+    .checkCard{
+      margin-top:18px;
+      margin-left:auto;
+      width:min(520px, 100%);
+      background: rgba(255,255,255,.70);
+      border:1px solid var(--line);
+      border-radius: 26px;
+      box-shadow: var(--shadow2);
+      padding:18px;
+    }
+    .checkRow{
+      display:flex; gap:12px; align-items:flex-start;
+      padding:10px 0;
+      border-bottom:1px solid rgba(31,27,24,.08);
+    }
+    .checkRow:last-child{border-bottom:none}
+    .checkIcon{
+      width:30px; height:30px;
+      border-radius: 12px;
+      background: rgba(185,157,134,.16);
+      border:1px solid rgba(185,157,134,.22);
+      display:grid; place-items:center;
+      font-weight:1000;
+      color: rgba(31,27,24,.74);
+      flex:0 0 auto;
+    }
+    .checkText{
+      font-weight:900;
+      color:rgba(31,27,24,.72);
+    }
+
+    /* Footer */
+    .footer{
+      padding:26px 0 42px;
+      color:rgba(31,27,24,.55);
+      font-size:12px;
+    }
+    .footerInner{
+      border-top:1px solid var(--line);
+      padding-top:18px;
+      display:flex; justify-content:space-between; gap:12px;
+      flex-wrap:wrap;
+      align-items:flex-end;
+    }
+    .footLeft strong{display:block; font-size:14px; color:rgba(31,27,24,.70)}
+    .footLeft span{display:block; margin-top:8px; font-weight:700}
+    .footRight{margin-left:auto; text-align:right; font-weight:700}
   </style>
 </head>
 
 <body>
-  <!-- 상단 메뉴 -->
+
+  <!-- NAV -->
   <header class="nav">
     <div class="wrap inner">
       <div class="brand">
-        <span class="dot"></span>
-        <span>은해세무회계</span>
+        <a class="logoBox" href="#top" aria-label="홈으로">
+          <!-- 로고 파일 넣어줘 -->
+          <img src="assets/images/logo.png" alt="은해세무회계 로고" onerror="this.style.display='none'" />
+        </a>
+        <div class="brandText">
+          <strong>은해 세무회계</strong>
+          <span>Tax Accounting</span>
+        </div>
       </div>
 
       <nav class="menu" aria-label="메인 메뉴">
-        <a href="#ceo">대표세무사</a>
+        <a href="#top">홈</a>
+        <a href="#ceo">대표 세무사</a>
         <a href="#services">서비스 안내</a>
         <a href="#process">진행 방식</a>
-        <a href="#why">파워링크 없는 구조</a>
         <a href="#contact">상담/문의</a>
-        <a href="#location">오시는 길</a>
       </nav>
 
-      <div class="right">
-        <!-- ✅ 명함 정보 반영 -->
-        <a class="btn" href="tel:01099925105">📞 전화</a>
-        <a class="btn primary" href="#contact">상담 예약</a>
+      <div class="navRight">
+        <a class="btn primary" href="#contact">상담 요청하기</a>
       </div>
     </div>
   </header>
 
-  <!-- 히어로 -->
-  <main class="hero">
-    <div class="wrap grid">
-      <div class="card heroCard">
-        <div class="badge">
-          <span class="byHviral"><span class="spark"></span> (주)하비럴 샘플 페이지</span>
-          <span style="color:rgba(255,255,255,.55)">· 제안/체험용</span>
-        </div>
+  <!-- HERO (대표 세무사 김은해) -->
+  <main id="top" class="hero">
+    <div class="wrap">
+      <div class="heroCard">
+        <div class="heroBg" aria-hidden="true"></div>
+        <div class="heroOverlay" aria-hidden="true"></div>
 
-        <div class="kicker" style="margin-top:10px">TAX · ACCOUNTING · BUSINESS SUPPORT</div>
-        <h1>은해세무회계<br/>대표세무사 김은해</h1>
-        <p class="sub">
-          기장·신고를 넘어, <b>사업 운영이 안정되는 방향</b>으로 함께 설계합니다.<br/>
-          “지금 상황”을 기준으로 <b>리스크를 줄이고</b>, <b>숫자가 남는 선택</b>을 안내드립니다.
-        </p>
+        <div class="heroInner">
+          <div class="heroTitle">
+            <h1>대표 세무사<br/>김은해</h1>
+            <div class="sub1">소상공인 / 1인사업자 맞춤 세무 파트너</div>
+            <div class="sub2">꼼꼼함과 정확함을 최우선으로 합니다.</div>
 
-        <div class="pillRow">
-          <span class="pill"><span class="ok">✅</span> 기장/부가세/종합소득세</span>
-          <span class="pill"><span class="ok">✅</span> 법인세/급여·4대보험</span>
-          <span class="pill"><span class="ok">✅</span> 양도/상속/증여</span>
-          <span class="pill"><span class="ok">✅</span> 세무조사·사후관리(협의)</span>
-        </div>
+            <div class="miniBox">
+              <p class="hd">하비럴 상담과 관리 목표로</p>
+              <ul>
+                <li>고객 이상적인 성과와 관리 목표로 합니다</li>
+                <li>심수 없이 선동하고 체법하게 검토합니다</li>
+                <li>필요한 협의보다는 적절한 월세 절약을 안내드립니다</li>
+              </ul>
+            </div>
 
-        <div class="ctaRow">
-          <a class="btn primary" href="#contact">🗓️ 1:1 상담 요청</a>
-          <a class="btn" href="#services">📌 서비스 보기</a>
-          <a class="btn" href="#process">🧭 진행 방식</a>
-        </div>
-
-        <div class="notice">
-          안내) 본 페이지는 <b>업무 제안/구조 설명을 위한 비공개 체험 자료</b>이며,
-          내부 테스트/개선 과정에서 내용이 예고 없이 업데이트될 수 있습니다.
-        </div>
-
-        <div class="watermark">
-          ※ (주)하비럴 샘플 페이지 — “세무사님 업무 흐름/전환 구조”를 실제 화면으로 체험하시도록 구성했습니다.
-        </div>
-      </div>
-
-      <aside class="card side">
-        <div class="sideTop" aria-hidden="true"></div>
-        <div class="sideBody">
-          <div class="miniTitle">빠른 상담 체크</div>
-          <p class="mini">아래 4가지만 정리되면, 상담 효율이 확 올라갑니다.</p>
-
-          <ul class="miniList">
-            <li><span>업종/형태</span><span class="tag">개인/법인</span></li>
-            <li><span>매출/인원</span><span class="tag">대략</span></li>
-            <li><span>이슈</span><span class="tag">신고/리스크</span></li>
-            <li><span>희망 방향</span><span class="tag">절세/정리</span></li>
-          </ul>
-
-          <div class="notice" style="margin-top:16px">
-            <span class="byHviral"><span class="spark"></span> (주)하비럴 샘플</span>
-            <div style="margin-top:8px">
-              세무사님 브랜드·신뢰를 “한 장의 화면”으로 정리해드립니다.
+            <div class="heroCtas">
+              <a class="btn primary" href="#contact">상담 요청하기</a>
+              <a class="btn ghost" href="#ceo">대표에게 바른 문의</a>
             </div>
           </div>
+
+          <div class="portrait">
+            <!-- 대표 이미지 넣어줘 -->
+            <img src="assets/images/ceo.png" alt="대표 세무사 김은해" />
+          </div>
         </div>
-      </aside>
+      </div>
     </div>
   </main>
 
-  <!-- 대표세무사 -->
+  <!-- CEO (대표 세무사가 직접 소통) -->
   <section id="ceo">
     <div class="wrap">
-      <div class="sectionHead">
-        <div>
-          <h2>대표세무사</h2>
-          <p>상담은 “말”보다 “정리”가 먼저입니다.</p>
-        </div>
-        <span class="byHviral"><span class="spark"></span> (주)하비럴 샘플 페이지</span>
-      </div>
+      <div class="ceoCard">
+        <div class="ceoBg" aria-hidden="true"></div>
 
-      <div class="profileGrid">
-        <div class="card profileLeft">
-          <div class="profilePhoto" aria-hidden="true"></div>
-          <div class="profileMeta">
-            <div class="nameLine">
-              <div class="nm">김은해 세무사</div>
-              <div class="role">은해세무회계 · 대표</div>
+        <div class="ceoInner">
+          <div class="ceoLeft">
+            <h2>대표 세무사가<br/>직접 소통합니다</h2>
+            <p>편리함보다 정확함을, 거래보다 신뢰를 쌓아가겠습니다.</p>
+
+            <div class="refundBox">
+              <p class="t1">서비스 불만족 시</p>
+              <div class="t2">기장료를 전액<br/>돌려드립니다.</div>
+              <div class="t3">* 사전적 가정 2개월 이내 정 의뢰 건에 한해 해당됩니다.</div>
             </div>
-            <ul class="bullets">
-              <li>업종/규모별 “필수 신고” 우선 정리</li>
-              <li>리스크(가산세/누락/증빙) 최소화 중심</li>
-              <li>사업 운영 흐름에 맞춘 실무형 안내</li>
-            </ul>
+
+            <div class="ceoBtns">
+              <a class="btn primary" href="#contact">상담 요청하기</a>
+              <a class="btn" href="#contact">대표에게 바른 문의</a>
+            </div>
           </div>
 
-          <div class="watermark">
-            * 사진/약력 영역은 실제 자료로 교체하면 완성됩니다. (assets/images/eunhae-ceo.jpg)
+          <div class="ceoRight">
+            <img src="assets/images/ceo.png" alt="대표 세무사 김은해" />
+            <div class="sig">대표 세무사 <b>김은해</b></div>
+
+            <div class="checkCard">
+              <div class="checkRow">
+                <div class="checkIcon">✓</div>
+                <div class="checkText">길고흐고 정확한 세무</div>
+              </div>
+              <div class="checkRow">
+                <div class="checkIcon">✓</div>
+                <div class="checkText">대표 세무사 1:1 직접 상담</div>
+              </div>
+              <div class="checkRow">
+                <div class="checkIcon">✓</div>
+                <div class="checkText">철저한 보안 / 비밀 유지</div>
+              </div>
+            </div>
           </div>
         </div>
 
-        <div class="card profileRight">
-          <div class="quote">
-            “세금은 ‘절세’보다 먼저, <b>불확실성을 줄여 사업을 안정</b>시키는 도구입니다.”
-          </div>
-          <p class="para">
-            은해세무회계는 단발성 신고가 아니라, 매달/분기 운영을 기준으로
-            증빙·인건비·원가·현금흐름이 무너지지 않도록 <b>점검→정리→고정</b>하는 방식으로 진행합니다.
-          </p>
-          <p class="para">
-            그래서 상담은 “무엇을 해드릴까요?”가 아니라,
-            “지금 무엇이 가장 위험하고, 무엇을 먼저 고정하면 편해지는가”부터 잡습니다.
-          </p>
-
-          <div class="notice">
-            샘플 문구) “현재 상황 기준으로 가능한 범위부터 정리해드리고,
-            이후에 확장 가능한 구조로 이어지게 합니다.”
-          </div>
-
-          <div class="watermark">
-            ※ (주)하비럴 샘플 페이지 — ‘대표 인물 신뢰’가 전환으로 이어지도록 구성했습니다.
-          </div>
-        </div>
       </div>
     </div>
   </section>
 
-  <!-- 서비스 안내 -->
-  <section id="services">
-    <div class="wrap">
-      <div class="sectionHead">
-        <div>
-          <h2>서비스 안내</h2>
-          <p>“무엇을 해주는지”가 한눈에 보이면, 문의가 빨라집니다.</p>
-        </div>
-        <span class="byHviral"><span class="spark"></span> (주)하비럴 샘플 페이지</span>
-      </div>
-
-      <div class="cards3">
-        <div class="card feature">
-          <div class="icon">🧾</div>
-          <h3>기장·신고</h3>
-          <p>부가세/종합소득세/법인세/원천세 등 주기별 신고를 실무 흐름에 맞춰 관리합니다.</p>
-        </div>
-        <div class="card feature">
-          <div class="icon">🏢</div>
-          <h3>법인/인건비</h3>
-          <p>급여·4대보험·지급명세서·경비처리 등 운영에서 자주 막히는 포인트를 정리합니다.</p>
-        </div>
-        <div class="card feature">
-          <div class="icon">🏠</div>
-          <h3>양도·상속·증여</h3>
-          <p>재산 이전/거래 관련 세무를 사전 검토 중심으로 안내합니다. (자료/상황별 협의)</p>
-        </div>
-      </div>
-
-      <div class="notice">
-        팁) 서비스는 “전부 나열”보다 <b>대표 3~6개</b> + “상담에서 세부 조율”이 전환이 좋습니다.
-      </div>
-    </div>
-  </section>
-
-  <!-- 진행 방식 -->
+  <!-- PROCESS (진행 방식) -->
   <section id="process">
     <div class="wrap">
       <div class="sectionHead">
         <div>
           <h2>진행 방식</h2>
-          <p>문의 → 정리 → 실행. 흐름이 보이면 신뢰가 생깁니다.</p>
+          <p>어떤 방식으로 일하는 세무사인지 직접 확인하실 수 있도록 절차를 투명하고 간결하게 공개합니다.</p>
         </div>
-        <span class="byHviral"><span class="spark"></span> (주)하비럴 샘플 페이지</span>
       </div>
 
-      <div class="split">
-        <div class="card info">
-          <div class="item"><span>1) 간단 정보 접수</span><span class="kbd">업종/매출/이슈</span></div>
-          <div class="item"><span>2) 자료 요청/정리</span><span class="kbd">필수만</span></div>
-          <div class="item"><span>3) 처리/보고</span><span class="kbd">리스크 제거</span></div>
-          <div class="item"><span>4) 사후 관리</span><span class="kbd">루틴 고정</span></div>
-          <div class="item"><span>소통 채널</span><span class="kbd">전화/메일/카톡</span></div>
+      <div class="cardsRow">
+        <div class="procCard">
+          <div class="icon">📄</div>
+          <h3>첫 문의</h3>
+          <p>전화, 카톡 등 편한 방법으로 먼저 상담을 요청해 주세요.</p>
+          <a class="more" href="#contact">더 알아보기</a>
         </div>
 
-        <div class="card info">
-          <div style="padding:16px">
-            <div class="miniTitle" style="font-size:18px">상담 전 미리 준비하면 좋은 것</div>
-            <p class="mini" style="margin-top:8px">
-              “정확한 답”은 자료가 아니라 <b>정리된 정보</b>에서 나옵니다.
-            </p>
-            <ol style="color:var(--mut); font-size:14px; margin:12px 0 18px; padding-left:18px">
-              <li>업종/형태(개인/법인)</li>
-              <li>최근 매출 규모(대략)</li>
-              <li>가장 불안한 이슈 1~2개</li>
-            </ol>
-            <div class="notice">
-              <span class="byHviral"><span class="spark"></span> (주)하비럴 샘플</span>
-              <div style="margin-top:8px">
-                이 섹션은 “상담이 쉬워 보이게” 만들어 문의 전환율이 올라갑니다.
-              </div>
-            </div>
+        <div class="procCard">
+          <div class="icon">🧾</div>
+          <h3>상황 파악</h3>
+          <p>종합소득세, 부가세, 양도/상속/증여 등 필요한 항목을 정리합니다.</p>
+          <a class="more" href="#services">더 알아보기</a>
+        </div>
+
+        <div class="procCard">
+          <div class="icon">💼</div>
+          <h3>제안 및 설명</h3>
+          <p>맞춤 세무 전략과 향후 과정을 이해하기 쉽게 안내드립니다.</p>
+          <a class="more" href="#contact">더 알아보기</a>
+        </div>
+      </div>
+
+      <!-- 상담 밴드 (스샷 하단 큰 박스 느낌) -->
+      <div class="ctaBand" id="contact">
+        <div class="ctaLeft">
+          <div class="thumb">
+            <!-- 작은 대표 사진 -->
+            <img src="assets/images/ceo-thumb.jpg" alt="김은해 세무사" onerror="this.src='assets/images/ceo.png'" />
+          </div>
+          <div class="txt">
+            <strong>대표 세무사 김은해가<br/>직접 상담합니다.</strong>
+            <span>궁금한 점은 편하게 문의 주세요.</span>
           </div>
         </div>
-      </div>
 
+        <div class="ctaRight">
+          <div class="phoneLine">
+            <span style="font-weight:900;color:rgba(31,27,24,.55)">📞</span>
+            <span class="ph">010-9992-5105</span>
+          </div>
+
+          <!-- 카톡 링크는 너 실제 링크로 교체하면 됨 -->
+          <a class="quickBtn" href="https://open.kakao.com/" target="_blank" rel="noopener">
+            <span class="dot">✉</span>
+            <span>카톡 상담하기</span>
+          </a>
+
+          <a class="bigCta" href="tel:01099925105">궁금한 점이 있다면 문의하기</a>
+          <div class="smallNote">의뢰 여부와 상관없이 가볍게 문의해도 상담 가능합니다.</div>
+        </div>
+      </div>
     </div>
   </section>
 
-  <!-- 파워링크 없는 구조(세무사 언어) -->
-  <section id="why">
+  <!-- SERVICES -->
+  <section id="services">
     <div class="wrap">
       <div class="sectionHead">
         <div>
-          <h2>“파워링크 안 써도 되는 구조”</h2>
-          <p>세무사님 언어로 정리했습니다.</p>
+          <h2>서비스 안내</h2>
+          <p>구성의 방향을 맞춘 세무 서비스를 제공합니다. (필요 시 항목은 조정)</p>
         </div>
-        <span class="byHviral"><span class="spark"></span> (주)하비럴 샘플 페이지</span>
       </div>
 
-      <div class="card" style="padding:16px">
-        <div class="quote" style="border-left-color:rgba(34,197,94,.55)">
-          “파워링크는 ‘매출’이 아니라 ‘비용’으로 즉시 인식됩니다. 그래서 구조가 먼저입니다.”
+      <div class="cardsRow">
+        <div class="procCard">
+          <div class="icon">🧮</div>
+          <h3>기장 대리</h3>
+          <p>기장, 부가세, 종합소득세 등 월/분기 루틴을 안정적으로 관리합니다.</p>
+          <a class="more" href="#contact">더 알아보기</a>
         </div>
-
-        <p class="para" style="margin-top:12px">
-          파워링크(클릭 광고)는 ‘광고비 → 클릭 → 문의’ 흐름이라,
-          문의가 끊기면 비용만 남고 ‘자산’이 남지 않습니다.
-          반면 <b>세무사님 업(신뢰/전문성/케이스)</b>은 한 번 정리되면 시간이 지날수록 누적되는 성격이라,
-          홈페이지/콘텐츠/문의 루트를 <b>운영 시스템</b>으로 잡아두면
-          광고비를 ‘지출’로 태우기보다 <b>유입 경로를 자산화</b>할 수 있습니다.
-        </p>
-
-        <p class="para">
-          하비럴은 이 흐름을 “설명”이 아니라, 지금 보고 계신 것처럼
-          <b>실제 화면(체험)</b>으로 보여드리고,
-          세무사님 상황에 맞게 <b>문의 → 상담 → 전환</b>이 자연스럽게 이어지도록 설계합니다.
-        </p>
-
-        <div class="notice">
-          계약으로 연결되는 마지막 한 문장(샘플):
-          <b>“이 샘플을 기준으로, 은해세무회계 상황에 맞춘 ‘상담 전환 구조’까지 한 번에 완성해드리겠습니다.”</b>
+        <div class="procCard">
+          <div class="icon">✅</div>
+          <h3>신고 대리</h3>
+          <p>종소세/부가세/법인세 등 핵심 신고를 정확하게 마감합니다.</p>
+          <a class="more" href="#contact">더 알아보기</a>
         </div>
-
-        <div class="watermark">
-          ※ (주)하비럴 샘플 페이지 — ‘파워링크 대비 고효율’ 메시지가 과장 없이 전달되도록 구성했습니다.
+        <div class="procCard">
+          <div class="icon">🏠</div>
+          <h3>양도/상속/증여</h3>
+          <p>과세 리스크를 줄이는 사전 검토 중심으로 진행합니다.</p>
+          <a class="more" href="#contact">더 알아보기</a>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- 상담/문의 -->
-  <section id="contact">
-    <div class="wrap">
-      <div class="sectionHead">
-        <div>
-          <h2>상담/문의</h2>
-          <p>편한 채널로 연락 주세요. (샘플은 링크만 교체하면 됩니다)</p>
-        </div>
-        <span class="byHviral"><span class="spark"></span> (주)하비럴 샘플 페이지</span>
-      </div>
-
-      <div class="split">
-        <div class="card info">
-          <!-- ✅ 명함 정보 반영 -->
-          <div class="item"><span>전화</span><span class="kbd">010-9992-5105</span></div>
-          <div class="item"><span>이메일</span><span class="kbd">ehkimm__@naver.com</span></div>
-          <div class="item"><span>팩스</span><span class="kbd">0303-3444-7779</span></div>
-          <div class="item"><span>주소</span><span class="kbd">서울시 영등포구 국제금융로6길 33(맨하탄빌딩), 1308호</span></div>
-          <div class="item"><span>상담 시간</span><span class="kbd">예) 평일 09:00~18:00</span></div>
-          <div class="item"><span>자료 전달</span><span class="kbd">메일/카톡 가능</span></div>
-
-          <div class="notice">
-            팁) 주소/팩스/이메일은 <b>푸터(하단)</b>에도 한 번 더 넣어두면 신뢰도가 올라갑니다.
-          </div>
-        </div>
-
-        <div class="card info">
-          <div style="padding:16px">
-            <div class="miniTitle" style="font-size:18px">바로 연결</div>
-            <p class="mini" style="margin-top:8px">
-              상담 요청 시, “업종/형태 + 이슈 1개”만 적어도 충분합니다.
-            </p>
-
-            <div class="ctaRow" style="margin-top:12px">
-              <!-- ✅ 명함 정보 반영 -->
-              <a class="btn primary" href="tel:01099925105">📞 전화 상담</a>
-              <a class="btn" href="https://open.kakao.com/" target="_blank" rel="noopener">💬 카톡 문의</a>
-              <a class="btn" href="mailto:ehkimm__@naver.com">✉️ 이메일</a>
-            </div>
-
-            <div class="notice" style="margin-top:16px">
-              샘플 문구) “현재 상황을 간단히 남겨주시면, 가능한 범위부터 빠르게 정리해드리겠습니다.”
-            </div>
-
-            <div class="watermark">
-              ※ (주)하비럴 샘플 페이지 — ‘문의 버튼 3개’만 정리해도 전환이 확 올라갑니다.
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 오시는 길 -->
-  <section id="location">
-    <div class="wrap">
-      <div class="sectionHead">
-        <div>
-          <h2>오시는 길</h2>
-          <p>주소는 “상단(요약)” + “하단(푸터)”에 2회 노출이 안정적입니다.</p>
-        </div>
-        <span class="byHviral"><span class="spark"></span> (주)하비럴 샘플 페이지</span>
-      </div>
-
-      <div class="card" style="padding:16px">
-        <div class="split">
-          <div class="info" style="padding:0">
-            <!-- ✅ 명함 주소 반영 -->
-            <div class="item"><span>주소</span><span class="kbd">서울시 영등포구 국제금융로6길 33(맨하탄빌딩), 1308호</span></div>
-            <div class="item"><span>주차</span><span class="kbd">예) 건물 지하/인근</span></div>
-            <div class="item"><span>대중교통</span><span class="kbd">예) ○○역 3번 출구</span></div>
-
-            <div class="ctaRow" style="margin-top:12px">
-              <a class="btn" href="https://maps.google.com/?q=%EC%84%9C%EC%9A%B8%EC%8B%9C%20%EC%98%81%EB%93%B1%ED%8F%AC%EA%B5%AC%20%EA%B5%AD%EC%A0%9C%EA%B8%88%EC%9C%B5%EB%A1%9C6%EA%B8%B8%2033%20%EB%A7%A8%ED%95%98%ED%83%84%EB%B9%8C%EB%94%A9%201308%ED%98%B8" target="_blank" rel="noopener">🧭 지도 열기</a>
-              <a class="btn" href="#contact">📩 상담하기</a>
-            </div>
-
-            <div class="notice">
-              실제 운영 시에는 네이버지도/카카오맵 링크로 교체 추천.
-            </div>
-          </div>
-
-          <div class="card" style="background:rgba(0,0,0,.16); border:1px solid rgba(255,255,255,.10);">
-            <div style="padding:16px">
-              <div class="miniTitle">표시 위치(요약)</div>
-              <p class="mini" style="margin-top:8px">
-                <b>주소/팩스/이메일</b>은 “연락처 섹션 + 푸터”에 넣고,
-                지도 버튼은 <b>상담 버튼 옆</b>에 두면 이탈이 줄어듭니다.
-              </p>
-              <div class="watermark">
-                ※ (주)하비럴 샘플 페이지 — 정보 배치도 ‘전환 설계’의 일부입니다.
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 푸터 -->
+  <!-- FOOTER (명함 정보 고정) -->
   <footer class="footer">
-    <div class="wrap">
-      <div style="display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap; align-items:flex-end">
-        <div>
-          <div style="font-weight:900; color:rgba(255,255,255,.78)">은해세무회계</div>
-          <div style="margin-top:6px; color:rgba(255,255,255,.55)">
-            <!-- ✅ 명함 정보 반영 -->
-            주소: 서울시 영등포구 국제금융로6길 33(맨하탄빌딩), 1308호 ·
-            팩스: 0303-3444-7779 ·
-            이메일: ehkimm__@naver.com ·
-            전화: 010-9992-5105
-          </div>
-        </div>
-        <div style="text-align:right">
-          <div>© <span id="y"></span> Eunhae Tax Accounting</div>
-          <div style="margin-top:6px; opacity:.8">
-            <span class="byHviral"><span class="spark"></span> (주)하비럴 샘플 페이지</span>
-          </div>
-        </div>
+    <div class="wrap footerInner">
+      <div class="footLeft">
+        <strong>은해세무회계</strong>
+        <span>
+          M. 010-9992-5105 ·
+          E. ehkimm__@naver.com ·
+          F. 0303-3444-7779<br/>
+          A. 서울시 영등포구 국제금융로6길 33(맨하탄빌딩), 1308호
+        </span>
+      </div>
+      <div class="footRight">
+        © <span id="y"></span> Eunhae Tax Accounting
       </div>
     </div>
   </footer>
