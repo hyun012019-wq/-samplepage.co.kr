@@ -3,26 +3,47 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <meta name="description" content="은해세무회계 | 대표세무사 김은해 | 소상공인/1인사업자 맞춤 세무 파트너" />
-  <title>은해세무회계 | 대표세무사 김은해</title>
+  <meta name="format-detection" content="telephone=no,email=no,address=no" />
+  <title>은해 세무회계 | 대표 세무사 김은해</title>
+  <meta name="description" content="은해 세무회계 | 대표 세무사 김은해 | 기장·신고·양도·상속·증여·경정청구 | 대표가 직접 소통합니다." />
+
+  <!-- ✅ OG (필요하면 경로만 교체) -->
+  <meta property="og:title" content="은해 세무회계 | 대표 세무사 김은해" />
+  <meta property="og:description" content="친절하고 꼼꼼하게, 세무 신고 도와드립니다." />
+  <meta property="og:image" content="assets/images/og.jpg" />
+  <meta property="og:type" content="website" />
 
   <style>
     :root{
-      --bg:#f6f3ef;
-      --bg2:#efe7df;
-      --paper:#ffffff;
-      --paper2:#faf7f3;
-      --line:rgba(32,28,24,.10);
-      --txt:#1f1b18;
-      --mut:rgba(31,27,24,.62);
-      --mut2:rgba(31,27,24,.46);
-      --brand:#b99d86;        /* 버튼/포인트 베이지 */
-      --brand2:#d8c3b1;
-      --shadow: 0 18px 48px rgba(0,0,0,.08);
-      --shadow2: 0 10px 28px rgba(0,0,0,.07);
-      --radius: 22px;
-      --radius2: 18px;
-      --max: 1120px;
+      /* ===== Beige Theme ===== */
+      --bg0:#f6f2ee;
+      --bg1:#efe7df;
+      --ink:#1e1e1e;
+      --ink2:#3a3a3a;
+      --mut:#6a6a6a;
+      --mut2:#8c8c8c;
+
+      --card:#ffffffcc;
+      --card2:#ffffffa6;
+      --line:#00000010;
+      --shadow: 0 18px 60px rgba(0,0,0,.08);
+      --shadow2: 0 10px 24px rgba(0,0,0,.08);
+
+      --radius:22px;
+      --radius2:16px;
+      --max:1160px;
+
+      /* accent = beige brown */
+      --acc:#b79a83;
+      --acc2:#d9c3ae;
+      --acc3:#a7876e;
+
+      --btn:#b79a83;
+      --btnTxt:#fff;
+      --pill:#f1e8df;
+
+      --heroOverlay: rgba(246,242,238,.78);
+      --heroOverlay2: rgba(239,231,223,.90);
     }
 
     *{box-sizing:border-box}
@@ -31,552 +52,730 @@
     body{
       margin:0;
       font-family: system-ui, -apple-system, Segoe UI, Roboto, "Noto Sans KR", sans-serif;
-      color:var(--txt);
-      line-height:1.6;
+      color:var(--ink);
       background:
-        radial-gradient(900px 480px at 30% 0%, rgba(185,157,134,.16), transparent 60%),
-        radial-gradient(900px 520px at 80% 10%, rgba(216,195,177,.22), transparent 60%),
-        linear-gradient(180deg, var(--bg) 0%, var(--bg2) 35%, var(--bg) 100%);
+        radial-gradient(1000px 800px at 15% 10%, #ffffffaa, transparent 55%),
+        radial-gradient(1000px 800px at 85% 0%, #ffffffaa, transparent 55%),
+        linear-gradient(180deg, var(--bg0) 0%, var(--bg1) 100%);
       overflow-x:hidden;
     }
 
-    a{color:inherit; text-decoration:none}
+    a{color:inherit;text-decoration:none}
     .wrap{max-width:var(--max); margin:0 auto; padding:0 18px}
+    .sr{position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); border:0}
 
-    /* Top Nav */
+    /* ===== Top Nav ===== */
     .nav{
-      position:sticky; top:0; z-index:30;
-      background: rgba(246,243,239,.72);
+      position:sticky; top:0; z-index:50;
+      background: rgba(246,242,238,.78);
       backdrop-filter: blur(10px);
       border-bottom:1px solid var(--line);
     }
     .nav .inner{
       display:flex; align-items:center; justify-content:space-between;
-      gap:14px; padding:14px 0;
+      gap:14px;
+      padding:14px 0;
     }
     .brand{
       display:flex; align-items:center; gap:12px;
-      min-width:220px;
+      min-width:210px;
     }
-    .logoBox{
-      width:42px; height:42px;
-      border-radius:14px;
-      background: rgba(255,255,255,.75);
+    .brandLogo{
+      width:40px; height:40px; border-radius:14px;
+      background:#fff;
       border:1px solid var(--line);
       display:grid; place-items:center;
-      box-shadow: var(--shadow2);
       overflow:hidden;
+      box-shadow: 0 10px 18px rgba(0,0,0,.05);
     }
-    .logoBox img{width:28px; height:28px; object-fit:contain; opacity:.88}
-    .brandText{
-      display:flex; flex-direction:column; line-height:1.15;
-    }
-    .brandText strong{font-size:18px; letter-spacing:-.02em}
-    .brandText span{font-size:12px; color:var(--mut2); letter-spacing:.12em}
+    .brandLogo img{width:100%; height:100%; object-fit:cover}
+    .brandTxt{display:flex; flex-direction:column; line-height:1.05}
+    .brandTxt strong{font-size:18px; letter-spacing:-.02em}
+    .brandTxt span{font-size:12px; color:var(--mut); letter-spacing:.02em}
+
     .menu{
-      display:flex; gap:18px; align-items:center;
-      font-size:14px; color:var(--mut);
+      display:flex; align-items:center; gap:18px;
+      color:var(--mut);
+      font-weight:700;
+      font-size:14px;
       white-space:nowrap;
     }
     .menu a{
-      padding:10px 6px;
-      border-bottom:2px solid transparent;
+      padding:8px 10px;
+      border-radius:999px;
+      border:1px solid transparent;
+      transition: background .15s ease, color .15s ease, border-color .15s ease;
     }
-    .menu a:hover{color:var(--txt); border-bottom-color:rgba(185,157,134,.55)}
+    .menu a:hover{
+      background:#ffffffa8;
+      color:var(--ink);
+      border-color:var(--line);
+    }
 
     .navRight{display:flex; align-items:center; gap:10px; white-space:nowrap}
     .btn{
       display:inline-flex; align-items:center; justify-content:center;
-      height:40px; padding:0 14px;
+      gap:8px;
+      padding:11px 14px;
       border-radius:999px;
       border:1px solid var(--line);
-      background: rgba(255,255,255,.68);
-      color:var(--txt);
-      font-weight:800;
-      box-shadow: var(--shadow2);
+      background:#fff;
+      color:var(--ink);
+      font-weight:900;
+      box-shadow: 0 10px 18px rgba(0,0,0,.05);
+      transition: transform .12s ease, box-shadow .12s ease;
     }
+    .btn:hover{transform: translateY(-1px); box-shadow: 0 12px 22px rgba(0,0,0,.07)}
     .btn.primary{
-      background: linear-gradient(180deg, rgba(185,157,134,.98), rgba(185,157,134,.86));
-      border:none;
-      color:#fff;
-      box-shadow: 0 14px 34px rgba(185,157,134,.22);
+      background: linear-gradient(180deg, var(--acc) 0%, var(--acc3) 100%);
+      color:var(--btnTxt);
+      border-color: transparent;
     }
-    .btn:active{transform:translateY(1px)}
 
     @media (max-width: 980px){
       .menu{display:none}
       .brand{min-width:auto}
     }
 
-    /* Hero Section */
+    /* ===== Hero (image + beige overlay) ===== */
     .hero{
-      padding:28px 0 14px;
+      position:relative;
+      padding:18px 0 26px;
     }
-    .heroCard{
-      border-radius: 30px;
-      background: linear-gradient(180deg, rgba(255,255,255,.78), rgba(255,255,255,.66));
-      border:1px solid var(--line);
-      box-shadow: var(--shadow);
+    .heroShell{
+      border-radius: 26px;
       overflow:hidden;
-      position:relative;
+      box-shadow: var(--shadow);
+      border:1px solid var(--line);
+      background:#fff;
     }
-
-    .heroBg{
-      position:absolute; inset:0;
-      background:
-        radial-gradient(780px 420px at 22% 28%, rgba(185,157,134,.18), transparent 60%),
-        radial-gradient(700px 420px at 75% 20%, rgba(216,195,177,.22), transparent 58%),
-        url("assets/images/hero-office.jpg");
-      background-size: cover;
-      background-position: center;
-      filter: blur(0px);
-      opacity:.35;
-      transform: scale(1.05);
-    }
-    .heroOverlay{
-      position:absolute; inset:0;
-      background: linear-gradient(90deg,
-        rgba(246,243,239,.92) 0%,
-        rgba(246,243,239,.86) 45%,
-        rgba(246,243,239,.38) 72%,
-        rgba(246,243,239,.10) 100%
-      );
-    }
-
-    .heroInner{
-      position:relative;
+    .heroGrid{
       display:grid;
       grid-template-columns: 1.05fr .95fr;
-      gap:22px;
-      padding:34px;
-      align-items:end;
       min-height: 520px;
+      background:
+        linear-gradient(180deg, var(--heroOverlay) 0%, var(--heroOverlay2) 70%),
+        url("assets/images/hero-office.jpg"); /* ✅ 배경 사무실 */
+      background-size: cover;
+      background-position: center;
+      background-repeat:no-repeat;
     }
     @media (max-width: 980px){
-      .heroInner{grid-template-columns:1fr; min-height:auto; padding:22px}
+      .heroGrid{grid-template-columns:1fr; min-height:auto}
     }
 
-    .heroTitle{
-      max-width: 520px;
+    .heroLeft{
+      padding:40px 34px 30px;
+      position:relative;
     }
-    .heroTitle h1{
-      margin:0;
-      font-size:46px;
-      line-height:1.05;
+    .heroKicker{
+      display:inline-flex; align-items:center; gap:10px;
+      padding:8px 12px;
+      border-radius:999px;
+      background:#ffffffb8;
+      border:1px solid var(--line);
+      color:var(--mut);
+      font-weight:900;
+      font-size:12px;
+      width:fit-content;
+    }
+    .heroKicker .dot{
+      width:9px; height:9px; border-radius:50%;
+      background: linear-gradient(180deg, var(--acc2) 0%, var(--acc) 100%);
+    }
+    h1{
+      margin:18px 0 10px;
+      font-size:44px;
+      line-height:1.06;
       letter-spacing:-.05em;
     }
-    .heroTitle .sub1{
-      margin:14px 0 0;
-      font-size:17px;
+    .heroSub{
+      margin:0;
       color:var(--mut);
+      font-size:16px;
       font-weight:700;
-    }
-    .heroTitle .sub2{
-      margin:14px 0 0;
-      font-size:20px;
-      color:rgba(31,27,24,.72);
-      font-weight:800;
-    }
-
-    .miniBox{
-      margin-top:18px;
-      background: rgba(255,255,255,.62);
-      border:1px solid var(--line);
-      border-radius: var(--radius);
-      padding:18px;
-      box-shadow: var(--shadow2);
+      line-height:1.75;
       max-width: 520px;
     }
-    .miniBox .hd{
-      font-weight:1000;
-      font-size:20px;
-      letter-spacing:-.03em;
-      margin:0 0 10px;
-    }
-    .miniBox ul{margin:0; padding-left:18px; color:var(--mut); font-weight:700}
-    .miniBox li{margin:8px 0}
 
-    .heroCtas{
-      margin-top:16px;
+    .heroQuoteCard{
+      margin-top:22px;
+      background:#ffffffb8;
+      border:1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow2);
+      padding:18px 18px;
+      max-width: 560px;
+    }
+    .heroQuoteTitle{
+      font-weight:1000;
+      font-size:18px;
+      margin:0 0 10px;
+      letter-spacing:-.02em;
+    }
+    .heroBullets{
+      margin:0;
+      padding-left:18px;
+      color:var(--mut);
+      font-weight:700;
+      line-height:1.9;
+    }
+    .heroBullets li{margin:4px 0}
+
+    .heroCTA{
       display:flex; gap:10px; flex-wrap:wrap;
+      margin-top:18px;
     }
     .btn.ghost{
-      background: rgba(255,255,255,.60);
-      border:1px solid rgba(31,27,24,.10);
-      color:rgba(31,27,24,.80);
+      background:#ffffffb8;
     }
 
-    /* Right portrait */
-    .portrait{
-      position:relative;
-      height: 100%;
+    .heroRight{
       display:flex;
-      justify-content:flex-end;
-      align-items:flex-end;
+      align-items:end;
+      justify-content:end;
+      padding:22px 22px 0;
+      position:relative;
     }
-    .portrait img{
-      width:min(420px, 100%);
-      height:auto;
-      object-fit:contain;
-      filter: saturate(1.02);
-      transform: translateY(6px);
+    .heroPortrait{
+      width:100%;
+      max-width: 430px;
+      aspect-ratio: 4/5;
+      border-radius: 22px 22px 0 0;
+      overflow:hidden;
+      border:1px solid var(--line);
+      box-shadow: var(--shadow);
+      background: #fff;
+      position:relative;
+      transform: translateY(16px);
     }
-    @media (max-width: 980px){
-      .portrait{justify-content:center}
-      .portrait img{width:min(360px, 92vw); transform:none}
+    .heroPortrait img{
+      width:100%; height:100%;
+      object-fit:cover;
+      object-position: 50% 20%;
+      display:block;
     }
+    .nameTag{
+      position:absolute;
+      left:22px;
+      bottom:22px;
+      font-weight:1000;
+      color: rgba(30,30,30,.82);
+      letter-spacing:-.02em;
+      text-shadow: 0 1px 0 rgba(255,255,255,.7);
+    }
+    .nameTag small{
+      display:block;
+      font-size:12px;
+      color: rgba(60,60,60,.65);
+      font-weight:900;
+      margin-bottom:4px;
+    }
+    .nameTag strong{font-size:16px}
 
-    /* Section Base */
-    section{padding:22px 0}
+    /* ===== Section base ===== */
+    section{padding:26px 0}
     .sectionHead{
-      display:flex; justify-content:space-between; align-items:flex-end;
-      gap:14px; margin-bottom:14px;
+      display:flex; align-items:flex-end; justify-content:space-between;
+      gap:12px; margin-bottom:14px;
     }
     .sectionHead h2{
       margin:0;
       font-size:34px;
-      letter-spacing:-.05em;
+      letter-spacing:-.03em;
     }
     .sectionHead p{
-      margin:10px 0 0;
+      margin:8px 0 0;
       color:var(--mut);
       font-weight:700;
-      max-width: 560px;
+      line-height:1.65;
     }
 
-    /* Process cards row */
-    .cardsRow{
-      display:grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap:16px;
-      align-items:stretch;
-    }
-    @media (max-width: 980px){
-      .cardsRow{grid-template-columns:1fr}
-    }
-    .procCard{
-      background: rgba(255,255,255,.72);
+    /* ===== Cards / grids ===== */
+    .card{
+      background: var(--card);
       border:1px solid var(--line);
-      border-radius: 22px;
+      border-radius: var(--radius);
       box-shadow: var(--shadow2);
-      padding:18px;
-      position:relative;
       overflow:hidden;
     }
-    .procCard .icon{
+
+    .serviceGrid{
+      display:grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap:14px;
+      align-items:stretch;
+    }
+    @media (max-width: 980px){ .serviceGrid{grid-template-columns:1fr} }
+
+    .serviceTop{
+      padding:26px 24px;
+      background:
+        linear-gradient(180deg, rgba(246,242,238,.72) 0%, rgba(239,231,223,.88) 70%),
+        url("assets/images/section-office.jpg"); /* ✅ 섹션 배경 */
+      background-size:cover;
+      background-position:center;
+      border-bottom:1px solid var(--line);
+    }
+
+    .serviceCards{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:12px;
+      padding:18px;
+    }
+    @media (max-width: 980px){ .serviceCards{grid-template-columns:1fr} }
+
+    .svc{
+      background:#ffffffb8;
+      border:1px solid var(--line);
+      border-radius: 18px;
+      padding:16px 14px;
+      box-shadow: 0 14px 32px rgba(0,0,0,.06);
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+      min-height: 170px;
+    }
+    .svcIcon{
       width:46px; height:46px;
-      border-radius: 16px;
-      background: rgba(185,157,134,.14);
-      border:1px solid rgba(185,157,134,.18);
+      border-radius:16px;
+      background: var(--pill);
+      border:1px solid var(--line);
       display:grid; place-items:center;
       font-size:22px;
     }
-    .procCard h3{
-      margin:12px 0 6px;
-      font-size:20px;
-      letter-spacing:-.04em;
-    }
-    .procCard p{
+    .svc h3{
       margin:0;
-      color:var(--mut);
-      font-weight:700;
-      line-height:1.55;
-    }
-    .procCard .more{
-      margin-top:14px;
-      display:inline-flex; align-items:center; justify-content:center;
-      height:40px; padding:0 16px;
-      border-radius:999px;
-      background: rgba(185,157,134,.90);
-      color:#fff;
-      font-weight:900;
-      box-shadow: 0 12px 26px rgba(185,157,134,.18);
-    }
-
-    /* CTA band */
-    .ctaBand{
-      margin-top:18px;
-      background: rgba(255,255,255,.70);
-      border:1px solid var(--line);
-      border-radius: 26px;
-      box-shadow: var(--shadow);
-      padding:20px;
-      display:grid;
-      grid-template-columns: .95fr 1.05fr;
-      gap:16px;
-      align-items:center;
-      overflow:hidden;
-      position:relative;
-    }
-    @media (max-width: 980px){
-      .ctaBand{grid-template-columns:1fr}
-    }
-    .ctaLeft{
-      display:flex; gap:16px; align-items:center;
-    }
-    .ctaLeft .thumb{
-      width:84px; height:84px;
-      border-radius: 22px;
-      border:1px solid var(--line);
-      background: rgba(250,247,243,.85);
-      overflow:hidden;
-      box-shadow: var(--shadow2);
-      flex:0 0 auto;
-    }
-    .ctaLeft .thumb img{width:100%; height:100%; object-fit:cover}
-    .ctaLeft .txt strong{
-      display:block;
-      font-size:20px;
-      letter-spacing:-.04em;
-    }
-    .ctaLeft .txt span{
-      display:block;
-      margin-top:6px;
-      color:var(--mut);
-      font-weight:700;
-    }
-
-    .ctaRight{
-      display:flex; flex-direction:column; gap:10px;
-      align-items:flex-start;
-    }
-    .phoneLine{
-      width:100%;
-      display:flex; align-items:center; gap:12px;
-      background: rgba(250,247,243,.92);
-      border:1px solid var(--line);
-      border-radius: 18px;
-      padding:12px 14px;
-      box-shadow: var(--shadow2);
-      font-weight:900;
-    }
-    .phoneLine .ph{font-size:18px; letter-spacing:-.02em}
-    .quickBtn{
-      display:inline-flex; align-items:center; gap:10px;
-      height:48px; padding:0 16px;
-      border-radius: 18px;
-      border:1px solid rgba(185,157,134,.20);
-      background: rgba(185,157,134,.14);
-      font-weight:1000;
-    }
-    .quickBtn .dot{
-      width:18px; height:18px;
-      border-radius:6px;
-      background: rgba(185,157,134,.60);
-      display:grid; place-items:center;
-      color:#fff; font-size:12px;
-    }
-    .bigCta{
-      margin-top:10px;
-      width:100%;
-      height:54px;
-      border-radius: 18px;
-      background: linear-gradient(180deg, rgba(185,157,134,.96), rgba(185,157,134,.84));
-      color:#fff;
-      display:flex; align-items:center; justify-content:center;
-      font-weight:1000;
+      font-size:18px;
       letter-spacing:-.02em;
-      box-shadow: 0 16px 34px rgba(185,157,134,.22);
     }
-    .smallNote{
-      margin-top:4px;
-      color:var(--mut2);
+    .svc p{
+      margin:0;
+      color:var(--mut);
       font-weight:700;
-      font-size:12px;
+      font-size:14px;
+      line-height:1.65;
+    }
+    .svc .more{
+      margin-top:auto;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+      padding:12px 14px;
+      border-radius:999px;
+      border:1px solid transparent;
+      background: linear-gradient(180deg, var(--acc) 0%, var(--acc3) 100%);
+      color:#fff;
+      font-weight:1000;
+      box-shadow: 0 14px 24px rgba(183,154,131,.22);
     }
 
-    /* CEO section (like screenshot “대표 세무사가 직접 소통”) */
-    .ceoCard{
-      border-radius: 30px;
-      background: rgba(255,255,255,.72);
-      border:1px solid var(--line);
-      box-shadow: var(--shadow);
-      overflow:hidden;
-      position:relative;
-    }
-    .ceoBg{
-      position:absolute; inset:0;
-      background:
-        linear-gradient(90deg,
-          rgba(246,243,239,.92) 0%,
-          rgba(246,243,239,.82) 50%,
-          rgba(246,243,239,.32) 76%,
-          rgba(246,243,239,.12) 100%
-        ),
-        url("assets/images/hero-office.jpg");
-      background-size: cover;
-      background-position:center;
-      opacity:.65;
-    }
-    .ceoInner{
-      position:relative;
+    /* ===== Contact strip (like screenshot) ===== */
+    .contactStrip{
       display:grid;
-      grid-template-columns: 1.05fr .95fr;
-      gap:22px;
-      padding:34px;
-      align-items:center;
-      min-height: 520px;
+      grid-template-columns: 1fr 1fr;
+      gap:0;
+      overflow:hidden;
     }
     @media (max-width: 980px){
-      .ceoInner{grid-template-columns:1fr; min-height:auto; padding:22px}
+      .contactStrip{grid-template-columns:1fr}
     }
-    .ceoLeft h2{
-      margin:0;
-      font-size:44px;
-      line-height:1.05;
-      letter-spacing:-.06em;
+    .contactLeft{
+      padding:22px 22px;
+      display:flex;
+      gap:18px;
+      align-items:center;
+      border-right:1px solid var(--line);
+      background: rgba(255,255,255,.58);
     }
-    .ceoLeft p{
-      margin:12px 0 0;
+    .miniPortrait{
+      width:74px; height:74px;
+      border-radius:20px;
+      overflow:hidden;
+      border:1px solid var(--line);
+      background:#fff;
+      flex:0 0 auto;
+      box-shadow: 0 12px 22px rgba(0,0,0,.06);
+    }
+    .miniPortrait img{width:100%; height:100%; object-fit:cover; object-position:50% 20%}
+    .contactLeft strong{font-size:18px; letter-spacing:-.02em}
+    .contactLeft p{margin:6px 0 0; color:var(--mut); font-weight:700; line-height:1.6}
+
+    .contactRight{
+      padding:22px 22px;
+      background: rgba(255,255,255,.58);
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+    }
+    .contactRight .label{
       color:var(--mut);
       font-weight:800;
-      font-size:16px;
-      max-width: 520px;
     }
-    .refundBox{
-      margin-top:18px;
-      background: rgba(250,247,243,.92);
+    .inputLike{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      padding:14px 14px;
+      border-radius: 16px;
       border:1px solid var(--line);
-      border-radius: 22px;
-      padding:18px;
-      box-shadow: var(--shadow2);
-      max-width: 520px;
-    }
-    .refundBox .t1{
-      font-weight:900;
-      color:rgba(31,27,24,.72);
-      margin:0;
-      font-size:16px;
-    }
-    .refundBox .t2{
-      margin:8px 0 0;
+      background:#fff;
       font-weight:1000;
-      font-size:30px;
-      letter-spacing:-.05em;
+      color:var(--ink2);
     }
-    .refundBox .t3{
-      margin:10px 0 0;
-      font-size:12px;
-      color:var(--mut2);
-      font-weight:700;
-    }
-    .ceoBtns{
-      margin-top:14px;
-      display:flex; gap:10px; flex-wrap:wrap;
-    }
-    .ceoBtns .btn{
-      height:44px;
-      padding:0 16px;
-      border-radius: 14px;
-      background: rgba(255,255,255,.78);
-      border:1px solid rgba(31,27,24,.12);
-      box-shadow: var(--shadow2);
+    .inputLike svg{opacity:.55}
+    .kakaoBtn{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      padding:14px 14px;
+      border-radius:16px;
+      border:1px solid var(--line);
+      background:#fff;
       font-weight:1000;
+      box-shadow: 0 12px 22px rgba(0,0,0,.06);
     }
-    .ceoBtns .btn.primary{
-      background: rgba(185,157,134,.92);
-      color:#fff;
-      border:none;
-      box-shadow: 0 14px 28px rgba(185,157,134,.20);
+    .kakaoDot{
+      width:18px;height:18px;border-radius:6px;
+      background: linear-gradient(180deg, #cbb49f 0%, #b79a83 100%);
+      border:1px solid rgba(0,0,0,.08);
     }
+    .hint{color:var(--mut2); font-weight:700; font-size:12px; line-height:1.6}
 
-    .ceoRight{
-      display:flex; flex-direction:column; align-items:flex-end; justify-content:flex-end;
-      gap:14px;
+    .bigCTA{
+      margin-top:16px;
+      display:flex;
+      justify-content:center;
     }
-    .ceoRight img{
-      width:min(440px, 100%);
-      height:auto;
-      object-fit:contain;
-      filter:saturate(1.02);
-      transform: translateY(8px);
-    }
-    @media (max-width: 980px){
-      .ceoRight{align-items:center}
-      .ceoRight img{transform:none; width:min(360px,92vw)}
-    }
-    .sig{
-      margin-top:-6px;
-      color:rgba(31,27,24,.62);
-      font-weight:900;
-      letter-spacing:-.02em;
-      text-align:right;
-      width:100%;
-    }
-    .sig b{color:var(--txt)}
-
-    /* Bottom check card */
-    .checkCard{
-      margin-top:18px;
-      margin-left:auto;
+    .bigCTA a{
       width:min(520px, 100%);
-      background: rgba(255,255,255,.70);
+      text-align:center;
+      padding:16px 18px;
+      border-radius: 999px;
+      background: linear-gradient(180deg, var(--acc) 0%, var(--acc3) 100%);
+      color:#fff;
+      font-weight:1100;
+      box-shadow: 0 18px 28px rgba(183,154,131,.24);
+      border:1px solid rgba(0,0,0,.04);
+    }
+
+    /* ===== Process ===== */
+    .processGrid{
+      display:grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap:12px;
+    }
+    @media (max-width: 980px){ .processGrid{grid-template-columns:1fr} }
+    .step{
+      padding:18px 16px;
+      background:#ffffffb8;
       border:1px solid var(--line);
-      border-radius: 26px;
-      box-shadow: var(--shadow2);
-      padding:18px;
+      border-radius: 18px;
+      box-shadow: 0 14px 32px rgba(0,0,0,.05);
     }
-    .checkRow{
-      display:flex; gap:12px; align-items:flex-start;
-      padding:10px 0;
-      border-bottom:1px solid rgba(31,27,24,.08);
-    }
-    .checkRow:last-child{border-bottom:none}
-    .checkIcon{
-      width:30px; height:30px;
-      border-radius: 12px;
-      background: rgba(185,157,134,.16);
-      border:1px solid rgba(185,157,134,.22);
+    .stepNum{
+      width:38px; height:38px;
+      border-radius:14px;
       display:grid; place-items:center;
-      font-weight:1000;
-      color: rgba(31,27,24,.74);
+      background: var(--pill);
+      border:1px solid var(--line);
+      font-weight:1100;
+      color:var(--acc3);
+    }
+    .step h3{margin:10px 0 6px; font-size:18px; letter-spacing:-.02em}
+    .step p{margin:0; color:var(--mut); font-weight:700; line-height:1.7}
+
+    /* ===== Products (Kmong-style tabs) ===== */
+    .productShell{padding:18px}
+    .productTitle{
+      display:flex; gap:12px; align-items:center; justify-content:space-between;
+      margin-bottom:14px;
+      flex-wrap:wrap;
+    }
+    .productTitle .left{
+      display:flex; align-items:center; gap:12px;
+    }
+    .avatar{
+      width:44px; height:44px; border-radius:18px;
+      overflow:hidden; border:1px solid var(--line);
+      background:#fff;
+      box-shadow: 0 12px 22px rgba(0,0,0,.06);
+    }
+    .avatar img{width:100%;height:100%;object-fit:cover;object-position:50% 20%}
+    .metaLine strong{display:block; font-size:18px; letter-spacing:-.02em}
+    .metaLine span{display:block; color:var(--mut); font-weight:800; font-size:12px; margin-top:2px}
+    .rating{
+      display:flex; align-items:center; gap:8px;
+      color:var(--mut);
+      font-weight:900;
+      font-size:14px;
+    }
+    .stars{letter-spacing:1px; color:#2ea44f}
+    .tabs{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      border-top:1px solid var(--line);
+      border-bottom:1px solid var(--line);
+      margin-top:10px;
+      background: rgba(255,255,255,.55);
+    }
+    .tabBtn{
+      padding:14px 10px;
+      font-weight:1100;
+      color:var(--mut2);
+      border:0;
+      background:transparent;
+      cursor:pointer;
+      position:relative;
+      letter-spacing:.04em;
+    }
+    .tabBtn.active{color:var(--ink)}
+    .tabBtn.active::after{
+      content:"";
+      position:absolute;
+      left:16%;
+      right:16%;
+      bottom:0;
+      height:3px;
+      border-radius:999px;
+      background: var(--ink);
+    }
+    .panel{
+      padding:18px 6px 0;
+      display:none;
+    }
+    .panel.active{display:block}
+
+    .priceLine{
+      font-size:34px;
+      font-weight:1200;
+      letter-spacing:-.03em;
+      margin:6px 0 6px;
+    }
+    .priceLine small{
+      font-size:14px;
+      color:var(--mut);
+      font-weight:900;
+      margin-left:6px;
+    }
+    .pkgName{
+      font-size:20px;
+      font-weight:1200;
+      margin:12px 0 6px;
+      letter-spacing:-.02em;
+    }
+    .pkgDesc{
+      margin:0 0 14px;
+      color:var(--mut);
+      font-weight:750;
+      line-height:1.7;
+    }
+    .pkgMeta{
+      border-radius: 18px;
+      border:1px solid var(--line);
+      background:#ffffffb8;
+      box-shadow: 0 14px 30px rgba(0,0,0,.05);
+      padding:12px 14px;
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:10px;
+      color:var(--mut);
+      font-weight:900;
+    }
+    .pkgMeta div{
+      display:flex; justify-content:space-between; gap:10px;
+      padding:8px 0;
+      border-bottom:1px solid rgba(0,0,0,.05);
+    }
+    .pkgMeta div:nth-last-child(-n+2){border-bottom:none}
+    .pkgMeta b{color:var(--ink2)}
+    .buyRow{
+      margin-top:16px;
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+    .buyRow .btnWide{
+      flex:1 1 220px;
+      padding:16px 16px;
+      border-radius: 16px;
+      border:1px solid var(--line);
+      background:#fff;
+      font-weight:1100;
+      text-align:center;
+      box-shadow: 0 12px 22px rgba(0,0,0,.06);
+    }
+    .buyRow .btnWide.primary{
+      background: #111;
+      color:#fff;
+      border-color:#111;
+    }
+
+    /* ===== Refund Banner ===== */
+    .refund{
+      margin-top:16px;
+      border-radius: 24px;
+      overflow:hidden;
+      border:1px solid var(--line);
+      box-shadow: var(--shadow2);
+      background:
+        linear-gradient(90deg, rgba(0,0,0,.33) 0%, rgba(0,0,0,.16) 52%, rgba(0,0,0,.08) 100%),
+        url("assets/images/refund-banner.jpg"); /* ✅ 배너 이미지 (없으면 흰 배경으로 보여도 OK) */
+      background-size: cover;
+      background-position: center;
+      min-height: 240px;
+      position:relative;
+    }
+    .refund::before{
+      content:"";
+      position:absolute; inset:0;
+      background: linear-gradient(90deg, rgba(183,154,131,.72) 0%, rgba(183,154,131,.32) 50%, rgba(239,231,223,.10) 100%);
+      mix-blend-mode: multiply;
+      opacity:.65;
+      pointer-events:none;
+    }
+    .refundInner{
+      position:relative;
+      padding:26px 22px;
+      color:#fff;
+      display:flex;
+      align-items:flex-end;
+      justify-content:space-between;
+      gap:14px;
+      flex-wrap:wrap;
+      min-height: 240px;
+    }
+    .refundInner h3{
+      margin:0;
+      font-size:36px;
+      letter-spacing:-.03em;
+      line-height:1.1;
+      font-weight:1200;
+    }
+    .refundInner p{
+      margin:10px 0 0;
+      font-weight:850;
+      opacity:.9;
+      line-height:1.7;
+    }
+    .badgeBubble{
+      align-self:flex-start;
+      background: rgba(255,255,255,.18);
+      border:1px solid rgba(255,255,255,.25);
+      padding:10px 12px;
+      border-radius: 18px;
+      font-weight:1100;
+      backdrop-filter: blur(8px);
+      box-shadow: 0 14px 26px rgba(0,0,0,.18);
+    }
+    .badgeBubble small{
+      display:block;
+      font-weight:900;
+      opacity:.95;
+      margin-top:6px;
+    }
+
+    /* ===== Info / Business card ===== */
+    .infoGrid{
+      display:grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap:14px;
+      align-items:stretch;
+    }
+    @media (max-width: 980px){ .infoGrid{grid-template-columns:1fr} }
+
+    .infoCard{padding:18px}
+    .infoCard h3{margin:0 0 10px; font-size:20px; letter-spacing:-.02em}
+    .kv{
+      display:grid;
+      gap:10px;
+      margin-top:12px;
+    }
+    .kv .row{
+      display:flex; gap:12px; align-items:flex-start;
+      padding:12px 12px;
+      border-radius: 16px;
+      border:1px solid var(--line);
+      background:#ffffffb8;
+      font-weight:900;
+      color:var(--ink2);
+    }
+    .kv .k{
+      width:28px;
+      color:var(--mut);
+      font-weight:1100;
       flex:0 0 auto;
     }
-    .checkText{
-      font-weight:900;
-      color:rgba(31,27,24,.72);
+    .kv .v{
+      color:var(--ink2);
+      font-weight:1000;
+      line-height:1.55;
     }
 
-    /* Footer */
-    .footer{
-      padding:26px 0 42px;
-      color:rgba(31,27,24,.55);
-      font-size:12px;
+    .officePhotos{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:10px;
     }
-    .footerInner{
+    .officePhotos .ph{
+      border-radius: 18px;
+      border:1px solid var(--line);
+      overflow:hidden;
+      background:#fff;
+      box-shadow: 0 12px 22px rgba(0,0,0,.06);
+      aspect-ratio: 4/3;
+    }
+    .officePhotos img{width:100%; height:100%; object-fit:cover}
+
+    /* ===== Footer ===== */
+    footer{
+      margin-top:26px;
+      padding:20px 0 50px;
       border-top:1px solid var(--line);
-      padding-top:18px;
-      display:flex; justify-content:space-between; gap:12px;
-      flex-wrap:wrap;
+      color:var(--mut);
+      font-weight:750;
+    }
+    .footRow{
+      display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap;
       align-items:flex-end;
     }
-    .footLeft strong{display:block; font-size:14px; color:rgba(31,27,24,.70)}
-    .footLeft span{display:block; margin-top:8px; font-weight:700}
-    .footRight{margin-left:auto; text-align:right; font-weight:700}
+    .footRow strong{color:var(--ink2)}
+    .tiny{font-size:12px; line-height:1.65}
+
+    /* ===== reduce motion ===== */
+    @media (prefers-reduced-motion: reduce){
+      *{scroll-behavior:auto}
+      .btn,.svc .more{transition:none}
+      .btn:hover{transform:none}
+    }
   </style>
 </head>
 
 <body>
 
-  <!-- NAV -->
+  <!-- ===== NAV ===== -->
   <header class="nav">
     <div class="wrap inner">
-      <div class="brand">
-        <a class="logoBox" href="#top" aria-label="홈으로">
-          <!-- 로고 파일 넣어줘 -->
-          <img src="assets/images/logo.png" alt="은해세무회계 로고" onerror="this.style.display='none'" />
-        </a>
-        <div class="brandText">
+      <a class="brand" href="#top" aria-label="은해 세무회계 홈">
+        <span class="brandLogo" aria-hidden="true">
+          <!-- ✅ 로고 파일 교체: assets/images/logo.png -->
+          <img src="assets/images/logo.png" alt="" />
+        </span>
+        <span class="brandTxt">
           <strong>은해 세무회계</strong>
           <span>Tax Accounting</span>
-        </div>
-      </div>
+        </span>
+      </a>
 
       <nav class="menu" aria-label="메인 메뉴">
         <a href="#top">홈</a>
         <a href="#ceo">대표 세무사</a>
         <a href="#services">서비스 안내</a>
         <a href="#process">진행 방식</a>
+        <a href="#products">상품/가격</a>
         <a href="#contact">상담/문의</a>
       </nav>
 
@@ -586,92 +785,195 @@
     </div>
   </header>
 
-  <!-- HERO (대표 세무사 김은해) -->
-  <main id="top" class="hero">
+  <!-- ===== HERO ===== -->
+  <main class="hero" id="top">
     <div class="wrap">
-      <div class="heroCard">
-        <div class="heroBg" aria-hidden="true"></div>
-        <div class="heroOverlay" aria-hidden="true"></div>
+      <div class="heroShell">
+        <div class="heroGrid">
+          <div class="heroLeft">
+            <div class="heroKicker">
+              <span class="dot"></span>
+              <span>소상공인 / 1인사업자 맞춤 세무 파트너</span>
+            </div>
 
-        <div class="heroInner">
-          <div class="heroTitle">
-            <h1>대표 세무사<br/>김은해</h1>
-            <div class="sub1">소상공인 / 1인사업자 맞춤 세무 파트너</div>
-            <div class="sub2">꼼꼼함과 정확함을 최우선으로 합니다.</div>
+            <h1>대표 세무사가<br/>직접 소통합니다</h1>
 
-            <div class="miniBox">
-              <p class="hd">하비럴 상담과 관리 목표로</p>
-              <ul>
+            <p class="heroSub">
+              편리함보다 <b>정확함</b>을, 거래보다 <b>신뢰</b>를 쌓아가겠습니다.<br/>
+              꼼꼼함과 정확함을 최우선으로 합니다.
+            </p>
+
+            <div class="heroQuoteCard">
+              <p class="heroQuoteTitle">하비럴 상담과 관리 목표로</p>
+              <ul class="heroBullets">
                 <li>고객 이상적인 성과와 관리 목표로 합니다</li>
                 <li>심수 없이 선동하고 체법하게 검토합니다</li>
                 <li>필요한 협의보다는 적절한 월세 절약을 안내드립니다</li>
               </ul>
             </div>
 
-            <div class="heroCtas">
-              <a class="btn primary" href="#contact">상담 요청하기</a>
-              <a class="btn ghost" href="#ceo">대표에게 바른 문의</a>
+            <div class="heroCTA">
+              <a class="btn primary" href="#products">상품/가격 보기</a>
+              <a class="btn ghost" href="#process">진행 방식 보기</a>
+              <a class="btn ghost" href="tel:010-9992-5105">전화하기</a>
             </div>
           </div>
 
-          <div class="portrait">
-            <!-- 대표 이미지 넣어줘 -->
-            <img src="assets/images/ceo.png" alt="대표 세무사 김은해" />
+          <div class="heroRight" aria-label="대표 세무사 프로필 이미지">
+            <div class="heroPortrait">
+              <!-- ✅ 인물 사진 교체: assets/images/portrait.jpg -->
+              <img src="assets/images/portrait.jpg" alt="대표 세무사 김은해" />
+              <div class="nameTag">
+                <small>대표 세무사</small>
+                <strong>김은해</strong>
+              </div>
+            </div>
           </div>
         </div>
+
+        <!-- 하단 상담 스트립(스크린샷 느낌) -->
+        <div class="contactStrip card" style="border-radius:0; border-left:0;border-right:0;border-bottom:0; box-shadow:none;">
+          <div class="contactLeft">
+            <div class="miniPortrait" aria-hidden="true">
+              <img src="assets/images/portrait.jpg" alt="" />
+            </div>
+            <div>
+              <strong>김은해 세무사가<br/>직접 상담합니다.</strong>
+              <p>궁금한 점은 편하게 문의 주세요.</p>
+            </div>
+          </div>
+
+          <div class="contactRight">
+            <div class="label">궁금한 점은 편하게 문의 주세요.</div>
+
+            <div class="inputLike" aria-label="전화번호">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M6.6 10.8c1.5 3 3.6 5.1 6.6 6.6l2.2-2.2c.3-.3.8-.4 1.2-.3 1.3.4 2.8.6 4.2.6.7 0 1.2.5 1.2 1.2V21c0 .7-.5 1.2-1.2 1.2C10.9 22.2 1.8 13.1 1.8 2.4 1.8 1.7 2.3 1.2 3 1.2h4.3c.7 0 1.2.5 1.2 1.2 0 1.4.2 2.9.6 4.2.1.4 0 .9-.3 1.2L6.6 10.8z" fill="currentColor"/>
+              </svg>
+              <span>010-9992-5105</span>
+            </div>
+
+            <!-- ✅ 카톡 링크 교체 -->
+            <a class="kakaoBtn" href="https://open.kakao.com/" target="_blank" rel="noopener">
+              <span class="kakaoDot" aria-hidden="true"></span>
+              <span>카톡 상담하기</span>
+            </a>
+
+            <div class="hint">의뢰 여부의 상담만이 가볍게 문의해 상담 가능드립니다.</div>
+          </div>
+        </div>
+
+        <div class="bigCTA">
+          <a href="#contact">궁금한 점이 있다면 문의하기</a>
+        </div>
+
+        <div style="padding:8px 18px 18px; text-align:center;" class="tiny">
+          무조건적인/예약보다는, 원세 신뢰자의 개선 방향을 점증으로 생각해보실 수록 추천합니다.
+        </div>
+
       </div>
     </div>
   </main>
 
-  <!-- CEO (대표 세무사가 직접 소통) -->
+  <!-- ===== CEO / REFUND PROMISE (배너 느낌) ===== -->
   <section id="ceo">
     <div class="wrap">
-      <div class="ceoCard">
-        <div class="ceoBg" aria-hidden="true"></div>
+      <div class="sectionHead">
+        <div>
+          <h2>대표 세무사 김은해</h2>
+          <p>고객 맞춤형 절세 파트너! 대표 세무사가 친절하고 꼼꼼하게 신고해드립니다 :)</p>
+        </div>
+      </div>
 
-        <div class="ceoInner">
-          <div class="ceoLeft">
-            <h2>대표 세무사가<br/>직접 소통합니다</h2>
-            <p>편리함보다 정확함을, 거래보다 신뢰를 쌓아가겠습니다.</p>
-
-            <div class="refundBox">
-              <p class="t1">서비스 불만족 시</p>
-              <div class="t2">기장료를 전액<br/>돌려드립니다.</div>
-              <div class="t3">* 사전적 가정 2개월 이내 정 의뢰 건에 한해 해당됩니다.</div>
-            </div>
-
-            <div class="ceoBtns">
-              <a class="btn primary" href="#contact">상담 요청하기</a>
-              <a class="btn" href="#contact">대표에게 바른 문의</a>
+      <div class="refund" role="img" aria-label="서비스 불만족 시 기장료 전액 환불 배너">
+        <div class="refundInner">
+          <div>
+            <div style="font-weight:900; opacity:.95;">김은해 세무사의 자신에 찬 약속</div>
+            <h3>만족스럽지 않으면<br/>돌려드립니다!</h3>
+            <p>세무 서비스가 마음에 들지 않으시면 돌려드리겠습니다.</p>
+            <div class="tiny" style="margin-top:10px; opacity:.85;">
+              * 계약일 기준 2개월 이내 의사표현 해주시면 조건 없이 환불해드립니다.
             </div>
           </div>
 
-          <div class="ceoRight">
-            <img src="assets/images/ceo.png" alt="대표 세무사 김은해" />
-            <div class="sig">대표 세무사 <b>김은해</b></div>
-
-            <div class="checkCard">
-              <div class="checkRow">
-                <div class="checkIcon">✓</div>
-                <div class="checkText">길고흐고 정확한 세무</div>
-              </div>
-              <div class="checkRow">
-                <div class="checkIcon">✓</div>
-                <div class="checkText">대표 세무사 1:1 직접 상담</div>
-              </div>
-              <div class="checkRow">
-                <div class="checkIcon">✓</div>
-                <div class="checkText">철저한 보안 / 비밀 유지</div>
-              </div>
-            </div>
+          <div class="badgeBubble">
+            ✅ 서비스 품질<br/>✅ 원활한 소통
+            <small>보장!</small>
           </div>
         </div>
+      </div>
 
+      <div class="card infoCard" style="margin-top:14px;">
+        <h3>이런 분께 적합합니다</h3>
+        <div class="processGrid">
+          <div class="step">
+            <div class="stepNum">✓</div>
+            <h3>맞춤 상담에 적합합니다</h3>
+            <p>사업의 안정성과 성장 기반을 설계 다지고 싶은 분</p>
+          </div>
+          <div class="step">
+            <div class="stepNum">✓</div>
+            <h3>실무 혜택을 원하시는 분</h3>
+            <p>서비스 가격 이상의 실무 혜택을 원하시는 분</p>
+          </div>
+          <div class="step">
+            <div class="stepNum">✓</div>
+            <h3>장기 파트너를 찾는 분</h3>
+            <p>신뢰감 있는 세무사와 정기적으로 일하고 싶은 분</p>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- PROCESS (진행 방식) -->
+  <!-- ===== SERVICES ===== -->
+  <section id="services">
+    <div class="wrap">
+      <div class="sectionHead">
+        <div>
+          <h2>서비스 안내</h2>
+          <p>구명력 상황을 맞춘한 세무 서비스를 제공해드립니다.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="serviceTop">
+          <div style="max-width:720px;">
+            <div style="font-weight:1100; color:var(--ink2); font-size:14px;">제공 서비스</div>
+            <div style="margin-top:10px; color:var(--mut); font-weight:800; line-height:1.7;">
+              기장대리 · 신고대리 · 양도/상속/증여 · 경정청구까지,
+              필요한 항목을 상황에 맞게 구성해드립니다.
+            </div>
+          </div>
+        </div>
+
+        <div class="serviceCards">
+          <article class="svc">
+            <div class="svcIcon" aria-hidden="true">🧾</div>
+            <h3>기장 대리</h3>
+            <p>기장 작성·검토를 중심으로 운영 흐름을 안정적으로 관리합니다.</p>
+            <a class="more" href="#products">더 알아보기</a>
+          </article>
+
+          <article class="svc">
+            <div class="svcIcon" aria-hidden="true">📄</div>
+            <h3>신고 대리</h3>
+            <p>종합소득세·부가세 등 정기 신고를 꼼꼼히 진행합니다.</p>
+            <a class="more" href="#products">더 알아보기</a>
+          </article>
+
+          <article class="svc">
+            <div class="svcIcon" aria-hidden="true">🏠</div>
+            <h3>양도/상속/증여</h3>
+            <p>추가 과세·상속세 이슈 등 민감한 건을 신중히 검토합니다.</p>
+            <a class="more" href="#products">더 알아보기</a>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PROCESS ===== -->
   <section id="process">
     <div class="wrap">
       <div class="sectionHead">
@@ -681,114 +983,297 @@
         </div>
       </div>
 
-      <div class="cardsRow">
-        <div class="procCard">
-          <div class="icon">📄</div>
-          <h3>첫 문의</h3>
-          <p>전화, 카톡 등 편한 방법으로 먼저 상담을 요청해 주세요.</p>
-          <a class="more" href="#contact">더 알아보기</a>
-        </div>
-
-        <div class="procCard">
-          <div class="icon">🧾</div>
-          <h3>상황 파악</h3>
-          <p>종합소득세, 부가세, 양도/상속/증여 등 필요한 항목을 정리합니다.</p>
-          <a class="more" href="#services">더 알아보기</a>
-        </div>
-
-        <div class="procCard">
-          <div class="icon">💼</div>
-          <h3>제안 및 설명</h3>
-          <p>맞춤 세무 전략과 향후 과정을 이해하기 쉽게 안내드립니다.</p>
-          <a class="more" href="#contact">더 알아보기</a>
-        </div>
-      </div>
-
-      <!-- 상담 밴드 (스샷 하단 큰 박스 느낌) -->
-      <div class="ctaBand" id="contact">
-        <div class="ctaLeft">
-          <div class="thumb">
-            <!-- 작은 대표 사진 -->
-            <img src="assets/images/ceo-thumb.jpg" alt="김은해 세무사" onerror="this.src='assets/images/ceo.png'" />
-          </div>
-          <div class="txt">
-            <strong>대표 세무사 김은해가<br/>직접 상담합니다.</strong>
-            <span>궁금한 점은 편하게 문의 주세요.</span>
-          </div>
-        </div>
-
-        <div class="ctaRight">
-          <div class="phoneLine">
-            <span style="font-weight:900;color:rgba(31,27,24,.55)">📞</span>
-            <span class="ph">010-9992-5105</span>
+      <div class="card">
+        <div class="serviceGrid">
+          <div style="padding:18px 18px;">
+            <div class="processGrid">
+              <div class="step">
+                <div class="stepNum">1</div>
+                <h3>첫 문의</h3>
+                <p>전화, 카톡 등 편한 채널로 먼저 상담을 요청해 주세요.</p>
+              </div>
+              <div class="step">
+                <div class="stepNum">2</div>
+                <h3>상황 파악</h3>
+                <p>종합소득세, 부가세 등 이슈를 기준으로 핵심부터 정리합니다.</p>
+              </div>
+              <div class="step">
+                <div class="stepNum">3</div>
+                <h3>제안 및 설명</h3>
+                <p>맞춤 세무 전략과 향후 과정을 설명드립니다.</p>
+              </div>
+            </div>
           </div>
 
-          <!-- 카톡 링크는 너 실제 링크로 교체하면 됨 -->
-          <a class="quickBtn" href="https://open.kakao.com/" target="_blank" rel="noopener">
-            <span class="dot">✉</span>
-            <span>카톡 상담하기</span>
-          </a>
+          <div style="padding:18px 18px; border-left:1px solid var(--line); background:rgba(255,255,255,.55);">
+            <div style="font-weight:1100; font-size:18px; letter-spacing:-.02em;">상담 전 간단히 준비하면 좋은 것</div>
+            <div style="margin-top:10px; color:var(--mut); font-weight:800; line-height:1.7;">
+              “정확한 답”은 자료 자체보다 <b>정리된 정보</b>에서 나옵니다.
+            </div>
 
-          <a class="bigCta" href="tel:01099925105">궁금한 점이 있다면 문의하기</a>
-          <div class="smallNote">의뢰 여부와 상관없이 가볍게 문의해도 상담 가능합니다.</div>
+            <div style="margin-top:12px; display:grid; gap:10px;">
+              <div class="inputLike" style="font-weight:900;">
+                <b style="color:var(--mut); font-weight:1100;">✓</b>
+                <span>업종 / 형태(개인·법인)</span>
+              </div>
+              <div class="inputLike" style="font-weight:900;">
+                <b style="color:var(--mut); font-weight:1100;">✓</b>
+                <span>매출 규모(대략)</span>
+              </div>
+              <div class="inputLike" style="font-weight:900;">
+                <b style="color:var(--mut); font-weight:1100;">✓</b>
+                <span>가장 불안한 이슈 1~2개</span>
+              </div>
+            </div>
+
+            <div class="hint" style="margin-top:12px;">
+              이 섹션은 “상담이 쉬워 보이게” 만들어 문의 전환율이 올라갑니다.
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- SERVICES -->
-  <section id="services">
+  <!-- ===== PRODUCTS (Kmong-style) ===== -->
+  <section id="products">
     <div class="wrap">
       <div class="sectionHead">
         <div>
-          <h2>서비스 안내</h2>
-          <p>구성의 방향을 맞춘 세무 서비스를 제공합니다. (필요 시 항목은 조정)</p>
+          <h2>상품/가격</h2>
+          <p>크몽 상품 구성 느낌 그대로 “3단 패키지”로 보여드립니다.</p>
         </div>
       </div>
 
-      <div class="cardsRow">
-        <div class="procCard">
-          <div class="icon">🧮</div>
-          <h3>기장 대리</h3>
-          <p>기장, 부가세, 종합소득세 등 월/분기 루틴을 안정적으로 관리합니다.</p>
-          <a class="more" href="#contact">더 알아보기</a>
+      <div class="card productShell">
+        <div class="productTitle">
+          <div class="left">
+            <div class="avatar" aria-hidden="true">
+              <img src="assets/images/portrait.jpg" alt="" />
+            </div>
+            <div class="metaLine">
+              <strong>김은해세무사</strong>
+              <span>MASTER · 종합소득세</span>
+            </div>
+          </div>
+          <div class="rating">
+            <span class="stars">★★★★★</span>
+            <span>5.0</span>
+            <span style="color:var(--mut2); font-weight:900;">(190)</span>
+          </div>
         </div>
-        <div class="procCard">
-          <div class="icon">✅</div>
-          <h3>신고 대리</h3>
-          <p>종소세/부가세/법인세 등 핵심 신고를 정확하게 마감합니다.</p>
-          <a class="more" href="#contact">더 알아보기</a>
+
+        <div style="font-size:22px; font-weight:1200; letter-spacing:-.03em; margin-top:8px;">
+          친절하고 꼼꼼하게, 종합소득세 신고 도와드립니다
         </div>
-        <div class="procCard">
-          <div class="icon">🏠</div>
-          <h3>양도/상속/증여</h3>
-          <p>과세 리스크를 줄이는 사전 검토 중심으로 진행합니다.</p>
-          <a class="more" href="#contact">더 알아보기</a>
+
+        <div class="tabs" role="tablist" aria-label="패키지 선택">
+          <button class="tabBtn active" role="tab" aria-selected="true" aria-controls="p-standard" id="t-standard">STANDARD</button>
+          <button class="tabBtn" role="tab" aria-selected="false" aria-controls="p-deluxe" id="t-deluxe">DELUXE</button>
+          <button class="tabBtn" role="tab" aria-selected="false" aria-controls="p-premium" id="t-premium">PREMIUM</button>
+        </div>
+
+        <!-- STANDARD -->
+        <div class="panel active" role="tabpanel" id="p-standard" aria-labelledby="t-standard">
+          <div class="priceLine">55,000원 <small>(VAT 포함)</small></div>
+          <div class="pkgName">단순/기준경비율 신고</div>
+          <p class="pkgDesc">해당 금액은 보수 하한으로, 작업 상황에 따라 보수가 올라갈 수 있습니다</p>
+
+          <div class="pkgMeta" aria-label="패키지 정보">
+            <div><span>작업일</span><b>3일</b></div>
+            <div><span>수정 횟수</span><b>제한 없음</b></div>
+          </div>
+
+          <div class="buyRow">
+            <a class="btnWide" href="#contact">문의하기</a>
+            <a class="btnWide primary" href="#contact">구매하기</a>
+          </div>
+        </div>
+
+        <!-- DELUXE -->
+        <div class="panel" role="tabpanel" id="p-deluxe" aria-labelledby="t-deluxe">
+          <div class="priceLine">220,000원 <small>(VAT 포함)</small></div>
+          <div class="pkgName">간편장부 신고</div>
+          <p class="pkgDesc">해당 금액은 보수 하한으로, 작업 상황에 따라 보수가 올라갈 수 있습니다</p>
+
+          <div class="pkgMeta" aria-label="패키지 정보">
+            <div><span>작업일</span><b>3일</b></div>
+            <div><span>수정 횟수</span><b>제한 없음</b></div>
+          </div>
+
+          <div class="buyRow">
+            <a class="btnWide" href="#contact">문의하기</a>
+            <a class="btnWide primary" href="#contact">구매하기</a>
+          </div>
+        </div>
+
+        <!-- PREMIUM -->
+        <div class="panel" role="tabpanel" id="p-premium" aria-labelledby="t-premium">
+          <div class="priceLine">440,000원 <small>(VAT 포함)</small></div>
+          <div class="pkgName">복식부기 신고</div>
+          <p class="pkgDesc">해당 금액은 보수 하한으로, 작업 상황에 따라 보수가 올라갈 수 있습니다</p>
+
+          <div class="pkgMeta" aria-label="패키지 정보">
+            <div><span>작업일</span><b>3일</b></div>
+            <div><span>수정 횟수</span><b>제한 없음</b></div>
+          </div>
+
+          <div class="buyRow">
+            <a class="btnWide" href="#contact">문의하기</a>
+            <a class="btnWide primary" href="#contact">구매하기</a>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- 제공 서비스 표(이미지 느낌을 “텍스트 표”로) -->
+      <div class="card infoCard" style="margin-top:14px;">
+        <h3>제공 서비스 / 서비스 내용</h3>
+        <div style="overflow:auto; border-radius:18px; border:1px solid var(--line); background:#ffffffb8;">
+          <table style="border-collapse:collapse; width:100%; min-width:820px; font-weight:800; color:var(--ink2);">
+            <thead>
+              <tr style="background:rgba(183,154,131,.10);">
+                <th style="text-align:left; padding:14px 14px; border-bottom:1px solid var(--line); width:26%;">제공 서비스</th>
+                <th style="text-align:left; padding:14px 14px; border-bottom:1px solid var(--line);">서비스 내용</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="padding:14px 14px; border-bottom:1px solid var(--line);">1:1 맞춤 상담</td>
+                <td style="padding:14px 14px; border-bottom:1px solid var(--line); color:var(--mut); font-weight:800;">
+                  신규 사업자 창업 전 기초세팅, 기초 세무상담 등
+                </td>
+              </tr>
+              <tr>
+                <td style="padding:14px 14px; border-bottom:1px solid var(--line);">세무 기장</td>
+                <td style="padding:14px 14px; border-bottom:1px solid var(--line); color:var(--mut); font-weight:800; line-height:1.85;">
+                  • 장부 작성 대행<br/>
+                  • 부가가치세/법인세/종합소득세 예상 세액 미리 고지<br/>
+                  • 각종 세금 신고 대행<br/>
+                  • 사업장 현황신고 대행<br/>
+                  • 4대보험 관련 업무 대행<br/>
+                  • 각종 인·허가 서류 발급<br/>
+                  • 사업장 관련 자금금 안내/업종별 맞춤 세액감면 공제 검토
+                </td>
+              </tr>
+              <tr>
+                <td style="padding:14px 14px; border-bottom:1px solid var(--line);">신고 대리</td>
+                <td style="padding:14px 14px; border-bottom:1px solid var(--line); color:var(--mut); font-weight:800;">
+                  종합소득세/부가가치세/법인세 정기신고, 가산부신고, 수정신고, 경정청구 등
+                </td>
+              </tr>
+              <tr>
+                <td style="padding:14px 14px;">양도 / 상속 / 증여</td>
+                <td style="padding:14px 14px; color:var(--mut); font-weight:800; line-height:1.85;">
+                  • 양도/상속/증여 시 세금문제 검토<br/>
+                  • 1세대 1주택 비과세 검토<br/>
+                  • 일시적 1세대 1주택 비과세 검토<br/>
+                  • 다주택자 관련 세금 검토<br/>
+                  • 보유세(재산세, 종합부동산세) 검토
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
+
     </div>
   </section>
 
-  <!-- FOOTER (명함 정보 고정) -->
-  <footer class="footer">
-    <div class="wrap footerInner">
-      <div class="footLeft">
-        <strong>은해세무회계</strong>
-        <span>
-          M. 010-9992-5105 ·
-          E. ehkimm__@naver.com ·
-          F. 0303-3444-7779<br/>
-          A. 서울시 영등포구 국제금융로6길 33(맨하탄빌딩), 1308호
-        </span>
+  <!-- ===== CONTACT / INFO ===== -->
+  <section id="contact">
+    <div class="wrap">
+      <div class="sectionHead">
+        <div>
+          <h2>상담/문의</h2>
+          <p>편한 채널로 연락 주세요.</p>
+        </div>
       </div>
-      <div class="footRight">
-        © <span id="y"></span> Eunhae Tax Accounting
+
+      <div class="infoGrid">
+        <div class="card infoCard">
+          <h3>연락처</h3>
+          <div class="kv">
+            <div class="row"><div class="k">M.</div><div class="v"><a href="tel:010-9992-5105">010-9992-5105</a></div></div>
+            <div class="row"><div class="k">E.</div><div class="v"><a href="mailto:ehkimmm_@naver.com">ehkimmm_@naver.com</a></div></div>
+            <div class="row"><div class="k">F.</div><div class="v">0303-3444-7779</div></div>
+            <div class="row"><div class="k">A.</div><div class="v">서울시 영등포구 국제금융로6길 33(맨하탄빌딩), 1308호</div></div>
+          </div>
+
+          <div class="buyRow" style="margin-top:14px;">
+            <a class="btnWide" href="https://open.kakao.com/" target="_blank" rel="noopener">카톡 상담하기</a>
+            <a class="btnWide primary" href="tel:010-9992-5105">전화 상담하기</a>
+          </div>
+
+          <div class="hint" style="margin-top:10px;">
+            상담 요청 시, “업종/형태 + 이슈 1개”만 남겨주셔도 충분합니다.
+          </div>
+        </div>
+
+        <div class="card infoCard">
+          <h3>사무실 사진</h3>
+          <div class="officePhotos" aria-label="사무실 사진 갤러리">
+            <!-- ✅ 사진 교체: assets/images/office-1.jpg ... -->
+            <div class="ph"><img src="assets/images/office-1.jpg" alt="사무실 내부" /></div>
+            <div class="ph"><img src="assets/images/office-2.jpg" alt="사무실 출입문" /></div>
+            <div class="ph"><img src="assets/images/office-3.jpg" alt="상담 공간" /></div>
+            <div class="ph"><img src="assets/images/office-4.jpg" alt="사무실 인테리어" /></div>
+          </div>
+
+          <div style="margin-top:12px; display:flex; gap:10px; flex-wrap:wrap;">
+            <a class="btn" href="https://map.kakao.com/" target="_blank" rel="noopener">카카오맵</a>
+            <a class="btn" href="https://map.naver.com/" target="_blank" rel="noopener">네이버지도</a>
+            <a class="btn primary" href="#products">상품/가격 보기</a>
+          </div>
+
+          <div class="hint" style="margin-top:10px;">
+            지도 링크는 실제 주소로 교체 추천.
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer>
+    <div class="wrap">
+      <div class="footRow">
+        <div>
+          <strong>은해 세무회계</strong>
+          <div class="tiny" style="margin-top:8px;">
+            주소: 서울시 영등포구 국제금융로6길 33(맨하탄빌딩), 1308호<br/>
+            전화: 010-9992-5105 · 이메일: ehkimmm_@naver.com · 팩스: 0303-3444-7779
+          </div>
+        </div>
+        <div class="tiny" style="text-align:right;">
+          © <span id="y"></span> Eunhae Tax Accounting
+        </div>
       </div>
     </div>
   </footer>
 
   <script>
+    // year
     document.getElementById("y").textContent = new Date().getFullYear();
+
+    // tabs
+    const btns = Array.from(document.querySelectorAll(".tabBtn"));
+    const panels = Array.from(document.querySelectorAll(".panel"));
+    btns.forEach((b) => {
+      b.addEventListener("click", () => {
+        btns.forEach(x => {
+          x.classList.remove("active");
+          x.setAttribute("aria-selected","false");
+        });
+        panels.forEach(p => p.classList.remove("active"));
+
+        b.classList.add("active");
+        b.setAttribute("aria-selected","true");
+        const target = document.getElementById(b.getAttribute("aria-controls"));
+        if (target) target.classList.add("active");
+      });
+    });
   </script>
 </body>
 </html>
