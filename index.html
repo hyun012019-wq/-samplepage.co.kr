@@ -3,932 +3,847 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <meta name="description" content="은해세무회계 | 대표세무사 김은해 | 기장·신고·양도·상속·증여·세무조사 대응" />
-  <title>은해세무회계 | 대표세무사 김은해</title>
+  <meta name="theme-color" content="#e9e0d3" />
+  <title>은해 세무회계</title>
 
   <style>
     :root{
-      /* ✅ 베이지톤 */
       --bg:#f6f1ea;
-      --panel:#ffffffcc;
-      --panel2:#ffffffb5;
-      --card:#ffffffd6;
-      --line:rgba(30,20,10,.10);
-      --txt:rgba(20,14,10,.92);
-      --mut:rgba(20,14,10,.60);
-      --mut2:rgba(20,14,10,.48);
-      --acc:#b49a82;  /* 메인 베이지 */
-      --acc2:#d6c0aa; /* 라이트 베이지 */
-      --shadow: 0 18px 60px rgba(30,18,10,.12);
+      --card:#ffffffcc;
+      --cardSolid:#ffffff;
+      --stroke:#e6ddd0;
+      --ink:#222;
+      --muted:#6b6b6b;
+      --beige:#c9b299;
+      --beigeDeep:#b59673;
+      --shadow: 0 10px 30px rgba(26, 20, 10, .08);
       --radius: 22px;
-      --max: 1120px;
+      --radiusLg: 28px;
+      --max: 980px;
     }
 
     *{box-sizing:border-box}
     html,body{height:100%}
-    html{scroll-behavior:smooth}
     body{
       margin:0;
-      color:var(--txt);
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, "Noto Sans KR", sans-serif;
-      line-height:1.6;
-      background: var(--bg);
-      overflow-x:hidden;
-      position:relative;
+      font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Apple SD Gothic Neo", "Noto Sans KR", Arial, "맑은 고딕", sans-serif;
+      color:var(--ink);
+      background: radial-gradient(1200px 900px at 30% -10%, #fff, var(--bg));
     }
-
-    /* ✅ 배경 2장 번갈아 + 숨쉬기(교차 페이드) */
-    body::before,
-    body::after{
-      content:"";
-      position:fixed;
-      inset:0;
-      z-index:0;
-      pointer-events:none;
-      background-size:cover;
-      background-position:center;
-      background-repeat:no-repeat;
-      will-change: opacity, transform;
-      transform: translate3d(0,0,0) scale(1.04);
-      filter:saturate(1.02) contrast(1.02);
-    }
-    /* 배경1 */
-    body::after{
-      background-image:
-        radial-gradient(1200px 700px at 20% 10%, rgba(255,255,255,.50), rgba(255,255,255,.12) 58%, rgba(246,241,234,.40) 100%),
-        linear-gradient(180deg, rgba(246,241,234,.80) 0%, rgba(246,241,234,.64) 55%, rgba(246,241,234,.78) 100%),
-        url("hero-office.jpg.jpg");
-      opacity:1;
-      animation: bgA 9s ease-in-out infinite;
-    }
-    /* 배경2 */
-    body::before{
-      background-image:
-        radial-gradient(1200px 700px at 80% 12%, rgba(255,255,255,.45), rgba(255,255,255,.10) 60%, rgba(246,241,234,.42) 100%),
-        linear-gradient(180deg, rgba(246,241,234,.78) 0%, rgba(246,241,234,.60) 55%, rgba(246,241,234,.76) 100%),
-        url("hero-office-2.jpg.jpg");
-      opacity:0;
-      animation: bgB 9s ease-in-out infinite;
-    }
-    @keyframes bgA{
-      0%   {opacity:1; transform:translate3d(0,0,0) scale(1.04)}
-      45%  {opacity:.15; transform:translate3d(0,-10px,0) scale(1.06)}
-      50%  {opacity:.05; transform:translate3d(0,-12px,0) scale(1.06)}
-      55%  {opacity:.15; transform:translate3d(0,-10px,0) scale(1.06)}
-      100% {opacity:1; transform:translate3d(0,0,0) scale(1.04)}
-    }
-    @keyframes bgB{
-      0%   {opacity:0; transform:translate3d(0,0,0) scale(1.04)}
-      45%  {opacity:.85; transform:translate3d(0,-10px,0) scale(1.06)}
-      50%  {opacity:.95; transform:translate3d(0,-12px,0) scale(1.06)}
-      55%  {opacity:.85; transform:translate3d(0,-10px,0) scale(1.06)}
-      100% {opacity:0; transform:translate3d(0,0,0) scale(1.04)}
-    }
-    @media (prefers-reduced-motion: reduce){
-      body::before, body::after{animation:none !important}
-      .btn:hover{transform:none !important}
-    }
-
-    /* 배경 위로 */
-    body > *{position:relative; z-index:1}
-
     a{color:inherit; text-decoration:none}
-    .wrap{max-width:var(--max); margin:0 auto; padding:0 18px}
+    img{max-width:100%; display:block}
+    .wrap{max-width:var(--max); margin:0 auto; padding: 0 16px}
 
-    /* 상단 */
-    .nav{
-      position:sticky; top:0; z-index:10;
+    /* Header */
+    .header{
+      position: sticky; top:0; z-index:50;
       backdrop-filter: blur(10px);
-      background: rgba(246,241,234,.70);
-      border-bottom:1px solid var(--line);
+      background: linear-gradient(#f9f4edcc, #f9f4edaa);
+      border-bottom:1px solid var(--stroke);
     }
-    .nav .inner{
+    .header-inner{
       display:flex; align-items:center; justify-content:space-between;
-      padding:14px 0; gap:12px;
+      gap:12px; padding:12px 0;
     }
     .brand{
-      display:flex; align-items:center; gap:10px;
-      font-weight:900; letter-spacing:-.02em;
-      white-space:nowrap;
-      min-width: 160px;
+      display:flex; align-items:center; gap:10px; min-width:180px;
     }
-    .brand img{
-      width:34px; height:34px; object-fit:contain;
-      filter: grayscale(1);
-      opacity:.85;
+    .brand img{width:34px; height:34px; object-fit:contain}
+    .brand .t1{font-weight:800; letter-spacing:-.02em}
+    .brand .t2{font-size:12px; color:var(--muted); margin-top:2px}
+    .nav{
+      display:none;
+      gap:18px; align-items:center;
+      color:#3b3b3b;
+      font-weight:600;
+      font-size:14px;
+      letter-spacing:-.02em;
     }
-    .brand .t{
-      display:flex; flex-direction:column; line-height:1.1;
+    .nav a{opacity:.85}
+    .nav a:hover{opacity:1}
+    .cta{
+      display:flex; align-items:center; gap:8px;
     }
-    .brand .t .k{font-size:16px}
-    .brand .t .e{font-size:11px; color:var(--mut); font-weight:700; letter-spacing:.02em}
-
-    .menu{
-      display:flex; align-items:center; gap:10px;
-      font-size:14px; color:var(--mut);
-      flex-wrap:wrap;
-      justify-content:center;
-    }
-    .menu a{
-      padding:8px 10px; border-radius:12px;
-      border:1px solid transparent;
-    }
-    .menu a:hover{
-      background:rgba(255,255,255,.55);
-      color:var(--txt);
-      border-color: rgba(30,18,10,.08);
-    }
-    .right{display:flex; align-items:center; gap:10px; white-space:nowrap}
-
     .btn{
-      display:inline-flex; align-items:center; justify-content:center;
-      padding:11px 14px; border-radius:999px;
-      border:1px solid rgba(30,18,10,.12);
-      background:rgba(255,255,255,.55);
-      font-weight:800;
-      gap:8px;
-      transition: transform .15s ease;
+      border:1px solid var(--stroke);
+      background: #fff;
+      border-radius: 999px;
+      padding:10px 14px;
+      font-weight:700;
+      letter-spacing:-.02em;
+      box-shadow: 0 6px 18px rgba(0,0,0,.05);
+      display:inline-flex; align-items:center; gap:8px;
       cursor:pointer;
+      user-select:none;
     }
     .btn.primary{
-      background: linear-gradient(180deg, rgba(198,175,150,.95), rgba(180,154,130,.95));
-      border:none;
-      color:#2a1a10;
-      box-shadow: 0 14px 34px rgba(60,35,20,.14);
+      background: linear-gradient(180deg, #c9b299, #b59673);
+      border-color: #bda489;
+      color:#fff;
+      box-shadow: 0 10px 26px rgba(181,150,115,.25);
     }
-    .btn:hover{transform:translateY(-1px)}
-    @media (max-width: 980px){
-      .menu{display:none}
-      .brand{min-width:auto}
+    .btn:active{transform: translateY(1px)}
+
+    /* Hero */
+    .hero{
+      position:relative;
+      margin: 18px auto 0;
+      border-radius: var(--radiusLg);
+      overflow:hidden;
+      box-shadow: var(--shadow);
+      border:1px solid var(--stroke);
+      background:#eee;
     }
 
-    /* 공통 카드 */
-    .card{
-      background: linear-gradient(180deg, rgba(255,255,255,.80), rgba(255,255,255,.62));
-      border:1px solid rgba(30,18,10,.10);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
+    /* === 배경 숨쉬기(선명 버전) === */
+    .hero-bg{
+      position:absolute; inset:0;
       overflow:hidden;
     }
-    .badge{
-      display:inline-flex; align-items:center; gap:8px;
-      padding:7px 12px; border-radius:999px;
-      font-size:12px;
-      color:rgba(20,14,10,.68);
-      border:1px solid rgba(30,18,10,.10);
-      background:rgba(255,255,255,.55);
-      width:fit-content;
-      font-weight:800;
+    .hero-bg .layer{
+      position:absolute; inset:-24px; /* scale 여유 */
+      background-size:cover;
+      background-position:center;
+      filter: blur(.8px);          /* ✅ blur 0~1px */
+      opacity:.78;                 /* ✅ opacity 0.55~0.85 사이 */
+      transform: scale(1);
+      will-change: transform, opacity;
     }
 
-    /* 히어로 */
-    .hero{padding:26px 0 18px}
-    .heroCard{padding:22px}
-    h1{margin:10px 0 12px; font-size:38px; line-height:1.12; letter-spacing:-.04em}
-    .sub{margin:0 0 16px; color:var(--mut); font-size:15px}
-
-    .pillRow{display:flex; flex-wrap:wrap; gap:10px; margin:12px 0 16px}
-    .pill{
-      display:inline-flex; align-items:center; gap:8px;
-      padding:9px 12px; border-radius:999px;
-      border:1px solid rgba(30,18,10,.10);
-      background:rgba(255,255,255,.55);
-      font-size:13px;
-      color:rgba(20,14,10,.82);
-      font-weight:900;
+    /* 베이지 오버레이(너무 진하면 죽으니까 0.25~0.35) */
+    .hero-bg::after{
+      content:"";
+      position:absolute; inset:0;
+      background: rgba(226, 210, 187, .30); /* ✅ overlay 0.25~0.35 */
+      mix-blend-mode: multiply;
+      pointer-events:none;
     }
-    .ctaRow{display:flex; gap:10px; flex-wrap:wrap; margin-top:10px}
 
-    .grid{
+    /* 숨쉬기: scale만 살짝 + 두 배경 교차 */
+    @keyframes breatheScale{
+      0%{transform: scale(1)}
+      50%{transform: scale(1.05)}
+      100%{transform: scale(1)}
+    }
+    @keyframes fadeA{
+      0%, 45%{opacity:.80}
+      55%, 100%{opacity:0}
+    }
+    @keyframes fadeB{
+      0%, 45%{opacity:0}
+      55%, 100%{opacity:.80}
+    }
+
+    .hero-bg .a{animation: breatheScale 10s ease-in-out infinite, fadeA 10s ease-in-out infinite}
+    .hero-bg .b{animation: breatheScale 10s ease-in-out infinite, fadeB 10s ease-in-out infinite}
+
+    @media (prefers-reduced-motion: reduce){
+      .hero-bg .a, .hero-bg .b{animation:none; opacity:.75; transform:none}
+    }
+
+    .hero-inner{
+      position:relative;
       display:grid;
       grid-template-columns: 1.1fr .9fr;
-      gap:14px;
-      align-items:stretch;
+      gap: 18px;
+      padding: 22px 18px 18px;
     }
-    @media (max-width: 980px){ .grid{grid-template-columns:1fr} }
-
-    .side{display:flex; flex-direction:column; min-height:100%}
-    .sideTop{
-      aspect-ratio: 16/10;
-      background-image:
-        linear-gradient(180deg, rgba(255,255,255,.10), rgba(180,154,130,.22)),
-        url("hero-office.jpg.jpg");
-      background-size: cover;
-      background-position: center;
-      background-repeat:no-repeat;
-      border-bottom:1px solid rgba(30,18,10,.10);
-    }
-    .sideBody{padding:18px}
-    .miniTitle{font-weight:1000; letter-spacing:-.02em}
-    .mini{margin:6px 0 0; color:var(--mut); font-size:14px}
-    .miniList{margin:12px 0 0; padding:0; list-style:none; display:grid; gap:10px}
-    .miniList li{
-      padding:12px 12px;
-      border-radius:16px;
-      border:1px solid rgba(30,18,10,.10);
-      background:rgba(255,255,255,.55);
-      color:rgba(20,14,10,.86);
-      font-size:14px;
-      display:flex; justify-content:space-between; gap:10px;
+    .hero h1{
+      margin:0 0 10px;
+      font-size: clamp(28px, 5.6vw, 44px);
+      line-height:1.08;
+      letter-spacing:-.04em;
       font-weight:900;
     }
-    .tag{color:rgba(20,14,10,.52); font-size:12px; font-weight:800}
-
-    /* 섹션 */
-    section{padding:22px 0}
-    .sectionHead{display:flex; align-items:end; justify-content:space-between; gap:14px; margin-bottom:12px}
-    .sectionHead h2{margin:0; font-size:22px; letter-spacing:-.02em}
-    .sectionHead p{margin:0; color:var(--mut); font-size:14px}
-
-    /* 프로필 */
-    .profileGrid{
-      display:grid;
-      grid-template-columns: .95fr 1.05fr;
-      gap:14px;
+    .hero p{
+      margin:0;
+      color:#3d3d3d;
+      letter-spacing:-.02em;
+      line-height:1.55;
+      font-size:15px;
     }
-    @media (max-width: 980px){ .profileGrid{grid-template-columns:1fr} }
-    .profileLeft{padding:16px}
-    .profilePhoto{
-      aspect-ratio: 16/11;
-      border-radius:18px;
-      border:1px solid rgba(30,18,10,.10);
-      background-image:
-        linear-gradient(180deg, rgba(255,255,255,.08), rgba(180,154,130,.22)),
-        url("portrait.jpg.jpg");
-      background-size: cover;
-      background-position:center;
-      background-repeat:no-repeat;
-    }
-    .nameLine{
-      display:flex; align-items:baseline; justify-content:space-between; gap:10px; flex-wrap:wrap;
-      margin-top:12px;
-    }
-    .nameLine .nm{font-size:18px; font-weight:1000; letter-spacing:-.02em}
-    .nameLine .role{color:var(--mut); font-weight:900; font-size:13px}
-    .bullets{margin:10px 0 0; padding-left:18px; color:var(--mut); font-size:14px}
-    .profileRight{padding:16px}
-
-    .quote{
-      border-left:4px solid rgba(180,154,130,.75);
-      padding:12px 12px;
-      background:rgba(255,255,255,.55);
-      border-radius:16px;
-      color:rgba(20,14,10,.86);
-      font-weight:900;
-      border:1px solid rgba(30,18,10,.08);
-    }
-    .para{margin:10px 0 0; color:var(--mut); font-size:14px}
-
-    /* 서비스 카드(3개) */
-    .cards3{display:grid; grid-template-columns: repeat(3,1fr); gap:14px}
-    @media (max-width: 980px){.cards3{grid-template-columns:1fr}}
-    .feature{padding:16px}
-    .feature h3{margin:10px 0 6px; font-size:16px}
-    .feature p{margin:0; color:var(--mut); font-size:14px}
-    .icon{
-      width:44px; height:44px; border-radius:18px;
-      display:grid; place-items:center;
-      background:rgba(255,255,255,.55);
-      border:1px solid rgba(30,18,10,.10);
-      font-weight:900;
-    }
-
-    /* 진행 방식 / 2열 */
-    .split{display:grid; grid-template-columns:1fr 1fr; gap:14px}
-    @media (max-width: 980px){.split{grid-template-columns:1fr}}
-
-    .info{padding:16px}
-    .info .item{
-      display:flex; justify-content:space-between; gap:10px;
-      padding:10px 0;
-      border-bottom:1px solid rgba(30,18,10,.08);
-      align-items:flex-start;
-    }
-    .info .item:last-child{border-bottom:none}
-
-    .kbd{
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-      font-size:12px;
-      padding:4px 10px;
-      border-radius:999px;
-      border:1px solid rgba(30,18,10,.10);
-      background:rgba(255,255,255,.55);
-      color:rgba(20,14,10,.70);
-      white-space:nowrap;
+    .pill{
+      display:inline-flex;
+      gap:8px; align-items:center;
+      padding:10px 12px;
+      border-radius: 16px;
+      border:1px solid var(--stroke);
+      background: #ffffffd8;
+      box-shadow: 0 10px 20px rgba(0,0,0,.06);
+      margin-top: 14px;
       font-weight:800;
+      letter-spacing:-.03em;
+      width: fit-content;
     }
-    .notice{
-      padding:14px 16px;
-      border-radius:18px;
-      border:1px dashed rgba(30,18,10,.14);
-      background:rgba(255,255,255,.52);
-      color:var(--mut);
-      font-size:13px;
+    .subcard{
+      margin-top:14px;
+      border:1px solid var(--stroke);
+      background:#ffffffd6;
+      border-radius: 18px;
+      padding:14px;
+      box-shadow: 0 10px 18px rgba(0,0,0,.05);
+    }
+    .subcard .row{
+      display:flex; gap:12px; align-items:flex-start;
+    }
+    .subcard .row strong{display:block; font-size:15px; letter-spacing:-.03em}
+    .subcard ul{
+      margin:8px 0 0 18px; padding:0;
+      color:#4b4b4b;
+      line-height:1.6;
+    }
+
+    .portrait{
+      display:flex;
+      align-items:flex-end;
+      justify-content:center;
+      min-height: 260px;
+    }
+    .portrait img{
+      width: min(360px, 86%);
+      filter: drop-shadow(0 20px 30px rgba(0,0,0,.14));
+    }
+    .signature{
+      text-align:center;
+      margin-top:10px;
+      color:#4a4a4a;
+      font-weight:700;
+      letter-spacing:-.02em;
+      font-size:14px;
+    }
+    .hero-actions{
+      display:flex; gap:10px; flex-wrap:wrap;
       margin-top:14px;
     }
 
-    /* ✅ 서비스 표(자동 스크롤 영역) */
-    .tableCard{padding:16px}
-    .svcTableWrap{
-      margin-top:12px;
-      border-radius:18px;
-      border:1px solid rgba(30,18,10,.10);
-      background:rgba(255,255,255,.60);
+    /* Sections */
+    section{padding: 18px 0}
+    .section-card{
+      border:1px solid var(--stroke);
+      background: linear-gradient(#ffffffd6, #ffffffc8);
+      border-radius: var(--radiusLg);
+      box-shadow: var(--shadow);
       overflow:hidden;
     }
-    .svcTableHead{
-      display:grid;
-      grid-template-columns: 38% 62%;
-      padding:12px 14px;
-      font-weight:1000;
-      border-bottom:1px solid rgba(30,18,10,.08);
-      background:rgba(255,255,255,.72);
+    .section-head{
+      padding:18px 18px 0;
     }
-    .svcTable{
-      max-height: 330px;           /* ✅ 여기서 (1)↔(2) 스크롤 */
-      overflow:auto;
-      scroll-behavior:auto;
-    }
-    .row{
-      display:grid;
-      grid-template-columns: 38% 62%;
-      gap:0;
-      padding:14px;
-      border-bottom:1px solid rgba(30,18,10,.07);
-    }
-    .row:last-child{border-bottom:none}
-    .leftCell{
-      font-weight:1000;
-      color:rgba(20,14,10,.88);
-      padding-right:10px;
-      display:flex;
- encourages:?? no
-    }
-    .rightCell{
-      color:var(--mut);
-      font-size:14px;
-    }
-    .rightCell ul{
+    .section-head h2{
       margin:0;
-      padding-left:18px;
+      font-size: 26px;
+      letter-spacing:-.03em;
+      font-weight:900;
     }
-    .rightCell li{margin:4px 0}
+    .section-head p{
+      margin:8px 0 0;
+      color:var(--muted);
+      letter-spacing:-.02em;
+      line-height:1.5;
+    }
 
-    /* 상담/문의 */
-    .contactGrid .item{align-items:center}
-    .ctaRow2{display:flex; gap:10px; flex-wrap:wrap; margin-top:12px}
+    .grid3{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:12px;
+      padding: 16px 18px 18px;
+    }
+    .mini{
+      border:1px solid var(--stroke);
+      background:#fff;
+      border-radius: 18px;
+      padding:14px;
+      box-shadow: 0 10px 16px rgba(0,0,0,.05);
+      display:flex; flex-direction:column; gap:10px;
+      min-height: 150px;
+    }
+    .mini .ic{
+      width:42px; height:42px;
+      border-radius: 14px;
+      background: #f3ebe1;
+      border:1px solid var(--stroke);
+      display:grid; place-items:center;
+      color:#7b6a56;
+      font-weight:900;
+    }
+    .mini h3{margin:0; font-size:18px; letter-spacing:-.03em}
+    .mini p{margin:0; color:var(--muted); line-height:1.5; letter-spacing:-.02em}
+    .mini .more{
+      margin-top:auto;
+      display:inline-flex; align-items:center; justify-content:center;
+      border-radius: 999px;
+      padding:10px 12px;
+      border:1px solid #cbb79f;
+      background: linear-gradient(180deg, #cbb79f, #b69a76);
+      color:#fff;
+      font-weight:900;
+      letter-spacing:-.02em;
+      box-shadow: 0 10px 18px rgba(182,154,118,.22);
+      width: 140px;
+    }
 
-    /* ✅ 오시는 길: 네모 안에 딱 맞게 */
-    .locCard{padding:16px}
-    .locGrid{
+    /* Product (크몽 느낌) */
+    .product{
+      padding: 0 18px 18px;
+    }
+    .tabs{
+      display:flex; gap:16px; justify-content:center;
+      border-bottom:1px solid var(--stroke);
+      padding-top:10px;
+    }
+    .tab{
+      padding:14px 6px;
+      font-weight:900;
+      letter-spacing:-.02em;
+      color:#8a8a8a;
+      position:relative;
+      cursor:pointer;
+      user-select:none;
+    }
+    .tab.active{color:#111}
+    .tab.active::after{
+      content:"";
+      position:absolute; left:0; right:0; bottom:-1px;
+      height:3px; border-radius:3px;
+      background:#111;
+    }
+    .price{
+      padding:18px 2px 6px;
+      font-size:34px;
+      font-weight:900;
+      letter-spacing:-.04em;
+    }
+    .price small{
+      font-size:14px;
+      color:#7b7b7b;
+      font-weight:800;
+      letter-spacing:-.02em;
+      margin-left:6px;
+    }
+    .prod-name{
+      font-size:18px;
+      font-weight:900;
+      letter-spacing:-.03em;
+      margin:4px 0 6px;
+    }
+    .prod-desc{
+      color:#6f6f6f;
+      letter-spacing:-.02em;
+      line-height:1.55;
+      margin:0 0 14px;
+      font-weight:650;
+    }
+    .meta{
+      border:1px solid var(--stroke);
+      background:#fff;
+      border-radius: 16px;
+      padding:12px 14px;
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      color:#6b6b6b;
+      font-weight:800;
+      letter-spacing:-.02em;
+    }
+    .buybar{
+      display:flex;
+      gap:10px;
+      padding-top:14px;
+    }
+    .buybar .btn{flex:1; justify-content:center; padding:14px 14px; border-radius: 16px}
+    .buybar .btn.primary{border-radius: 16px}
+
+    /* Quick check box */
+    .quick{
       display:grid;
       grid-template-columns: 1fr;
       gap:12px;
+      padding: 18px;
     }
-    .locBox{
-      border:1px solid rgba(30,18,10,.10);
-      background:rgba(255,255,255,.60);
-      border-radius:18px;
-      padding:10px;
-    }
-    .locRow{
-      display:grid;
-      grid-template-columns: 64px 1fr;
-      gap:10px;
-      align-items:center;
-      padding:10px 8px;
-      border-bottom:1px solid rgba(30,18,10,.07);
-    }
-    .locRow:last-child{border-bottom:none}
-    .locKey{
-      font-weight:1000;
-      color:rgba(20,14,10,.86);
-      letter-spacing:-.02em;
-    }
-    .locVal{
-      min-width:0;               /* ✅ overflow 해결 핵심 */
-      display:flex;
-      justify-content:flex-end;
-    }
-    .pillInput{
-      width:100%;
-      border:1px solid rgba(30,18,10,.10);
-      background:rgba(255,255,255,.74);
-      border-radius:999px;
-      padding:10px 12px;
-      color:rgba(20,14,10,.78);
-      font-weight:800;
-      font-size:13px;
-      line-height:1.2;
-      text-align:left;
-      white-space:nowrap;
+    .quick .box{
+      border:1px solid var(--stroke);
+      border-radius: 22px;
       overflow:hidden;
-      text-overflow:ellipsis;    /* ✅ 길면 말줄임 */
+      background:#fff;
+      box-shadow: 0 10px 18px rgba(0,0,0,.05);
     }
 
-    .footer{
-      padding:22px 0 36px;
-      color:rgba(20,14,10,.55);
-      font-size:12px;
-      border-top:1px solid rgba(30,18,10,.10);
+    /* ✅ 파란동그라미(박스안) 사진은 제거하고, 3장 슬라이드쇼만 */
+    .box-slider{
+      position:relative;
+      width:100%;
+      height: 210px;          /* 모바일에서 딱 보기 좋은 높이 */
+      overflow:hidden;
+      background:#efe6d9;
+    }
+    .box-slider img{
+      position:absolute; inset:0;
+      width:100%; height:100%;
+      object-fit: cover;
+      object-position: center;
+      opacity:0;
+      transition: opacity .35s ease; /* ✅ 빠른 교체 */
+      will-change: opacity;
+    }
+    .box-slider img.active{opacity:1}
+
+    .quick .content{
+      padding:16px 16px 18px;
+      background: linear-gradient(180deg, #fff, #fff);
+    }
+    .quick h3{
+      margin:0 0 8px;
+      font-size:20px;
+      letter-spacing:-.03em;
+      font-weight:900;
+    }
+    .quick p{margin:0 0 14px; color:#6f6f6f; letter-spacing:-.02em; font-weight:750}
+    .fields{
+      display:grid;
+      gap:10px;
+    }
+    .field{
+      border:1px solid var(--stroke);
+      border-radius: 18px;
+      padding:14px 14px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      background:#fff;
+      color:#4d4d4d;
+      font-weight:850;
+      letter-spacing:-.03em;
+    }
+    .field span:last-child{
+      color:#7a7a7a;
+      font-weight:800;
+    }
+    .quote{
+      margin-top:12px;
+      padding:14px 14px;
+      border:1px dashed #d9ccb9;
+      border-radius: 18px;
+      background:#fbf7f1;
+      color:#6a5e50;
+      letter-spacing:-.02em;
+      font-weight:800;
+      line-height:1.55;
+    }
+
+    /* Service table */
+    .table{
       margin-top:10px;
-      background:rgba(246,241,234,.45);
+      border:1px solid var(--stroke);
+      border-radius: 22px;
+      overflow:hidden;
+      background:#fff;
+    }
+    .table .thead{
+      display:grid;
+      grid-template-columns: 1fr 2fr;
+      background:#f3ece3;
+      font-weight:900;
+      letter-spacing:-.03em;
+    }
+    .table .thead div{
+      padding:14px 14px;
+      border-right:1px solid var(--stroke);
+    }
+    .table .thead div:last-child{border-right:none}
+    .trow{
+      display:grid;
+      grid-template-columns: 1fr 2fr;
+      border-top:1px solid var(--stroke);
+    }
+    .trow .left{
+      padding:14px;
+      font-weight:900;
+      letter-spacing:-.03em;
+      display:flex;
+      align-items:center;
+      justify-content:flex-start;
+    }
+    .trow .right{
+      padding:14px;
+      color:#4b4b4b;
+      letter-spacing:-.02em;
+      line-height:1.6;
+    }
+    .trow .right ul{margin:0; padding-left:18px}
+    .trow:nth-child(even){background:#fff}
+    .trow:nth-child(odd){background:#fcfaf7}
+
+    /* Footer */
+    footer{
+      padding: 26px 0 40px;
+      color:#7b7b7b;
+      letter-spacing:-.02em;
+    }
+    .foot{
+      border-top:1px solid var(--stroke);
+      padding-top:16px;
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+      font-weight:750;
+    }
+
+    /* Responsive */
+    @media (min-width: 860px){
+      .nav{display:flex}
+      .hero-inner{padding: 28px 26px 22px}
+      .quick{grid-template-columns: 1fr}
+      .box-slider{height: 280px}
+    }
+    @media (max-width: 720px){
+      .hero-inner{grid-template-columns:1fr}
+      .portrait{min-height: 220px}
+      .grid3{grid-template-columns:1fr}
+      .tabs{gap:10px}
+      .tab{font-size:13px}
+      .price{font-size:32px}
     }
   </style>
 </head>
 
 <body>
-  <!-- 상단 메뉴 -->
-  <header class="nav">
-    <div class="wrap inner">
-      <div class="brand">
-        <img src="logo.png.jpg" alt="은해세무회계 로고" />
-        <div class="t">
-          <div class="k">은해 세무회계</div>
-          <div class="e">Tax Accounting</div>
+  <header class="header">
+    <div class="wrap header-inner">
+      <a class="brand" href="#top" aria-label="홈">
+        <img src="logo.png.jpg?v=20260104" alt="은해 세무회계 로고" />
+        <div>
+          <div class="t1">은해 세무회계</div>
+          <div class="t2">Tax Accounting</div>
         </div>
-      </div>
+      </a>
 
-      <nav class="menu" aria-label="메인 메뉴">
-        <a href="#ceo">대표 세무사</a>
-        <a href="#services">서비스 안내</a>
+      <nav class="nav" aria-label="주요 메뉴">
+        <a href="#about">대표 세무사</a>
+        <a href="#service">서비스 안내</a>
         <a href="#process">진행 방식</a>
-        <a href="#prices">상품/가격</a>
+        <a href="#products">상품/가격</a>
         <a href="#contact">상담/문의</a>
-        <a href="#location">오시는 길</a>
       </nav>
 
-      <div class="right">
+      <div class="cta">
         <a class="btn" href="tel:010-9992-5105">📞 전화</a>
         <a class="btn primary" href="#contact">상담 요청하기</a>
       </div>
     </div>
   </header>
 
-  <!-- 히어로 -->
-  <main class="hero" id="top">
-    <div class="wrap grid">
-      <div class="card heroCard">
-        <div class="badge">대표 세무사 김은해 · 1:1 직접 상담</div>
-
-        <h1>대표 세무사가<br/>직접 소통합니다</h1>
-        <p class="sub">
-          편리함보다 정확함을, 거래보다 신뢰를 쌓아가겠습니다.<br/>
-          사업자 상황을 기준으로 <b>리스크를 줄이고</b>, <b>정리된 답</b>을 드립니다.
-        </p>
-
-        <div class="pillRow">
-          <span class="pill">✅ 기장/부가세/종합소득세</span>
-          <span class="pill">✅ 법인세/급여·4대보험</span>
-          <span class="pill">✅ 양도/상속/증여</span>
-          <span class="pill">✅ 경정청구/사후관리(협의)</span>
-        </div>
-
-        <div class="ctaRow">
-          <a class="btn primary" href="#contact">🗓️ 상담 요청</a>
-          <a class="btn" href="#prices">💳 상품/가격 보기</a>
-          <a class="btn" href="#process">🧭 진행 방식</a>
-        </div>
-
-        <div class="notice">
-          ※ 상담 요청 시 “업종/형태 + 최근 매출 규모(대략) + 가장 불안한 이슈 1~2개”만 남겨주셔도 충분합니다.
-        </div>
+  <main id="top" class="wrap">
+    <!-- HERO -->
+    <section class="hero" id="about" aria-label="대표 세무사 소개">
+      <div class="hero-bg" aria-hidden="true">
+        <!-- ✅ 배경 2장: 선명 숨쉬기 + 교차 -->
+        <div class="layer a" style="background-image:url('hero-office.jpg.jpg?v=20260104')"></div>
+        <div class="layer b" style="background-image:url('hero-office-2.jpg.jpg?v=20260104')"></div>
       </div>
 
-      <aside class="card side">
-        <div class="sideTop" aria-hidden="true"></div>
-        <div class="sideBody">
-          <div class="miniTitle">빠른 상담 체크</div>
-          <p class="mini">아래 4가지만 정리되면 상담 효율이 확 올라갑니다.</p>
+      <div class="hero-inner">
+        <div>
+          <h1>대표 세무사가<br/>직접 소통합니다</h1>
+          <p>
+            편리함보다 정확함을, 거래보다 신뢰를 생각하겠습니다.<br/>
+            소상공인/1인사업자 맞춤 세무 파트너로 꼼꼼함과 정확함을 최우선으로 합니다.
+          </p>
 
-          <ul class="miniList">
-            <li><span>업종/형태</span><span class="tag">개인/법인</span></li>
-            <li><span>매출/인원</span><span class="tag">대략</span></li>
-            <li><span>이슈</span><span class="tag">신고/리스크</span></li>
-            <li><span>희망 방향</span><span class="tag">절세/정리</span></li>
-          </ul>
+          <div class="pill">서비스 불만족 시 기장료를 전액 돌려드립니다.</div>
 
-          <div class="notice" style="margin-top:14px">
-            “상담은 말보다 정리가 먼저입니다.”<br/>
-            자료가 아니라 <b>정리된 정보</b>에서 정확한 답이 나옵니다.
+          <div class="hero-actions">
+            <a class="btn primary" href="#products">상품/가격 보기</a>
+            <a class="btn" href="#contact">대표에게 비든 문의</a>
+          </div>
+
+          <div class="subcard">
+            <div class="row">
+              <div style="font-weight:900; color:#7b6a56; width:32px">✓</div>
+              <div>
+                <strong>길꼬하고 정확한 세무</strong>
+                <ul>
+                  <li>대표 세무사 1:1 직접 상담</li>
+                  <li>철저한 보안 / 비밀 유지</li>
+                  <li>업종·상황별 맞춤 안내</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="signature">대표 세무사 <b>김은해</b></div>
+        </div>
+
+        <div class="portrait">
+          <img src="portrait.jpg.jpg?v=20260104" alt="대표 세무사 프로필" />
+        </div>
+      </div>
+    </section>
+
+    <!-- PROCESS -->
+    <section class="section-card" id="process">
+      <div class="section-head">
+        <h2>진행 방식</h2>
+        <p>어떤 방식으로 일하는 세무사인지 직접 확인하실 수 있도록 절차를 투명하고 간결하게 공개합니다.</p>
+      </div>
+
+      <div class="grid3">
+        <div class="mini">
+          <div class="ic">📞</div>
+          <h3>첫 문의</h3>
+          <p>전화/카톡 등 편하신 방식으로 먼저 상담을 요청해 주세요.</p>
+          <span class="more">더 알아보기</span>
+        </div>
+        <div class="mini">
+          <div class="ic">📝</div>
+          <h3>상황 파악</h3>
+          <p>종합소득세·부가세·양도/상속·장부 등 상황을 빠르게 정리합니다.</p>
+          <span class="more">더 알아보기</span>
+        </div>
+        <div class="mini">
+          <div class="ic">💼</div>
+          <h3>제안 및 설명</h3>
+          <p>맞춤 세무 전략과 향후 과정을 이해하기 쉽게 설명드립니다.</p>
+          <span class="more">더 알아보기</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- SERVICE -->
+    <section class="section-card" id="service">
+      <div class="section-head">
+        <h2>서비스 안내</h2>
+        <p>고객님의 상황을 맞춘 세무 서비스를 제공해드립니다.</p>
+      </div>
+
+      <div class="grid3">
+        <div class="mini">
+          <div class="ic">📚</div>
+          <h3>기장 대리</h3>
+          <p>기장 작성·결산·세무 리스크 점검을 꼼꼼히 진행합니다.</p>
+          <span class="more">더 알아보기</span>
+        </div>
+        <div class="mini">
+          <div class="ic">✅</div>
+          <h3>신고 대리</h3>
+          <p>종합소득세·부가세·법인세 등 신고 업무를 대리합니다.</p>
+          <span class="more">더 알아보기</span>
+        </div>
+        <div class="mini">
+          <div class="ic">🏠</div>
+          <h3>양도/상속/증여</h3>
+          <p>세금 검토·절세 방안·신고까지 한 번에 안내합니다.</p>
+          <span class="more">더 알아보기</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRODUCTS / PRICE -->
+    <section class="section-card" id="products" aria-label="상품 가격">
+      <div class="section-head">
+        <h2>상품 / 가격</h2>
+        <p>크몽 상품 구성 느낌 그대로, 모바일에서 보기 좋게 정리했습니다.</p>
+      </div>
+
+      <div class="product">
+        <div class="tabs" role="tablist" aria-label="상품 탭">
+          <div class="tab active" data-plan="standard" role="tab" aria-selected="true">STANDARD</div>
+          <div class="tab" data-plan="deluxe" role="tab" aria-selected="false">DELUXE</div>
+          <div class="tab" data-plan="premium" role="tab" aria-selected="false">PREMIUM</div>
+        </div>
+
+        <div id="planContent">
+          <!-- 내용은 JS로 채움 -->
+        </div>
+      </div>
+    </section>
+
+    <!-- QUICK CHECK + BOX SLIDER -->
+    <section class="section-card" id="contact" aria-label="빠른 상담 체크">
+      <div class="quick">
+        <div class="box">
+          <!-- ✅ 여기(파란동그라미 박스 안)는 기존 단일 이미지 삭제하고 3장 빠른 교체 -->
+          <div class="box-slider" id="boxSlider" aria-label="상담 참고 이미지 슬라이드">
+            <img src="box-1.jpg.png?v=20260104" alt="상담 참고 이미지 1" />
+            <img src="box-2.jpg.png?v=20260104" alt="상담 참고 이미지 2" />
+            <img src="box-3.jpg.jpg?v=20260104" alt="상담 참고 이미지 3" />
+          </div>
+
+          <div class="content">
+            <h3>빠른 상담 체크</h3>
+            <p>아래 4가지만 정리되면 상담 효율이 확 올라갑니다.</p>
+
+            <div class="fields">
+              <div class="field"><span>업종/형태</span><span>개인/법인</span></div>
+              <div class="field"><span>매출/인원</span><span>대략</span></div>
+              <div class="field"><span>이슈</span><span>신고/리스크</span></div>
+              <div class="field"><span>희망 방향</span><span>절세/정리</span></div>
+            </div>
+
+            <div class="quote">
+              “상담은 말보다 정리가 먼저입니다.”<br/>
+              자료가 아니라 <b>정리된 정보</b>에서 정확한 답이 나옵니다.
+            </div>
+
+            <div class="buybar" style="margin-top:14px">
+              <a class="btn" href="tel:010-9992-5105">📞 전화하기</a>
+              <a class="btn primary" href="https://open.kakao.com/" target="_blank" rel="noopener">💬 카톡 상담하기</a>
+            </div>
           </div>
         </div>
-      </aside>
-    </div>
+
+        <!-- 제공 서비스/내용 표 -->
+        <div class="box">
+          <div class="content">
+            <h3>제공 서비스 / 서비스 내용</h3>
+
+            <div class="table" role="table" aria-label="제공 서비스 표">
+              <div class="thead" role="row">
+                <div role="columnheader">제공 서비스</div>
+                <div role="columnheader">서비스 내용</div>
+              </div>
+
+              <div class="trow" role="row">
+                <div class="left" role="cell">1:1 맞춤 상담</div>
+                <div class="right" role="cell">신규 사업자 창업 전 기초세팅, 기초 세무상담 등</div>
+              </div>
+
+              <div class="trow" role="row">
+                <div class="left" role="cell">세무 기장</div>
+                <div class="right" role="cell">
+                  <ul>
+                    <li>장부 작성 대행</li>
+                    <li>부가가치세 / 법인세 / 종합소득세 예상 세액 미리 고지</li>
+                    <li>각종 세금 신고 대행</li>
+                    <li>사업장 현황신고 대행</li>
+                    <li>4대보험 관련 업무 대행</li>
+                    <li>각종 인·허가 업무</li>
+                    <li>사업장 관련 자금·업종별 맞춤 세액감면 공제 검토</li>
+                  </ul>
+                </div>
+              </div>
+
+              <div class="trow" role="row">
+                <div class="left" role="cell">신고 대리</div>
+                <div class="right" role="cell">종합소득세/부가가치세/법인세 정기신고, 기한후신고, 수정신고, 경정청구 등</div>
+              </div>
+
+              <div class="trow" role="row">
+                <div class="left" role="cell">양도/상속/증여</div>
+                <div class="right" role="cell">
+                  <ul>
+                    <li>양도/상속/증여 시 세금문제 검토</li>
+                    <li>1세대 1주택 비과세 검토</li>
+                    <li>일시적 1세대 1주택 비과세 검토</li>
+                    <li>다주택자 관련 세금 검토</li>
+                    <li>보유세(재산세, 종합부동산세) 검토</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <div class="quote" style="margin-top:14px">
+              * 기장 계약일 기준 2개월 이내 의사표현 해주시면 조건 없이 환불해드립니다.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div class="foot">
+        <div>문의: <b>010-9992-5105</b> / <b>ehkimmm_@naver.com</b></div>
+        <div>주소: 서울시 영등포구 국제금융로6길 33(맨해튼빌딩) 1308호</div>
+        <div>© 은해 세무회계</div>
+      </div>
+    </footer>
   </main>
 
-  <!-- 대표세무사 -->
-  <section id="ceo">
-    <div class="wrap">
-      <div class="sectionHead">
-        <div>
-          <h2>대표 세무사</h2>
-          <p>꼼꼼함과 정확함을 최우선으로 합니다.</p>
-        </div>
-      </div>
-
-      <div class="profileGrid">
-        <div class="card profileLeft">
-          <div class="profilePhoto" aria-hidden="true"></div>
-          <div class="nameLine">
-            <div class="nm">김은해 세무사</div>
-            <div class="role">은해세무회계 · 대표</div>
-          </div>
-          <ul class="bullets">
-            <li>업종/규모별 “필수 신고” 우선 정리</li>
-            <li>가산세·누락·증빙 리스크 최소화 중심</li>
-            <li>사업 운영 흐름에 맞춘 실무형 안내</li>
-          </ul>
-        </div>
-
-        <div class="card profileRight">
-          <div class="quote">
-            “사업자님 상황을 기준으로, 가능한 범위부터 정리해드리고
-            이후에 확장 가능한 구조로 이어지게 합니다.”
-          </div>
-          <p class="para">
-            단발성 신고가 아니라, 매달/분기 운영을 기준으로
-            증빙·인건비·원가·현금흐름이 무너지지 않도록 <b>점검 → 정리 → 고정</b>하는 방식으로 진행합니다.
-          </p>
-          <p class="para">
-            상담은 “무엇을 해드릴까요?”가 아니라,
-            “지금 무엇이 가장 위험하고, 무엇을 먼저 고정하면 편해지는가”부터 잡습니다.
-          </p>
-
-          <div class="notice">
-            ✔ 길고 복잡한 설명보다 “필요한 것만 정확히” 안내드립니다.<br/>
-            ✔ 대표 세무사가 직접 소통합니다.
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 서비스 안내(3카드) -->
-  <section id="services">
-    <div class="wrap">
-      <div class="sectionHead">
-        <div>
-          <h2>서비스 안내</h2>
-          <p>구성은 간단하게, 내용은 정확하게.</p>
-        </div>
-      </div>
-
-      <div class="cards3">
-        <div class="card feature">
-          <div class="icon">🧾</div>
-          <h3>기장 대리</h3>
-          <p>기장/부가세/원천세 등 주기별 업무를 운영 흐름에 맞춰 관리합니다.</p>
-        </div>
-        <div class="card feature">
-          <div class="icon">🗂️</div>
-          <h3>신고 대리</h3>
-          <p>종합소득세/부가세/법인세 등 정기·수정·기한후 신고까지 안내합니다.</p>
-        </div>
-        <div class="card feature">
-          <div class="icon">🏠</div>
-          <h3>양도/상속/증여</h3>
-          <p>사전 검토 중심으로 리스크를 줄이고, 필요한 자료만 깔끔하게 정리합니다.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 진행 방식 -->
-  <section id="process">
-    <div class="wrap">
-      <div class="sectionHead">
-        <div>
-          <h2>진행 방식</h2>
-          <p>문의 → 정리 → 실행. 흐름이 보이면 신뢰가 생깁니다.</p>
-        </div>
-      </div>
-
-      <div class="split">
-        <div class="card info">
-          <div class="item"><span>1) 간단 정보 접수</span><span class="kbd">업종/매출/이슈</span></div>
-          <div class="item"><span>2) 자료 요청/정리</span><span class="kbd">필수만</span></div>
-          <div class="item"><span>3) 처리/보고</span><span class="kbd">리스크 제거</span></div>
-          <div class="item"><span>4) 사후 관리</span><span class="kbd">루틴 고정</span></div>
-          <div class="item"><span>소통 채널</span><span class="kbd">전화/메일/카톡</span></div>
-        </div>
-
-        <div class="card info">
-          <div class="miniTitle" style="font-size:18px">상담 전 미리 준비하면 좋은 것</div>
-          <p class="mini" style="margin-top:8px">
-            “정확한 답”은 자료가 아니라 <b>정리된 정보</b>에서 나옵니다.
-          </p>
-          <ol style="color:var(--mut); font-size:14px; margin:12px 0 0; padding-left:18px">
-            <li>업종/형태(개인/법인)</li>
-            <li>최근 매출 규모(대략)</li>
-            <li>가장 불안한 이슈 1~2개</li>
-          </ol>
-          <div class="notice" style="margin-top:14px">
-            ※ 간단히 남겨주시면, 가능한 범위부터 빠르게 정리해드립니다.
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ✅ 제공 서비스 / 서비스 내용(자동 스크롤) -->
-  <section id="prices">
-    <div class="wrap">
-      <div class="sectionHead">
-        <div>
-          <h2>제공 서비스 / 서비스 내용</h2>
-          <p>필요한 업무를 한 번에 정리해드립니다.</p>
-        </div>
-      </div>
-
-      <div class="card tableCard">
-        <div class="svcTableWrap">
-          <div class="svcTableHead">
-            <div>제공 서비스</div>
-            <div>서비스 내용</div>
-          </div>
-
-          <!-- ✅ 이 영역이 (1)↔(2) 자동으로 위아래 이동 -->
-          <div class="svcTable" id="autoScrollArea">
-            <div class="row">
-              <div class="leftCell">1:1 맞춤 상담</div>
-              <div class="rightCell">
-                신규 사업자 창업 전 기초세팅, 기초 세무상담 등
-              </div>
-            </div>
-
-            <div class="row">
-              <div class="leftCell">세무 기장</div>
-              <div class="rightCell">
-                <ul>
-                  <li>장부 작성 대행</li>
-                  <li>부가가치세/법인세/종합소득세 예상세액 미리 고지</li>
-                  <li>각종 세금 신고 대행</li>
-                  <li>사업자 현황신고 대행</li>
-                  <li>4대보험 관련 업무 대행</li>
-                  <li>각종 민원서류 발급</li>
-                  <li>사업장 관련 자문 및 업종별 맞춤 세액감면/공제 검토</li>
-                </ul>
-              </div>
-            </div>
-
-            <div class="row">
-              <div class="leftCell">신고 대리</div>
-              <div class="rightCell">
-                종합소득세/부가가치세/법인세 정기신고, 기한후신고, 수정신고, 경정청구 등
-              </div>
-            </div>
-
-            <div class="row">
-              <div class="leftCell">양도 / 상속 / 증여</div>
-              <div class="rightCell">
-                <ul>
-                  <li>양도/상속/증여 시 세금문제 검토</li>
-                  <li>1세대 1주택 비과세 검토</li>
-                  <li>일시적 1세대 1주택 비과세 검토</li>
-                  <li>다주택자 관련 세금 검토</li>
-                  <li>보유세(재산세, 종합부동산세) 검토</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="notice">
-          ※ 표는 자동으로 위/아래로 움직이며 내용을 확인할 수 있습니다.
-        </div>
-      </div>
-
-      <!-- ✅ 크몽 가격(빠지지 않게 그대로) -->
-      <div class="split" style="margin-top:14px">
-        <div class="card info">
-          <div class="miniTitle" style="font-size:18px">종합소득세 신고 대행</div>
-          <div style="margin-top:10px; font-weight:1000; font-size:26px; letter-spacing:-.02em">
-            55,000원 <span style="font-size:13px; color:var(--mut); font-weight:900">(VAT 포함)</span>
-          </div>
-          <p class="mini" style="margin-top:10px">
-            단순/기준경비율 신고<br/>
-            <span style="color:var(--mut2)">해당 금액은 보수 하한으로, 작업 상황에 따라 보수가 올라갈 수 있습니다.</span>
-          </p>
-          <div class="item" style="margin-top:10px"><span>작업일</span><span class="kbd">3일</span></div>
-          <div class="item"><span>수정 횟수</span><span class="kbd">제한 없음</span></div>
-        </div>
-
-        <div class="card info">
-          <div class="miniTitle" style="font-size:18px">간편장부 신고 대행</div>
-          <div style="margin-top:10px; font-weight:1000; font-size:26px; letter-spacing:-.02em">
-            220,000원 <span style="font-size:13px; color:var(--mut); font-weight:900">(VAT 포함)</span>
-          </div>
-          <p class="mini" style="margin-top:10px">
-            간편장부 신고<br/>
-            <span style="color:var(--mut2)">해당 금액은 보수 하한으로, 작업 상황에 따라 보수가 올라갈 수 있습니다.</span>
-          </p>
-          <div class="item" style="margin-top:10px"><span>작업일</span><span class="kbd">3일</span></div>
-          <div class="item"><span>수정 횟수</span><span class="kbd">제한 없음</span></div>
-        </div>
-      </div>
-
-      <div class="card info" style="margin-top:14px">
-        <div class="miniTitle" style="font-size:18px">복식부기 신고 대행</div>
-        <div style="margin-top:10px; font-weight:1000; font-size:26px; letter-spacing:-.02em">
-          440,000원 <span style="font-size:13px; color:var(--mut); font-weight:900">(VAT 포함)</span>
-        </div>
-        <p class="mini" style="margin-top:10px">
-          복식부기 신고<br/>
-          <span style="color:var(--mut2)">해당 금액은 보수 하한으로, 작업 상황에 따라 보수가 올라갈 수 있습니다.</span>
-        </p>
-        <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:12px">
-          <span class="kbd">작업일: 3일</span>
-          <span class="kbd">수정 횟수: 제한 없음</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 상담/문의 -->
-  <section id="contact">
-    <div class="wrap">
-      <div class="sectionHead">
-        <div>
-          <h2>상담/문의</h2>
-          <p>편한 채널로 연락 주세요.</p>
-        </div>
-      </div>
-
-      <div class="split">
-        <div class="card info contactGrid">
-          <div class="item"><span>전화</span><span class="kbd">010-9992-5105</span></div>
-          <div class="item"><span>이메일</span><span class="kbd">ehkimmm_@naver.com</span></div>
-          <div class="item"><span>팩스</span><span class="kbd">0303-3444-7779</span></div>
-          <div class="item"><span>상담 시간</span><span class="kbd">평일 10:00~17:30</span></div>
-          <div class="notice">
-            팁) 상담 요청 시 “방문 희망 시간”을 함께 남겨주시면 더 빠릅니다.
-          </div>
-        </div>
-
-        <div class="card info">
-          <div class="miniTitle" style="font-size:18px">바로 연결</div>
-          <p class="mini" style="margin-top:8px">
-            “업종/형태 + 이슈 1개”만 적어도 충분합니다.
-          </p>
-          <div class="ctaRow2">
-            <a class="btn primary" href="tel:010-9992-5105">📞 전화 상담</a>
-            <a class="btn" href="https://open.kakao.com/" target="_blank" rel="noopener">💬 카톡 상담하기</a>
-            <a class="btn" href="mailto:ehkimmm_@naver.com">✉️ 이메일</a>
-          </div>
-          <div class="notice">
-            ※ 의뢰 여부의 상담만이 가볍게, 편하게 상담 가능합니다.
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 오시는 길 -->
-  <section id="location">
-    <div class="wrap">
-      <div class="sectionHead">
-        <div>
-          <h2>오시는 길</h2>
-          <p>방문 상담은 사전 예약을 권장드립니다.</p>
-        </div>
-      </div>
-
-      <div class="card locCard">
-        <div class="locGrid">
-          <div class="locBox">
-            <div class="locRow">
-              <div class="locKey">주 소</div>
-              <div class="locVal"><div class="pillInput" title="서울시 영등포구 국제금융로6길 33(맨해튼빌딩), 1308호">서울시 영등포구 국제금융로6길 33(맨해튼빌딩), 1308호</div></div>
-            </div>
-            <div class="locRow">
-              <div class="locKey">호 수</div>
-              <div class="locVal"><div class="pillInput">1308호</div></div>
-            </div>
-            <div class="locRow">
-              <div class="locKey">주 차</div>
-              <div class="locVal"><div class="pillInput">건물 주차(현장 안내)</div></div>
-            </div>
-            <div class="locRow">
-              <div class="locKey">대중교통</div>
-              <div class="locVal"><div class="pillInput">여의도/IFC 인근</div></div>
-            </div>
-
-            <div style="display:flex; gap:10px; flex-wrap:wrap; padding:10px 6px 6px;">
-              <a class="btn" href="https://maps.google.com/?q=%EC%84%9C%EC%9A%B8%EC%8B%9C%20%EC%98%81%EB%93%B1%ED%8F%AC%EA%B5%AC%20%EA%B5%AD%EC%A0%9C%EA%B8%88%EC%9C%B5%EB%A1%9C6%EA%B8%B8%2033" target="_blank" rel="noopener">🧭 지도 열기</a>
-              <a class="btn" href="#contact">✉️ 상담하기</a>
-            </div>
-
-            <div class="notice" style="margin:10px 6px 6px">
-              실제 운영 시 네이버지도/카카오맵 링크로 교체 추천.
-            </div>
-          </div>
-
-          <div class="locBox">
-            <div style="padding:6px 6px 2px">
-              <div class="miniTitle" style="font-size:18px">방문 전 안내</div>
-              <p class="mini" style="margin-top:8px">
-                방문 상담은 사전 예약 시 대기 없이 진행됩니다.<br/>
-                상담 요청 후 “방문 희망 시간”을 함께 남겨주세요.
-              </p>
-              <div class="notice" style="margin-top:12px">
-                문의: <b>010-9992-5105</b> / <b>ehkimmm_@naver.com</b>
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 푸터 -->
-  <footer class="footer">
-    <div class="wrap">
-      <div style="display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap; align-items:flex-end">
-        <div>
-          <div style="font-weight:1000; color:rgba(20,14,10,.78)">은해세무회계</div>
-          <div style="margin-top:6px; color:rgba(20,14,10,.55)">
-            주소: 서울시 영등포구 국제금융로6길 33(맨해튼빌딩), 1308호 ·
-            팩스: 0303-3444-7779 ·
-            이메일: ehkimmm_@naver.com
-          </div>
-        </div>
-        <div style="text-align:right">
-          <div>© <span id="y"></span> Eunhae Tax Accounting</div>
-        </div>
-      </div>
-    </div>
-  </footer>
-
   <script>
-    // 연도
-    document.getElementById("y").textContent = new Date().getFullYear();
+    // ✅ 캐시 무력: 이미지에 ?v= 붙였고, 여기서도 한 번 더 강제할 수 있게 옵션 제공
+    // (원하면 아래 true로 바꾸면 매번 새로고침마다 v값이 바뀜)
+    const HARD_BUST_EACH_LOAD = false;
 
-    // ✅ (1)↔(2) 자동 스크롤: 사람이 보기 좋은 속도(부드럽게, 잠깐 멈춤 포함)
-    (function(){
-      const el = document.getElementById('autoScrollArea');
-      if(!el) return;
+    (function cacheBustImages(){
+      if(!HARD_BUST_EACH_LOAD) return;
+      const v = Date.now();
+      document.querySelectorAll('img').forEach(img=>{
+        const src = img.getAttribute('src') || '';
+        if(!src) return;
+        const [base] = src.split('?');
+        img.src = base + '?v=' + v;
+      });
+    })();
 
-      // 모바일에서 스크롤바 숨김(기능 유지)
-      el.style.scrollbarWidth = 'none';
-      el.style.msOverflowStyle = 'none';
-      const style = document.createElement('style');
-      style.textContent = '#autoScrollArea::-webkit-scrollbar{display:none}';
-      document.head.appendChild(style);
-
-      let direction = 1; // 1: 아래로, -1: 위로
-      const pauseMs = 1800;      // 도착 후 멈춤
-      const travelMs = 1800;     // 이동 시간(부드럽게)
-      const idleBetween = 2200;  // 이동 사이 텀(자연스럽게)
-      let timer = null;
-
-      function easeInOut(t){
-        return t < 0.5 ? 2*t*t : 1 - Math.pow(-2*t+2,2)/2;
+    // ===== 크몽 탭 상품 데이터 (가격 안 빠지게 고정) =====
+    const plans = {
+      standard: {
+        price: "55,000원",
+        name: "단순/기준경비율 신고",
+        desc: "해당 금액은 보수 하한으로, 작업 상황에 따라 보수가 올라갈 수 있습니다.",
+        meta: {days:"3일", revise:"제한 없음"}
+      },
+      deluxe: {
+        price: "220,000원",
+        name: "간편장부 신고",
+        desc: "해당 금액은 보수 하한으로, 작업 상황에 따라 보수가 올라갈 수 있습니다.",
+        meta: {days:"3일", revise:"제한 없음"}
+      },
+      premium: {
+        price: "440,000원",
+        name: "복식부기 신고",
+        desc: "해당 금액은 보수 하한으로, 작업 상황에 따라 보수가 올라갈 수 있습니다.",
+        meta: {days:"3일", revise:"제한 없음"}
       }
+    };
 
-      function smoothScrollTo(targetTop, duration){
-        const startTop = el.scrollTop;
-        const delta = targetTop - startTop;
-        const start = performance.now();
+    const planContent = document.getElementById('planContent');
+    function renderPlan(key){
+      const p = plans[key];
+      planContent.innerHTML = `
+        <div class="price">${p.price}<small>(VAT 포함)</small></div>
+        <div class="prod-name">${p.name}</div>
+        <p class="prod-desc">${p.desc}</p>
+        <div class="meta">
+          <div>작업일 <b style="color:#333">${p.meta.days}</b></div>
+          <div>수정 횟수 <b style="color:#333">${p.meta.revise}</b></div>
+        </div>
+        <div class="buybar">
+          <a class="btn" href="#contact">문의하기</a>
+          <a class="btn primary" href="#contact">구매하기</a>
+        </div>
+      `;
+    }
+    renderPlan('standard');
 
-        function step(now){
-          const t = Math.min(1, (now - start) / duration);
-          el.scrollTop = startTop + delta * easeInOut(t);
-          if(t < 1) requestAnimationFrame(step);
-        }
-        requestAnimationFrame(step);
-      }
+    document.querySelectorAll('.tab').forEach(tab=>{
+      tab.addEventListener('click', ()=>{
+        document.querySelectorAll('.tab').forEach(t=>{
+          t.classList.remove('active');
+          t.setAttribute('aria-selected','false');
+        });
+        tab.classList.add('active');
+        tab.setAttribute('aria-selected','true');
+        renderPlan(tab.dataset.plan);
+      });
+    });
 
-      function run(){
-        const maxTop = Math.max(0, el.scrollHeight - el.clientHeight);
-        // 내용이 짧으면 중단
-        if(maxTop <= 4) return;
+    // ===== ✅ 박스안 3장 "빠른 교체" 슬라이드쇼 (숨쉬기 X) =====
+    (function boxSlider(){
+      const box = document.getElementById('boxSlider');
+      if(!box) return;
+      const imgs = Array.from(box.querySelectorAll('img'));
+      if(imgs.length === 0) return;
 
-        const target = (direction === 1) ? maxTop : 0;
-        smoothScrollTo(target, travelMs);
+      let idx = 0;
+      imgs.forEach((im, i)=> im.classList.toggle('active', i === 0));
 
-        // 다음 방향 전환 예약
-        clearTimeout(timer);
-        timer = setTimeout(() => {
-          direction *= -1;
-          // 약간의 텀 후 다시 이동
-          timer = setTimeout(run, idleBetween);
-        }, travelMs + pauseMs);
-      }
+      // ✅ 빠른 속도: 1.1초마다 교체 (원하면 900~1400 사이로만 조절)
+      const INTERVAL_MS = 1100;
 
-      // 최초 실행(로딩 안정 후)
-      setTimeout(run, 700);
-
-      // 사용자가 손으로 스크롤하면 4초 뒤 다시 자동 재개
-      let userInteracted = false;
-      el.addEventListener('touchstart', () => { userInteracted = true; clearTimeout(timer); }, {passive:true});
-      el.addEventListener('wheel', () => { userInteracted = true; clearTimeout(timer); }, {passive:true});
-      el.addEventListener('scroll', () => {
-        if(!userInteracted) return;
-        clearTimeout(timer);
-        timer = setTimeout(() => { userInteracted = false; run(); }, 4000);
-      }, {passive:true});
+      setInterval(()=>{
+        imgs[idx].classList.remove('active');
+        idx = (idx + 1) % imgs.length;
+        imgs[idx].classList.add('active');
+      }, INTERVAL_MS);
     })();
   </script>
 </body>
