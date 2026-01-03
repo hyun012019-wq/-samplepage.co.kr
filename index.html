@@ -1,145 +1,772 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ko">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>은해 세무회계 | 제공 서비스</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="은해세무회계 | 대표세무사 김은해 | 기장·신고·양도·상속·증여·경정청구" />
+  <title>은해세무회계 | 대표세무사 김은해</title>
 
-<style>
-/* ================= 기본 설정 ================= */
-*{box-sizing:border-box}
-body{
-  margin:0;
-  font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR",sans-serif;
-  background:#f6efe8;
-  color:#222;
-}
+  <style>
+    :root{
+      /* 베이지 톤 */
+      --bg:#f6efe8;
+      --bg2:#efe5dc;
+      --card:#ffffff;
+      --card2:#fbf7f2;
+      --line:rgba(34,34,34,.10);
+      --txt:#1f1f1f;
+      --mut:rgba(31,31,31,.70);
+      --mut2:rgba(31,31,31,.55);
 
-/* ================= 공통 래퍼 ================= */
-.wrap{
-  max-width:1080px;
-  margin:0 auto;
-  padding:40px 16px 80px;
-}
+      /* 포인트(브라운/골드) */
+      --acc:#b79a7e;
+      --acc2:#8e735c;
 
-/* ================= 섹션 타이틀 ================= */
-.section-title{
-  font-size:26px;
-  font-weight:800;
-  margin-bottom:24px;
-}
+      --shadow: 0 18px 50px rgba(0,0,0,.08);
+      --radius: 26px;
+      --max: 1120px;
+    }
 
-/* ================= 서비스 박스 ================= */
-.service-box{
-  background:#fff;
-  border-radius:28px;
-  padding:32px;
-  box-shadow:0 10px 30px rgba(0,0,0,0.06);
-}
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      color:var(--txt);
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, "Noto Sans KR", sans-serif;
+      line-height:1.6;
+      background:
+        radial-gradient(1000px 720px at 75% -10%, rgba(183,154,126,.18), transparent 58%),
+        radial-gradient(900px 650px at 10% 15%, rgba(142,115,92,.12), transparent 60%),
+        linear-gradient(180deg, var(--bg) 0%, var(--bg2) 60%, #f7f2ed 100%);
+      overflow-x:hidden;
+      position:relative;
+    }
 
-/* ================= 테이블 구조 ================= */
-.service-row{
-  display:flex;
-  gap:24px;
-  padding:26px 0;
-  border-bottom:1px solid #eee;
-}
+    /* 히어로 배경(이미지 없으면 그냥 톤으로도 예쁨) */
+    body::after{
+      content:"";
+      position:fixed; inset:0;
+      z-index:0; pointer-events:none;
+      background:
+        linear-gradient(180deg, rgba(246,239,232,.92) 0%, rgba(246,239,232,.72) 45%, rgba(246,239,232,.88) 100%),
+        url("assets/images/eunhae-hero.jpg");
+      background-size: cover;
+      background-position:center;
+      background-repeat:no-repeat;
+      opacity:.75;
+      filter:saturate(1.02);
+    }
+    body > *{position:relative; z-index:1}
 
-.service-row:last-child{
-  border-bottom:none;
-}
+    a{color:inherit; text-decoration:none}
+    .wrap{max-width:var(--max); margin:0 auto; padding:0 18px}
 
-.service-title{
-  width:160px;
-  font-size:18px;
-  font-weight:700;
-  color:#222;
-}
+    /* 상단 네비 */
+    .nav{
+      position:sticky; top:0; z-index:10;
+      backdrop-filter: blur(10px);
+      background: rgba(246,239,232,.72);
+      border-bottom:1px solid var(--line);
+    }
+    .nav .inner{
+      display:flex; align-items:center; justify-content:space-between;
+      gap:14px; padding:14px 0;
+    }
+    .brand{
+      display:flex; align-items:center; gap:12px;
+      font-weight:900; letter-spacing:-.03em;
+      white-space:nowrap;
+    }
+    .logoMark{
+      width:38px; height:38px; border-radius:14px;
+      background: rgba(183,154,126,.20);
+      border:1px solid rgba(183,154,126,.28);
+      display:grid; place-items:center;
+      overflow:hidden;
+    }
+    .logoMark img{
+      width:28px; height:28px; object-fit:contain;
+      opacity:.92;
+    }
+    .brand small{
+      display:block; font-size:11px; color:var(--mut2); font-weight:800; letter-spacing:.05em;
+      margin-top:2px;
+    }
 
-.service-desc{
-  flex:1;
-  font-size:15px;
-  color:#555;
-  line-height:1.8;
-}
+    .menu{
+      display:flex; align-items:center; gap:6px;
+      font-size:14px; color:var(--mut);
+      flex-wrap:wrap;
+      justify-content:center;
+    }
+    .menu a{
+      padding:8px 10px; border-radius:14px;
+      border:1px solid transparent;
+    }
+    .menu a:hover{
+      background:rgba(255,255,255,.55);
+      border-color: rgba(34,34,34,.08);
+      color:var(--txt);
+    }
 
-/* ================= ② 신고 대리 자동 이동 ================= */
-.move-y{
-  animation: floatY 3.2s ease-in-out infinite;
-  will-change: transform;
-}
+    .right{
+      display:flex; align-items:center; gap:10px;
+      white-space:nowrap;
+    }
 
-@keyframes floatY{
-  0%   { transform: translateY(0); }
-  50%  { transform: translateY(8px); }
-  100% { transform: translateY(0); }
-}
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center;
+      padding:11px 14px; border-radius:16px;
+      border:1px solid rgba(34,34,34,.14);
+      background:rgba(255,255,255,.55);
+      font-weight:900;
+      gap:8px;
+      transition: transform .15s ease, box-shadow .15s ease;
+      cursor:pointer;
+    }
+    .btn.primary{
+      background: linear-gradient(135deg, rgba(183,154,126,.98), rgba(142,115,92,.92));
+      border:none;
+      color:#fff;
+      box-shadow: 0 14px 38px rgba(142,115,92,.18);
+    }
+    .btn:hover{transform:translateY(-1px)}
+    @media (max-width: 980px){
+      .menu{display:none}
+    }
 
-/* ================= 모바일 대응 ================= */
-@media (max-width:768px){
-  .service-row{
-    flex-direction:column;
-    gap:12px;
-  }
-  .service-title{
-    width:100%;
-  }
-}
+    /* 카드 */
+    .card{
+      background: linear-gradient(180deg, rgba(255,255,255,.92), rgba(255,255,255,.76));
+      border:1px solid rgba(34,34,34,.10);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
 
-/* ================= 접근성 ================= */
-@media (prefers-reduced-motion: reduce){
-  .move-y{animation:none}
-}
-</style>
+    /* 히어로 */
+    .hero{padding:52px 0 22px}
+    .grid{
+      display:grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap:18px;
+      align-items:stretch;
+    }
+    @media (max-width: 980px){ .grid{grid-template-columns:1fr} }
+
+    .heroCard{padding:30px}
+    .kicker{
+      color:rgba(31,31,31,.62);
+      font-weight:1000;
+      font-size:12px;
+      letter-spacing:.10em;
+      text-transform:uppercase;
+    }
+    h1{margin:10px 0 12px; font-size:42px; line-height:1.08; letter-spacing:-.05em}
+    .sub{margin:0 0 18px; color:var(--mut); font-size:16px}
+
+    .pillRow{display:flex; flex-wrap:wrap; gap:10px; margin:14px 0 18px}
+    .pill{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:9px 12px; border-radius:999px;
+      border:1px solid rgba(34,34,34,.10);
+      background:rgba(255,255,255,.68);
+      font-size:13px;
+      color:rgba(31,31,31,.88);
+      font-weight:900;
+    }
+    .pill .ok{color:var(--acc2)}
+    .ctaRow{display:flex; gap:10px; flex-wrap:wrap; margin-top:10px}
+
+    .notice{
+      padding:14px 16px;
+      border-radius:18px;
+      border:1px dashed rgba(34,34,34,.18);
+      background:rgba(255,255,255,.55);
+      color:var(--mut);
+      font-size:13px;
+      margin-top:14px;
+    }
+
+    /* 우측 카드 */
+    .side{display:flex; flex-direction:column; min-height:100%}
+    .sideTop{
+      aspect-ratio: 16/10;
+      background-image:
+        linear-gradient(180deg, rgba(246,239,232,.25), rgba(246,239,232,.72)),
+        url("assets/images/eunhae-office.jpg");
+      background-size: cover;
+      background-position: center;
+      background-repeat:no-repeat;
+      border-bottom:1px solid rgba(34,34,34,.10);
+    }
+    .sideBody{padding:20px}
+    .miniTitle{font-weight:1000; letter-spacing:-.02em}
+    .mini{margin:8px 0 0; color:var(--mut); font-size:14px}
+    .miniList{margin:14px 0 0; padding:0; list-style:none; display:grid; gap:10px}
+    .miniList li{
+      padding:12px 12px;
+      border-radius:16px;
+      border:1px solid rgba(34,34,34,.10);
+      background:rgba(255,255,255,.65);
+      color:rgba(31,31,31,.88);
+      font-size:14px;
+      display:flex; justify-content:space-between; gap:10px;
+      font-weight:900;
+    }
+    .tag{color:rgba(31,31,31,.55); font-size:12px; font-weight:800}
+
+    /* 섹션 */
+    section{padding:26px 0}
+    .sectionHead{
+      display:flex; align-items:end; justify-content:space-between; gap:14px;
+      margin-bottom:14px;
+    }
+    .sectionHead h2{margin:0; font-size:24px; letter-spacing:-.03em}
+    .sectionHead p{margin:0; color:var(--mut); font-size:14px}
+
+    /* 서비스 카드 3개 */
+    .cards3{display:grid; grid-template-columns: repeat(3,1fr); gap:14px}
+    @media (max-width: 980px){.cards3{grid-template-columns:1fr}}
+    .feature{padding:18px}
+    .feature h3{margin:10px 0 6px; font-size:16px}
+    .feature p{margin:0; color:var(--mut); font-size:14px}
+    .icon{
+      width:44px; height:44px; border-radius:16px;
+      display:grid; place-items:center;
+      background:rgba(183,154,126,.14);
+      border:1px solid rgba(183,154,126,.22);
+      font-weight:900;
+    }
+
+    /* 진행 방식 + 연락 */
+    .split{display:grid; grid-template-columns:1fr 1fr; gap:14px}
+    @media (max-width: 980px){.split{grid-template-columns:1fr}}
+
+    .info{padding:16px}
+    .info .item{
+      display:flex; justify-content:space-between; gap:10px;
+      padding:10px 0;
+      border-bottom:1px solid rgba(34,34,34,.08)
+    }
+    .info .item:last-child{border-bottom:none}
+    .kbd{
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size:12px;
+      padding:3px 9px;
+      border-radius:12px;
+      border:1px solid rgba(34,34,34,.12);
+      background:rgba(255,255,255,.62);
+      color:rgba(31,31,31,.72);
+      white-space:nowrap;
+    }
+
+    /* 프로필 섹션 */
+    .profileGrid{
+      display:grid;
+      grid-template-columns: .95fr 1.05fr;
+      gap:14px;
+    }
+    @media (max-width: 980px){ .profileGrid{grid-template-columns:1fr} }
+    .profileLeft{padding:16px}
+    .profilePhoto{
+      aspect-ratio: 16/11;
+      border-radius:20px;
+      border:1px solid rgba(34,34,34,.10);
+      background-image:
+        linear-gradient(180deg, rgba(246,239,232,.10), rgba(246,239,232,.62)),
+        url("assets/images/eunhae-ceo.jpg");
+      background-size: cover;
+      background-position:center;
+      background-repeat:no-repeat;
+    }
+    .profileMeta{margin-top:12px}
+    .nameLine{
+      display:flex; align-items:baseline; justify-content:space-between; gap:10px; flex-wrap:wrap;
+    }
+    .nameLine .nm{font-size:18px; font-weight:1000; letter-spacing:-.02em}
+    .nameLine .role{color:var(--mut); font-weight:900; font-size:13px}
+    .bullets{margin:10px 0 0; padding-left:18px; color:var(--mut); font-size:14px}
+
+    .profileRight{padding:16px}
+    .quote{
+      border-left:4px solid rgba(142,115,92,.50);
+      padding:10px 12px;
+      background:rgba(255,255,255,.65);
+      border-radius:16px;
+      color:rgba(31,31,31,.86);
+      font-weight:900;
+    }
+    .para{margin:10px 0 0; color:var(--mut); font-size:14px}
+
+    /* ✅ 제공 서비스 / 서비스 내용 표 */
+    .tableWrap{
+      padding:22px;
+      border-radius: 26px;
+      background: rgba(255,255,255,.70);
+      border:1px solid rgba(34,34,34,.10);
+    }
+    .tbl{
+      width:100%;
+      border-collapse:separate;
+      border-spacing:0;
+      overflow:hidden;
+      border-radius:22px;
+      border:1px solid rgba(34,34,34,.10);
+      background: #fff;
+    }
+    .tbl thead th{
+      text-align:left;
+      font-size:15px;
+      padding:16px 18px;
+      background: #faf6f1;
+      border-bottom:1px solid rgba(34,34,34,.10);
+      font-weight:1000;
+      letter-spacing:-.02em;
+    }
+    .tbl thead th:last-child{text-align:left}
+    .tbl tbody td{
+      vertical-align:top;
+      padding:18px 18px;
+      border-bottom:1px solid rgba(34,34,34,.08);
+      font-size:14px;
+      color:rgba(31,31,31,.80);
+    }
+    .tbl tbody tr:last-child td{border-bottom:none}
+    .svcName{
+      width:26%;
+      font-weight:1000;
+      color:#222;
+      font-size:16px;
+    }
+    .svcList{
+      margin:0;
+      padding-left:18px;
+      color:rgba(31,31,31,.72);
+      line-height:1.9;
+    }
+    .svcList li{margin:0}
+
+    /* ✅ 여기! ②만 위아래 자동 이동 */
+    .moveY{
+      animation: floatY 3.2s ease-in-out infinite;
+      will-change: transform;
+    }
+    @keyframes floatY{
+      0%   { transform: translateY(0); }
+      50%  { transform: translateY(10px); } /* 사람이 보기 좋은 폭 */
+      100% { transform: translateY(0); }
+    }
+    @media (prefers-reduced-motion: reduce){
+      .moveY{animation:none !important}
+    }
+
+    /* 푸터 */
+    .footer{
+      padding:26px 0 42px;
+      color:rgba(31,31,31,.58);
+      font-size:12px;
+      border-top:1px solid rgba(34,34,34,.10);
+      margin-top:10px;
+    }
+  </style>
 </head>
 
 <body>
+  <!-- 상단 메뉴 -->
+  <header class="nav">
+    <div class="wrap inner">
+      <div class="brand">
+        <span class="logoMark">
+          <!-- 로고 파일 있으면 넣기: assets/images/logo.png -->
+          <img src="assets/images/logo.png" alt="은해세무회계 로고" onerror="this.style.display='none'">
+        </span>
+        <div>
+          <div>은해 세무회계</div>
+          <small>Tax Accounting</small>
+        </div>
+      </div>
 
-<div class="wrap">
+      <nav class="menu" aria-label="메인 메뉴">
+        <a href="#home">홈</a>
+        <a href="#ceo">대표 세무사</a>
+        <a href="#services">서비스 안내</a>
+        <a href="#detail">제공 서비스</a>
+        <a href="#process">진행 방식</a>
+        <a href="#contact">상담/문의</a>
+        <a href="#location">오시는 길</a>
+      </nav>
 
-  <div class="section-title">제공 서비스 / 서비스 내용</div>
-
-  <div class="service-box">
-
-    <!-- ① 세무 기장 -->
-    <div class="service-row">
-      <div class="service-title">세무 기장</div>
-      <div class="service-desc">
-        • 장부 작성 대행<br>
-        • 부가가치세 신고<br>
-        • 각종 세금 신고 대행<br>
-        • 사업장 현황 관리<br>
-        • 4대보험 관련 업무<br>
-        • 각종 인·허가 및 행정 지원
+      <div class="right">
+        <a class="btn" href="tel:010-9992-5105">📞 전화</a>
+        <a class="btn primary" href="#contact">상담 요청하기</a>
       </div>
     </div>
+  </header>
 
-    <!-- ② 신고 대리 (자동 이동) -->
-    <div class="service-row move-y">
-      <div class="service-title">신고 대리</div>
-      <div class="service-desc">
-        • 종합소득세 신고<br>
-        • 부가가치세 신고<br>
-        • 법인세 신고<br>
-        • 수정신고 / 경정청구
+  <!-- 히어로 -->
+  <main class="hero" id="home">
+    <div class="wrap grid">
+      <div class="card heroCard">
+        <div class="kicker">TAX · ACCOUNTING · BUSINESS SUPPORT</div>
+        <h1>대표 세무사가<br/>직접 소통합니다</h1>
+        <p class="sub">
+          편리함보다 <b>정확함</b>을, 거래보다 <b>신뢰</b>를 생각하겠습니다.<br/>
+          “지금 상황” 기준으로 <b>리스크를 줄이고</b>, <b>정리되는 방향</b>으로 안내드립니다.
+        </p>
+
+        <div class="pillRow">
+          <span class="pill"><span class="ok">✓</span> 세무 기장</span>
+          <span class="pill"><span class="ok">✓</span> 신고 대리</span>
+          <span class="pill"><span class="ok">✓</span> 양도/상속/증여</span>
+          <span class="pill"><span class="ok">✓</span> 수정신고·경정청구</span>
+        </div>
+
+        <div class="ctaRow">
+          <a class="btn primary" href="#contact">🗓️ 상담 요청하기</a>
+          <a class="btn" href="#services">📌 서비스 보기</a>
+          <a class="btn" href="#detail">📄 제공 서비스</a>
+        </div>
+
+        <div class="notice">
+          안내) 상담 요청 시 <b>업종/형태 + 이슈 1개</b>만 적어주셔도 충분합니다.
+        </div>
+      </div>
+
+      <aside class="card side">
+        <div class="sideTop" aria-hidden="true"></div>
+        <div class="sideBody">
+          <div class="miniTitle">빠른 상담 체크</div>
+          <p class="mini">아래 4가지만 정리되면, 상담 효율이 확 올라갑니다.</p>
+
+          <ul class="miniList">
+            <li><span>업종/형태</span><span class="tag">개인/법인</span></li>
+            <li><span>매출/인원</span><span class="tag">대략</span></li>
+            <li><span>이슈</span><span class="tag">신고/리스크</span></li>
+            <li><span>희망 방향</span><span class="tag">절세/정리</span></li>
+          </ul>
+
+          <div class="notice" style="margin-top:16px">
+            <b>김은해 세무사</b><br/>
+            꼼꼼함과 정확함을 최우선으로 합니다.
+          </div>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <!-- 대표세무사 -->
+  <section id="ceo">
+    <div class="wrap">
+      <div class="sectionHead">
+        <div>
+          <h2>대표 세무사</h2>
+          <p>상담은 “말”보다 “정리”가 먼저입니다.</p>
+        </div>
+      </div>
+
+      <div class="profileGrid">
+        <div class="card profileLeft">
+          <div class="profilePhoto" aria-hidden="true"></div>
+          <div class="profileMeta">
+            <div class="nameLine">
+              <div class="nm">김은해 세무사</div>
+              <div class="role">은해 세무회계 · 대표</div>
+            </div>
+            <ul class="bullets">
+              <li>업종/규모별 “필수 신고” 우선 정리</li>
+              <li>가산세/누락/증빙 리스크 최소화 중심</li>
+              <li>사업 운영 흐름에 맞춘 실무형 안내</li>
+            </ul>
+          </div>
+          <div class="notice">
+            * 사진은 <code>assets/images/eunhae-ceo.jpg</code>로 교체하면 완성됩니다.
+          </div>
+        </div>
+
+        <div class="card profileRight">
+          <div class="quote">
+            “세금은 ‘절세’보다 먼저, <b>불확실성을 줄여 사업을 안정</b>시키는 도구입니다.”
+          </div>
+          <p class="para">
+            단발성 신고가 아니라 매달/분기 운영을 기준으로
+            증빙·인건비·원가·현금흐름이 무너지지 않도록 <b>점검→정리→고정</b>하는 방식으로 진행합니다.
+          </p>
+          <p class="para">
+            그래서 상담은 “무엇을 해드릴까요?”가 아니라,
+            “지금 무엇이 가장 위험하고, 무엇을 먼저 고정하면 편해지는가”부터 잡습니다.
+          </p>
+
+          <div class="notice">
+            <b>불만족 시 기장료 환불</b> 안내 문구는 상담 시 조건 범위에 맞춰 정확히 고지드립니다.
+          </div>
+        </div>
       </div>
     </div>
+  </section>
 
-    <!-- ③ 양도 / 상속 / 증여 -->
-    <div class="service-row">
-      <div class="service-title">양도 / 상속 / 증여</div>
-      <div class="service-desc">
-        • 양도소득세 절세 검토<br>
-        • 상속·증여세 컨설팅<br>
-        • 1세대 1주택 요건 검토<br>
-        • 다주택자 세무 전략<br>
-        • 보유세(재산세·종합부동산세)
+  <!-- 서비스 안내 -->
+  <section id="services">
+    <div class="wrap">
+      <div class="sectionHead">
+        <div>
+          <h2>서비스 안내</h2>
+          <p>구분이 한눈에 보이면, 문의가 빨라집니다.</p>
+        </div>
+      </div>
+
+      <div class="cards3">
+        <div class="card feature">
+          <div class="icon">🧾</div>
+          <h3>기장 대리</h3>
+          <p>창업·운영 단계에서 필요한 장부/증빙/월별 관리 흐름을 안정적으로 잡아드립니다.</p>
+        </div>
+        <div class="card feature">
+          <div class="icon">✅</div>
+          <h3>신고 대리</h3>
+          <p>종합소득세·부가세·법인세 등 정기 신고부터 수정신고/경정청구까지 대응합니다.</p>
+        </div>
+        <div class="card feature">
+          <div class="icon">🏠</div>
+          <h3>양도·상속·증여</h3>
+          <p>사전 검토 중심으로 진행합니다. (자료/상황별 협의)</p>
+        </div>
       </div>
     </div>
+  </section>
 
-  </div>
+  <!-- 제공 서비스 / 서비스 내용 (표) -->
+  <section id="detail">
+    <div class="wrap">
+      <div class="sectionHead">
+        <div>
+          <h2>제공 서비스 / 서비스 내용</h2>
+          <p>무엇을 어떻게 해주는지 “정리된 형태”로 보여드립니다.</p>
+        </div>
+      </div>
 
-</div>
+      <div class="tableWrap card">
+        <table class="tbl" aria-label="제공 서비스 표">
+          <thead>
+            <tr>
+              <th>제공 서비스</th>
+              <th>서비스 내용</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- ① -->
+            <tr>
+              <td class="svcName">세무 기장</td>
+              <td>
+                <ul class="svcList">
+                  <li>장부 작성 대행</li>
+                  <li>부가가치세/법인세/종합소득세 예상 세액 사전 안내</li>
+                  <li>각종 세금 신고 대행</li>
+                  <li>사업장 현황신고 대행</li>
+                  <li>4대보험 관련 업무 대행</li>
+                  <li>각종 인·허가서류 발급</li>
+                  <li>사업장 관련 자금(업종별) 안내 및 공제 검토</li>
+                </ul>
+              </td>
+            </tr>
 
+            <!-- ② ✅ 이 줄만 위아래 자동 이동 -->
+            <tr class="moveY">
+              <td class="svcName">신고 대리</td>
+              <td>
+                <ul class="svcList">
+                  <li>종합소득세 / 부가가치세 / 법인세 정기신고</li>
+                  <li>가산세 리스크 점검 및 누락 항목 확인</li>
+                  <li>수정신고</li>
+                  <li>경정청구</li>
+                </ul>
+              </td>
+            </tr>
+
+            <!-- ③ -->
+            <tr>
+              <td class="svcName">양도 / 상속 / 증여</td>
+              <td>
+                <ul class="svcList">
+                  <li>양도·상속·증여 세금문제 검토</li>
+                  <li>1세대 1주택 비과세 검토</li>
+                  <li>일시적 1세대 1주택 비과세 검토</li>
+                  <li>다주택자 관련 세금 검토</li>
+                  <li>보유세(재산세, 종합부동산세) 검토</li>
+                </ul>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="notice" style="margin-top:16px">
+          ※ 상담 시 “업종/규모/거래 형태”에 따라 필요한 범위부터 우선 정리해드립니다.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 진행 방식 -->
+  <section id="process">
+    <div class="wrap">
+      <div class="sectionHead">
+        <div>
+          <h2>진행 방식</h2>
+          <p>문의 → 정리 → 실행. 흐름이 보이면 신뢰가 생깁니다.</p>
+        </div>
+      </div>
+
+      <div class="split">
+        <div class="card info">
+          <div class="item"><span>1) 간단 정보 접수</span><span class="kbd">업종/매출/이슈</span></div>
+          <div class="item"><span>2) 자료 요청/정리</span><span class="kbd">필수만</span></div>
+          <div class="item"><span>3) 처리/보고</span><span class="kbd">리스크 제거</span></div>
+          <div class="item"><span>4) 사후 관리</span><span class="kbd">루틴 고정</span></div>
+          <div class="item"><span>소통</span><span class="kbd">전화/문자/카톡</span></div>
+        </div>
+
+        <div class="card info">
+          <div style="padding:16px">
+            <div class="miniTitle" style="font-size:18px">상담 전 준비하면 좋은 것</div>
+            <p class="mini" style="margin-top:8px">
+              “정확한 답”은 자료가 아니라 <b>정리된 정보</b>에서 나옵니다.
+            </p>
+            <ol style="color:var(--mut); font-size:14px; margin:12px 0 18px; padding-left:18px">
+              <li>업종/형태(개인/법인)</li>
+              <li>최근 매출 규모(대략)</li>
+              <li>가장 불안한 이슈 1~2개</li>
+            </ol>
+            <div class="notice">
+              지금 상황을 간단히 남겨주시면, 가능한 범위부터 빠르게 정리해드리겠습니다.
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 상담/문의 -->
+  <section id="contact">
+    <div class="wrap">
+      <div class="sectionHead">
+        <div>
+          <h2>상담/문의</h2>
+          <p>편한 채널로 연락 주세요.</p>
+        </div>
+      </div>
+
+      <div class="split">
+        <div class="card info">
+          <div class="item"><span>전화</span><span class="kbd">010-9992-5105</span></div>
+          <div class="item"><span>이메일</span><span class="kbd">ehkimm__@naver.com</span></div>
+          <div class="item"><span>팩스</span><span class="kbd">0303-3444-7779</span></div>
+          <div class="item"><span>상담 시간</span><span class="kbd">평일 10:00~17:30</span></div>
+          <div class="item"><span>상담 방식</span><span class="kbd">전화/카톡/방문</span></div>
+
+          <div class="notice">
+            상담 요청 시 “업종/형태 + 이슈 1개”만 적어도 충분합니다.
+          </div>
+        </div>
+
+        <div class="card info">
+          <div style="padding:16px">
+            <div class="miniTitle" style="font-size:18px">바로 연결</div>
+            <p class="mini" style="margin-top:8px">
+              아래 버튼으로 바로 연결됩니다.
+            </p>
+
+            <div class="ctaRow" style="margin-top:12px">
+              <a class="btn primary" href="tel:010-9992-5105">📞 전화 상담</a>
+              <!-- 카카오 링크는 실제 링크로 교체 -->
+              <a class="btn" href="https://open.kakao.com/" target="_blank" rel="noopener">💬 카톡 상담하기</a>
+              <a class="btn" href="mailto:ehkimm__@naver.com">✉️ 이메일</a>
+            </div>
+
+            <div class="notice" style="margin-top:16px">
+              “상담 요청하기” 버튼을 누르신 뒤, 업종/이슈를 간단히 남겨주세요.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 오시는 길 -->
+  <section id="location">
+    <div class="wrap">
+      <div class="sectionHead">
+        <div>
+          <h2>오시는 길</h2>
+          <p>방문 상담은 사전 예약을 권장드립니다.</p>
+        </div>
+      </div>
+
+      <div class="card" style="padding:16px">
+        <div class="split">
+          <div class="info" style="padding:0">
+            <div class="item">
+              <span>주소</span>
+              <span class="kbd">서울시 영등포구 국제금융로6길 33(맨해튼빌딩) 1308호</span>
+            </div>
+            <div class="item"><span>호수</span><span class="kbd">1308</span></div>
+            <div class="item"><span>주차</span><span class="kbd">건물 주차(현장 안내)</span></div>
+            <div class="item"><span>대중교통</span><span class="kbd">여의도/IFC 인근</span></div>
+
+            <div class="ctaRow" style="margin-top:12px">
+              <a class="btn" href="https://maps.google.com/?q=%EC%84%9C%EC%9A%B8%EC%8B%9C%20%EC%98%81%EB%93%B1%ED%8F%AC%EA%B5%AC%20%EA%B5%AD%EC%A0%9C%EA%B8%88%EC%9C%B5%EB%A1%9C6%EA%B8%B8%2033" target="_blank" rel="noopener">🧭 지도 열기</a>
+              <a class="btn" href="#contact">📩 상담하기</a>
+            </div>
+
+            <div class="notice">
+              실제 운영 시 네이버지도/카카오맵 링크로 교체 추천.
+            </div>
+          </div>
+
+          <div class="card" style="background:rgba(255,255,255,.58); border:1px solid rgba(34,34,34,.10);">
+            <div style="padding:16px">
+              <div class="miniTitle">방문 전 안내</div>
+              <p class="mini" style="margin-top:8px">
+                방문 상담은 사전 예약 시 대기 없이 진행됩니다.<br/>
+                상담 요청 후 “방문 희망 시간”을 함께 남겨주세요.
+              </p>
+              <div class="notice" style="margin-top:12px">
+                문의: <b>010-9992-5105</b> / <b>ehkimm__@naver.com</b>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 푸터 -->
+  <footer class="footer">
+    <div class="wrap">
+      <div style="display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap; align-items:flex-end">
+        <div>
+          <div style="font-weight:1000; color:rgba(31,31,31,.82)">은해 세무회계</div>
+          <div style="margin-top:6px; color:rgba(31,31,31,.60)">
+            주소: 서울시 영등포구 국제금융로6길 33(맨해튼빌딩) 1308호 ·
+            전화: 010-9992-5105 ·
+            이메일: ehkimm__@naver.com ·
+            팩스: 0303-3444-7779
+          </div>
+        </div>
+        <div style="text-align:right">
+          <div>© <span id="y"></span> Eunhae Tax Accounting</div>
+          <div style="margin-top:6px; opacity:.85">
+            정확함 · 꼼꼼함 · 직접 소통
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById("y").textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
