@@ -3,102 +3,84 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <meta name="description" content="고물상·집게차 | 고철/비철 매입·철거·폐기물 수거·현장출동 안내" />
-  <title>고물상·집게차 | 매입·철거·수거</title>
+  <meta name="description" content="은해세무회계 | 대표세무사 김은해 | 기장·신고·양도·상속·증여·세무조사 대응" />
+  <title>은해세무회계 | 대표세무사 김은해</title>
 
   <style>
     :root{
-      --bg:#06080c;
-      --card:rgba(18,22,30,.72);
-      --line:rgba(255,255,255,.10);
+      --bg:#070b14;
+      --card:rgba(255,255,255,.06);
+      --card2:rgba(0,0,0,.22);
+      --line:rgba(255,255,255,.12);
       --txt:rgba(255,255,255,.92);
       --mut:rgba(255,255,255,.70);
-
-      --acc:#ffb020;   /* 산업 느낌: 앰버 */
-      --acc2:#22c55e;  /* 안전/확인: 그린 */
-
-      --shadow: 0 22px 70px rgba(0,0,0,.55);
+      --mut2:rgba(255,255,255,.58);
+      --acc:#38bdf8;
+      --acc2:#22c55e;
+      --shadow: 0 20px 70px rgba(0,0,0,.55);
       --radius: 18px;
       --max: 1120px;
     }
-
     *{box-sizing:border-box}
     html,body{height:100%}
-
-    /* ✅ hero5.jpg를 "홈 전체 배경" + 숨쉬기(확실히 보이게) */
+    html{scroll-behavior:smooth}
     body{
       margin:0;
       color:var(--txt);
-
-      background-image:
-        linear-gradient(180deg, rgba(2,3,6,.78) 0%, rgba(2,3,6,.86) 55%, rgba(2,3,6,.92) 100%),
-        radial-gradient(1100px 720px at 15% 10%, rgba(255,176,32,.12), transparent 62%),
-        radial-gradient(980px 680px at 85% 15%, rgba(34,197,94,.10), transparent 60%),
-        url("hero5.jpg"); /* ✅ 경로 수정 */
-      background-size:
-        cover,
-        auto,
-        auto,
-        cover;
-      background-position:
-        center,
-        center,
-        center,
-        center;
-      background-repeat:
-        no-repeat,
-        no-repeat,
-        no-repeat,
-        no-repeat;
-      background-attachment:
-        fixed,
-        fixed,
-        fixed,
-        fixed;
-
       font-family: system-ui, -apple-system, Segoe UI, Roboto, "Noto Sans KR", sans-serif;
-      line-height:1.55;
-
-      position:relative;
+      line-height:1.6;
+      background:
+        radial-gradient(1000px 700px at 80% -10%, rgba(56,189,248,.20), transparent 60%),
+        radial-gradient(900px 650px at 10% 10%, rgba(34,197,94,.14), transparent 55%),
+        linear-gradient(180deg, #060914 0%, #040613 55%, #03040d 100%);
       overflow-x:hidden;
+      position:relative;
     }
 
-    /* ✅ 숨쉬기 오버레이(더 선명) */
+    /* ✅ 홈 배경(히어로 느낌) + 숨쉬기 오버레이 */
+    body::after{
+      content:"";
+      position:fixed;
+      inset:0;
+      z-index:0;
+      pointer-events:none;
+      background:
+        linear-gradient(180deg, rgba(2,4,10,.40) 0%, rgba(2,4,10,.70) 60%, rgba(2,4,10,.82) 100%),
+        url("assets/images/eunhae-hero.jpg");
+      background-size: cover;
+      background-position: center;
+      background-repeat:no-repeat;
+      opacity:.28;
+      filter:saturate(1.05);
+    }
     body::before{
       content:"";
       position:fixed;
       inset:-2%;
-      pointer-events:none;
       z-index:0;
-
+      pointer-events:none;
       background:
-        radial-gradient(1200px 760px at 18% 14%, rgba(255,176,32,.18), transparent 60%),
-        radial-gradient(1100px 760px at 82% 18%, rgba(34,197,94,.14), transparent 62%),
-        linear-gradient(180deg, rgba(0,0,0,.20) 0%, rgba(0,0,0,.34) 55%, rgba(0,0,0,.44) 100%);
-
-      opacity:.72;
-
-      transform-origin: 50% 50%;
-      transform: translate3d(0,0,0) scale(1);
+        radial-gradient(1200px 760px at 20% 15%, rgba(56,189,248,.18), transparent 62%),
+        radial-gradient(1100px 760px at 82% 18%, rgba(34,197,94,.12), transparent 64%),
+        linear-gradient(180deg, rgba(0,0,0,.26) 0%, rgba(0,0,0,.34) 50%, rgba(0,0,0,.44) 100%);
+      opacity:.62;
+      transform-origin:50% 50%;
+      transform:translate3d(0,0,0) scale(1);
       will-change: transform, opacity;
-
-      animation: breatheOverlay 2.5s ease-in-out infinite;
+      animation: breathe 2.5s ease-in-out infinite;
     }
-
-    @keyframes breatheOverlay{
-      0%   { opacity:.76; transform: translate3d(0,0,0) scale(1); }
-      50%  { opacity:.50; transform: translate3d(0,-10px,0) scale(1.06); }
-      100% { opacity:.76; transform: translate3d(0,0,0) scale(1); }
+    @keyframes breathe{
+      0%   { opacity:.66; transform: translate3d(0,0,0) scale(1); }
+      50%  { opacity:.46; transform: translate3d(0,-10px,0) scale(1.05); }
+      100% { opacity:.66; transform: translate3d(0,0,0) scale(1); }
     }
-
-    /* 모션 민감 사용자 배려 */
     @media (prefers-reduced-motion: reduce){
-      body::before{ animation:none !important; }
-      .btn:hover{ transform:none !important; }
+      body::before{animation:none !important}
+      .btn:hover{transform:none !important}
     }
 
-    /* 내용은 오버레이 위로 */
-    body > *{ position:relative; z-index:1; }
+    /* 오버레이 위로 */
+    body > *{position:relative; z-index:1}
 
     a{color:inherit; text-decoration:none}
     .wrap{max-width:var(--max); margin:0 auto; padding:0 18px}
@@ -107,24 +89,42 @@
     .nav{
       position:sticky; top:0; z-index:10;
       backdrop-filter: blur(10px);
-      background: rgba(6,8,12,.62);
+      background: rgba(5,7,14,.62);
       border-bottom:1px solid var(--line);
     }
     .nav .inner{
       display:flex; align-items:center; justify-content:space-between;
-      padding:14px 0;
-      gap:14px;
+      padding:14px 0; gap:14px;
     }
-    .brand{display:flex; align-items:center; gap:10px; font-weight:900; letter-spacing:-.02em}
+    .brand{
+      display:flex; align-items:center; gap:10px;
+      font-weight:900; letter-spacing:-.02em;
+      white-space:nowrap;
+    }
     .dot{
       width:10px; height:10px; border-radius:999px;
-      background:linear-gradient(135deg,var(--acc),rgba(255,255,255,.25));
-      box-shadow:0 0 0 4px rgba(255,176,32,.12);
+      background:linear-gradient(135deg,var(--acc),var(--acc2));
+      box-shadow:0 0 0 4px rgba(56,189,248,.10);
     }
-    .menu{display:flex; align-items:center; gap:14px; font-size:14px; color:var(--mut)}
-    .menu a{padding:8px 10px; border-radius:12px}
-    .menu a:hover{background:rgba(255,255,255,.06); color:var(--txt)}
-
+    .menu{
+      display:flex; align-items:center; gap:10px;
+      font-size:14px; color:var(--mut);
+      flex-wrap:wrap;
+      justify-content:center;
+    }
+    .menu a{
+      padding:8px 10px; border-radius:12px;
+      border:1px solid transparent;
+    }
+    .menu a:hover{
+      background:rgba(255,255,255,.06);
+      color:var(--txt);
+      border-color: rgba(255,255,255,.08);
+    }
+    .right{
+      display:flex; align-items:center; gap:10px;
+      white-space:nowrap;
+    }
     .btn{
       display:inline-flex; align-items:center; justify-content:center;
       padding:11px 14px; border-radius:14px;
@@ -133,28 +133,20 @@
       font-weight:800;
       gap:8px;
       transition: transform .15s ease;
+      cursor:pointer;
     }
     .btn.primary{
-      background: linear-gradient(135deg, rgba(255,176,32,.98), rgba(255,255,255,.18));
-      border:1px solid rgba(255,176,32,.35);
-      color:#120b02;
-      box-shadow: 0 16px 46px rgba(255,176,32,.18);
+      background: linear-gradient(135deg, rgba(56,189,248,.96), rgba(34,197,94,.84));
+      border:none;
+      color:#051018;
+      box-shadow: 0 16px 46px rgba(56,189,248,.16);
     }
     .btn:hover{transform:translateY(-1px)}
-
-    /* 히어로 */
-    .hero{ padding:44px 0 42px; }
-    .grid{
-      display:grid;
-      grid-template-columns: 1.15fr .85fr;
-      gap:18px;
-      align-items:stretch;
-    }
-    @media (max-width: 900px){
-      .grid{grid-template-columns:1fr}
+    @media (max-width: 980px){
       .menu{display:none}
     }
 
+    /* 공통 카드 */
     .card{
       background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.03));
       border:1px solid var(--line);
@@ -162,46 +154,69 @@
       box-shadow: var(--shadow);
       overflow:hidden;
     }
+    .badge{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:6px 10px; border-radius:999px;
+      font-size:12px;
+      color:rgba(255,255,255,.80);
+      border:1px solid rgba(255,255,255,.14);
+      background:rgba(0,0,0,.18);
+      width:fit-content;
+    }
+    .badge strong{color:rgba(255,255,255,.92)}
+    .watermark{
+      color:rgba(255,255,255,.58);
+      font-size:12px;
+      border-top:1px dashed rgba(255,255,255,.18);
+      padding-top:12px;
+      margin-top:14px;
+    }
+
+    /* 히어로 */
+    .hero{padding:52px 0 24px}
+    .grid{
+      display:grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap:18px;
+      align-items:stretch;
+    }
+    @media (max-width: 980px){ .grid{grid-template-columns:1fr} }
 
     .heroCard{padding:28px}
     .kicker{
-      color:rgba(255,255,255,.74);
+      color:rgba(255,255,255,.72);
       font-weight:900;
-      font-size:13px;
-      letter-spacing:.06em;
+      font-size:12px;
+      letter-spacing:.08em;
       text-transform:uppercase;
     }
-    h1{margin:10px 0 10px; font-size:40px; line-height:1.06; letter-spacing:-.04em}
-    .sub{color:var(--mut); font-size:16px; margin:0 0 18px}
-
-    .pillRow{display:flex; flex-wrap:wrap; gap:10px; margin:16px 0 18px}
+    h1{margin:10px 0 12px; font-size:40px; line-height:1.08; letter-spacing:-.04em}
+    .sub{margin:0 0 18px; color:var(--mut); font-size:16px}
+    .pillRow{display:flex; flex-wrap:wrap; gap:10px; margin:14px 0 18px}
     .pill{
       display:inline-flex; align-items:center; gap:8px;
       padding:8px 10px; border-radius:999px;
       border:1px solid rgba(255,255,255,.14);
       background:rgba(0,0,0,.18);
-      color:rgba(255,255,255,.88);
       font-size:13px;
+      color:rgba(255,255,255,.88);
       font-weight:800;
     }
     .pill .ok{color:var(--acc2)}
-    .ctaRow{display:flex; gap:10px; flex-wrap:wrap; margin-top:14px}
+    .ctaRow{display:flex; gap:10px; flex-wrap:wrap; margin-top:10px}
 
-    /* 우측(사진+요약) */
+    /* 우측 카드 */
     .side{display:flex; flex-direction:column; min-height:100%}
-
-    /* ✅ hero6.jpg: 사진칸 */
-    .img{
+    .sideTop{
       aspect-ratio: 16/10;
       background-image:
-        linear-gradient(180deg, rgba(0,0,0,.15), rgba(0,0,0,.42)),
-        url("hero6.jpg"); /* ✅ 경로 수정 */
+        linear-gradient(180deg, rgba(0,0,0,.12), rgba(0,0,0,.44)),
+        url("assets/images/eunhae-office.jpg");
       background-size: cover;
       background-position: center;
-      background-repeat: no-repeat;
+      background-repeat:no-repeat;
       border-bottom:1px solid var(--line);
     }
-
     .sideBody{padding:20px}
     .miniTitle{font-weight:1000; letter-spacing:-.02em}
     .mini{margin:8px 0 0; color:var(--mut); font-size:14px}
@@ -225,8 +240,7 @@
     .sectionHead p{margin:0; color:var(--mut); font-size:14px}
 
     .cards3{display:grid; grid-template-columns: repeat(3,1fr); gap:14px}
-    @media (max-width: 900px){.cards3{grid-template-columns:1fr}}
-
+    @media (max-width: 980px){.cards3{grid-template-columns:1fr}}
     .feature{padding:16px}
     .feature h3{margin:8px 0 6px; font-size:16px}
     .feature p{margin:0; color:var(--mut); font-size:14px}
@@ -243,7 +257,7 @@
       grid-template-columns:1fr 1fr;
       gap:14px;
     }
-    @media (max-width: 900px){.split{grid-template-columns:1fr}}
+    @media (max-width: 980px){.split{grid-template-columns:1fr}}
 
     .info{padding:16px}
     .info .item{
@@ -261,6 +275,7 @@
       border:1px solid rgba(255,255,255,.12);
       background:rgba(0,0,0,.25);
       color:rgba(255,255,255,.78);
+      white-space:nowrap;
     }
 
     .notice{
@@ -271,6 +286,60 @@
       color:var(--mut);
       font-size:13px;
       margin-top:14px;
+    }
+
+    /* 대표세무사 섹션(좌: 프로필, 우: 철학/강점) */
+    .profileGrid{
+      display:grid;
+      grid-template-columns: .95fr 1.05fr;
+      gap:14px;
+    }
+    @media (max-width: 980px){ .profileGrid{grid-template-columns:1fr} }
+    .profileLeft{padding:16px}
+    .profilePhoto{
+      aspect-ratio: 16/11;
+      border-radius:16px;
+      border:1px solid rgba(255,255,255,.12);
+      background-image:
+        linear-gradient(180deg, rgba(0,0,0,.12), rgba(0,0,0,.35)),
+        url("assets/images/eunhae-ceo.jpg");
+      background-size: cover;
+      background-position:center;
+      background-repeat:no-repeat;
+    }
+    .profileMeta{margin-top:12px}
+    .nameLine{
+      display:flex; align-items:baseline; justify-content:space-between; gap:10px; flex-wrap:wrap;
+    }
+    .nameLine .nm{font-size:18px; font-weight:1000; letter-spacing:-.02em}
+    .nameLine .role{color:var(--mut); font-weight:800; font-size:13px}
+    .bullets{margin:10px 0 0; padding-left:18px; color:var(--mut); font-size:14px}
+    .profileRight{padding:16px}
+    .quote{
+      border-left:3px solid rgba(56,189,248,.55);
+      padding:10px 12px;
+      background:rgba(0,0,0,.16);
+      border-radius:14px;
+      color:rgba(255,255,255,.85);
+      font-weight:800;
+    }
+    .para{margin:10px 0 0; color:var(--mut); font-size:14px}
+
+    /* 하비럴 표기(중간중간) */
+    .byHviral{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:6px 10px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.14);
+      background:rgba(0,0,0,.18);
+      color:rgba(255,255,255,.78);
+      font-size:12px;
+      font-weight:900;
+    }
+    .byHviral .spark{
+      width:8px; height:8px; border-radius:999px;
+      background:linear-gradient(135deg,var(--acc),var(--acc2));
+      box-shadow:0 0 0 3px rgba(56,189,248,.10);
     }
 
     .footer{
@@ -289,14 +358,22 @@
     <div class="wrap inner">
       <div class="brand">
         <span class="dot"></span>
-        <span>고물상·집게차</span>
+        <span>은해세무회계</span>
       </div>
-      <nav class="menu">
-        <a href="#service">서비스</a>
-        <a href="#process">진행절차</a>
-        <a href="#quote">견적/문의</a>
+
+      <nav class="menu" aria-label="메인 메뉴">
+        <a href="#ceo">대표세무사</a>
+        <a href="#services">서비스 안내</a>
+        <a href="#process">진행 방식</a>
+        <a href="#why">파워링크 없는 구조</a>
+        <a href="#contact">상담/문의</a>
+        <a href="#location">오시는 길</a>
       </nav>
-      <a class="btn primary" href="#quote">🚚 현장 견적 요청</a>
+
+      <div class="right">
+        <a class="btn" href="tel:010-0000-0000">📞 전화</a>
+        <a class="btn primary" href="#contact">상담 예약</a>
+      </div>
     </div>
   </header>
 
@@ -304,119 +381,286 @@
   <main class="hero">
     <div class="wrap grid">
       <div class="card heroCard">
-        <div class="kicker">SCRAP · DEMOLITION · CRANE TRUCK</div>
-        <h1>고철·비철·파지 
-          매입부터<br/>
-          철거·수거까지</h1>
+        <div class="badge">
+          <span class="byHviral"><span class="spark"></span> (주)하비럴 샘플 페이지</span>
+          <span style="color:rgba(255,255,255,.55)">· 제안/체험용</span>
+        </div>
+
+        <div class="kicker" style="margin-top:10px">TAX · ACCOUNTING · BUSINESS SUPPORT</div>
+        <h1>은해세무회계<br/>대표세무사 김은해</h1>
         <p class="sub">
-          현장 사진/주소만 주시면 <b>당일 견적</b> 가능. 집게차 출동, 상차, 운반,
-          정리까지 <b>원스톱</b>으로 처리합니다.
+          기장·신고를 넘어, <b>사업 운영이 안정되는 방향</b>으로 함께 설계합니다.<br/>
+          “지금 상황”을 기준으로 <b>리스크를 줄이고</b>, <b>숫자가 남는 선택</b>을 안내드립니다.
         </p>
 
         <div class="pillRow">
-          <span class="pill"><span class="ok">✅</span> 고철/비철 매입</span>
-          <span class="pill"><span class="ok">✅</span> 철거/해체</span>
-          <span class="pill"><span class="ok">✅</span> 집게차 상차</span>
-          <span class="pill"><span class="ok">✅</span> 폐기물 수거(협의)</span>
+          <span class="pill"><span class="ok">✅</span> 기장/부가세/종합소득세</span>
+          <span class="pill"><span class="ok">✅</span> 법인세/급여·4대보험</span>
+          <span class="pill"><span class="ok">✅</span> 양도/상속/증여</span>
+          <span class="pill"><span class="ok">✅</span> 세무조사·사후관리(협의)</span>
         </div>
 
         <div class="ctaRow">
-          <a class="btn primary" href="tel:010-0000-0000">📞 바로 전화</a>
-          <a class="btn" href="https://open.kakao.com/" target="_blank" rel="noopener">💬 카톡 견적</a>
-          <a class="btn" href="https://maps.google.com/?q=%EA%B3%A0%EB%AC%BC%EC%83%81" target="_blank" rel="noopener">📍 위치/현장 공유</a>
+          <a class="btn primary" href="#contact">🗓️ 1:1 상담 요청</a>
+          <a class="btn" href="#services">📌 서비스 보기</a>
+          <a class="btn" href="#process">🧭 진행 방식</a>
         </div>
 
         <div class="notice">
-          ※ 샘플 페이지입니다. <b>상호/전화/지역/업무범위</b>(주)하비럴 기획브랜딩
+          안내) 본 페이지는 <b>업무 제안/구조 설명을 위한 비공개 체험 자료</b>이며,
+          내부 테스트/개선 과정에서 내용이 예고 없이 업데이트될 수 있습니다.
+        </div>
+
+        <div class="watermark">
+          ※ (주)하비럴 샘플 페이지 — “세무사님 업무 흐름/전환 구조”를 실제 화면으로 체험하시도록 구성했습니다.
         </div>
       </div>
 
       <aside class="card side">
-        <div class="img" aria-hidden="true"></div>
+        <div class="sideTop" aria-hidden="true"></div>
         <div class="sideBody">
-          <div class="miniTitle">빠른 견적 체크</div>
-          <p class="mini">아래 4가지만 보내주면 속도 확 올라갑니다.</p>
+          <div class="miniTitle">빠른 상담 체크</div>
+          <p class="mini">아래 4가지만 정리되면, 상담 효율이 확 올라갑니다.</p>
 
           <ul class="miniList">
-            <li><span>현장 주소</span><span class="tag">지도 공유</span></li>
-            <li><span>작업 물량</span><span class="tag">대략 톤/차</span></li>
-            <li><span>자재 종류</span><span class="tag">고철/비철</span></li>
-            <li><span>희망 일정</span><span class="tag">당일/예약</span></li>
+            <li><span>업종/형태</span><span class="tag">개인/법인</span></li>
+            <li><span>매출/인원</span><span class="tag">대략</span></li>
+            <li><span>이슈</span><span class="tag">신고/리스크</span></li>
+            <li><span>희망 방향</span><span class="tag">절세/정리</span></li>
           </ul>
+
+          <div class="notice" style="margin-top:16px">
+            <span class="byHviral"><span class="spark"></span> (주)하비럴 샘플</span>
+            <div style="margin-top:8px">
+              세무사님 브랜드·신뢰를 “한 장의 화면”으로 정리해드립니다.
+            </div>
+          </div>
         </div>
       </aside>
     </div>
   </main>
 
-  <!-- 서비스 -->
-  <section id="service">
+  <!-- 대표세무사 -->
+  <section id="ceo">
     <div class="wrap">
       <div class="sectionHead">
         <div>
-          <h2>현장에 강한 이유</h2>
-          <p>말보다 결과. 필요한 포인트만 박습니다.</p>
+          <h2>대표세무사</h2>
+          <p>상담은 “말”보다 “정리”가 먼저입니다.</p>
         </div>
+        <span class="byHviral"><span class="spark"></span> (주)하비럴 샘플 페이지</span>
       </div>
 
-      <div class="cards3">
-        <div class="card feature">
-          <div class="icon">🦾</div>
-          <h3>집게차 상차 전문</h3>
-          <p>혼적/분리 상차 가능. 작업 동선 최적화로 시간 절감.</p>
+      <div class="profileGrid">
+        <div class="card profileLeft">
+          <div class="profilePhoto" aria-hidden="true"></div>
+          <div class="profileMeta">
+            <div class="nameLine">
+              <div class="nm">김은해 세무사</div>
+              <div class="role">은해세무회계 · 대표</div>
+            </div>
+            <ul class="bullets">
+              <li>업종/규모별 “필수 신고” 우선 정리</li>
+              <li>리스크(가산세/누락/증빙) 최소화 중심</li>
+              <li>사업 운영 흐름에 맞춘 실무형 안내</li>
+            </ul>
+          </div>
+
+          <div class="watermark">
+            * 사진/약력 영역은 실제 자료로 교체하면 완성됩니다. (assets/images/eunhae-ceo.jpg)
+          </div>
         </div>
-        <div class="card feature">
-          <div class="icon">🧾</div>
-          <h3>정산 투명</h3>
-          <p>자재 종류/중량/단가 기준을 명확히 안내하고 진행합니다.</p>
-        </div>
-        <div class="card feature">
-          <div class="icon">🦺</div>
-          <h3>안전·정리 마무리</h3>
-          <p>철거 후 잔재 정리까지. 현장 클레임을 줄입니다.</p>
+
+        <div class="card profileRight">
+          <div class="quote">
+            “세금은 ‘절세’보다 먼저, <b>불확실성을 줄여 사업을 안정</b>시키는 도구입니다.”
+          </div>
+          <p class="para">
+            은해세무회계는 단발성 신고가 아니라, 매달/분기 운영을 기준으로
+            증빙·인건비·원가·현금흐름이 무너지지 않도록 <b>점검→정리→고정</b>하는 방식으로 진행합니다.
+          </p>
+          <p class="para">
+            그래서 상담은 “무엇을 해드릴까요?”가 아니라,
+            “지금 무엇이 가장 위험하고, 무엇을 먼저 고정하면 편해지는가”부터 잡습니다.
+          </p>
+
+          <div class="notice">
+            샘플 문구) “현재 상황 기준으로 가능한 범위부터 정리해드리고,
+            이후에 확장 가능한 구조로 이어지게 합니다.”
+          </div>
+
+          <div class="watermark">
+            ※ (주)하비럴 샘플 페이지 — ‘대표 인물 신뢰’가 전환으로 이어지도록 구성했습니다.
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- 절차/문의 -->
+  <!-- 서비스 안내 -->
+  <section id="services">
+    <div class="wrap">
+      <div class="sectionHead">
+        <div>
+          <h2>서비스 안내</h2>
+          <p>“무엇을 해주는지”가 한눈에 보이면, 문의가 빨라집니다.</p>
+        </div>
+        <span class="byHviral"><span class="spark"></span> (주)하비럴 샘플 페이지</span>
+      </div>
+
+      <div class="cards3">
+        <div class="card feature">
+          <div class="icon">🧾</div>
+          <h3>기장·신고</h3>
+          <p>부가세/종합소득세/법인세/원천세 등 주기별 신고를 실무 흐름에 맞춰 관리합니다.</p>
+        </div>
+        <div class="card feature">
+          <div class="icon">🏢</div>
+          <h3>법인/인건비</h3>
+          <p>급여·4대보험·지급명세서·경비처리 등 운영에서 자주 막히는 포인트를 정리합니다.</p>
+        </div>
+        <div class="card feature">
+          <div class="icon">🏠</div>
+          <h3>양도·상속·증여</h3>
+          <p>재산 이전/거래 관련 세무를 사전 검토 중심으로 안내합니다. (자료/상황별 협의)</p>
+        </div>
+      </div>
+
+      <div class="notice">
+        팁) 서비스는 “전부 나열”보다 <b>대표 3~6개</b> + “상담에서 세부 조율”이 전환이 좋습니다.
+      </div>
+    </div>
+  </section>
+
+  <!-- 진행 방식 -->
   <section id="process">
     <div class="wrap">
       <div class="sectionHead">
         <div>
-          <h2>진행 절차</h2>
-          <p>아주 단순하게, 빠르게.</p>
+          <h2>진행 방식</h2>
+          <p>문의 → 정리 → 실행. 흐름이 보이면 신뢰가 생깁니다.</p>
         </div>
+        <span class="byHviral"><span class="spark"></span> (주)하비럴 샘플 페이지</span>
       </div>
 
       <div class="split">
         <div class="card info">
-          <div class="item"><span>1) 사진/주소 전송</span><span class="kbd">현장 3장</span></div>
-          <div class="item"><span>2) 견적/일정 확정</span><span class="kbd">당일 가능</span></div>
-          <div class="item"><span>3) 집게차 출동/작업</span><span class="kbd">상차/해체</span></div>
-          <div class="item"><span>4) 정산/마무리</span><span class="kbd">투명 정산</span></div>
-          <div class="item"><span>지역</span><span class="kbd">예) ○○/△△ 전역</span></div>
+          <div class="item"><span>1) 간단 정보 접수</span><span class="kbd">업종/매출/이슈</span></div>
+          <div class="item"><span>2) 자료 요청/정리</span><span class="kbd">필수만</span></div>
+          <div class="item"><span>3) 처리/보고</span><span class="kbd">리스크 제거</span></div>
+          <div class="item"><span>4) 사후 관리</span><span class="kbd">루틴 고정</span></div>
+          <div class="item"><span>소통 채널</span><span class="kbd">전화/메일/카톡</span></div>
         </div>
 
-        <div class="card info" id="quote">
+        <div class="card info">
           <div style="padding:16px">
-            <div class="miniTitle" style="font-size:18px">견적/문의</div>
+            <div class="miniTitle" style="font-size:18px">상담 전 미리 준비하면 좋은 것</div>
             <p class="mini" style="margin-top:8px">
-              아래만 보내주시면 <b>빠르게 견적</b> 드립니다.
+              “정확한 답”은 자료가 아니라 <b>정리된 정보</b>에서 나옵니다.
             </p>
-            <ol style="color:var(--mut); font닝-size:14px; margin:12px 0 18px; padding-left:18px">
-              <li>현장 주소(또는 지도 링크)</li>
-              <li>사진 3장 이상</li>
-              <li>자재 종류/대략 물량</li>
+            <ol style="color:var(--mut); font-size:14px; margin:12px 0 18px; padding-left:18px">
+              <li>업종/형태(개인/법인)</li>
+              <li>최근 매출 규모(대략)</li>
+              <li>가장 불안한 이슈 1~2개</li>
             </ol>
+            <div class="notice">
+              <span class="byHviral"><span class="spark"></span> (주)하비럴 샘플</span>
+              <div style="margin-top:8px">
+                이 섹션은 “상담이 쉬워 보이게” 만들어 문의 전환율이 올라갑니다.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
-            <div class="ctaRow">
-              <a class="btn primary" href="tel:010-0000-0000">📞 전화 문의</a>
-              <a class="btn" href="https://open.kakao.com/" target="_blank" rel="noopener">💬 카톡 견적</a>
-              <a class="btn" href="https://maps.google.com/?q=%EA%B3%A0%EB%AC%BC%EC%83%81" target="_blank" rel="noopener">📍 현장 공유</a>
+    </div>
+  </section>
+
+  <!-- 파워링크 없는 구조(세무사 언어) -->
+  <section id="why">
+    <div class="wrap">
+      <div class="sectionHead">
+        <div>
+          <h2>“파워링크 안 써도 되는 구조”</h2>
+          <p>세무사님 언어로 정리했습니다.</p>
+        </div>
+        <span class="byHviral"><span class="spark"></span> (주)하비럴 샘플 페이지</span>
+      </div>
+
+      <div class="card" style="padding:16px">
+        <div class="quote" style="border-left-color:rgba(34,197,94,.55)">
+          “파워링크는 ‘매출’이 아니라 ‘비용’으로 즉시 인식됩니다. 그래서 구조가 먼저입니다.”
+        </div>
+
+        <p class="para" style="margin-top:12px">
+          파워링크(클릭 광고)는 ‘광고비 → 클릭 → 문의’ 흐름이라,
+          문의가 끊기면 비용만 남고 ‘자산’이 남지 않습니다.
+          반면 <b>세무사님 업(신뢰/전문성/케이스)</b>은 한 번 정리되면 시간이 지날수록 누적되는 성격이라,
+          홈페이지/콘텐츠/문의 루트를 <b>운영 시스템</b>으로 잡아두면
+          광고비를 ‘지출’로 태우기보다 <b>유입 경로를 자산화</b>할 수 있습니다.
+        </p>
+
+        <p class="para">
+          하비럴은 이 흐름을 “설명”이 아니라, 지금 보고 계신 것처럼
+          <b>실제 화면(체험)</b>으로 보여드리고,
+          세무사님 상황에 맞게 <b>문의 → 상담 → 전환</b>이 자연스럽게 이어지도록 설계합니다.
+        </p>
+
+        <div class="notice">
+          계약으로 연결되는 마지막 한 문장(샘플):
+          <b>“이 샘플을 기준으로, 은해세무회계 상황에 맞춘 ‘상담 전환 구조’까지 한 번에 완성해드리겠습니다.”</b>
+        </div>
+
+        <div class="watermark">
+          ※ (주)하비럴 샘플 페이지 — ‘파워링크 대비 고효율’ 메시지가 과장 없이 전달되도록 구성했습니다.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 상담/문의 -->
+  <section id="contact">
+    <div class="wrap">
+      <div class="sectionHead">
+        <div>
+          <h2>상담/문의</h2>
+          <p>편한 채널로 연락 주세요. (샘플은 링크만 교체하면 됩니다)</p>
+        </div>
+        <span class="byHviral"><span class="spark"></span> (주)하비럴 샘플 페이지</span>
+      </div>
+
+      <div class="split">
+        <div class="card info">
+          <div class="item"><span>전화</span><span class="kbd">010-0000-0000</span></div>
+          <div class="item"><span>이메일</span><span class="kbd">sample@eunhaetax.co.kr</span></div>
+          <div class="item"><span>팩스</span><span class="kbd">000-000-0000</span></div>
+          <div class="item"><span>상담 시간</span><span class="kbd">예) 평일 09:00~18:00</span></div>
+          <div class="item"><span>자료 전달</span><span class="kbd">메일/카톡 가능</span></div>
+
+          <div class="notice">
+            팁) 주소/팩스/이메일은 <b>푸터(하단)</b>에도 한 번 더 넣어두면 신뢰도가 올라갑니다.
+          </div>
+        </div>
+
+        <div class="card info">
+          <div style="padding:16px">
+            <div class="miniTitle" style="font-size:18px">바로 연결</div>
+            <p class="mini" style="margin-top:8px">
+              상담 요청 시, “업종/형태 + 이슈 1개”만 적어도 충분합니다.
+            </p>
+
+            <div class="ctaRow" style="margin-top:12px">
+              <a class="btn primary" href="tel:010-0000-0000">📞 전화 상담</a>
+              <a class="btn" href="https://open.kakao.com/" target="_blank" rel="noopener">💬 카톡 문의</a>
+              <a class="btn" href="mailto:sample@eunhaetax.co.kr">✉️ 이메일</a>
             </div>
 
             <div class="notice" style="margin-top:16px">
-              샘플 문구) “사진/주소 주시면 당일 출동 가능 여부 바로 안내드립니다.”
+              샘플 문구) “현재 상황을 간단히 남겨주시면, 가능한 범위부터 빠르게 정리해드리겠습니다.”
+            </div>
+
+            <div class="watermark">
+              ※ (주)하비럴 샘플 페이지 — ‘문의 버튼 3개’만 정리해도 전환이 확 올라갑니다.
             </div>
           </div>
         </div>
@@ -424,11 +668,70 @@
     </div>
   </section>
 
+  <!-- 오시는 길 -->
+  <section id="location">
+    <div class="wrap">
+      <div class="sectionHead">
+        <div>
+          <h2>오시는 길</h2>
+          <p>주소는 “상단(요약)” + “하단(푸터)”에 2회 노출이 안정적입니다.</p>
+        </div>
+        <span class="byHviral"><span class="spark"></span> (주)하비럴 샘플 페이지</span>
+      </div>
+
+      <div class="card" style="padding:16px">
+        <div class="split">
+          <div class="info" style="padding:0">
+            <div class="item"><span>주소</span><span class="kbd">예) (우)00000 ○○시 ○○구 ○○로 00</span></div>
+            <div class="item"><span>주차</span><span class="kbd">예) 건물 지하/인근</span></div>
+            <div class="item"><span>대중교통</span><span class="kbd">예) ○○역 3번 출구</span></div>
+
+            <div class="ctaRow" style="margin-top:12px">
+              <a class="btn" href="https://maps.google.com/?q=%EC%9D%80%ED%95%B4%EC%84%B8%EB%AC%B4%ED%9A%8C%EA%B3%84" target="_blank" rel="noopener">🧭 지도 열기</a>
+              <a class="btn" href="#contact">📩 상담하기</a>
+            </div>
+
+            <div class="notice">
+              실제 운영 시에는 네이버지도/카카오맵 링크로 교체 추천.
+            </div>
+          </div>
+
+          <div class="card" style="background:rgba(0,0,0,.16); border:1px solid rgba(255,255,255,.10);">
+            <div style="padding:16px">
+              <div class="miniTitle">표시 위치(요약)</div>
+              <p class="mini" style="margin-top:8px">
+                <b>주소/팩스/이메일</b>은 “연락처 섹션 + 푸터”에 넣고,
+                지도 버튼은 <b>상담 버튼 옆</b>에 두면 이탈이 줄어듭니다.
+              </p>
+              <div class="watermark">
+                ※ (주)하비럴 샘플 페이지 — 정보 배치도 ‘전환 설계’의 일부입니다.
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 푸터 -->
   <footer class="footer">
     <div class="wrap">
-      <div style="display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap">
-        <span>© <span id="y"></span> 고물상·집게차</span>
-        <span style="opacity:.75">샘플 페이지 · (주)하비럴</span>
+      <div style="display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap; align-items:flex-end">
+        <div>
+          <div style="font-weight:900; color:rgba(255,255,255,.78)">은해세무회계</div>
+          <div style="margin-top:6px; color:rgba(255,255,255,.55)">
+            주소: 예) (우)00000 ○○시 ○○구 ○○로 00 ·
+            팩스: 000-000-0000 ·
+            이메일: sample@eunhaetax.co.kr
+          </div>
+        </div>
+        <div style="text-align:right">
+          <div>© <span id="y"></span> Eunhae Tax Accounting</div>
+          <div style="margin-top:6px; opacity:.8">
+            <span class="byHviral"><span class="spark"></span> (주)하비럴 샘플 페이지</span>
+          </div>
+        </div>
       </div>
     </div>
   </footer>
