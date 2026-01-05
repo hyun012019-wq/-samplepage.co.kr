@@ -20,7 +20,7 @@
 
   <style>
     :root{
-      --bg:#fbf7ef;
+      --bg:#fbf7ef;          /* 베이지 배경 */
       --card:#ffffff;
       --text:#1c1b19;
       --muted:#6b645b;
@@ -28,8 +28,8 @@
       --shadow: 0 18px 40px rgba(20,18,16,.10);
       --radius:18px;
 
-      --accent:#c79a55;
-      --accent2:#f2c66e;
+      --accent:#c79a55;      /* 베이지 포인트 */
+      --accent2:#f2c66e;     /* 옐로우 포인트(카카오 느낌) */
       --blue:#2a63ff;
       --max: 1120px;
     }
@@ -86,18 +86,23 @@
 
     nav.menu{
       display:flex; gap:10px; align-items:center;
+      flex: 0 1 auto;
       white-space:nowrap;
     }
-
     .menu a{
       color:var(--muted);
       font-size:13px;
       padding:10px 10px;
       border-radius:12px;
     }
+    .menu a:hover{background:rgba(0,0,0,.04); color:var(--text)}
 
     .cta{
-      display:flex; gap:10px; flex-wrap:wrap;
+      display:flex; gap:10px; align-items:center;
+      flex: 0 1 auto;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+      min-width: 260px;
     }
 
     .btn{
@@ -107,26 +112,30 @@
       border-radius:999px;
       border:1px solid var(--line);
       background: rgba(255,255,255,.70);
+      color:var(--text);
       font-size:13px;
       cursor:pointer;
       transition:.18s ease;
+      user-select:none;
       white-space:nowrap;
     }
-
+    .btn:hover{transform: translateY(-1px); background: rgba(255,255,255,.92)}
     .btn.primary{
       border:0;
       background: linear-gradient(135deg, var(--blue), rgba(42,99,255,.70));
       color:#fff;
+      box-shadow: 0 16px 30px rgba(42,99,255,.18);
       font-weight:700;
     }
-
     .btn.kakao{
       border:0;
       background: linear-gradient(135deg, #ffd34d, rgba(255,211,77,.75));
+      color:#1c1b19;
+      box-shadow: 0 16px 30px rgba(255,211,77,.20);
       font-weight:700;
     }
 
-    /* ✅ 인스타그램 버튼 스타일 (추가) */
+    /* ✅ 인스타 버튼 그라데이션(추가) */
     .btn.instagram{
       border:0;
       color:#fff;
@@ -137,37 +146,563 @@
         #fd5949 45%,
         #d6249f 60%,
         #285AEB 90%);
-      box-shadow: 0 16px 30px rgba(214,36,159,.25);
+      box-shadow: 0 16px 30px rgba(214,36,159,.22);
+    }
+
+    main{padding:24px 0 34px}
+
+    .hero{
+      display:grid;
+      grid-template-columns: 1.12fr .88fr;
+      gap:14px;
+      align-items:stretch;
+      margin-top:12px;
+    }
+
+    .card{
+      background: rgba(255,255,255,.85);
+      border:1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+
+    .hero-left{padding:22px; position:relative}
+    .pill{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:8px 12px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.75);
+      color:var(--muted);
+      font-size:13px;
+    }
+
+    h1{
+      margin:14px 0 10px;
+      font-size:44px;
+      line-height:1.10;
+      letter-spacing:-1px;
+    }
+
+    .desc{
+      color:var(--muted);
+      font-size:15px;
+      line-height:1.7;
+      max-width: 64ch;
+      margin:0;
+    }
+
+    .hero-actions{display:flex; gap:10px; flex-wrap:wrap; margin-top:16px}
+    .mini{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:10px;
+      margin-top:16px;
+    }
+    .mini .m{
+      padding:12px;
+      border-radius:16px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.75);
+    }
+    .mini .m b{display:block; font-size:14px}
+    .mini .m span{display:block; margin-top:6px; color:var(--muted); font-size:12.5px; line-height:1.45}
+
+    .hero-right{padding:18px}
+    .hero-right .title{font-weight:800; margin-bottom:6px}
+    .hero-right .subtxt{color:var(--muted); font-size:13px; line-height:1.6; margin-bottom:12px}
+    .quick{
+      display:flex; gap:10px; flex-wrap:wrap;
+    }
+    .quick .btn{background: rgba(255,255,255,.92)}
+    .quick .btn i{font-style:normal; opacity:.9}
+
+    section{padding:20px 0}
+    .section-title{display:flex; justify-content:space-between; align-items:flex-end; gap:12px; margin-bottom:10px}
+    .section-title h2{margin:0; font-size:22px; letter-spacing:-.3px}
+    .section-title p{margin:0; color:var(--muted); font-size:13px; line-height:1.5}
+
+    .grid-2{display:grid; grid-template-columns: 1fr 1fr; gap:12px; align-items:stretch}
+    .grid-3{display:grid; grid-template-columns: repeat(3, 1fr); gap:12px; align-items:stretch}
+
+    .media{
+      border-radius:16px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.75);
+      overflow:hidden;
+      min-height: 220px;
+      position:relative;
+    }
+    .media img{width:100%; height:100%; object-fit:cover; display:block}
+
+    .box{padding:16px}
+    .list{
+      margin:0; padding-left: 18px;
+      color:var(--muted);
+      line-height:1.8;
+      font-size:14px;
+    }
+
+    .step{
+      padding:16px;
+      border-radius:16px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.78);
+    }
+    .step b{display:block; margin-bottom:6px}
+    .step span{display:block; color:var(--muted); font-size:13.5px; line-height:1.6}
+
+    .priceRow{
+      display:flex; gap:10px; flex-wrap:wrap;
+      margin-top:12px;
+    }
+    .chip{
+      padding:10px 12px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.90);
+      font-size:13px;
+      color:var(--text);
+    }
+    .chip b{margin-left:6px}
+
+    .table{
+      width:100%;
+      border-collapse:collapse;
+      overflow:hidden;
+      border-radius:16px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.82);
+    }
+    .table th,.table td{
+      padding:12px 10px;
+      border-bottom:1px solid var(--line);
+      text-align:left;
+      font-size:14px;
+    }
+    .table th{color:var(--muted); width:140px; font-weight:700; background: rgba(0,0,0,.02)}
+    .table tr:last-child td,.table tr:last-child th{border-bottom:0}
+
+    .foot{
+      border-top:1px solid var(--line);
+      padding:22px 0 30px;
+      color:var(--muted);
+      font-size:12.5px;
+      line-height:1.7;
+    }
+
+    .floating{
+      position:fixed; right:16px; bottom:16px;
+      display:flex; flex-direction:column; gap:10px;
+      z-index:80;
+    }
+    .fab{
+      border-radius:999px;
+      padding:12px 14px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.92);
+      box-shadow: 0 14px 28px rgba(20,18,16,.12);
+      color:var(--text);
+      font-size:13px;
+      cursor:pointer;
+      white-space:nowrap;
+    }
+    .fab:hover{transform: translateY(-1px)}
+
+    /* ✅ CTA: 모바일에서 무조건 2x2로 정렬(전화상담 떨어짐 방지) */
+    @media (max-width: 560px){
+      .cta{
+        width:100%;
+        min-width:0;
+        justify-content:stretch;
+        display:grid;
+        grid-template-columns: 1fr 1fr;
+        gap:10px;
+      }
+      .cta .btn{
+        width:100%;
+        padding:12px 12px;
+      }
+    }
+
+    @media (max-width: 980px){
+      .hero{grid-template-columns: 1fr}
+      nav.menu{display:none}
+      h1{font-size:36px}
+    }
+    @media (max-width: 560px){
+      .mini{grid-template-columns: 1fr}
+      .grid-2{grid-template-columns: 1fr}
+      .grid-3{grid-template-columns: 1fr}
+      .brand{min-width:auto}
     }
   </style>
 
   <script>
+    // ✅ 배포할 때마다 v만 바꾸면 캐시 무력화 확실
     window.__ASSET_VERSION__ = "20260106_01";
   </script>
 </head>
 
 <body>
-<header>
-  <div class="wrap nav">
-    <div class="brand">
-      <div class="logo">
-        <img data-asset="logo.png.jpg" alt="비비하우스 로고">
+  <header>
+    <div class="wrap nav">
+      <div class="brand">
+        <div class="logo">
+          <img data-asset="logo.png.jpg" alt="비비하우스 로고">
+        </div>
+        <div>
+          <strong>비비하우스</strong>
+          <div class="sub">BB HOUSE · 탄성코트 전문 시공 (주)하비럴 기획브랜딩 </div>
+        </div>
       </div>
-      <div>
-        <strong>비비하우스</strong>
-        <div class="sub">BB HOUSE · 탄성코트 전문 시공 (주)하비럴 기획브랜딩</div>
-      </div>
-    </div>
 
-    <div class="cta">
-      <a class="btn" href="#contact">도움문의</a>
-      <a class="btn instagram" href="https://www.instagram.com/bb.house___" target="_blank">Instagram</a>
-      <a class="btn kakao" href="http://pf.kakao.com/_dxbxbBG" target="_blank">카카오톡</a>
-      <a class="btn primary" href="tel:050713725226">전화상담</a>
+      <nav class="menu" aria-label="상단 메뉴">
+        <a href="#about">소개</a>
+        <a href="#what">탄성코트란</a>
+        <a href="#process">시공 절차</a>
+        <a href="#proof">자료/성능</a>
+        <a href="#price">견적 안내</a>
+        <a href="#location">오시는길</a>
+      </nav>
+
+      <div class="cta">
+        <a class="btn" href="#contact">도움문의</a>
+        <!-- ✅ 인스타 버튼만 그라데이션 적용 -->
+        <a class="btn instagram" href="https://www.instagram.com/bb.house___" target="_blank" rel="noopener">Instagram</a>
+        <a class="btn kakao" href="http://pf.kakao.com/_dxbxbBG" target="_blank" rel="noopener">카카오톡</a>
+        <a class="btn primary" href="tel:050713725226">전화상담</a>
+      </div>
     </div>
+  </header>
+
+  <main>
+    <div class="wrap">
+      <div class="hero">
+        <section class="card hero-left" aria-label="메인 소개">
+          <span class="pill">청주 · 세종 · 대전 · 천안 | 실내 전용 프리미엄 탄성코트</span>
+          <h1>가족이 안심하는<br/>건강한 실내 공간</h1>
+          <p class="desc">
+            안녕하세요. 비비하우스입니다.<br/>
+            비비하우스는 <b>실내 전용 프리미엄 탄성코트 시공</b>을 전문으로 하며,
+            <b>세라믹 / 규조토 / 에어로겔</b> 기반의 <b>고기능성 친환경 제품</b>만 사용합니다.<br/>
+            곰팡이 방지, 단열 보조, 냄새 부담을 줄인 마감으로
+            가족이 안심하고 생활할 수 있는 쾌적한 실내 환경을 제공합니다.
+          </p>
+
+          <div class="hero-actions">
+            <a class="btn" href="#contact">문자 남기기</a>
+            <a class="btn" href="#location">오시는길</a>
+          </div>
+
+          <div class="mini" aria-label="핵심 안내">
+            <div class="m">
+              <b>실내 전용 시공</b>
+              <span>거실·방·드레스룸 등 실내 공간 중심</span>
+            </div>
+            <div class="m">
+              <b>상태 점검 후 맞춤</b>
+              <span>결로/곰팡이 흔적·크랙·면 상태에 맞춰 공정 조정</span>
+            </div>
+            <div class="m">
+              <b>작업 중 연락 안내</b>
+              <span>작업 중 전화가 어려울 수 있어 <b>문자 문의</b>를 권장</span>
+            </div>
+          </div>
+
+          <div style="margin-top:14px; color:var(--muted); font-size:12.5px;">
+            ※ 본 자료는 “체험/안내용”(주)하비럴 기획브랜딩
+          </div>
+        </section>
+
+        <aside class="card hero-right" aria-label="빠른 안내">
+          <div class="title">현장에 맞춰 깔끔하게</div>
+          <div class="subtxt">
+            평면도 또는 공간 사진을 보내주시면, 현장 방문 없이도 빠르게 안내드립니다.<br/>
+            (정확한 비용은 면적/상태/자재 선택에 따라 달라집니다.)
+          </div>
+
+          <div class="quick">
+            <a class="btn" href="tel:050713725226"><i>📞</i> 전화상담</a>
+            <a class="btn" href="#contact"><i>✉️</i> 문자</a>
+            <!-- ✅ 인스타 버튼만 그라데이션 적용 -->
+            <a class="btn instagram" href="https://www.instagram.com/bb.house___" target="_blank" rel="noopener"><i>💬</i> 인스타DM</a>
+          </div>
+
+          <div style="margin-top:14px">
+            <table class="table" aria-label="기본 정보">
+              <tr>
+                <th>업체명</th>
+                <td><b>비비하우스</b> (탄성코트 전문 시공)</td>
+              </tr>
+              <tr>
+                <th>전화상담</th>
+                <td><b>0507-1372-5226</b> (문자 가능)</td>
+              </tr>
+              <tr>
+                <th>Instagram</th>
+                <td>bb.house___</td>
+              </tr>
+              <tr>
+                <th>카카오톡</th>
+                <td><a href="http://pf.kakao.com/_dxbxbBG" target="_blank" rel="noopener"> 채널 이동하기</a></td>
+              </tr>
+            </table>
+
+            <div style="margin-top:10px; color:var(--muted); font-size:12.5px; line-height:1.6;">
+              작업 중에는 전화 응대가 어려울 수 있습니다. 문자를 남겨주시면 확인 후 신속하게 답변드리겠습니다.
+            </div>
+          </div>
+        </aside>
+      </div>
+
+      <section id="about">
+        <div class="section-title">
+          <div>
+            <h2>소개</h2>
+            <p>실내 전용 프리미엄 탄성코트, 가족의 생활환경을 기준으로 시공합니다.</p>
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div class="card box">
+            <b style="font-size:16px;">비비하우스가 지키는 기준</b>
+            <ul class="list">
+              <li><b>친환경 중심</b>: 실내 생활 공간에 적합한 자재 우선 선택</li>
+              <li><b>상태 기반 공정</b>: 결로/곰팡이/크랙 등 상태에 맞춰 보수·마감</li>
+              <li><b>정확한 안내</b>: 사진/평면도 기반으로 빠르게 견적 방향 안내</li>
+              <li><b>책임 있는 A/S</b>: 시공 후 이슈는 확인하고 안내</li>
+            </ul>
+          </div>
+
+          <div class="card" style="padding:14px">
+            <div class="media" aria-label="소개 이미지">
+              <img data-asset="about.jpg.jpg" alt="비비하우스 소개 이미지">
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="what">
+        <div class="section-title">
+          <div>
+            <h2>탄성코트란</h2>
+            <p>실내 벽면 마감에 특화된 코팅으로, 환경·상태에 맞게 자재와 공정을 선택합니다.</p>
+          </div>
+        </div>
+
+        <div class="grid-3">
+          <div class="card step">
+            <b>곰팡이/결로 흔적 대응</b>
+            <span>벽면 상태를 확인하고 필요한 보수 후, 상황에 맞춘 마감으로 관리합니다.</span>
+          </div>
+          <div class="card step">
+            <b>단열 보조/쾌적함</b>
+            <span>실내 환경과 사용 목적에 맞게 자재(세라믹/규조토/에어로겔)를 선택합니다.</span>
+          </div>
+          <div class="card step">
+            <b>냄새 부담 감소</b>
+            <span>실내 생활 공간 특성을 고려해 자재 선택과 환기/건조 안내를 함께 드립니다.</span>
+          </div>
+        </div>
+      </section>
+
+      <section id="process">
+        <div class="section-title">
+          <div>
+            <h2>시공 절차</h2>
+            <p>공간 상태에 맞춘 맞춤형 공정으로 진행합니다.</p>
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div class="card box">
+            <ol class="list" style="padding-left:18px;">
+              <li><b>시공 공간 정리 및 청소</b></li>
+              <li><b>벽면 상태 점검 및 보수</b> (크랙, 곰팡이, 결로 흔적, 구멍 등)</li>
+              <li><b>친환경 탄성코트 마감 시공</b></li>
+            </ol>
+            <div style="margin-top:10px; color:var(--muted); font-size:13px; line-height:1.6;">
+              각 단계는 철저하게 진행되며, 고객님의 공간 상태에 맞춘 맞춤형 솔루션을 제공합니다.
+            </div>
+          </div>
+
+          <div class="card" style="padding:14px">
+            <div class="media" aria-label="예약/안내 이미지">
+              <img data-asset="reservation.jpg.jpg" alt="비비하우스 예약/안내 이미지">
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="proof">
+        <div class="section-title">
+          <div>
+            <h2>자료/성능</h2>
+            <p>제품별 특징과 참고 자료를 한 번에 확인하세요.</p>
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div class="card" style="padding:14px">
+            <div class="media" aria-label="단열/차열 자료">
+              <img data-asset="proof-heat.jpg.jpg" alt="단열/차열 자료 이미지">
+            </div>
+          </div>
+          <div class="card" style="padding:14px">
+            <div class="media" aria-label="항곰팡이 자료">
+              <img data-asset="proof-mold.jpg.jpg" alt="항곰팡이 자료 이미지">
+            </div>
+          </div>
+        </div>
+
+        <div class="grid-2" style="margin-top:12px">
+          <div class="card" style="padding:14px">
+            <div class="media" aria-label="제품 소개 1">
+              <img data-asset="product-1.jpg.jpg" alt="제품 소개 이미지 1">
+            </div>
+          </div>
+          <div class="card" style="padding:14px">
+            <div class="media" aria-label="제품 소개 2">
+              <img data-asset="product-2jpg" alt="제품 소개 이미지 2">
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="price">
+        <div class="section-title">
+          <div>
+            <h2>가격구성표</h2>
+            <p>현장 면적/상태/자재에 따라 달라질 수 있으며, 빠르게 안내드립니다.</p>
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div class="card box">
+            <div class="priceRow" aria-label="가격 칩">
+              <div class="chip">세라믹 <b>30~</b></div>
+              <div class="chip">규조토 <b>35~</b></div>
+              <div class="chip">에어로겔 <b>45~</b></div>
+            </div>
+
+            <div style="margin-top:10px; color:var(--muted); font-size:13px; line-height:1.6;">
+              정확한 견적은 <b>평면도</b> 또는 <b>시공 공간 사진</b>을 보내주시면
+              현장 방문 없이도 빠르고 정확하게 안내해드립니다.
+            </div>
+
+            <div style="margin-top:12px; display:flex; gap:10px; flex-wrap:wrap;">
+              <a class="btn primary" href="tel:050713725226">전화상담</a>
+              <a class="btn" href="#contact">문자 남기기</a>
+            </div>
+          </div>
+
+          <div class="card" style="padding:14px">
+            <div class="media" aria-label="가격 이미지">
+              <img data-asset="price.jpg.png" alt="가격 안내 이미지">
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="location">
+        <div class="section-title">
+          <div>
+            <h2>오시는길</h2>
+            <p>네이버 플레이스 위치로 바로 이동합니다.</p>
+          </div>
+        </div>
+
+        <div class="card box" style="display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap;">
+          <div>
+            <b style="font-size:15px;">위치</b>
+            <div style="color:var(--muted); font-size:13px; margin-top:6px;">
+              아래 버튼을 누르면 네이버 플레이스 위치 페이지로 이동합니다.
+            </div>
+          </div>
+          <a class="btn" href="https://m.place.naver.com/place/1300949235/location?entry=pll&filter=location&selected_place_id=1300949235" target="_blank" rel="noopener">📍 위치 보기</a>
+        </div>
+      </section>
+
+      <section id="contact">
+        <div class="section-title">
+          <div>
+            <h2>도움문의</h2>
+            <p>빠른 상담은 전화/문자/인스타 DM/카카오톡으로 남겨주세요.</p>
+          </div>
+        </div>
+
+        <div class="card box">
+          <div style="display:flex; gap:10px; flex-wrap:wrap;">
+            <a class="btn primary" href="tel:050713725226">📞 전화상담</a>
+            <a class="btn" href="sms:050713725226">✉️ 문자 남기기</a>
+            <!-- ✅ 인스타 버튼만 그라데이션 적용 -->
+            <a class="btn instagram" href="https://www.instagram.com/bb.house___" target="_blank" rel="noopener">💬 인스타 DM</a>
+            <a class="btn kakao" href="http://pf.kakao.com/_dxbxbBG" target="_blank" rel="noopener">카카오톡 상담</a>
+          </div>
+
+          <div style="margin-top:14px; color:var(--muted); font-size:13px; line-height:1.6;">
+            * 작업 중에는 전화 응대가 어려울 수 있습니다. 문자를 남겨주시면 확인 후 신속하게 답변드리겠습니다.
+          </div>
+        </div>
+      </section>
+
+      <div class="foot">
+        <div style="text-align:center;">
+          비비하우스 · 탄성코트 전문 시공 하비럴 마케팅 풀퍼널 시스템 설계<br/>
+          청주 · 세종 · 대전 · 천안<br/>
+          문의: 0507-1372-5226 · Instagram: bb.house___<br/>
+          © <span id="year"></span> BB HOUSE. All rights reserved. | 기획·디자인: (주)하비럴
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <div class="floating" aria-label="빠른 버튼">
+    <a class="fab" href="tel:050713725226">📞 전화상담</a>
+    <a class="fab" href="sms:050713725226">✉️ 문자</a>
+    <a class="fab" href="http://pf.kakao.com/_dxbxbBG" target="_blank" rel="noopener">💛 카카오톡</a>
+    <a class="fab" href="https://m.place.naver.com/place/1300949235/location?entry=pll&filter=location&selected_place_id=1300949235" target="_blank" rel="noopener">📍 위치</a>
   </div>
-</header>
 
-<!-- 이하 네가 준 BODY / SECTION / SCRIPT 전부 그대로 -->
+  <script>
+    const v = encodeURIComponent(window.__ASSET_VERSION__ || Date.now().toString());
+
+    function setSrcWithFallback(img, raw){
+      const base = raw;
+      img.src = `${base}?v=${v}`;
+
+      img.onerror = () => {
+        const candidates = [];
+        if (base.endsWith(".jpg.jpg")) candidates.push(base.replace(".jpg.jpg", ".jpg"));
+        if (base.endsWith(".png.jpg")) candidates.push(base.replace(".png.jpg", ".png"));
+        if (base.endsWith(".png.png")) candidates.push(base.replace(".png.png", ".png"));
+        if (base.endsWith("2jpg")) candidates.push(base.replace("2jpg", "2.jpg"));
+        if (base.includes(".jpg.png")) candidates.push(base.replace(".jpg.png", ".jpg"));
+
+        if (!candidates.length) { img.remove(); return; }
+
+        let tried = 0;
+        const tryNext = () => {
+          if (tried >= candidates.length) { img.remove(); return; }
+          img.onerror = tryNext;
+          img.src = `${candidates[tried++]}?v=${v}`;
+        };
+        tryNext();
+      };
+    }
+
+    document.querySelectorAll("img[data-asset]").forEach(img=>{
+      const raw = img.getAttribute("data-asset");
+      setSrcWithFallback(img, raw);
+    });
+
+    const og = document.querySelector('meta[property="og:image"]');
+    if (og && og.content) og.content = `${og.content.split("?")[0]}?v=${v}`;
+
+    const y = document.getElementById("year");
+    if (y) y.textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
