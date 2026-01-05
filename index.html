@@ -19,8 +19,7 @@
   <meta property="og:image" content="og.jpg.png" />
 
   <script>
-    // ✅ 배포/업로드 때마다 값만 올리면 캐시가 사실상 무력화
-    window.__ASSET_VERSION__ = "20260105_05";
+    window.__ASSET_VERSION__ = "20260105_06";
   </script>
 
   <style>
@@ -49,7 +48,7 @@
     a{color:inherit; text-decoration:none}
     .wrap{max-width:var(--max); margin:0 auto; padding:0 18px}
 
-    /* ✅ 전체 페이지 배경(바탕) 숨쉬기 레이어 */
+    /* ✅ 전체 바탕 숨쉬기 */
     .page-bg{
       position:fixed;
       inset:0;
@@ -89,14 +88,11 @@
       background: rgba(11,16,32,.72);
       border-bottom:1px solid var(--line);
     }
-
-    /* ✅ 데스크탑 기본 헤더(1줄) */
     .nav{
       display:flex; align-items:center; justify-content:space-between;
       height:64px;
       gap:12px;
     }
-
     .brand{display:flex; gap:12px; align-items:center; min-width: 220px;}
     .logo{
       width:40px; height:40px; border-radius:12px;
@@ -121,7 +117,6 @@
     }
     .menu a:hover{background:rgba(255,255,255,.06); color:var(--text)}
 
-    /* ✅ 상단 버튼(동일 높이/폭) */
     .cta{display:flex; gap:10px; align-items:center; flex:0 0 auto;}
     .btn{
       display:inline-flex; align-items:center; justify-content:center;
@@ -152,7 +147,7 @@
       box-shadow: 0 12px 28px rgba(229,57,53,.2);
     }
 
-    /* ✅ 모바일 헤더(2줄) — 겹침 해결 핵심 */
+    /* ✅ 모바일 헤더(겹침 해결) */
     .nav-mobile{display:none;}
     .nav-mobile .row{
       display:flex; align-items:center; justify-content:space-between;
@@ -164,13 +159,10 @@
       padding-bottom:12px;
       border-top:1px solid var(--line);
     }
-    .nav-mobile .brand{
-      min-width:0;
-      flex:1;
-    }
+    .nav-mobile .brand{min-width:0; flex:1;}
     .nav-mobile .brand strong{
       display:block;
-      max-width: 220px;
+      max-width:220px;
       white-space:nowrap;
       overflow:hidden;
       text-overflow:ellipsis;
@@ -182,13 +174,13 @@
       flex-wrap:wrap;
     }
     .nav-mobile .btn{
-      min-width: 0;
+      min-width:0;
       flex: 1 1 0;
       height:40px;
       padding:0 10px;
       font-size:13px;
     }
-    .nav-mobile .btn.primary{flex: 1.2 1 0;}
+    .nav-mobile .btn.primary{flex:1.2 1 0;}
 
     .hero{padding:44px 0 24px;}
     .hero-grid{
@@ -206,7 +198,7 @@
     }
     .hero-card{padding:26px; position:relative; min-height: 340px;}
 
-    /* ✅ 히어로 박스 안 숨쉬기(그대로) */
+    /* ✅ 히어로 박스 안 숨쉬기 */
     .hero-bg{
       position:absolute; inset:-1px;
       opacity:.12;
@@ -236,13 +228,10 @@
       font-size:13px;
       position:relative;
     }
-
-    h1{margin:14px 0 10px; font-size: 38px; line-height: 1.12; letter-spacing: -0.5px; position:relative;}
-    .sub{color:var(--muted); font-size:15px; line-height:1.7; max-width: 60ch; position:relative;}
-
+    h1{margin:14px 0 10px; font-size:38px; line-height:1.12; letter-spacing:-0.5px; position:relative;}
+    .sub{color:var(--muted); font-size:15px; line-height:1.7; max-width:60ch; position:relative;}
     .hero-actions{display:flex; gap:10px; flex-wrap:wrap; margin-top:16px; position:relative;}
-
-    .stats{display:grid; grid-template-columns: repeat(3, 1fr); gap:10px; margin-top:18px; position:relative;}
+    .stats{display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-top:18px; position:relative;}
     .stat{padding:12px; border-radius:14px; border:1px solid var(--line); background: rgba(255,255,255,.03);}
     .stat b{display:block; font-size:14px}
     .stat span{display:block; color:var(--muted); font-size:12px; margin-top:6px}
@@ -275,12 +264,21 @@
       backdrop-filter: blur(6px);
     }
 
+    /* ✅✅ 여기만 핵심 수정: 소개/시간표 박스 안 이미지 삐져나감 방지 */
     .thumb{
-      border-radius:14px; overflow:hidden;
+      border-radius:14px;
+      overflow:hidden;                /* 박스 밖으로 절대 못 나가게 */
       border:1px solid var(--line);
       background: rgba(255,255,255,.03);
     }
-    .thumb img{width:100%; height:260px; object-fit:cover; display:block}
+    .thumb img{
+      display:block;                  /* inline img 여백/삐짐 방지 */
+      width:100%;
+      max-width:100%;
+      height:auto !important;         /* 기존 고정 height 무력화 */
+      object-fit:contain;             /* 전체가 박스 안에 들어오게 */
+      background: rgba(0,0,0,.08);
+    }
 
     .feature{
       padding:16px;
@@ -290,7 +288,6 @@
     }
     .feature b{display:block; margin:4px 0 8px}
     .feature span{display:block; color:var(--muted); font-size:13px; line-height:1.65}
-
     .icon{
       width:44px; height:44px; border-radius:14px;
       display:grid; place-items:center;
@@ -329,15 +326,11 @@
       .menu{display:none}
       .gallery2{grid-template-columns: 1fr 1fr}
     }
-
-    /* ✅ 모바일에서는 헤더를 nav-mobile로 교체 */
     @media (max-width: 720px){
       .nav{display:none;}
       .nav-mobile{display:block;}
       .page-bg img{opacity:.18;}
-      .thumb img{height:220px}
     }
-
     @media (max-width: 520px){
       .stats{grid-template-columns: 1fr}
       .gallery2{grid-template-columns: 1fr}
@@ -346,13 +339,11 @@
 </head>
 
 <body>
-  <!-- ✅ 전체 바탕 숨쉬기 배경 -->
   <div class="page-bg" aria-hidden="true">
     <img data-asset="hero-breathe3.jpg.jpg" alt="" />
   </div>
 
   <header>
-    <!-- ✅ 데스크탑 헤더 -->
     <div class="wrap nav">
       <div class="brand">
         <div class="logo" aria-label="로고">
@@ -380,7 +371,6 @@
       </div>
     </div>
 
-    <!-- ✅ 모바일 헤더(2줄) : 겹침 완전 해결 -->
     <div class="wrap nav-mobile" aria-label="모바일 상단">
       <div class="row">
         <div class="brand">
@@ -405,11 +395,9 @@
   </header>
 
   <main>
-    <!-- HERO -->
     <section class="hero" id="top">
       <div class="wrap hero-grid">
         <div class="card hero-card">
-          <!-- ✅ 박스 안 배경은 그대로 -->
           <div class="hero-bg">
             <img data-asset="hero-breathe.jpg.jpg" alt="" />
           </div>
@@ -456,7 +444,6 @@
       </div>
     </section>
 
-    <!-- 소개 -->
     <section id="about">
       <div class="wrap">
         <div class="section-title">
@@ -493,7 +480,6 @@
       </div>
     </section>
 
-    <!-- 안전 운영 -->
     <section id="safety">
       <div class="wrap">
         <div class="section-title">
@@ -509,31 +495,26 @@
             <b>연령·수준 분리수업</b>
             <span>아이들의 체격·집중도·수준 차이를 고려해 반을 분리하고, 충돌 위험을 줄입니다.</span>
           </div>
-
           <div class="feature">
             <div class="icon">02</div>
             <b>기본기 중심 단계 운영</b>
             <span>무리한 동작보다 자세/균형/기초체력부터 차근히 쌓아 ‘다치지 않는 움직임’을 먼저 익힙니다.</span>
           </div>
-
           <div class="feature">
             <div class="icon">03</div>
             <b>수업 중 안전 관리</b>
             <span>수련 간격·동선·질서를 지도하고, 돌발 행동을 줄여 수업이 안정적으로 진행되도록 관리합니다.</span>
           </div>
-
           <div class="feature">
             <div class="icon">04</div>
             <b>학부모 상담 기반 반 편성</b>
             <span>아이의 성향/주의사항을 확인해 적응 속도에 맞춰 반/수업 방식을 안내드립니다.</span>
           </div>
-
           <div class="feature">
             <div class="icon">05</div>
             <b>시설·환경 관리</b>
             <span>수련 공간을 안전하게 유지하고, 수업 밀도를 조절하여 아이들이 편안히 참여하도록 돕습니다.</span>
           </div>
-
           <div class="feature">
             <div class="icon">06</div>
             <b>체험/상담 안내</b>
@@ -543,7 +524,6 @@
       </div>
     </section>
 
-    <!-- 시간표 -->
     <section id="schedule">
       <div class="wrap">
         <div class="section-title">
@@ -584,7 +564,6 @@
       </div>
     </section>
 
-    <!-- 오시는길 -->
     <section id="location">
       <div class="wrap">
         <div class="section-title">
@@ -610,7 +589,6 @@
       </div>
     </section>
 
-    <!-- 문의 -->
     <section id="contact">
       <div class="wrap">
         <div class="section-title">
@@ -655,7 +633,6 @@
       </div>
     </section>
 
-    <!-- Footer -->
     <section class="foot">
       <div class="wrap">
         <div style="display:flex; justify-content:space-between; gap:14px; flex-wrap:wrap;">
@@ -688,9 +665,7 @@
       const src = img.getAttribute("data-asset");
       img.src = `${src}?v=${v}`;
 
-      // 로고 처리(데스크탑)
       if (src === "logo.png.png") {
-        // 데스크탑 로고
         const deskLogoWrap = img.closest(".logo");
         const fallback = document.getElementById("logoFallback");
         if (deskLogoWrap && fallback) fallback.style.display = "none";
@@ -700,11 +675,7 @@
           if (fallback) fallback.style.display = "block";
         };
 
-        // 모바일 로고(같은 파일)
-        document.querySelectorAll(".logoFallbackMobile").forEach(fb=>{
-          fb.style.display = "none";
-        });
-        // 모바일 로고 img들도 display on
+        document.querySelectorAll(".logoFallbackMobile").forEach(fb=>{ fb.style.display = "none"; });
         document.querySelectorAll('.nav-mobile .logo img[data-asset="logo.png.png"]').forEach(mImg=>{
           mImg.style.display = "block";
           mImg.onerror = () => {
