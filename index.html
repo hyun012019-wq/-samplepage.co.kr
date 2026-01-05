@@ -120,6 +120,7 @@
       white-space:nowrap;
     }
     .btn:hover{transform: translateY(-1px); background: rgba(255,255,255,.92)}
+
     .btn.primary{
       border:0;
       background: linear-gradient(135deg, var(--blue), rgba(42,99,255,.70));
@@ -127,6 +128,7 @@
       box-shadow: 0 16px 30px rgba(42,99,255,.18);
       font-weight:700;
     }
+
     .btn.kakao{
       border:0;
       background: linear-gradient(135deg, #ffd34d, rgba(255,211,77,.75));
@@ -135,21 +137,28 @@
       font-weight:700;
     }
 
-    /* ✅ 인스타 그라데이션 버튼(요청) */
+    /* ✅ Instagram 그라데이션 버튼 */
     .btn.insta{
       border:0;
+      background: linear-gradient(90deg, #833ab4 0%, #fd1d1d 55%, #fcb045 100%);
       color:#fff;
+      box-shadow: 0 16px 30px rgba(253,29,29,.18);
       font-weight:800;
-      background: linear-gradient(135deg,
-        #833ab4 0%,
-        #c13584 28%,
-        #e1306c 50%,
-        #fd1d1d 70%,
-        #f77737 85%,
-        #fcb045 100%
-      );
-      box-shadow: 0 16px 30px rgba(193,53,132,.18);
     }
+
+    /* ✅ Naver Blog 버튼 */
+    .btn.nblog{
+      border:0;
+      background: linear-gradient(135deg, #03c75a, rgba(3,199,90,.72));
+      color:#fff;
+      box-shadow: 0 16px 30px rgba(3,199,90,.18);
+      font-weight:800;
+    }
+    .btn .icon{
+      width:18px; height:18px;
+      display:inline-block;
+    }
+    .btn .icon svg{width:100%; height:100%; display:block}
 
     main{padding:24px 0 34px}
 
@@ -218,6 +227,11 @@
       display:flex; gap:10px; flex-wrap:wrap;
     }
     .quick .btn{background: rgba(255,255,255,.92)}
+    .quick .btn.primary,
+    .quick .btn.kakao,
+    .quick .btn.insta,
+    .quick .btn.nblog{background: unset;}
+
     .quick .btn i{font-style:normal; opacity:.9}
 
     section{padding:20px 0}
@@ -255,6 +269,20 @@
     .step b{display:block; margin-bottom:6px}
     .step span{display:block; color:var(--muted); font-size:13.5px; line-height:1.6}
 
+    .priceRow{
+      display:flex; gap:10px; flex-wrap:wrap;
+      margin-top:12px;
+    }
+    .chip{
+      padding:10px 12px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.90);
+      font-size:13px;
+      color:var(--text);
+    }
+    .chip b{margin-left:6px}
+
     .table{
       width:100%;
       border-collapse:collapse;
@@ -280,6 +308,22 @@
       line-height:1.7;
     }
 
+    .biz{
+      margin-top:12px;
+      padding:12px 14px;
+      border-radius:16px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.75);
+      display:grid;
+      gap:6px;
+      max-width: 820px;
+      margin-left:auto;
+      margin-right:auto;
+      text-align:left;
+    }
+    .biz .row{display:flex; gap:10px; flex-wrap:wrap}
+    .biz b{color:var(--text)}
+
     .floating{
       position:fixed; right:16px; bottom:16px;
       display:flex; flex-direction:column; gap:10px;
@@ -297,94 +341,6 @@
       white-space:nowrap;
     }
     .fab:hover{transform: translateY(-1px)}
-
-    /* ✅ 가격구성표(이미지 스타일 참고) */
-    .pricing{
-      padding:18px;
-    }
-    .pricing-tabs{
-      display:grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap:0;
-      border-bottom:1px solid var(--line);
-      margin-bottom:14px;
-    }
-    .pricing-tab{
-      position:relative;
-      padding:10px 8px 14px;
-      text-align:center;
-      font-weight:900;
-      letter-spacing:.2px;
-      color: rgba(28,27,25,.38);
-      background: transparent;
-      border:0;
-      cursor:pointer;
-      font-size:15px;
-    }
-    .pricing-tab[aria-selected="true"]{
-      color: var(--text);
-    }
-    .pricing-tab[aria-selected="true"]::after{
-      content:"";
-      position:absolute;
-      left:18%;
-      right:18%;
-      bottom:-1px;
-      height:4px;
-      border-radius:999px;
-      background: rgba(28,27,25,.9);
-    }
-
-    .pricing-amount{
-      font-size:44px;
-      font-weight:900;
-      letter-spacing:-1px;
-      margin:14px 0 6px;
-    }
-    .pricing-amount small{
-      font-size:16px;
-      font-weight:800;
-      color: var(--muted);
-      letter-spacing:0;
-      margin-left:8px;
-    }
-    .pricing-title{
-      font-size:20px;
-      font-weight:900;
-      margin:8px 0 6px;
-    }
-    .pricing-desc{
-      margin:0 0 14px;
-      color: var(--muted);
-      font-size:14px;
-      line-height:1.7;
-    }
-    .pricing-meta{
-      margin-top:14px;
-      border-radius:16px;
-      border:1px solid var(--line);
-      background: rgba(255,255,255,.78);
-      padding:14px 16px;
-      display:grid;
-      gap:10px;
-    }
-    .meta-row{
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      color: var(--muted);
-      font-size:14px;
-    }
-    .meta-row b{
-      color: var(--text);
-      font-size:14px;
-    }
-    .pricing-actions{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      margin-top:14px;
-    }
 
     /* ✅ CTA: 모바일에서 무조건 2x2로 정렬(전화상담 떨어짐 방지) */
     @media (max-width: 560px){
@@ -412,13 +368,12 @@
       .grid-2{grid-template-columns: 1fr}
       .grid-3{grid-template-columns: 1fr}
       .brand{min-width:auto}
-      .pricing-amount{font-size:38px}
     }
   </style>
 
   <script>
     // ✅ 배포할 때마다 v만 바꾸면 캐시 무력화 확실
-    window.__ASSET_VERSION__ = "20260106_01";
+    window.__ASSET_VERSION__ = "20260106_03";
   </script>
 </head>
 
@@ -499,10 +454,25 @@
             (정확한 비용은 면적/상태/자재 선택에 따라 달라집니다.)
           </div>
 
+          <!-- ✅ 손가락 표시 위치: N blog 버튼 + 네이버블로그 마크 추가 -->
           <div class="quick">
             <a class="btn" href="tel:050713725226"><i>📞</i> 전화상담</a>
             <a class="btn" href="#contact"><i>✉️</i> 문자</a>
-            <a class="btn insta" href="https://www.instagram.com/bb.house___" target="_blank" rel="noopener"><i>💬</i> 인스타DM</a>
+
+            <a class="btn insta" href="https://www.instagram.com/bb.house___" target="_blank" rel="noopener">
+              <i>💬</i> 인스타DM
+            </a>
+
+            <a class="btn nblog" href="https://m.blog.naver.com/bbhouse_?proxyReferer=&noTrackingCode=true" target="_blank" rel="noopener">
+              <span class="icon" aria-hidden="true">
+                <!-- 네이버 블로그 마크(심플 아이콘) -->
+                <svg viewBox="0 0 24 24" role="img" aria-hidden="true">
+                  <rect x="2" y="2" width="20" height="20" rx="6" fill="rgba(255,255,255,.18)"></rect>
+                  <path d="M8.2 16.8V7.2h2.2l3.4 5.1V7.2h2.0v9.6h-2.2l-3.4-5.1v5.1H8.2z" fill="#fff"/>
+                </svg>
+              </span>
+              N blog
+            </a>
           </div>
 
           <div style="margin-top:14px">
@@ -521,7 +491,15 @@
               </tr>
               <tr>
                 <th>카카오톡</th>
-                <td><a href="http://pf.kakao.com/_dxbxbBG" target="_blank" rel="noopener"> 채널 이동하기</a></td>
+                <td><a href="http://pf.kakao.com/_dxbxbBG" target="_blank" rel="noopener">채널 이동하기</a></td>
+              </tr>
+              <tr>
+                <th>N blog</th>
+                <td>
+                  <a href="https://m.blog.naver.com/bbhouse_?proxyReferer=&noTrackingCode=true" target="_blank" rel="noopener">
+                    bbhouse_ 블로그 바로가기
+                  </a>
+                </td>
               </tr>
             </table>
 
@@ -646,7 +624,6 @@
         </div>
       </section>
 
-      <!-- ✅ 가격구성표(요청 이미지 스타일로 교체) -->
       <section id="price">
         <div class="section-title">
           <div>
@@ -655,39 +632,27 @@
           </div>
         </div>
 
-        <div class="card pricing" aria-label="가격 구성">
-          <div class="pricing-tabs" role="tablist" aria-label="자재 선택">
-            <button class="pricing-tab" type="button" role="tab" aria-selected="true" data-plan="ceramic">세라믹</button>
-            <button class="pricing-tab" type="button" role="tab" aria-selected="false" data-plan="diatom">규조토</button>
-            <button class="pricing-tab" type="button" role="tab" aria-selected="false" data-plan="aerogel">에어로겔</button>
-          </div>
-
-          <div class="pricing-amount" id="priceAmount">₩30~<small>(VAT 포함)</small></div>
-
-          <div class="pricing-title" id="priceTitle">세라믹 탄성코트</div>
-          <p class="pricing-desc" id="priceDesc">
-            해당 금액은 <b>기본 하한</b>이며, 작업 상황(면적/상태/보수 범위)에 따라 비용이 달라질 수 있습니다.
-          </p>
-
-          <div class="pricing-meta" aria-label="작업 정보">
-            <div class="meta-row">
-              <span>작업일</span>
-              <b id="workDays">1~2일</b>
+        <div class="grid-2">
+          <div class="card box">
+            <div class="priceRow" aria-label="가격 칩">
+              <div class="chip">세라믹 <b>₩30~</b></div>
+              <div class="chip">규조토 <b>₩35~</b></div>
+              <div class="chip">에어로겔 <b>₩45~</b></div>
             </div>
-            <div class="meta-row">
-              <span>수정 횟수</span>
-              <b id="revCount">제한 없음</b>
+
+            <div style="margin-top:10px; color:var(--muted); font-size:13px; line-height:1.6;">
+              해당 금액은 기본 하한이며, 작업 상황(면적/상태/보수 범위)에 따라 비용이 달라질 수 있습니다.<br/>
+              정확한 견적은 <b>평면도</b> 또는 <b>시공 공간 사진</b>을 보내주시면
+              현장 방문 없이도 빠르고 정확하게 안내해드립니다.
             </div>
+
+            <!-- ✅ 요청 반영: 가격구성표 내 (전화상담/문자/카카오상담) 버튼 3종 제거 -->
           </div>
 
-          <div class="pricing-actions">
-            <a class="btn primary" href="tel:050713725226">전화상담</a>
-            <a class="btn" href="#contact">문자 남기기</a>
-            <a class="btn kakao" href="http://pf.kakao.com/_dxbxbBG" target="_blank" rel="noopener">카카오톡 상담</a>
-          </div>
-
-          <div style="margin-top:10px; color:var(--muted); font-size:12.5px; line-height:1.6;">
-            정확한 견적은 <b>평면도</b> 또는 <b>시공 공간 사진</b>을 보내주시면 현장 방문 없이도 빠르게 안내드립니다.
+          <div class="card" style="padding:14px">
+            <div class="media" aria-label="가격 이미지">
+              <img data-asset="price.jpg.png" alt="가격 안내 이미지">
+            </div>
           </div>
         </div>
       </section>
@@ -724,6 +689,15 @@
             <a class="btn primary" href="tel:050713725226">📞 전화상담</a>
             <a class="btn" href="sms:050713725226">✉️ 문자 남기기</a>
             <a class="btn insta" href="https://www.instagram.com/bb.house___" target="_blank" rel="noopener">💬 인스타 DM</a>
+            <a class="btn nblog" href="https://m.blog.naver.com/bbhouse_?proxyReferer=&noTrackingCode=true" target="_blank" rel="noopener">
+              <span class="icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <rect x="2" y="2" width="20" height="20" rx="6" fill="rgba(255,255,255,.18)"></rect>
+                  <path d="M8.2 16.8V7.2h2.2l3.4 5.1V7.2h2.0v9.6h-2.2l-3.4-5.1v5.1H8.2z" fill="#fff"/>
+                </svg>
+              </span>
+              N blog
+            </a>
             <a class="btn kakao" href="http://pf.kakao.com/_dxbxbBG" target="_blank" rel="noopener">카카오톡 상담</a>
           </div>
 
@@ -740,6 +714,16 @@
           문의: 0507-1372-5226 · Instagram: bb.house___<br/>
           © <span id="year"></span> BB HOUSE. All rights reserved. | 기획·디자인: (주)하비럴
         </div>
+
+        <!-- ✅ 요청 반영: 사업자정보 최하단 추가 기재 -->
+        <div class="biz" aria-label="사업자정보">
+          <div class="row"><b>상호</b> 비비하우스</div>
+          <div class="row"><b>대표</b> 변명섭</div>
+          <div class="row"><b>주소</b> 청주시 흥덕구 풍산로137번길 55</div>
+          <div class="row"><b>전화</b> 0507-1372-5226</div>
+          <div class="row"><b>이메일</b> vrl99@naver.com</div>
+          <div class="row"><b>사업자번호</b> 826-69-00490</div>
+        </div>
       </div>
     </div>
   </main>
@@ -748,6 +732,7 @@
     <a class="fab" href="tel:050713725226">📞 전화상담</a>
     <a class="fab" href="sms:050713725226">✉️ 문자</a>
     <a class="fab" href="http://pf.kakao.com/_dxbxbBG" target="_blank" rel="noopener">💛 카카오톡</a>
+    <a class="fab" href="https://m.blog.naver.com/bbhouse_?proxyReferer=&noTrackingCode=true" target="_blank" rel="noopener">🟩 N blog</a>
     <a class="fab" href="https://m.place.naver.com/place/1300949235/location?entry=pll&filter=location&selected_place_id=1300949235" target="_blank" rel="noopener">📍 위치</a>
   </div>
 
@@ -788,58 +773,6 @@
 
     const y = document.getElementById("year");
     if (y) y.textContent = new Date().getFullYear();
-
-    // ✅ 가격 탭 데이터/동작
-    const PLAN = {
-      ceramic: {
-        amount: "₩30~",
-        title: "세라믹 탄성코트",
-        desc: "해당 금액은 <b>기본 하한</b>이며, 작업 상황(면적/상태/보수 범위)에 따라 비용이 달라질 수 있습니다.",
-        days: "1~2일",
-        rev: "제한 없음"
-      },
-      diatom: {
-        amount: "₩35~",
-        title: "규조토 탄성코트",
-        desc: "해당 금액은 <b>기본 하한</b>이며, 작업 상황(면적/상태/보수 범위)에 따라 비용이 달라질 수 있습니다.",
-        days: "2~3일",
-        rev: "제한 없음"
-      },
-      aerogel: {
-        amount: "₩45~",
-        title: "에어로겔 탄성코트",
-        desc: "해당 금액은 <b>기본 하한</b>이며, 작업 상황(면적/상태/보수 범위)에 따라 비용이 달라질 수 있습니다.",
-        days: "3일",
-        rev: "제한 없음"
-      }
-    };
-
-    const tabs = Array.from(document.querySelectorAll(".pricing-tab"));
-    const priceAmount = document.getElementById("priceAmount");
-    const priceTitle = document.getElementById("priceTitle");
-    const priceDesc = document.getElementById("priceDesc");
-    const workDays = document.getElementById("workDays");
-    const revCount = document.getElementById("revCount");
-
-    function setPlan(key){
-      const p = PLAN[key];
-      if (!p) return;
-
-      tabs.forEach(t => t.setAttribute("aria-selected", String(t.dataset.plan === key)));
-
-      priceAmount.innerHTML = `${p.amount}<small>(VAT 포함)</small>`;
-      priceTitle.textContent = p.title;
-      priceDesc.innerHTML = p.desc;
-      workDays.textContent = p.days;
-      revCount.textContent = p.rev;
-    }
-
-    tabs.forEach(t => {
-      t.addEventListener("click", () => setPlan(t.dataset.plan));
-    });
-
-    // 초기값
-    setPlan("ceramic");
   </script>
 </body>
 </html>
