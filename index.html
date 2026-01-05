@@ -1,5 +1,5 @@
 <!-- ✅ 캐시 무력 접속 예시:
-     https://samplepage.co.kr/?v=20260106_04   ← v 값만 매번 바꾸면 됨
+     https://samplepage.co.kr/?v=20260106_05   ← v 값만 매번 바꾸면 됨
 -->
 <!doctype html>
 <html lang="ko">
@@ -11,8 +11,6 @@
   <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate, max-age=0" />
   <meta http-equiv="Pragma" content="no-cache" />
   <meta http-equiv="Expires" content="0" />
-
-  <!-- ✅ 더 강하게(추가) -->
   <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0, s-maxage=0" />
   <meta http-equiv="Surrogate-Control" content="no-store" />
 
@@ -39,8 +37,8 @@
       --blue:#2a63ff;
       --max: 1120px;
 
-      /* ✅ 홈 바탕 숨쉬기 배경 이미지(파일명 고정) */
-      --bg-city: url("home-bg-breath-city.jpg.png");
+      /* ✅ 홈 바탕 숨쉬기 배경 파일명 */
+      --breath-bg-file: "home-bg-breath-city.jpg.png";
     }
 
     *{box-sizing:border-box}
@@ -50,27 +48,23 @@
       margin:0;
       font-family: system-ui, -apple-system, Segoe UI, Roboto, "Noto Sans KR", "Apple SD Gothic Neo", sans-serif;
       color:var(--text);
-      position:relative;
-      background:none; /* ✅ 배경은 ::before/::after 레이어로 분리 */
       overflow-x:hidden;
+      background: none;
     }
 
-    /* ✅✅ 숨쉬기 배경(도심 이미지) - 더 잘 보이게/더 부드럽게 세팅 */
-    body::before{
-      content:"";
-      position:fixed;
-      inset:0;
-      z-index:-3;
-      pointer-events:none;
+    /* ✅✅✅ (핵심) 배경 이미지를 가장 안정적인 방식으로: 고정 DIV 한 장 */
+    #bgBreath{
+      position: fixed;
+      inset: 0;
+      z-index: -3;
+      pointer-events: none;
 
-      background-image: var(--bg-city);
       background-size: cover;
       background-position: center;
-      background-repeat:no-repeat;
+      background-repeat: no-repeat;
 
-      /* ✅ 더 보이게(기존 .22 → .34) + 톤 보정 */
-      opacity: .34;
-      filter: saturate(.94) contrast(.98) brightness(.96);
+      opacity: .38; /* ✅ 확실히 보이게 */
+      filter: saturate(.95) contrast(.98) brightness(.94);
 
       transform: translate3d(0,0,0) scale(1.08);
       transform-origin: 50% 50%;
@@ -78,20 +72,17 @@
       animation: bgBreath 14s ease-in-out infinite;
     }
 
-    /* ✅✅ 미세 노이즈/밴딩 줄이는 레이어(고급스러운 질감) */
-    body::after{
-      content:"";
-      position:fixed;
-      inset:0;
-      z-index:-2;
-      pointer-events:none;
+    /* ✅ 기존 톤(그라데이션)은 "덮어쓰기"가 아니라 "살짝"만 올림 */
+    #bgOverlay{
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      pointer-events: none;
 
-      /* 기존 그라데이션 + 아주 약한 노이즈 느낌(단색 알파 레이어) */
       background:
-        radial-gradient(900px 500px at 20% 10%, rgba(199,154,85,.18), transparent 60%),
-        radial-gradient(900px 500px at 80% 20%, rgba(242,198,110,.14), transparent 55%),
-        linear-gradient(180deg, rgba(255,250,241,.92), rgba(251,247,239,.98)),
-        linear-gradient(0deg, rgba(255,255,255,.06), rgba(255,255,255,.06));
+        radial-gradient(900px 500px at 20% 10%, rgba(199,154,85,.16), transparent 60%),
+        radial-gradient(900px 500px at 80% 20%, rgba(242,198,110,.12), transparent 55%),
+        linear-gradient(180deg, rgba(255,250,241,.55), rgba(251,247,239,.70));
     }
 
     @keyframes bgBreath{
@@ -101,7 +92,7 @@
     }
 
     @media (prefers-reduced-motion: reduce){
-      body::before{ animation:none; transform: translate3d(0,0,0) scale(1.06); }
+      #bgBreath{ animation:none; transform: translate3d(0,0,0) scale(1.06); }
     }
 
     a{color:inherit; text-decoration:none}
@@ -371,12 +362,15 @@
       font-weight:1000;
       letter-spacing:-.8px;
       line-height:1.05;
+      display:flex;
+      align-items:baseline;
+      gap:10px;
+      flex-wrap:wrap;
     }
     .vat{
       color:var(--muted);
       font-size:14px;
       font-weight:800;
-      margin-left:8px;
       white-space:nowrap;
     }
     .priceName{
@@ -422,6 +416,13 @@
       letter-spacing:-.2px;
       font-weight:1000;
       white-space:nowrap;
+    }
+
+    /* ✅ 선택된 pill 표시(사용자가 “1/2/3 선택했구나” 한 눈에) */
+    .pillPrice.active{
+      border-color: rgba(42,99,255,.25);
+      box-shadow: 0 10px 22px rgba(42,99,255,.10);
+      background: rgba(255,255,255,.98);
     }
 
     .matDetail{
@@ -517,11 +518,15 @@
 
   <script>
     // ✅ 배포할 때마다 v만 바꾸면 캐시 무력화 확실
-    window.__ASSET_VERSION__ = "20260106_04";
+    window.__ASSET_VERSION__ = "20260106_05";
   </script>
 </head>
 
 <body>
+  <!-- ✅✅✅ 배경 레이어(이게 핵심) -->
+  <div id="bgBreath" aria-hidden="true"></div>
+  <div id="bgOverlay" aria-hidden="true"></div>
+
   <header>
     <div class="wrap nav">
       <div class="brand">
@@ -763,7 +768,11 @@
         <div class="priceCard" aria-label="비비하우스 가격구성표">
           <div class="priceTop">
             <div>
-              <div class="priceBig">₩30~ <span class="vat">(VAT 포함)</span></div>
+              <!-- ✅✅ 상단 큰 가격: JS가 바꿔치기 할 수 있게 분리 -->
+              <div class="priceBig">
+                <span id="priceMain">₩30~</span>
+                <span class="vat">(VAT 포함)</span>
+              </div>
               <div class="priceName">비비하우스 실내 탄성코트</div>
             </div>
           </div>
@@ -772,19 +781,20 @@
             해당 금액은 <b>기본 하한</b>이며, 작업 상황(면적/상태/보수 범위)에 따라 비용이 달라질 수 있습니다.
           </p>
 
+          <!-- ✅✅ (핵심) 각 pill에 data-price 넣음 -->
           <div class="pricePills" aria-label="자재별 가격">
-            <div class="pillPrice" role="button" tabindex="0" aria-expanded="false" data-mat="ceramic">
+            <div class="pillPrice active" role="button" tabindex="0" aria-expanded="true" data-mat="ceramic" data-price="₩30~">
               <span>세라믹</span> <b>₩30~</b>
             </div>
-            <div class="pillPrice" role="button" tabindex="0" aria-expanded="false" data-mat="diatom">
+            <div class="pillPrice" role="button" tabindex="0" aria-expanded="false" data-mat="diatom" data-price="₩35~">
               <span>규조토</span> <b>₩35~</b>
             </div>
-            <div class="pillPrice" role="button" tabindex="0" aria-expanded="false" data-mat="aerogel">
+            <div class="pillPrice" role="button" tabindex="0" aria-expanded="false" data-mat="aerogel" data-price="₩45~">
               <span>에어로겔</span> <b>₩45~</b>
             </div>
           </div>
 
-          <div class="matDetail" id="mat-ceramic" role="region" aria-label="세라믹 상세설명">
+          <div class="matDetail show" id="mat-ceramic" role="region" aria-label="세라믹 상세설명">
             표면이 단단해 스크래치에 강하고, 오염이 덜 타 깔끔한 벽면 유지에 유리합니다.
           </div>
           <div class="matDetail" id="mat-diatom" role="region" aria-label="규조토 상세설명">
@@ -901,10 +911,40 @@
   <script>
     const v = encodeURIComponent(window.__ASSET_VERSION__ || Date.now().toString());
 
-    // ✅ 숨쉬기 배경이미지도 v 붙여서 캐시 무력화
-    (function setBreathBg(){
-      const bgUrl = `url("home-bg-breath-city.jpg.png?v=${v}")`;
-      document.documentElement.style.setProperty("--bg-city", bgUrl);
+    // ✅ 배경 이미지 로딩(프리로드) + 실패 시 파일명 fallback
+    (function setBreathBackground(){
+      const bgEl = document.getElementById("bgBreath");
+      if(!bgEl) return;
+
+      const base = getComputedStyle(document.documentElement)
+        .getPropertyValue("--breath-bg-file")
+        .trim()
+        .replace(/^["']|["']$/g, "") || "home-bg-breath-city.jpg.png";
+
+      const candidates = [
+        base,
+        base.includes(".jpg.png") ? base.replace(".jpg.png", ".jpg") : null,
+        base.includes(".png.jpg") ? base.replace(".png.jpg", ".png") : null
+      ].filter(Boolean);
+
+      let idx = 0;
+
+      const tryLoad = () => {
+        const file = candidates[idx++];
+        if(!file){ return; }
+        const url = `${file}?v=${v}`;
+
+        const img = new Image();
+        img.onload = () => {
+          bgEl.style.backgroundImage = `url("${url}")`;
+        };
+        img.onerror = () => {
+          tryLoad();
+        };
+        img.src = url;
+      };
+
+      tryLoad();
     })();
 
     function setSrcWithFallback(img, raw){
@@ -942,7 +982,6 @@
     const y = document.getElementById("year");
     if (y) y.textContent = new Date().getFullYear();
 
-    // ✅ 페이지 자체 캐시 무력: URL에 v 없으면 자동으로 붙여줌
     (function forcePageQuery(){
       try{
         const url = new URL(location.href);
@@ -953,7 +992,10 @@
       }catch(e){}
     })();
 
+    // ✅✅ 가격 + 설명 토글 + 상단 큰 가격 동기화
     (function bindMaterialToggles(){
+      const priceMain = document.getElementById("priceMain");
+
       const map = {
         ceramic: document.getElementById("mat-ceramic"),
         diatom: document.getElementById("mat-diatom"),
@@ -961,34 +1003,45 @@
       };
 
       function closeAll(){
-        Object.values(map).forEach(el=>el.classList.remove("show"));
+        Object.values(map).forEach(el=>el && el.classList.remove("show"));
         document.querySelectorAll(".pillPrice[data-mat]").forEach(p=>{
           p.setAttribute("aria-expanded", "false");
+          p.classList.remove("active");
         });
       }
 
-      function toggleOne(key, pill){
+      function openOne(key, pill){
         const el = map[key];
         if(!el) return;
 
-        const willOpen = !el.classList.contains("show");
         closeAll();
-        if(willOpen){
-          el.classList.add("show");
-          pill.setAttribute("aria-expanded","true");
-          setTimeout(()=>{ el.scrollIntoView({behavior:"smooth", block:"nearest"}); }, 60);
-        }
+
+        // ✅ 설명 열기
+        el.classList.add("show");
+        pill.setAttribute("aria-expanded","true");
+        pill.classList.add("active");
+
+        // ✅ 상단 큰 가격도 변경
+        const p = pill.getAttribute("data-price");
+        if(priceMain && p) priceMain.textContent = p;
+
+        // 모바일에서 바로 보이게
+        setTimeout(()=>{ el.scrollIntoView({behavior:"smooth", block:"nearest"}); }, 60);
       }
 
       document.querySelectorAll(".pillPrice[data-mat]").forEach(pill=>{
-        pill.addEventListener("click", ()=> toggleOne(pill.dataset.mat, pill));
+        pill.addEventListener("click", ()=> openOne(pill.dataset.mat, pill));
         pill.addEventListener("keydown", (e)=>{
           if(e.key==="Enter" || e.key===" "){
             e.preventDefault();
-            toggleOne(pill.dataset.mat, pill);
+            openOne(pill.dataset.mat, pill);
           }
         });
       });
+
+      // ✅ 기본값: 세라믹 선택 상태로 시작
+      const first = document.querySelector('.pillPrice[data-mat="ceramic"]');
+      if(first) openOne("ceramic", first);
     })();
   </script>
 </body>
