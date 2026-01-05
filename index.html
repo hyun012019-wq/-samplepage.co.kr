@@ -1,5 +1,5 @@
 <!-- ✅ 캐시 무력 접속 예시:
-     https://samplepage.co.kr/?v=20260106_03   ← v 값만 매번 바꾸면 됨
+     https://samplepage.co.kr/?v=20260106_04   ← v 값만 매번 바꾸면 됨
 -->
 <!doctype html>
 <html lang="ko">
@@ -39,7 +39,7 @@
       --blue:#2a63ff;
       --max: 1120px;
 
-      /* ✅ 홈 바탕 숨쉬기 배경 이미지 (JS가 ?v 붙여서 갱신) */
+      /* ✅ 홈 바탕 숨쉬기 배경 이미지(파일명 고정) */
       --bg-city: url("home-bg-breath-city.jpg.png");
     }
 
@@ -55,12 +55,12 @@
       overflow-x:hidden;
     }
 
-    /* ✅✅ 숨쉬기 배경(도심 이미지) */
+    /* ✅✅ 숨쉬기 배경(도심 이미지) - 더 잘 보이게/더 부드럽게 세팅 */
     body::before{
       content:"";
       position:fixed;
       inset:0;
-      z-index:-2;
+      z-index:-3;
       pointer-events:none;
 
       background-image: var(--bg-city);
@@ -68,37 +68,40 @@
       background-position: center;
       background-repeat:no-repeat;
 
-      /* 분위기 맞춰 톤 다운 */
-      opacity: .22;
-      filter: saturate(.92) contrast(.96) brightness(.98);
+      /* ✅ 더 보이게(기존 .22 → .34) + 톤 보정 */
+      opacity: .34;
+      filter: saturate(.94) contrast(.98) brightness(.96);
 
-      transform: scale(1.06);
+      transform: translate3d(0,0,0) scale(1.08);
       transform-origin: 50% 50%;
-      animation: bgBreath 10.5s ease-in-out infinite;
+      will-change: transform;
+      animation: bgBreath 14s ease-in-out infinite;
     }
 
-    /* ✅ 기존 그라데이션 레이어(유지) */
+    /* ✅✅ 미세 노이즈/밴딩 줄이는 레이어(고급스러운 질감) */
     body::after{
       content:"";
       position:fixed;
       inset:0;
-      z-index:-1;
+      z-index:-2;
       pointer-events:none;
 
+      /* 기존 그라데이션 + 아주 약한 노이즈 느낌(단색 알파 레이어) */
       background:
         radial-gradient(900px 500px at 20% 10%, rgba(199,154,85,.18), transparent 60%),
         radial-gradient(900px 500px at 80% 20%, rgba(242,198,110,.14), transparent 55%),
-        linear-gradient(180deg, #fffaf1, var(--bg));
+        linear-gradient(180deg, rgba(255,250,241,.92), rgba(251,247,239,.98)),
+        linear-gradient(0deg, rgba(255,255,255,.06), rgba(255,255,255,.06));
     }
 
     @keyframes bgBreath{
-      0%   { transform: scale(1.06) translate3d(0,0,0); }
-      50%  { transform: scale(1.10) translate3d(0,-10px,0); }
-      100% { transform: scale(1.06) translate3d(0,0,0); }
+      0%   { transform: translate3d(0,  0px,0) scale(1.08); }
+      50%  { transform: translate3d(0,-14px,0) scale(1.12); }
+      100% { transform: translate3d(0,  0px,0) scale(1.08); }
     }
 
     @media (prefers-reduced-motion: reduce){
-      body::before{ animation:none; transform: scale(1.04); }
+      body::before{ animation:none; transform: translate3d(0,0,0) scale(1.06); }
     }
 
     a{color:inherit; text-decoration:none}
@@ -192,7 +195,6 @@
       font-weight:900;
     }
 
-    /* ✅ 인스타 버튼: 모든 인스타 관련 버튼 그라데이션 */
     .btn.insta{
       border:0;
       color:#fff;
@@ -200,12 +202,8 @@
       background: linear-gradient(135deg, #833ab4 0%, #fd1d1d 45%, #fcb045 100%);
       box-shadow: 0 16px 30px rgba(253,29,29,.16);
     }
-    .btn.insta:hover{
-      transform: translateY(-1px);
-      filter: brightness(1.02);
-    }
+    .btn.insta:hover{transform: translateY(-1px); filter: brightness(1.02);}
 
-    /* ✅ 네이버 블로그 버튼(사진처럼: 초록 캡슐 + 동그라미 N + 'N blog') */
     .btn.nblog{
       border:0;
       color:#fff;
@@ -213,10 +211,7 @@
       background: linear-gradient(135deg, #03c75a, #00b04a);
       box-shadow: 0 16px 30px rgba(3,199,90,.22);
     }
-    .btn.nblog:hover{
-      transform: translateY(-1px);
-      filter: brightness(1.02);
-    }
+    .btn.nblog:hover{transform: translateY(-1px); filter: brightness(1.02);}
     .btn.nblog .nmark{
       width:26px; height:26px;
       border-radius:999px;
@@ -226,10 +221,7 @@
       font-weight:1000;
       line-height:1;
     }
-    .btn.nblog .ntext{
-      letter-spacing:-.2px;
-      font-weight:950;
-    }
+    .btn.nblog .ntext{letter-spacing:-.2px; font-weight:950;}
 
     main{padding:24px 0 34px}
 
@@ -295,10 +287,7 @@
     .hero-right .title{font-weight:950; margin-bottom:6px}
     .hero-right .subtxt{color:var(--muted); font-size:13px; line-height:1.6; margin-bottom:12px}
 
-    .quick{
-      display:flex; gap:10px; flex-wrap:wrap;
-    }
-    /* ✅ 중요: 여기서 전체 .btn 배경을 흰색으로 덮어쓰지 않도록 "일반버튼만" 흰배경 적용 */
+    .quick{display:flex; gap:10px; flex-wrap:wrap;}
     .quick .btn:not(.primary):not(.kakao):not(.insta):not(.nblog){
       background: rgba(255,255,255,.92);
     }
@@ -362,7 +351,6 @@
     }
     .table tr:last-child td,.table tr:last-child th{border-bottom:0}
 
-    /* ✅ 가격구성표(비비하우스용) */
     .priceCard{
       border-radius:18px;
       border:1px solid var(--line);
@@ -405,7 +393,6 @@
       max-width: 70ch;
     }
 
-    /* ✅✅ 3개가 무조건 "나란히" 동일 사이즈 */
     .pricePills{
       display:grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -413,7 +400,6 @@
       margin:12px 0 10px;
     }
 
-    /* ✅✅ 클릭 가능한 동일 사이즈 pill */
     .pillPrice{
       width:100%;
       border-radius:16px;
@@ -438,7 +424,6 @@
       white-space:nowrap;
     }
 
-    /* ✅✅ 상세 설명 토글 영역 */
     .matDetail{
       display:none;
       margin-top:10px;
@@ -503,7 +488,6 @@
     }
     .fab:hover{transform: translateY(-1px)}
 
-    /* ✅ CTA: 모바일에서 무조건 2x2로 정렬 */
     @media (max-width: 560px){
       .cta{
         width:100%;
@@ -513,15 +497,8 @@
         grid-template-columns: 1fr 1fr;
         gap:10px;
       }
-      .cta .btn{
-        width:100%;
-        padding:12px 12px;
-      }
-
-      /* 모바일에서는 3개 나란히가 너무 좁으면 1열로 자동 전환 */
-      .pricePills{
-        grid-template-columns: 1fr;
-      }
+      .cta .btn{width:100%; padding:12px 12px;}
+      .pricePills{grid-template-columns: 1fr;}
     }
 
     @media (max-width: 980px){
@@ -540,7 +517,7 @@
 
   <script>
     // ✅ 배포할 때마다 v만 바꾸면 캐시 무력화 확실
-    window.__ASSET_VERSION__ = "20260106_03";
+    window.__ASSET_VERSION__ = "20260106_04";
   </script>
 </head>
 
@@ -621,7 +598,6 @@
             (정확한 비용은 면적/상태/자재 선택에 따라 달라집니다.)
           </div>
 
-          <!-- ✅ 박스 안 "인스타 기능"을 네이버 블로그 마크로 변경(초록 캡슐 + 동그라미 N) -->
           <div class="quick">
             <a class="btn" href="tel:050713725226"><i>📞</i> 전화상담</a>
             <a class="btn" href="sms:050713725226"><i>✉️</i> 문자</a>
@@ -776,7 +752,6 @@
         </div>
       </section>
 
-      <!-- ✅ 가격구성표: 비비하우스용 -->
       <section id="price">
         <div class="section-title">
           <div>
@@ -797,7 +772,6 @@
             해당 금액은 <b>기본 하한</b>이며, 작업 상황(면적/상태/보수 범위)에 따라 비용이 달라질 수 있습니다.
           </p>
 
-          <!-- ✅✅ 3개 동일 사이즈, 나란히 + 클릭 토글 -->
           <div class="pricePills" aria-label="자재별 가격">
             <div class="pillPrice" role="button" tabindex="0" aria-expanded="false" data-mat="ceramic">
               <span>세라믹</span> <b>₩30~</b>
@@ -810,7 +784,6 @@
             </div>
           </div>
 
-          <!-- ✅✅ 100자 이내 상세설명(각각) -->
           <div class="matDetail" id="mat-ceramic" role="region" aria-label="세라믹 상세설명">
             표면이 단단해 스크래치에 강하고, 오염이 덜 타 깔끔한 벽면 유지에 유리합니다.
           </div>
@@ -980,7 +953,6 @@
       }catch(e){}
     })();
 
-    /* ✅✅ 가격구성표: 자재 pill 클릭 시 100자 설명 토글 */
     (function bindMaterialToggles(){
       const map = {
         ceramic: document.getElementById("mat-ceramic"),
