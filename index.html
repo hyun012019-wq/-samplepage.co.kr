@@ -31,13 +31,6 @@
       --accent:#c79a55;      /* 베이지 포인트 */
       --accent2:#f2c66e;     /* 옐로우 포인트(카카오 느낌) */
       --blue:#2a63ff;
-
-      --ig1:#833ab4;
-      --ig2:#fd1d1d;
-      --ig3:#fcb045;
-
-      --naver:#03c75a;
-
       --max: 1120px;
     }
 
@@ -141,38 +134,32 @@
       box-shadow: 0 16px 30px rgba(255,211,77,.20);
       font-weight:700;
     }
+    /* ✅ 인스타 버튼 그라데이션 */
     .btn.instagram{
       border:0;
+      background: linear-gradient(135deg, #833ab4, #fd1d1d, #fcb045);
       color:#fff;
+      box-shadow: 0 16px 30px rgba(253,29,29,.16);
       font-weight:800;
-      background: linear-gradient(90deg, var(--ig1), var(--ig2), var(--ig3));
-      box-shadow: 0 16px 30px rgba(253,29,29,.14);
     }
+    /* ✅ 네이버 블로그 버튼 */
     .btn.nblog{
       border:0;
+      background: linear-gradient(135deg, #1ec800, rgba(30,200,0,.78));
       color:#fff;
-      font-weight:800;
-      background: linear-gradient(135deg, var(--naver), rgba(3,199,90,.75));
-      box-shadow: 0 16px 30px rgba(3,199,90,.16);
-    }
-
-    .icon{
-      width:18px; height:18px; display:inline-flex; align-items:center; justify-content:center;
-      flex:0 0 auto;
-    }
-    .icon svg{width:100%; height:100%; display:block}
-    .icon.n-square{
-      width:18px; height:18px;
-      border-radius:6px;
-      background: var(--naver);
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      color:#fff;
+      box-shadow: 0 16px 30px rgba(30,200,0,.18);
       font-weight:900;
-      font-size:12px;
+    }
+    .nbadge{
+      width:22px; height:22px;
+      border-radius:7px;
+      display:inline-grid; place-items:center;
+      background:#fff;
+      color:#1ec800;
+      font-weight:1000;
+      font-size:13px;
       line-height:1;
-      box-shadow: 0 10px 18px rgba(3,199,90,.18);
+      box-shadow: 0 8px 18px rgba(0,0,0,.10);
     }
 
     main{padding:24px 0 34px}
@@ -279,83 +266,19 @@
     .step b{display:block; margin-bottom:6px}
     .step span{display:block; color:var(--muted); font-size:13.5px; line-height:1.6}
 
-    /* ✅ 가격구성표(비비하우스용) - 카드형 3종 */
-    .priceWrap{
-      display:grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap:12px;
+    .priceRow{
+      display:flex; gap:10px; flex-wrap:wrap;
       margin-top:12px;
     }
-    .priceCard{
-      padding:16px;
-      border-radius:16px;
-      border:1px solid var(--line);
-      background: rgba(255,255,255,.86);
-      box-shadow: 0 14px 28px rgba(20,18,16,.08);
-      display:flex;
-      flex-direction:column;
-      gap:12px;
-      min-height: 240px;
-    }
-    .priceTop{
-      display:flex;
-      justify-content:space-between;
-      align-items:flex-start;
-      gap:10px;
-    }
-    .priceName{
-      font-weight:900;
-      font-size:15px;
-      letter-spacing:-.2px;
-    }
-    .badge{
-      font-size:12px;
-      color:var(--muted);
-      border:1px solid var(--line);
-      background: rgba(0,0,0,.02);
-      padding:6px 10px;
+    .chip{
+      padding:10px 12px;
       border-radius:999px;
-      white-space:nowrap;
-    }
-    .priceValue{
-      font-size:38px;
-      font-weight:900;
-      letter-spacing:-1px;
-      margin-top:4px;
-      line-height:1.05;
-    }
-    .priceValue small{
-      font-size:14px;
-      color:var(--muted);
-      font-weight:700;
-      margin-left:6px;
-    }
-    .priceDesc{
-      color:var(--muted);
-      font-size:13px;
-      line-height:1.6;
-      margin:0;
-    }
-    .metaBox{
-      margin-top:auto;
       border:1px solid var(--line);
-      border-radius:14px;
-      background: rgba(0,0,0,.02);
-      padding:12px 12px;
-    }
-    .metaRow{
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      padding:8px 4px;
-      color:var(--muted);
+      background: rgba(255,255,255,.90);
       font-size:13px;
-    }
-    .metaRow + .metaRow{border-top:1px solid var(--line)}
-    .metaRow b{
       color:var(--text);
-      font-weight:900;
     }
+    .chip b{margin-left:6px}
 
     .table{
       width:100%;
@@ -384,17 +307,25 @@
 
     .biz{
       margin-top:14px;
+      background: rgba(255,255,255,.82);
       border:1px solid var(--line);
-      background: rgba(255,255,255,.70);
       border-radius:16px;
-      padding:14px;
-      max-width: 780px;
-      margin-left:auto;
-      margin-right:auto;
+      padding:16px;
+    }
+    .biz h3{
+      margin:0 0 10px;
+      font-size:15px;
+      color:var(--text);
+      letter-spacing:-.2px;
+    }
+    .biz ul{
+      margin:0;
+      padding-left:18px;
+      color:var(--muted);
+      line-height:1.85;
+      font-size:13px;
     }
     .biz b{color:var(--text)}
-    .biz ul{margin:10px 0 0; padding-left:18px}
-    .biz li{margin:6px 0}
 
     .floating{
       position:fixed; right:16px; bottom:16px;
@@ -434,8 +365,6 @@
       .hero{grid-template-columns: 1fr}
       nav.menu{display:none}
       h1{font-size:36px}
-      .priceWrap{grid-template-columns: 1fr}
-      .priceValue{font-size:36px}
     }
     @media (max-width: 560px){
       .mini{grid-template-columns: 1fr}
@@ -460,7 +389,7 @@
         </div>
         <div>
           <strong>비비하우스</strong>
-          <div class="sub">BB HOUSE · 탄성코트 전문 시공 (주)하비럴 기획브랜딩 </div>
+          <div class="sub">BB HOUSE · 탄성코트 전문 시공 (주)하비럴 기획브랜딩</div>
         </div>
       </div>
 
@@ -521,6 +450,7 @@
           </div>
         </section>
 
+        <!-- ✅ '현장에 맞춰 깔끔하게' 박스: 블로그(네이버 마크)로 교체 + 링크 설정, 기존 블로그 표기는 모두 삭제 -->
         <aside class="card hero-right" aria-label="빠른 안내">
           <div class="title">현장에 맞춰 깔끔하게</div>
           <div class="subtxt">
@@ -531,7 +461,11 @@
           <div class="quick">
             <a class="btn" href="tel:050713725226"><i>📞</i> 전화상담</a>
             <a class="btn" href="#contact"><i>✉️</i> 문자</a>
-            <a class="btn instagram" href="https://www.instagram.com/bb.house___" target="_blank" rel="noopener"><i>💬</i> 인스타DM</a>
+
+            <!-- ✅ 기존 인스타 기능 → 네이버 블로그 마크로 변경 -->
+            <a class="btn nblog" href="https://m.blog.naver.com/bbhouse_?proxyReferer=&noTrackingCode=true" target="_blank" rel="noopener">
+              <span class="nbadge">N</span> N blog
+            </a>
           </div>
 
           <div style="margin-top:14px">
@@ -552,15 +486,7 @@
                 <th>카카오톡</th>
                 <td><a href="http://pf.kakao.com/_dxbxbBG" target="_blank" rel="noopener">채널 이동하기</a></td>
               </tr>
-              <tr>
-                <th>N blog</th>
-                <td>
-                  <a href="https://m.blog.naver.com/bbhouse_?proxyReferer=&noTrackingCode=true" target="_blank" rel="noopener" style="display:inline-flex; align-items:center; gap:8px;">
-                    <span class="icon n-square" aria-hidden="true">N</span>
-                    <span><b>bbhouse_</b> 블로그</span>
-                  </a>
-                </td>
-              </tr>
+              <!-- ✅ N blog 행은 '박스에서 삭제' 요청이므로 넣지 않음 -->
             </table>
 
             <div style="margin-top:10px; color:var(--muted); font-size:12.5px; line-height:1.6;">
@@ -684,7 +610,6 @@
         </div>
       </section>
 
-      <!-- ✅ 가격구성표: 비비하우스용(칩/문장/불필요 버튼 제거 & 카드형으로 재구성) -->
       <section id="price">
         <div class="section-title">
           <div>
@@ -693,66 +618,24 @@
           </div>
         </div>
 
-        <div class="card box">
-          <div class="priceWrap" aria-label="가격 구성 3종">
-            <div class="priceCard" aria-label="세라믹 탄성코트">
-              <div class="priceTop">
-                <div>
-                  <div class="priceName">세라믹 탄성코트</div>
-                  <div class="priceValue">₩30~ <small>(VAT 포함)</small></div>
-                </div>
-                <div class="badge">STANDARD</div>
-              </div>
-              <p class="priceDesc">
-                해당 금액은 <b>기본 하한</b>이며, 작업 상황(면적/상태/보수 범위)에 따라
-                비용이 달라질 수 있습니다.
-              </p>
-              <div class="metaBox" aria-label="세라믹 작업 정보">
-                <div class="metaRow"><span>작업일</span><b>3일</b></div>
-                <div class="metaRow"><span>수정 횟수</span><b>제한 없음</b></div>
-              </div>
+        <div class="grid-2">
+          <div class="card box">
+            <div class="priceRow" aria-label="가격 칩">
+              <div class="chip">세라믹 <b>₩30~</b></div>
+              <div class="chip">규조토 <b>₩35~</b></div>
+              <div class="chip">에어로겔 <b>₩45~</b></div>
             </div>
 
-            <div class="priceCard" aria-label="규조토 탄성코트">
-              <div class="priceTop">
-                <div>
-                  <div class="priceName">규조토 탄성코트</div>
-                  <div class="priceValue">₩35~ <small>(VAT 포함)</small></div>
-                </div>
-                <div class="badge">DELUXE</div>
-              </div>
-              <p class="priceDesc">
-                해당 금액은 <b>기본 하한</b>이며, 작업 상황(면적/상태/보수 범위)에 따라
-                비용이 달라질 수 있습니다.
-              </p>
-              <div class="metaBox" aria-label="규조토 작업 정보">
-                <div class="metaRow"><span>작업일</span><b>3일</b></div>
-                <div class="metaRow"><span>수정 횟수</span><b>제한 없음</b></div>
-              </div>
-            </div>
-
-            <div class="priceCard" aria-label="에어로겔 탄성코트">
-              <div class="priceTop">
-                <div>
-                  <div class="priceName">에어로겔 탄성코트</div>
-                  <div class="priceValue">₩45~ <small>(VAT 포함)</small></div>
-                </div>
-                <div class="badge">PREMIUM</div>
-              </div>
-              <p class="priceDesc">
-                해당 금액은 <b>기본 하한</b>이며, 작업 상황(면적/상태/보수 범위)에 따라
-                비용이 달라질 수 있습니다.
-              </p>
-              <div class="metaBox" aria-label="에어로겔 작업 정보">
-                <div class="metaRow"><span>작업일</span><b>3일</b></div>
-                <div class="metaRow"><span>수정 횟수</span><b>제한 없음</b></div>
-              </div>
+            <div style="margin-top:10px; color:var(--muted); font-size:13px; line-height:1.6;">
+              정확한 견적은 <b>평면도</b> 또는 <b>시공 공간 사진</b>을 보내주시면
+              현장 방문 없이도 빠르고 정확하게 안내해드립니다.
             </div>
           </div>
 
-          <div style="margin-top:14px; color:var(--muted); font-size:13px; line-height:1.6;">
-            정확한 견적은 <b>평면도</b> 또는 <b>시공 공간 사진</b>을 보내주시면
-            현장 방문 없이도 빠르고 정확하게 안내해드립니다.
+          <div class="card" style="padding:14px">
+            <div class="media" aria-label="가격 이미지">
+              <img data-asset="price.jpg.png" alt="가격 안내 이미지">
+            </div>
           </div>
         </div>
       </section>
@@ -790,7 +673,7 @@
             <a class="btn" href="sms:050713725226">✉️ 문자 남기기</a>
             <a class="btn instagram" href="https://www.instagram.com/bb.house___" target="_blank" rel="noopener">💬 인스타 DM</a>
             <a class="btn kakao" href="http://pf.kakao.com/_dxbxbBG" target="_blank" rel="noopener">카카오톡 상담</a>
-            <!-- ✅ 요청대로: 도움문의 박스 안의 블로그 버튼은 삭제(없음) -->
+            <!-- ✅ 도움문의 박스 안 '블로그 버튼'은 삭제 요청대로 없음 -->
           </div>
 
           <div style="margin-top:14px; color:var(--muted); font-size:13px; line-height:1.6;">
@@ -807,9 +690,9 @@
           © <span id="year"></span> BB HOUSE. All rights reserved. | 기획·디자인: (주)하비럴
         </div>
 
-        <!-- ✅ 사업자 정보(하단 추가 기재) -->
+        <!-- ✅ 홈페이지 최하단 블로그 표기는 '삭제' 요청이라 여기엔 블로그 표기 없음 -->
         <div class="biz" aria-label="사업자정보">
-          <b>사업자정보</b>
+          <h3>사업자정보</h3>
           <ul>
             <li>상호: <b>비비하우스</b></li>
             <li>대표: <b>변명섭</b></li>
@@ -817,13 +700,7 @@
             <li>전화: <b>0507-1372-5226</b></li>
             <li>메일: <b>vnl99@naver.com</b></li>
             <li>사업자등록번호: <b>826-69-00490</b></li>
-            <li>
-              N blog:
-              <a href="https://m.blog.naver.com/bbhouse_?proxyReferer=&noTrackingCode=true" target="_blank" rel="noopener" style="display:inline-flex; align-items:center; gap:8px; margin-left:6px;">
-                <span class="icon n-square" aria-hidden="true">N</span>
-                <span><b>bbhouse_</b> 블로그 바로가기</span>
-              </a>
-            </li>
+            <!-- ✅ N blog 라인 삭제 -->
           </ul>
         </div>
       </div>
