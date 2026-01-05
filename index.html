@@ -354,27 +354,54 @@
       margin:0 0 14px;
       max-width: 70ch;
     }
+
+    /* ✅✅ 요청 반영: 3개가 무조건 "나란히" 동일 사이즈 */
     .pricePills{
-      display:flex;
-      flex-wrap:wrap;
+      display:grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
       gap:10px;
-      margin:12px 0 14px;
+      margin:12px 0 10px;
     }
+
+    /* ✅✅ 클릭 가능한 동일 사이즈 pill */
     .pillPrice{
-      border-radius:999px;
+      width:100%;
+      border-radius:16px;
       border:1px solid var(--line);
       background: rgba(255,255,255,.92);
-      padding:10px 14px;
+      padding:12px 14px;
       display:flex;
       align-items:center;
+      justify-content:space-between;
       gap:10px;
       font-size:14px;
+      cursor:pointer;
+      user-select:none;
+      transition:.15s ease;
+      min-height: 48px;
     }
+    .pillPrice:hover{transform: translateY(-1px); background: rgba(255,255,255,.98)}
     .pillPrice b{
       font-size:16px;
       letter-spacing:-.2px;
       font-weight:1000;
+      white-space:nowrap;
     }
+
+    /* ✅✅ 상세 설명 토글 영역 */
+    .matDetail{
+      display:none;
+      margin-top:10px;
+      padding:12px 14px;
+      border-radius:14px;
+      border:1px solid var(--line);
+      background: rgba(0,0,0,.02);
+      color:var(--muted);
+      font-size:13px;
+      line-height:1.65;
+    }
+    .matDetail.show{display:block}
+
     .miniInfo{
       border-radius:16px;
       border:1px solid var(--line);
@@ -382,6 +409,7 @@
       padding:14px 14px;
       display:grid;
       gap:10px;
+      margin-top:12px;
     }
     .miniRow{
       display:flex;
@@ -438,6 +466,11 @@
       .cta .btn{
         width:100%;
         padding:12px 12px;
+      }
+
+      /* 모바일에서는 3개 나란히가 너무 좁으면 1열로 자동 전환 */
+      .pricePills{
+        grid-template-columns: 1fr;
       }
     }
 
@@ -549,7 +582,6 @@
           </div>
 
           <div style="margin-top:14px">
-            <!-- ✅ 테이블에서 N blog 항목은 삭제 / Instagram은 N blog로 교체 -->
             <table class="table" aria-label="기본 정보">
               <tr>
                 <th>업체명</th>
@@ -557,7 +589,7 @@
               </tr>
               <tr>
                 <th>전화상담</th>
-                <td><b>0507-1372-5226</b> </td>
+                <td><b>0507-1372-5226</b></td>
               </tr>
               <tr>
                 <th>카카오톡</th>
@@ -715,15 +747,34 @@
             해당 금액은 <b>기본 하한</b>이며, 작업 상황(면적/상태/보수 범위)에 따라 비용이 달라질 수 있습니다.
           </p>
 
+          <!-- ✅✅ 3개 동일 사이즈, 나란히 + 클릭 토글 -->
           <div class="pricePills" aria-label="자재별 가격">
-            <div class="pillPrice"><span>세라믹</span> <b>₩30~</b></div>
-            <div class="pillPrice"><span>규조토</span> <b>₩35~</b></div>
-            <div class="pillPrice"><span>에어로겔</span> <b>₩45~</b></div>
+            <div class="pillPrice" role="button" tabindex="0" aria-expanded="false" data-mat="ceramic">
+              <span>세라믹</span> <b>₩30~</b>
+            </div>
+            <div class="pillPrice" role="button" tabindex="0" aria-expanded="false" data-mat="diatom">
+              <span>규조토</span> <b>₩35~</b>
+            </div>
+            <div class="pillPrice" role="button" tabindex="0" aria-expanded="false" data-mat="aerogel">
+              <span>에어로겔</span> <b>₩45~</b>
+            </div>
+          </div>
+
+          <!-- ✅✅ 100자 이내 상세설명(각각) -->
+          <div class="matDetail" id="mat-ceramic" role="region" aria-label="세라믹 상세설명">
+            표면이 단단해 스크래치에 강하고, 오염이 덜 타 깔끔한 벽면 유지에 유리합니다.
+          </div>
+          <div class="matDetail" id="mat-diatom" role="region" aria-label="규조토 상세설명">
+            습도 조절에 도움을 주고 벽면 숨쉬는 느낌이 좋아, 결로·곰팡이 환경 개선에 적합합니다.
+          </div>
+          <div class="matDetail" id="mat-aerogel" role="region" aria-label="에어로겔 상세설명">
+            단열 보조 성능이 뛰어나 냉기·열기 차단에 도움을 주며, 실내 쾌적함을 높이는 자재입니다.
           </div>
 
           <div class="miniInfo" aria-label="안내 정보">
             <div class="miniRow"><span>작업일</span> <b>3일</b></div>
-            <div class="miniRow"><span>수정 횟수</span> <b>제한 없음</b></div>
+            <!-- ✅✅ 수정요청 반영: 수정 횟수 → A/S 횟수 -->
+            <div class="miniRow"><span>A/S 횟수</span> <b>제한 없음</b></div>
           </div>
 
           <div class="priceNote">
@@ -874,6 +925,46 @@
           history.replaceState(null, "", url.toString());
         }
       }catch(e){}
+    })();
+
+    /* ✅✅ 가격구성표: 자재 pill 클릭 시 100자 설명 토글 */
+    (function bindMaterialToggles(){
+      const map = {
+        ceramic: document.getElementById("mat-ceramic"),
+        diatom: document.getElementById("mat-diatom"),
+        aerogel: document.getElementById("mat-aerogel"),
+      };
+
+      function closeAll(){
+        Object.values(map).forEach(el=>el.classList.remove("show"));
+        document.querySelectorAll(".pillPrice[data-mat]").forEach(p=>{
+          p.setAttribute("aria-expanded", "false");
+        });
+      }
+
+      function toggleOne(key, pill){
+        const el = map[key];
+        if(!el) return;
+
+        const willOpen = !el.classList.contains("show");
+        closeAll();
+        if(willOpen){
+          el.classList.add("show");
+          pill.setAttribute("aria-expanded","true");
+          // 스크롤 위치 살짝 보정(모바일에서 설명이 바로 보이게)
+          setTimeout(()=>{ el.scrollIntoView({behavior:"smooth", block:"nearest"}); }, 60);
+        }
+      }
+
+      document.querySelectorAll(".pillPrice[data-mat]").forEach(pill=>{
+        pill.addEventListener("click", ()=> toggleOne(pill.dataset.mat, pill));
+        pill.addEventListener("keydown", (e)=>{
+          if(e.key==="Enter" || e.key===" "){
+            e.preventDefault();
+            toggleOne(pill.dataset.mat, pill);
+          }
+        });
+      });
     })();
   </script>
 </body>
