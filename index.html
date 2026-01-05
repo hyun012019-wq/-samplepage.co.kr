@@ -55,11 +55,11 @@
       overflow-x:hidden;
     }
 
-    /* ✅✅ 숨쉬기 배경(도심 이미지) */
+    /* ✅✅ 숨쉬기 배경(도심 이미지) - 더 진하게/선명하게 */
     body::before{
       content:"";
       position:fixed;
-      inset:-24px;
+      inset:-24px;            /* ✅ 스케일/이동 시 가장자리 잘림 방지 */
       z-index:-2;
       pointer-events:none;
 
@@ -68,8 +68,9 @@
       background-position: center;
       background-repeat:no-repeat;
 
-      opacity: .78;
-      filter: saturate(1.12) contrast(1.12) brightness(.96);
+      /* ✅✅ 배경이 다시 흐려져서: 사진 레이어를 더 선명/진하게 */
+      opacity: .90;
+      filter: saturate(1.25) contrast(1.20) brightness(.92);
 
       transform: scale(1.06) translate3d(0,0,0);
       transform-origin: 50% 50%;
@@ -79,7 +80,7 @@
       backface-visibility: hidden;
     }
 
-    /* ✅ 그라데이션 레이어 */
+    /* ✅ 그라데이션 레이어(배경을 “덮어버리는” 문제 방지: 더 약하게) */
     body::after{
       content:"";
       position:fixed;
@@ -87,11 +88,12 @@
       z-index:-1;
       pointer-events:none;
 
+      /* ✅✅ 오버레이가 강하면 배경이 하얗게 떠서 "흐려" 보임 → 투명도 낮춤 */
       background:
         linear-gradient(
           180deg,
-          rgba(255,250,241,.78),
-          rgba(251,247,239,.88)
+          rgba(255,250,241,.42),
+          rgba(251,247,239,.52)
         );
     }
 
@@ -406,7 +408,7 @@
       max-width: 70ch;
     }
 
-    /* ✅✅ 3개 나란히 */
+    /* ✅✅ 3개 "나란히" 고정 */
     .pricePills{
       display:grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -430,15 +432,10 @@
       transition:.15s ease;
       min-height: 48px;
       outline:none;
-    }
 
-    /* ✅✅✅ [요청 수정] 세라믹/규조토 글자 줄바꿈 방지 + 폭 안정화 */
-    .pillPrice > span{
-      white-space: nowrap;      /* ← 줄바꿈 금지 */
-      word-break: keep-all;     /* ← 한글 낱글자 분리 방지 */
-      flex: 0 0 auto;           /* ← 눌려서 줄바꿈되는 상황 방지 */
+      /* ✅✅ 삐져나감 원천차단 */
+      overflow:hidden;
     }
-
     .pillPrice:hover{transform: translateY(-1px); background: rgba(255,255,255,.98)}
     .pillPrice b{
       font-size:16px;
@@ -446,6 +443,15 @@
       font-weight:1000;
       white-space:nowrap;
       flex: 0 0 auto;
+    }
+
+    /* ✅✅ [요청] 세라믹/규조토 글자 줄바꿈 금지 + 말줄임 + 에어로겔 삐져나감 방지 */
+    .pillPrice span{
+      flex: 1 1 auto;
+      min-width: 0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     .pillPrice.active{
@@ -518,6 +524,7 @@
     }
     .fab:hover{transform: translateY(-1px)}
 
+    /* ✅ CTA: 모바일에서 무조건 2x2 */
     @media (max-width: 560px){
       .cta{
         width:100%;
@@ -532,12 +539,9 @@
         padding:12px 12px;
       }
 
-      /* ✅ 3개 나란히 유지 + 모바일에서 크기만 살짝 줄임 */
+      /* ✅ 3개 나란히 유지하되, 모바일에서 더 작게 */
       .pillPrice{ padding:10px 10px; font-size:13px; min-height:44px; }
       .pillPrice b{ font-size:14px; }
-
-      /* ✅ 모바일에서도 글자 줄바꿈 금지 유지 */
-      .pillPrice > span{ font-size:13px; }
     }
 
     @media (max-width: 980px){
@@ -555,6 +559,7 @@
   </style>
 
   <script>
+    // ✅ 배포할 때마다 v만 바꾸면 캐시 무력화 확실
     window.__ASSET_VERSION__ = "20260106_06";
   </script>
 </head>
@@ -939,6 +944,7 @@
   <script>
     const v = encodeURIComponent(window.__ASSET_VERSION__ || Date.now().toString());
 
+    // ✅ 숨쉬기 배경이미지도 v 붙여서 캐시 무력화
     (function setBreathBg(){
       const bgUrl = `url("home-bg-breath-city.jpg.png?v=${v}")`;
       document.documentElement.style.setProperty("--bg-city", bgUrl);
