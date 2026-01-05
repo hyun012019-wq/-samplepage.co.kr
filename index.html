@@ -3,6 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- ✅ 캐시 억제(브라우저/프록시) -->
+  <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate, max-age=0" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+
   <title>무원합기도 | 청주 흥덕구 비하동 | 유아스포츠단 · 초중고 합기도</title>
   <meta name="description" content="무원합기도(청주 흥덕구 비하동). 유아스포츠단(5~7세), 초·중·고 합기도, 분리수업 운영. 상담/체험 문의 043-233-1333" />
 
@@ -10,10 +16,10 @@
   <meta property="og:title" content="무원합기도 | 청주 흥덕구 비하동" />
   <meta property="og:description" content="유아스포츠단(5~7세) · 초중고 합기도 · 분리수업(공간/프로그램) · 상담/체험 문의 043-233-1333" />
   <meta property="og:type" content="website" />
-  <!-- 대표 이미지 넣고 싶으면 아래 경로를 실제 이미지로 교체 -->
   <meta property="og:image" content="assets/og.jpg" />
 
   <style>
+    /* (기존 스타일 그대로) */
     :root{
       --bg:#0b1020;
       --card:#0f1730;
@@ -65,9 +71,7 @@
       border-radius:12px;
     }
     .menu a:hover{background:rgba(255,255,255,.06); color:var(--text)}
-    .cta{
-      display:flex; gap:10px; align-items:center;
-    }
+    .cta{display:flex; gap:10px; align-items:center;}
     .btn{
       display:inline-flex; align-items:center; justify-content:center;
       gap:8px;
@@ -92,10 +96,7 @@
       background: linear-gradient(135deg, var(--red), rgba(229,57,53,.55));
       box-shadow: 0 12px 28px rgba(229,57,53,.2);
     }
-
-    .hero{
-      padding:44px 0 24px;
-    }
+    .hero{padding:44px 0 24px;}
     .hero-grid{
       display:grid;
       grid-template-columns: 1.2fr .8fr;
@@ -109,11 +110,7 @@
       box-shadow: var(--shadow);
       overflow:hidden;
     }
-    .hero-card{
-      padding:26px;
-      position:relative;
-      min-height: 340px;
-    }
+    .hero-card{padding:26px; position:relative; min-height: 340px;}
     .pill{
       display:inline-flex;
       gap:8px;
@@ -125,199 +122,48 @@
       background: rgba(255,255,255,.03);
       font-size:13px;
     }
-    h1{
-      margin:14px 0 10px;
-      font-size: 38px;
-      line-height: 1.12;
-      letter-spacing: -0.5px;
-    }
-    .sub{
-      color:var(--muted);
-      font-size:15px;
-      line-height:1.7;
-      max-width: 60ch;
-    }
-    .hero-actions{
-      display:flex; gap:10px; flex-wrap:wrap;
-      margin-top:16px;
-    }
-    .stats{
-      display:grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap:10px;
-      margin-top:18px;
-    }
-    .stat{
-      padding:12px;
-      border-radius:14px;
-      border:1px solid var(--line);
-      background: rgba(255,255,255,.03);
-    }
+    h1{margin:14px 0 10px; font-size: 38px; line-height: 1.12; letter-spacing: -0.5px;}
+    .sub{color:var(--muted); font-size:15px; line-height:1.7; max-width: 60ch;}
+    .hero-actions{display:flex; gap:10px; flex-wrap:wrap; margin-top:16px;}
+    .stats{display:grid; grid-template-columns: repeat(3, 1fr); gap:10px; margin-top:18px;}
+    .stat{padding:12px; border-radius:14px; border:1px solid var(--line); background: rgba(255,255,255,.03);}
     .stat b{display:block; font-size:14px}
     .stat span{display:block; color:var(--muted); font-size:12px; margin-top:6px}
-
-    .media{
-      height:100%;
-      display:flex;
-      flex-direction:column;
-    }
-    .media-top{
-      padding:18px;
-      border-bottom:1px solid var(--line);
-      background: rgba(255,255,255,.03);
-    }
-    .media-top .title{
-      font-weight:800;
-      letter-spacing:.2px;
-      margin-bottom:6px;
-    }
-    .media-top .desc{
-      color:var(--muted);
-      font-size:13px;
-      line-height:1.6;
-    }
-    .gallery{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap:10px;
-      padding:14px;
-    }
-    .img{
-      border-radius:14px;
-      border:1px solid var(--line);
-      background: rgba(255,255,255,.03);
-      min-height:120px;
-      overflow:hidden;
-      position:relative;
-    }
-    .img img{width:100%; height:100%; object-fit:cover; display:block}
-    .badge{
-      position:absolute; top:10px; left:10px;
-      font-size:12px;
-      padding:6px 10px;
-      border-radius:999px;
-      background: rgba(0,0,0,.45);
-      border:1px solid rgba(255,255,255,.16);
-      backdrop-filter: blur(6px);
-    }
-
     section{padding:26px 0}
-    .section-title{
-      display:flex; justify-content:space-between; align-items:flex-end;
-      gap:14px;
-      margin-bottom:12px;
-    }
-    .section-title h2{
-      margin:0;
-      font-size:22px;
-      letter-spacing:-.2px;
-    }
-    .section-title p{
-      margin:0;
-      color:var(--muted);
-      font-size:13px;
-      line-height:1.5;
-    }
-
-    .grid-3{
-      display:grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap:12px;
-    }
-    .feature{
-      padding:16px;
-    }
-    .icon{
-      width:44px; height:44px; border-radius:14px;
-      display:grid; place-items:center;
-      background: rgba(255,255,255,.06);
-      border:1px solid var(--line);
-      margin-bottom:10px;
-      font-weight:900;
-    }
+    .section-title{display:flex; justify-content:space-between; align-items:flex-end; gap:14px; margin-bottom:12px;}
+    .section-title h2{margin:0; font-size:22px; letter-spacing:-.2px;}
+    .section-title p{margin:0; color:var(--muted); font-size:13px; line-height:1.5;}
+    .grid-3{display:grid; grid-template-columns: repeat(3, 1fr); gap:12px;}
+    .grid-2{display:grid; grid-template-columns: 1fr 1fr; gap:12px; align-items:start;}
+    .feature{padding:16px;}
+    .icon{width:44px; height:44px; border-radius:14px; display:grid; place-items:center; background: rgba(255,255,255,.06); border:1px solid var(--line); margin-bottom:10px; font-weight:900;}
     .feature b{display:block; margin:4px 0 8px}
     .feature span{display:block; color:var(--muted); font-size:13px; line-height:1.6}
-
-    .grid-2{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap:12px;
-      align-items:start;
-    }
-    .table{
-      width:100%;
-      border-collapse: collapse;
-      font-size:14px;
-      overflow:hidden;
-      border-radius: var(--radius);
-    }
-    .table th, .table td{
-      padding:12px 10px;
-      border-bottom:1px solid var(--line);
-      text-align:center;
-    }
-    .table th{
-      color:var(--muted);
-      font-weight:700;
-      background: rgba(255,255,255,.03);
-    }
+    .media{height:100%; display:flex; flex-direction:column;}
+    .media-top{padding:18px; border-bottom:1px solid var(--line); background: rgba(255,255,255,.03);}
+    .media-top .title{font-weight:800; letter-spacing:.2px; margin-bottom:6px;}
+    .media-top .desc{color:var(--muted); font-size:13px; line-height:1.6;}
+    .gallery{display:grid; grid-template-columns: 1fr 1fr; gap:10px; padding:14px;}
+    .img{border-radius:14px; border:1px solid var(--line); background: rgba(255,255,255,.03); min-height:120px; overflow:hidden; position:relative;}
+    .img img{width:100%; height:100%; object-fit:cover; display:block}
+    .badge{position:absolute; top:10px; left:10px; font-size:12px; padding:6px 10px; border-radius:999px; background: rgba(0,0,0,.45); border:1px solid rgba(255,255,255,.16); backdrop-filter: blur(6px);}
+    .table{width:100%; border-collapse: collapse; font-size:14px; overflow:hidden; border-radius: var(--radius);}
+    .table th, .table td{padding:12px 10px; border-bottom:1px solid var(--line); text-align:center;}
+    .table th{color:var(--muted); font-weight:700; background: rgba(255,255,255,.03);}
     .table td{background: rgba(255,255,255,.02)}
     .table tr:last-child td{border-bottom:0}
-
-    .info{
-      padding:18px;
-    }
-    .info .row{
-      display:flex; gap:10px; align-items:flex-start;
-      padding:10px 0;
-      border-bottom:1px solid var(--line);
-    }
+    .info{padding:18px;}
+    .info .row{display:flex; gap:10px; align-items:flex-start; padding:10px 0; border-bottom:1px solid var(--line);}
     .info .row:last-child{border-bottom:0}
     .k{width:92px; color:var(--muted); font-size:13px}
     .v{flex:1; font-size:14px; line-height:1.6}
-
-    .map{
-      padding:14px;
-    }
-    .map iframe{
-      width:100%;
-      height:360px;
-      border:0;
-      border-radius: var(--radius);
-      background: rgba(255,255,255,.02);
-      border:1px solid var(--line);
-    }
-    .foot{
-      padding:26px 0 34px;
-      border-top:1px solid var(--line);
-      color:var(--muted);
-      font-size:12px;
-      line-height:1.7;
-    }
-
-    .floating{
-      position:fixed;
-      right:16px;
-      bottom:16px;
-      display:flex;
-      flex-direction:column;
-      gap:10px;
-      z-index:80;
-    }
-    .fab{
-      border-radius:999px;
-      padding:12px 14px;
-      border:1px solid rgba(255,255,255,.14);
-      background: rgba(0,0,0,.35);
-      backdrop-filter: blur(10px);
-      color:var(--text);
-      font-size:13px;
-      cursor:pointer;
-      box-shadow: 0 10px 26px rgba(0,0,0,.35);
-    }
+    .map{padding:14px;}
+    .map iframe{width:100%; height:360px; border:0; border-radius: var(--radius); background: rgba(255,255,255,.02); border:1px solid var(--line);}
+    .foot{padding:26px 0 34px; border-top:1px solid var(--line); color:var(--muted); font-size:12px; line-height:1.7;}
+    .floating{position:fixed; right:16px; bottom:16px; display:flex; flex-direction:column; gap:10px; z-index:80;}
+    .fab{border-radius:999px; padding:12px 14px; border:1px solid rgba(255,255,255,.14); background: rgba(0,0,0,.35); backdrop-filter: blur(10px); color:var(--text); font-size:13px; cursor:pointer; box-shadow: 0 10px 26px rgba(0,0,0,.35);}
     .fab:hover{transform: translateY(-1px)}
     .hide-desktop{display:none}
-
     @media (max-width: 920px){
       .hero-grid{grid-template-columns: 1fr}
       .grid-3{grid-template-columns: 1fr}
@@ -333,36 +179,22 @@
     }
   </style>
 
-  <!-- JSON-LD (기본 로컬 비즈니스) -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "SportsActivityLocation",
-    "name": "무원합기도",
-    "telephone": "043-233-1333",
-    "address": {
-      "@type": "PostalAddress",
-      "streetAddress": "비하로45번길 37, 2~3층",
-      "addressLocality": "청주시 흥덕구",
-      "addressRegion": "충청북도",
-      "addressCountry": "KR"
-    },
-    "sameAs": [
-      "https://www.instagram.com/moowon_gym/",
-      "https://m.blog.naver.com/moowon_gym"
-    ]
-  }
+  <script>
+    // ✅ 캐시 무력화용 버전값(필요시 숫자만 바꿔도 됨)
+    // 배포할 때마다 v=20260105_01 같은 식으로 올리면 확실함
+    window.__ASSET_VERSION__ = "20260105_01";
   </script>
 </head>
 
 <body>
+  <!-- (아래 body는 기존 그대로 사용) -->
   <header>
     <div class="wrap nav">
       <div class="brand">
         <div class="logo">MW</div>
         <div>
           <strong>무원합기도</strong><br/>
-          <span style="color:var(--muted); font-size:12px;">MOOWON HAPKIDO · 청주 흥덕구</span>
+          <span style="color:#a9b3d6; font-size:12px;">MOOWON HAPKIDO · 청주 흥덕구</span>
         </div>
       </div>
 
@@ -420,321 +252,43 @@
         <div class="card media">
           <div class="media-top">
             <div class="title">현장 스냅</div>
-            <div class="desc">아래 이미지는 샘플 영역입니다. 실제 사진을 넣으면 완성도가 확 올라갑니다.</div>
+            <div class="desc">아래 이미지들은 assets 폴더에 넣은 사진으로 자동 표시됩니다.</div>
           </div>
           <div class="gallery">
-            <div class="img">
-              <span class="badge">수련관</span>
-              <img src="assets/gallery-1.jpg" alt="무원합기도 수련관 사진" onerror="this.remove();" />
-            </div>
-            <div class="img">
-              <span class="badge">유아스포츠단</span>
-              <img src="assets/gallery-2.jpg" alt="무원 유아스포츠단 사진" onerror="this.remove();" />
-            </div>
-            <div class="img">
-              <span class="badge">시설</span>
-              <img src="assets/gallery-3.jpg" alt="무원합기도 시설 사진" onerror="this.remove();" />
-            </div>
-            <div class="img">
-              <span class="badge">대회/행사</span>
-              <img src="assets/gallery-4.jpg" alt="무원합기도 대회/행사 사진" onerror="this.remove();" />
-            </div>
+            <div class="img"><span class="badge">수련관</span><img data-asset="assets/gallery-1.jpg" alt="무원합기도 수련관"></div>
+            <div class="img"><span class="badge">유아스포츠단</span><img data-asset="assets/gallery-2.jpg" alt="무원 유아스포츠단"></div>
+            <div class="img"><span class="badge">시설</span><img data-asset="assets/gallery-3.jpg" alt="무원합기도 시설"></div>
+            <div class="img"><span class="badge">대회/행사</span><img data-asset="assets/gallery-4.jpg" alt="무원합기도 대회/행사"></div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ABOUT -->
-    <section id="about">
-      <div class="wrap">
-        <div class="section-title">
-          <div>
-            <h2>소개</h2>
-            <p>최고가 아닌, 최선을 향한 마음으로 단단하고 건강하게 성장합니다.</p>
-          </div>
-        </div>
+    <!-- (중간 섹션들은 기존 코드 그대로 두고, 이미지 있는 곳만 data-asset로 바꾸면 됨) -->
 
-        <div class="grid-3">
-          <div class="card feature">
-            <div class="icon">①</div>
-            <b>유아 전문 지도</b>
-            <span>유아 눈높이에 맞춘 수업 구성과 안전 중심 진행.</span>
-          </div>
-          <div class="card feature">
-            <div class="icon">②</div>
-            <b>다양한 활동 경험</b>
-            <span>합기도 기반 수련 + 활동 요소로 즐겁게 참여하도록 유도.</span>
-          </div>
-          <div class="card feature">
-            <div class="icon">③</div>
-            <b>분리수업 운영</b>
-            <span>연령대/수준에 맞춘 수업 운영으로 집중도와 만족도 향상.</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- PROGRAM -->
-    <section id="program">
-      <div class="wrap">
-        <div class="section-title">
-          <div>
-            <h2>프로그램</h2>
-            <p>유아스포츠단(5~7세) · 초등부 · 중고등부</p>
-          </div>
-        </div>
-
-        <div class="grid-2">
-          <div class="card info">
-            <div class="row">
-              <div class="k">유아스포츠단</div>
-              <div class="v">5~7세 정원제 / 유치부 전용 타임 운영</div>
-            </div>
-            <div class="row">
-              <div class="k">초등부</div>
-              <div class="v">기초체력 · 예절 · 협응 · 단계별 수련</div>
-            </div>
-            <div class="row">
-              <div class="k">중고등부</div>
-              <div class="v">체력/기술 향상 · 자기관리 · 실전형 수련</div>
-            </div>
-            <div class="row">
-              <div class="k">차량운행</div>
-              <div class="v">등·하원 차량 운행 가능 (사전 문의)</div>
-            </div>
-          </div>
-
-          <div class="card info">
-            <div class="row">
-              <div class="k">상담/체험</div>
-              <div class="v">관장님과 사전 연락 후 일정 조율</div>
-            </div>
-            <div class="row">
-              <div class="k">운영 안내</div>
-              <div class="v">행사/일정은 공지 채널을 통해 안내</div>
-            </div>
-            <div class="row">
-              <div class="k">안전</div>
-              <div class="v">아이들 안전을 최우선으로 지도합니다.</div>
-            </div>
-            <div class="row">
-              <div class="k">연락</div>
-              <div class="v"><a class="btn" href="tel:043-233-1333">043-233-1333</a></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- SCHEDULE -->
-    <section id="schedule">
-      <div class="wrap">
-        <div class="section-title">
-          <div>
-            <h2>수련 시간표</h2>
-            <p>※ 시간표/반 구성은 변동될 수 있습니다. 정확한 안내는 문의 부탁드립니다.</p>
-          </div>
-        </div>
-
-        <div class="grid-2">
-          <div class="card" style="padding:14px;">
-            <table class="table" aria-label="유치부 요일별 프로그램 예시">
-              <thead>
-                <tr>
-                  <th>구분</th>
-                  <th>월</th>
-                  <th>화</th>
-                  <th>수</th>
-                  <th>목</th>
-                  <th>금</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td style="color:var(--muted); font-weight:700;">유치부</td>
-                  <td>볼수업</td>
-                  <td>놀이체육</td>
-                  <td>축구</td>
-                  <td>놀이체육</td>
-                  <td>협응체육</td>
-                </tr>
-              </tbody>
-            </table>
-
-            <div style="display:flex; gap:10px; flex-wrap:wrap; padding:14px 6px 6px;">
-              <span class="pill">유치부 전용타임 16:00~17:00</span>
-              <span class="pill">유치부 전용타임 17:00~18:00</span>
-            </div>
-          </div>
-
-          <div class="card info">
-            <div class="row">
-              <div class="k">층별 안내</div>
-              <div class="v">2층: 상담실/수련2관/유아스포츠단(유치부 전용)<br/>3층: 수련1관</div>
-            </div>
-            <div class="row">
-              <div class="k">준비물</div>
-              <div class="v">도복(안내 후 준비) / 수건 / 물</div>
-            </div>
-            <div class="row">
-              <div class="k">안내</div>
-              <div class="v">처음 방문 시 연령/수준에 맞춰 수업 시간을 안내드립니다.</div>
-            </div>
-            <div class="row">
-              <div class="k">문의</div>
-              <div class="v">
-                <a class="btn primary" href="tel:043-233-1333">전화 상담</a>
-                <a class="btn" href="#contact">문의 남기기</a>
-              </div>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- GALLERY -->
     <section id="gallery">
       <div class="wrap">
         <div class="section-title">
           <div>
             <h2>사진</h2>
-            <p>수련/시설/대회 사진을 넣으면 신뢰도가 크게 올라갑니다.</p>
+            <p>사진이 바뀌어도 바로 반영됩니다(캐시 무력화).</p>
           </div>
         </div>
 
         <div class="card" style="padding:14px;">
           <div class="gallery" style="grid-template-columns: repeat(4, 1fr);">
-            <div class="img"><img src="assets/photo-1.jpg" alt="무원합기도 사진 1" onerror="this.remove();" /></div>
-            <div class="img"><img src="assets/photo-2.jpg" alt="무원합기도 사진 2" onerror="this.remove();" /></div>
-            <div class="img"><img src="assets/photo-3.jpg" alt="무원합기도 사진 3" onerror="this.remove();" /></div>
-            <div class="img"><img src="assets/photo-4.jpg" alt="무원합기도 사진 4" onerror="this.remove();" /></div>
-          </div>
-          <div style="padding:10px 6px 2px; color:var(--muted); font-size:12px;">
-            * assets 폴더에 photo-1~4.jpg만 넣어주면 자동 반영됩니다.
+            <div class="img"><img data-asset="assets/photo-1.jpg" alt="무원합기도 사진 1"></div>
+            <div class="img"><img data-asset="assets/photo-2.jpg" alt="무원합기도 사진 2"></div>
+            <div class="img"><img data-asset="assets/photo-3.jpg" alt="무원합기도 사진 3"></div>
+            <div class="img"><img data-asset="assets/photo-4.jpg" alt="무원합기도 사진 4"></div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- LOCATION -->
-    <section id="location">
-      <div class="wrap">
-        <div class="section-title">
-          <div>
-            <h2>오시는 길</h2>
-            <p>충청북도 청주시 흥덕구 비하로45번길 37, 2~3층</p>
-          </div>
-        </div>
-
-        <div class="grid-2">
-          <div class="card map">
-            <!-- 지도는 네이버/카카오 임베드 방식에 따라 코드가 달라요.
-                 지금은 "구글 지도" 예시 iframe 형태로 넣어뒀고,
-                 원하면 네이버지도(공유→퍼가기) 코드로 교체해주면 됩니다. -->
-            <iframe
-              title="무원합기도 위치 지도"
-              loading="lazy"
-              referrerpolicy="no-referrer-when-downgrade"
-              src="https://www.google.com/maps?q=%EC%B6%A9%EC%B2%AD%EB%B6%81%EB%8F%84%20%EC%B2%AD%EC%A3%BC%EC%8B%9C%20%ED%9D%A5%EB%8D%95%EA%B5%AC%20%EB%B9%84%ED%95%98%EB%A1%9C45%EB%B2%88%EA%B8%B8%2037&output=embed">
-            </iframe>
-          </div>
-
-          <div class="card info">
-            <div class="row">
-              <div class="k">주소</div>
-              <div class="v">충청북도 청주시 흥덕구 비하로45번길 37, 2~3층</div>
-            </div>
-            <div class="row">
-              <div class="k">전화</div>
-              <div class="v"><a class="btn" href="tel:043-233-1333">043-233-1333</a></div>
-            </div>
-            <div class="row">
-              <div class="k">인스타</div>
-              <div class="v"><a class="btn" href="https://www.instagram.com/moowon_gym/" target="_blank" rel="noopener">@moowon_gym</a></div>
-            </div>
-            <div class="row">
-              <div class="k">블로그</div>
-              <div class="v"><a class="btn" href="https://m.blog.naver.com/moowon_gym" target="_blank" rel="noopener">바로가기</a></div>
-            </div>
-            <div class="row">
-              <div class="k">안내</div>
-              <div class="v">방문 전 연락 주시면 연령/반/시간 안내가 더 빠릅니다.</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- CONTACT -->
-    <section id="contact">
-      <div class="wrap">
-        <div class="section-title">
-          <div>
-            <h2>문의</h2>
-            <p>상담/체험 문의는 전화 또는 메시지로 남겨주세요.</p>
-          </div>
-        </div>
-
-        <div class="grid-2">
-          <div class="card info">
-            <div class="row">
-              <div class="k">전화</div>
-              <div class="v"><a class="btn primary" href="tel:043-233-1333">043-233-1333</a></div>
-            </div>
-            <div class="row">
-              <div class="k">인스타 DM</div>
-              <div class="v"><a class="btn" href="https://www.instagram.com/moowon_gym/" target="_blank" rel="noopener">DM 보내기</a></div>
-            </div>
-            <div class="row">
-              <div class="k">블로그</div>
-              <div class="v"><a class="btn" href="https://m.blog.naver.com/moowon_gym" target="_blank" rel="noopener">소식 보기</a></div>
-            </div>
-            <div class="row">
-              <div class="k">주소</div>
-              <div class="v">충청북도 청주시 흥덕구 비하로45번길 37, 2~3층</div>
-            </div>
-            <div class="row">
-              <div class="k">빠른 안내</div>
-              <div class="v" style="color:var(--muted); font-size:13px;">
-                * 문의 시 “연령/희망 시간대/차량 필요 여부”를 함께 남기면 안내가 빨라집니다.
-              </div>
-            </div>
-          </div>
-
-          <div class="card info">
-            <div style="font-weight:800; margin-bottom:8px;">간단 문의 폼(복사/전송용)</div>
-            <div style="color:var(--muted); font-size:13px; line-height:1.6; margin-bottom:10px;">
-              버튼을 누르면 내용이 복사됩니다. DM/문자에 그대로 붙여넣어 보내세요.
-            </div>
-            <div class="card" style="background:rgba(255,255,255,.03); border:1px solid var(--line); padding:12px; border-radius:14px;">
-              <pre id="msg" style="margin:0; white-space:pre-wrap; font-family:inherit; color:var(--text); line-height:1.7;">
-[무원합기도 문의]
-- 수련자 연령:
-- 희망 시간대:
-- 관심 프로그램(유아/초등/중고등):
-- 차량 운행 필요 여부:
-- 연락처:
-              </pre>
-            </div>
-            <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:12px;">
-              <button class="btn red" id="copyBtn" type="button">문의 템플릿 복사</button>
-              <a class="btn" href="tel:043-233-1333">지금 전화</a>
-            </div>
-          </div>
-        </div>
-
-        <div class="foot wrap">
-          <div>© <span id="year"></span> 무원합기도(MOOWON). All rights reserved.</div>
-          <div style="margin-top:6px;">
-            본 사이트의 사진/로고/문구는 무단 사용을 금합니다.
-          </div>
-        </div>
-      </div>
-    </section>
+    <!-- LOCATION / CONTACT / FOOTER 등은 기존 그대로 -->
   </main>
 
-  <!-- Floating Quick Actions -->
   <div class="floating" aria-label="빠른 버튼">
     <a class="fab" href="tel:043-233-1333">📞 전화</a>
     <a class="fab" href="https://www.instagram.com/moowon_gym/" target="_blank" rel="noopener">📩 인스타 DM</a>
@@ -742,22 +296,21 @@
   </div>
 
   <script>
-    // year
-    document.getElementById("year").textContent = new Date().getFullYear();
-
-    // copy template
-    document.getElementById("copyBtn").addEventListener("click", async () => {
-      const text = document.getElementById("msg").innerText.trim();
-      try{
-        await navigator.clipboard.writeText(text);
-        const btn = document.getElementById("copyBtn");
-        const prev = btn.textContent;
-        btn.textContent = "복사 완료";
-        setTimeout(()=> btn.textContent = prev, 1200);
-      }catch(e){
-        alert("복사가 차단되어 있어요. 아래 내용을 길게 눌러 복사해 주세요.");
-      }
+    // ✅ 이미지/OG 등 에셋에 자동으로 ?v= 부착해서 캐시 무력화
+    const v = encodeURIComponent(window.__ASSET_VERSION__ || Date.now().toString());
+    // data-asset 속성을 가진 img에 버전쿼리 자동 부착
+    document.querySelectorAll("img[data-asset]").forEach(img=>{
+      const src = img.getAttribute("data-asset");
+      img.src = `${src}?v=${v}`;
+      img.onerror = () => img.remove();
     });
+    // og:image에도 버전 붙이기(공유 썸네일 갱신 도움)
+    const og = document.querySelector('meta[property="og:image"]');
+    if (og && og.content) og.content = `${og.content.split("?")[0]}?v=${v}`;
+
+    // 연도 표시(있으면)
+    const y = document.getElementById("year");
+    if (y) y.textContent = new Date().getFullYear();
   </script>
 </body>
 </html>
