@@ -1,5 +1,5 @@
 <!-- ✅ 캐시 무력 접속 예시:
-     https://samplepage.co.kr/?v=20260106_05   ← v 값만 매번 바꾸면 됨
+     https://samplepage.co.kr/?v=20260106_06   ← v 값만 매번 바꾸면 됨
 -->
 <!doctype html>
 <html lang="ko">
@@ -45,10 +45,6 @@
 
     *{box-sizing:border-box}
     html, body {height:100%}
-    html{
-      background: linear-gradient(180deg, #fffaf1, var(--bg));
-      overflow-x:hidden;
-    }
 
     body{
       margin:0;
@@ -59,12 +55,11 @@
       overflow-x:hidden;
     }
 
-    /* ✅✅ 숨쉬기 배경(도심 이미지) - 끊김(씹힘) 방지 + 더 진하게 + 조금 빠르게 */
+    /* ✅✅ 숨쉬기 배경(도심 이미지) */
     body::before{
       content:"";
       position:fixed;
-      /* ✅ 스케일/이동할 때 가장자리 잘림 방지(스크롤 시 파란 줄/찢김 같은 현상 완화) */
-      inset:-140px;
+      inset:-24px;
       z-index:-2;
       pointer-events:none;
 
@@ -73,21 +68,18 @@
       background-position: center;
       background-repeat:no-repeat;
 
-      /* ✅ 더 진하게(요청 반영) */
-      opacity: .90;
-      filter: saturate(1.20) contrast(1.18) brightness(.92);
+      opacity: .78;
+      filter: saturate(1.12) contrast(1.12) brightness(.96);
 
-      transform: translate3d(0,0,0) scale(1.06);
+      transform: scale(1.06) translate3d(0,0,0);
       transform-origin: 50% 50%;
-      animation: bgBreath 6.2s ease-in-out infinite; /* ✅ 속도 조금 빠르게 */
+      animation: bgBreath 7s ease-in-out infinite;
 
-      /* ✅ 모바일 렌더링 안정화 */
       will-change: transform;
       backface-visibility: hidden;
-      -webkit-backface-visibility: hidden;
     }
 
-    /* ✅ 톤 오버레이(너무 덮어서 배경이 흐려지는 문제 방지: 최소만) */
+    /* ✅ 그라데이션 레이어 */
     body::after{
       content:"";
       position:fixed;
@@ -95,19 +87,22 @@
       z-index:-1;
       pointer-events:none;
 
-      /* ✅ 배경 보이게: 아주 얇은 크림 오버레이만 */
       background:
-        linear-gradient(180deg, rgba(255,250,241,.22), rgba(251,247,239,.34));
+        linear-gradient(
+          180deg,
+          rgba(255,250,241,.78),
+          rgba(251,247,239,.88)
+        );
     }
 
     @keyframes bgBreath{
-      0%   { transform: translate3d(0,0,0) scale(1.06); }
-      50%  { transform: translate3d(0,-10px,0) scale(1.10); }
-      100% { transform: translate3d(0,0,0) scale(1.06); }
+      0%   { transform: scale(1.06) translate3d(0,0,0); }
+      50%  { transform: scale(1.10) translate3d(0,-10px,0); }
+      100% { transform: scale(1.06) translate3d(0,0,0); }
     }
 
     @media (prefers-reduced-motion: reduce){
-      body::before{ animation:none; transform: translate3d(0,0,0) scale(1.04); }
+      body::before{ animation:none; transform: scale(1.04) translate3d(0,0,0); }
     }
 
     a{color:inherit; text-decoration:none}
@@ -208,7 +203,10 @@
       background: linear-gradient(135deg, #833ab4 0%, #fd1d1d 45%, #fcb045 100%);
       box-shadow: 0 16px 30px rgba(253,29,29,.16);
     }
-    .btn.insta:hover{transform: translateY(-1px); filter: brightness(1.02);}
+    .btn.insta:hover{
+      transform: translateY(-1px);
+      filter: brightness(1.02);
+    }
 
     .btn.nblog{
       border:0;
@@ -217,7 +215,10 @@
       background: linear-gradient(135deg, #03c75a, #00b04a);
       box-shadow: 0 16px 30px rgba(3,199,90,.22);
     }
-    .btn.nblog:hover{transform: translateY(-1px); filter: brightness(1.02);}
+    .btn.nblog:hover{
+      transform: translateY(-1px);
+      filter: brightness(1.02);
+    }
     .btn.nblog .nmark{
       width:26px; height:26px;
       border-radius:999px;
@@ -227,7 +228,10 @@
       font-weight:1000;
       line-height:1;
     }
-    .btn.nblog .ntext{letter-spacing:-.2px; font-weight:950;}
+    .btn.nblog .ntext{
+      letter-spacing:-.2px;
+      font-weight:950;
+    }
 
     main{padding:24px 0 34px}
 
@@ -293,8 +297,12 @@
     .hero-right .title{font-weight:950; margin-bottom:6px}
     .hero-right .subtxt{color:var(--muted); font-size:13px; line-height:1.6; margin-bottom:12px}
 
-    .quick{display:flex; gap:10px; flex-wrap:wrap;}
-    .quick .btn:not(.primary):not(.kakao):not(.insta):not(.nblog){background: rgba(255,255,255,.92);}
+    .quick{
+      display:flex; gap:10px; flex-wrap:wrap;
+    }
+    .quick .btn:not(.primary):not(.kakao):not(.insta):not(.nblog){
+      background: rgba(255,255,255,.92);
+    }
     .quick .btn i{font-style:normal; opacity:.9}
 
     section{padding:20px 0}
@@ -398,7 +406,7 @@
       max-width: 70ch;
     }
 
-    /* ✅✅ 3개 "나란히" 고정 (모바일도 3개 유지) */
+    /* ✅✅ 3개 나란히 */
     .pricePills{
       display:grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -423,60 +431,29 @@
       min-height: 48px;
       outline:none;
     }
+
+    /* ✅✅✅ [요청 수정] 세라믹/규조토 글자 줄바꿈 방지 + 폭 안정화 */
+    .pillPrice > span{
+      white-space: nowrap;      /* ← 줄바꿈 금지 */
+      word-break: keep-all;     /* ← 한글 낱글자 분리 방지 */
+      flex: 0 0 auto;           /* ← 눌려서 줄바꿈되는 상황 방지 */
+    }
+
     .pillPrice:hover{transform: translateY(-1px); background: rgba(255,255,255,.98)}
     .pillPrice b{
       font-size:16px;
       letter-spacing:-.2px;
       font-weight:1000;
       white-space:nowrap;
+      flex: 0 0 auto;
     }
 
-    /* ✅ 선택 표시(현재 선택된 자재 강조) */
     .pillPrice.active{
       border-color: rgba(42,99,255,.28);
       box-shadow: 0 12px 26px rgba(42,99,255,.10);
       background: rgba(255,255,255,1);
     }
 
-    /* ✅✅ 동그라미(1/2/3) - 선택 연동 */
-    .priceDots{
-      display:grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap:10px;
-      margin:6px 0 0;
-    }
-    .dotBtn{
-      width:100%;
-      display:flex;
-      justify-content:center;
-      align-items:center;
-      padding:6px 0 2px;
-      background: transparent;
-      border:0;
-      cursor:pointer;
-    }
-    .dot{
-      width:34px; height:34px;
-      border-radius:999px;
-      border:1px solid rgba(20,18,16,.16);
-      background: rgba(255,255,255,.86);
-      box-shadow: 0 10px 20px rgba(20,18,16,.10);
-      display:grid;
-      place-items:center;
-      font-weight:1000;
-      font-size:13px;
-      color: rgba(28,27,25,.92);
-      transition:.15s ease;
-      user-select:none;
-    }
-    .dotBtn:hover .dot{transform: translateY(-1px); background: rgba(255,255,255,.98);}
-    .dot.active{
-      border-color: rgba(42,99,255,.30);
-      box-shadow: 0 14px 28px rgba(42,99,255,.14);
-      background: rgba(255,255,255,1);
-    }
-
-    /* ✅ 상세 설명 토글 영역 */
     .matDetail{
       display:none;
       margin-top:10px;
@@ -541,7 +518,6 @@
     }
     .fab:hover{transform: translateY(-1px)}
 
-    /* ✅ CTA: 모바일에서 무조건 2x2 */
     @media (max-width: 560px){
       .cta{
         width:100%;
@@ -556,11 +532,12 @@
         padding:12px 12px;
       }
 
-      /* ✅ 3개 나란히 유지하되, 모바일에서 더 작게 */
+      /* ✅ 3개 나란히 유지 + 모바일에서 크기만 살짝 줄임 */
       .pillPrice{ padding:10px 10px; font-size:13px; min-height:44px; }
       .pillPrice b{ font-size:14px; }
 
-      .dot{ width:30px; height:30px; font-size:12px; }
+      /* ✅ 모바일에서도 글자 줄바꿈 금지 유지 */
+      .pillPrice > span{ font-size:13px; }
     }
 
     @media (max-width: 980px){
@@ -578,8 +555,7 @@
   </style>
 
   <script>
-    // ✅ 배포할 때마다 v만 바꾸면 캐시 무력화 확실
-    window.__ASSET_VERSION__ = "20260106_05";
+    window.__ASSET_VERSION__ = "20260106_06";
   </script>
 </head>
 
@@ -835,7 +811,7 @@
           </p>
 
           <div class="pricePills" aria-label="자재별 가격">
-            <div class="pillPrice" role="button" tabindex="0" aria-expanded="false" data-mat="ceramic" data-price="₩30~">
+            <div class="pillPrice active" role="button" tabindex="0" aria-expanded="true" data-mat="ceramic" data-price="₩30~">
               <span>세라믹</span> <b>₩30~</b>
             </div>
             <div class="pillPrice" role="button" tabindex="0" aria-expanded="false" data-mat="diatom" data-price="₩35~">
@@ -846,14 +822,7 @@
             </div>
           </div>
 
-          <!-- ✅ 동그라미 1/2/3 (선택 연동) -->
-          <div class="priceDots" aria-label="자재 선택(1/2/3)">
-            <button class="dotBtn" type="button" data-mat="ceramic" aria-label="1번(세라믹) 선택"><span class="dot">1</span></button>
-            <button class="dotBtn" type="button" data-mat="diatom" aria-label="2번(규조토) 선택"><span class="dot">2</span></button>
-            <button class="dotBtn" type="button" data-mat="aerogel" aria-label="3번(에어로겔) 선택"><span class="dot">3</span></button>
-          </div>
-
-          <div class="matDetail" id="mat-ceramic" role="region" aria-label="세라믹 상세설명">
+          <div class="matDetail show" id="mat-ceramic" role="region" aria-label="세라믹 상세설명">
             표면이 단단해 스크래치에 강하고, 오염이 덜 타 깔끔한 벽면 유지에 유리합니다.
           </div>
           <div class="matDetail" id="mat-diatom" role="region" aria-label="규조토 상세설명">
@@ -970,7 +939,6 @@
   <script>
     const v = encodeURIComponent(window.__ASSET_VERSION__ || Date.now().toString());
 
-    // ✅ 숨쉬기 배경이미지도 v 붙여서 캐시 무력화
     (function setBreathBg(){
       const bgUrl = `url("home-bg-breath-city.jpg.png?v=${v}")`;
       document.documentElement.style.setProperty("--bg-city", bgUrl);
@@ -1011,7 +979,6 @@
     const y = document.getElementById("year");
     if (y) y.textContent = new Date().getFullYear();
 
-    // ✅ 페이지 자체 캐시 무력: URL에 v 없으면 자동으로 붙여줌
     (function forcePageQuery(){
       try{
         const url = new URL(location.href);
@@ -1022,12 +989,6 @@
       }catch(e){}
     })();
 
-    /* ✅✅ 가격구성표:
-       - pill 클릭 ↔ 동그라미(1/2/3) 클릭 둘 다 동일하게 동작
-       - 상세설명 토글
-       - 상단 큰 가격(#mainPrice) 변경
-       - pill(active) + dot(active) 동기화
-    */
     (function bindMaterialToggles(){
       const mainPrice = document.getElementById("mainPrice");
 
@@ -1037,25 +998,17 @@
         aerogel: document.getElementById("mat-aerogel"),
       };
 
-      const pills = Array.from(document.querySelectorAll(".pillPrice[data-mat]"));
-      const dots  = Array.from(document.querySelectorAll(".dotBtn[data-mat]"));
-
       function closeAll(){
-        Object.values(map).forEach(el=>el && el.classList.remove("show"));
-        pills.forEach(p=>{
+        Object.values(map).forEach(el=>el.classList.remove("show"));
+        document.querySelectorAll(".pillPrice[data-mat]").forEach(p=>{
           p.classList.remove("active");
           p.setAttribute("aria-expanded", "false");
         });
-        dots.forEach(btn=>{
-          const d = btn.querySelector(".dot");
-          if(d) d.classList.remove("active");
-        });
       }
 
-      function openByKey(key, scrollToDetail){
-        const pill = pills.find(p => p.dataset.mat === key);
-        const el   = map[key];
-        if(!pill || !el) return;
+      function openOne(key, pill){
+        const el = map[key];
+        if(!el) return;
 
         closeAll();
 
@@ -1063,44 +1016,24 @@
         pill.classList.add("active");
         pill.setAttribute("aria-expanded","true");
 
-        const dotBtn = dots.find(b => b.dataset.mat === key);
-        if(dotBtn){
-          const d = dotBtn.querySelector(".dot");
-          if(d) d.classList.add("active");
-        }
-
         const price = pill.getAttribute("data-price");
         if (mainPrice && price) mainPrice.textContent = price;
 
-        if(scrollToDetail){
-          setTimeout(()=>{ el.scrollIntoView({behavior:"smooth", block:"nearest"}); }, 60);
-        }
+        setTimeout(()=>{ el.scrollIntoView({behavior:"smooth", block:"nearest"}); }, 60);
       }
 
-      // pill 클릭
-      pills.forEach(pill=>{
-        pill.addEventListener("click", ()=> openByKey(pill.dataset.mat, true));
+      document.querySelectorAll(".pillPrice[data-mat]").forEach(pill=>{
+        pill.addEventListener("click", ()=> openOne(pill.dataset.mat, pill));
         pill.addEventListener("keydown", (e)=>{
           if(e.key==="Enter" || e.key===" "){
             e.preventDefault();
-            openByKey(pill.dataset.mat, true);
+            openOne(pill.dataset.mat, pill);
           }
         });
       });
 
-      // 동그라미(1/2/3) 클릭
-      dots.forEach(btn=>{
-        btn.addEventListener("click", ()=> openByKey(btn.dataset.mat, true));
-        btn.addEventListener("keydown", (e)=>{
-          if(e.key==="Enter" || e.key===" "){
-            e.preventDefault();
-            openByKey(btn.dataset.mat, true);
-          }
-        });
-      });
-
-      // ✅ 첫 로딩 기본값(세라믹)
-      openByKey("ceramic", false);
+      const first = document.querySelector('.pillPrice[data-mat="ceramic"]');
+      if(first) openOne("ceramic", first);
     })();
   </script>
 </body>
