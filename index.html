@@ -32,6 +32,13 @@
       --accent2:#f2c66e;     /* 옐로우 포인트(카카오 느낌) */
       --blue:#2a63ff;
       --max: 1120px;
+
+      /* ✅ Instagram 그라데이션(추가) */
+      --insta1:#feda75;
+      --insta2:#fa7e1e;
+      --insta3:#d62976;
+      --insta4:#962fbf;
+      --insta5:#4f5bd5;
     }
 
     *{box-sizing:border-box}
@@ -135,18 +142,26 @@
       font-weight:700;
     }
 
-    /* ✅ 인스타 버튼 그라데이션(추가) */
-    .btn.instagram{
+    /* ✅ Instagram 버튼 스타일(추가) */
+    .btn.insta{
       border:0;
       color:#fff;
-      font-weight:700;
-      background: radial-gradient(circle at 30% 107%,
-        #fdf497 0%,
-        #fdf497 5%,
-        #fd5949 45%,
-        #d6249f 60%,
-        #285AEB 90%);
-      box-shadow: 0 16px 30px rgba(214,36,159,.22);
+      font-weight:800;
+      background: radial-gradient(circle at 30% 110%, var(--insta1) 0%, var(--insta2) 25%, var(--insta3) 50%, var(--insta4) 75%, var(--insta5) 100%);
+      box-shadow: 0 16px 30px rgba(214,41,118,.18);
+      position:relative;
+      overflow:hidden;
+    }
+    .btn.insta:hover{
+      transform: translateY(-1px);
+      filter:saturate(1.05);
+    }
+    .btn.insta::after{
+      content:"";
+      position:absolute; inset:-40%;
+      background: radial-gradient(circle at 20% 20%, rgba(255,255,255,.32), transparent 45%);
+      transform: rotate(12deg);
+      pointer-events:none;
     }
 
     main{padding:24px 0 34px}
@@ -310,6 +325,15 @@
     }
     .fab:hover{transform: translateY(-1px)}
 
+    /* ✅ Instagram 플로팅 버튼(추가) */
+    .fab.insta{
+      border:0;
+      color:#fff;
+      font-weight:900;
+      background: radial-gradient(circle at 30% 110%, var(--insta1) 0%, var(--insta2) 25%, var(--insta3) 50%, var(--insta4) 75%, var(--insta5) 100%);
+      box-shadow: 0 14px 28px rgba(214,41,118,.20);
+    }
+
     /* ✅ CTA: 모바일에서 무조건 2x2로 정렬(전화상담 떨어짐 방지) */
     @media (max-width: 560px){
       .cta{
@@ -369,8 +393,8 @@
 
       <div class="cta">
         <a class="btn" href="#contact">도움문의</a>
-        <!-- ✅ 인스타 버튼만 그라데이션 적용 -->
-        <a class="btn instagram" href="https://www.instagram.com/bb.house___" target="_blank" rel="noopener">Instagram</a>
+        <!-- ✅ 인스타 버튼만 인스타 스타일(수정) -->
+        <a class="btn insta" href="https://www.instagram.com/bb.house___" target="_blank" rel="noopener">Instagram</a>
         <a class="btn kakao" href="http://pf.kakao.com/_dxbxbBG" target="_blank" rel="noopener">카카오톡</a>
         <a class="btn primary" href="tel:050713725226">전화상담</a>
       </div>
@@ -426,8 +450,8 @@
           <div class="quick">
             <a class="btn" href="tel:050713725226"><i>📞</i> 전화상담</a>
             <a class="btn" href="#contact"><i>✉️</i> 문자</a>
-            <!-- ✅ 인스타 버튼만 그라데이션 적용 -->
-            <a class="btn instagram" href="https://www.instagram.com/bb.house___" target="_blank" rel="noopener"><i>💬</i> 인스타DM</a>
+            <!-- ✅ 인스타 버튼만 인스타 스타일(수정) -->
+            <a class="btn insta" href="https://www.instagram.com/bb.house___" target="_blank" rel="noopener"><i>💬</i> 인스타DM</a>
           </div>
 
           <div style="margin-top:14px">
@@ -637,8 +661,8 @@
           <div style="display:flex; gap:10px; flex-wrap:wrap;">
             <a class="btn primary" href="tel:050713725226">📞 전화상담</a>
             <a class="btn" href="sms:050713725226">✉️ 문자 남기기</a>
-            <!-- ✅ 인스타 버튼만 그라데이션 적용 -->
-            <a class="btn instagram" href="https://www.instagram.com/bb.house___" target="_blank" rel="noopener">💬 인스타 DM</a>
+            <!-- ✅ 인스타 버튼만 인스타 스타일(수정) -->
+            <a class="btn insta" href="https://www.instagram.com/bb.house___" target="_blank" rel="noopener">💬 인스타 DM</a>
             <a class="btn kakao" href="http://pf.kakao.com/_dxbxbBG" target="_blank" rel="noopener">카카오톡 상담</a>
           </div>
 
@@ -663,6 +687,8 @@
     <a class="fab" href="tel:050713725226">📞 전화상담</a>
     <a class="fab" href="sms:050713725226">✉️ 문자</a>
     <a class="fab" href="http://pf.kakao.com/_dxbxbBG" target="_blank" rel="noopener">💛 카카오톡</a>
+    <!-- ✅ (추가로 원하면) 플로팅 인스타도 인스타 스타일로 가능 -->
+    <!-- <a class="fab insta" href="https://www.instagram.com/bb.house___" target="_blank" rel="noopener">📷 Instagram</a> -->
     <a class="fab" href="https://m.place.naver.com/place/1300949235/location?entry=pll&filter=location&selected_place_id=1300949235" target="_blank" rel="noopener">📍 위치</a>
   </div>
 
