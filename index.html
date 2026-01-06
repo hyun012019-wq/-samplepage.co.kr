@@ -1,3 +1,6 @@
+<!-- ✅ 캐시 무력 접속 예시:
+     https://samplepage.co.kr/?v=20260107_01   ← v 값만 매번 바꾸면 됨
+-->
 <!doctype html>
 <html lang="ko">
 <head>
@@ -11,33 +14,35 @@
   <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0, s-maxage=0" />
   <meta http-equiv="Surrogate-Control" content="no-store" />
 
-  <title>바디제이 필라테스 | BODY J PILATES</title>
-  <meta name="description" content="바디제이 필라테스. 기구 필라테스 · 체형교정 · 개인/소그룹 레슨. 네이버 예약/위치/플레이스, 인스타, 블로그 바로 연결." />
+  <title>바디제이 필라테스 | 1:1·소그룹 프리미엄 레슨</title>
+  <meta name="description" content="바디제이 필라테스. 1:1 / 소그룹 레슨, 체형·통증·자세 맞춤. 예약/문의 0507-1466-1381" />
 
-  <!-- ✅ Open Graph -->
-  <meta property="og:title" content="바디제이 필라테스 | BODY J PILATES" />
-  <meta property="og:description" content="기구 필라테스 · 체형교정 · 1:1/소그룹 레슨. 네이버 예약/위치/플레이스, 인스타, 블로그 바로 연결." />
+  <!-- Open Graph -->
+  <meta property="og:title" content="바디제이 필라테스" />
+  <meta property="og:description" content="밝고 편안한 공간에서 체형·통증·자세 맞춤 필라테스 레슨" />
   <meta property="og:type" content="website" />
-  <!-- og.jpg 파일 올려두면 자동 사용됨(없으면 그냥 무시됨) -->
   <meta property="og:image" content="og.jpg" />
 
   <style>
     :root{
-      --bg:#fbf7ef;
-      --bg2:#fffdf8;
-
+      --bg: #fbf7ef;
+      --paper: rgba(255,255,255,.88);
       --text:#1c1b19;
       --muted:#6b645b;
       --line:rgba(20,18,16,.10);
-      --shadow:0 18px 40px rgba(20,18,16,.12);
+      --shadow: 0 18px 40px rgba(20,18,16,.10);
       --radius:18px;
 
-      /* ✅ 밝은 베이지 계열 */
-      --accent:#e2cfb2;
-      --accent2:#d7bf98;
-      --accentText:#1c1b19;
+      /* ✅ 베이지/크림 포인트 */
+      --accent:#c9a56a;
+      --accent2:#f0d7a6;
+      --btn:#d8b57a;
+      --btn2:#f2dfb7;
 
-      --max:1100px;
+      --max: 1120px;
+
+      /* ✅ 홈 바탕 숨쉬기 배경(파일명만 바꾸면 됨) */
+      --bg-breath: url("home-bg-breath-pilates.jpg");
     }
 
     *{box-sizing:border-box}
@@ -47,8 +52,56 @@
       margin:0;
       font-family: system-ui, -apple-system, Segoe UI, Roboto, "Noto Sans KR", "Apple SD Gothic Neo", sans-serif;
       color:var(--text);
-      background:linear-gradient(180deg,var(--bg2),var(--bg));
+      background:none;
       overflow-x:hidden;
+    }
+
+    /* ✅✅ 숨쉬기 배경 (빠르게) */
+    body::before{
+      content:"";
+      position:fixed;
+      inset:-32px;          /* ✅ 스케일/이동 시 가장자리 ‘씹힘’ 방지 */
+      z-index:-2;
+      pointer-events:none;
+
+      background-image: var(--bg-breath);
+      background-size: cover;
+      background-position: center;
+      background-repeat:no-repeat;
+
+      /* ✅ 배경 진하기 (원하면 여기만 조절) */
+      opacity: .72;
+      filter: saturate(1.12) contrast(1.12) brightness(.95);
+
+      transform: scale(1.06) translate3d(0,0,0);
+      transform-origin: 50% 50%;
+      animation: bgBreath 6.2s ease-in-out infinite; /* ✅ 빠르게 */
+
+      will-change: transform;
+      backface-visibility: hidden;
+    }
+
+    /* ✅ 밝은 베이지 오버레이(배경이 안 죽게 “약하게”) */
+    body::after{
+      content:"";
+      position:fixed;
+      inset:0;
+      z-index:-1;
+      pointer-events:none;
+
+      background:
+        radial-gradient(900px 520px at 18% 8%, rgba(201,165,106,.22), transparent 60%),
+        radial-gradient(900px 520px at 82% 16%, rgba(240,215,166,.18), transparent 55%),
+        linear-gradient(180deg, rgba(255,250,241,.74), rgba(251,247,239,.88));
+    }
+
+    @keyframes bgBreath{
+      0%   { transform: scale(1.06) translate3d(0,0,0); }
+      50%  { transform: scale(1.10) translate3d(0,-12px,0); }
+      100% { transform: scale(1.06) translate3d(0,0,0); }
+    }
+    @media (prefers-reduced-motion: reduce){
+      body::before{ animation:none; transform: scale(1.04) translate3d(0,0,0); }
     }
 
     a{color:inherit; text-decoration:none}
@@ -57,7 +110,7 @@
     header{
       position:sticky; top:0; z-index:50;
       backdrop-filter: blur(10px);
-      background: rgba(255,253,248,.86);
+      background: rgba(251,247,239,.78);
       border-bottom:1px solid var(--line);
     }
 
@@ -72,14 +125,25 @@
     }
 
     .brand{
-      display:flex;
-      flex-direction:column;
-      gap:3px;
+      display:flex; gap:12px; align-items:center;
       min-width: 240px;
       flex: 1 1 280px;
     }
-    .brand strong{letter-spacing:-.3px; font-size:17px}
-    .brand .sub{color:var(--muted); font-size:12px}
+
+    .logo{
+      width:44px; height:44px; border-radius:14px;
+      background: rgba(255,255,255,.70);
+      border:1px solid var(--line);
+      display:grid; place-items:center;
+      box-shadow: 0 12px 24px rgba(20,18,16,.10);
+      overflow:hidden;
+      font-weight:1000;
+      letter-spacing:-.3px;
+    }
+    .logo img{width:100%; height:100%; object-fit:cover; display:block}
+
+    .brand strong{letter-spacing:-.2px; font-size:16px}
+    .brand .sub{color:var(--muted); font-size:12px; margin-top:2px}
 
     nav.menu{
       display:flex; gap:10px; align-items:center;
@@ -108,7 +172,7 @@
       padding:10px 14px;
       border-radius:999px;
       border:1px solid var(--line);
-      background: rgba(255,255,255,.80);
+      background: rgba(255,255,255,.75);
       color:var(--text);
       font-size:13px;
       cursor:pointer;
@@ -116,41 +180,74 @@
       user-select:none;
       white-space:nowrap;
     }
-    .btn:hover{transform: translateY(-1px); background: rgba(255,255,255,.96)}
+    .btn:hover{transform: translateY(-1px); background: rgba(255,255,255,.95)}
 
     .btn.primary{
       border:0;
-      background: linear-gradient(135deg, var(--accent), var(--accent2));
-      color:var(--accentText);
-      box-shadow: 0 16px 30px rgba(215,191,152,.28);
+      background: linear-gradient(135deg, var(--btn), rgba(216,181,122,.72));
+      color:#1c1b19;
+      box-shadow: 0 16px 30px rgba(216,181,122,.20);
+      font-weight:1000;
+    }
+
+    /* ✅ 인스타 버튼 */
+    .btn.insta{
+      border:0;
+      color:#fff;
+      font-weight:950;
+      background: linear-gradient(135deg, #833ab4 0%, #fd1d1d 45%, #fcb045 100%);
+      box-shadow: 0 16px 30px rgba(253,29,29,.16);
+    }
+    .btn.insta:hover{ filter: brightness(1.02); }
+
+    /* ✅ 네이버 블로그 버튼 */
+    .btn.nblog{
+      border:0;
+      color:#fff;
+      font-weight:950;
+      background: linear-gradient(135deg, #03c75a, #00b04a);
+      box-shadow: 0 16px 30px rgba(3,199,90,.22);
+    }
+    .btn.nblog:hover{ filter: brightness(1.02); }
+    .btn.nblog .nmark{
+      width:26px; height:26px;
+      border-radius:999px;
+      background: rgba(255,255,255,.22);
+      display:inline-grid;
+      place-items:center;
+      font-weight:1000;
+      line-height:1;
+    }
+    .btn.nblog .ntext{
+      letter-spacing:-.2px;
       font-weight:950;
     }
 
-    main{padding:26px 0 34px}
+    main{padding:24px 0 34px}
 
     .hero{
       display:grid;
       grid-template-columns: 1.12fr .88fr;
       gap:14px;
       align-items:stretch;
-      margin-top:10px;
+      margin-top:12px;
     }
 
     .card{
-      background: rgba(255,255,255,.88);
+      background: var(--paper);
       border:1px solid var(--line);
       border-radius: var(--radius);
       box-shadow: var(--shadow);
       overflow:hidden;
     }
 
-    .hero-left{padding:24px}
+    .hero-left{padding:22px; position:relative}
     .pill{
       display:inline-flex; align-items:center; gap:8px;
       padding:8px 12px;
       border-radius:999px;
       border:1px solid var(--line);
-      background: rgba(255,255,255,.85);
+      background: rgba(255,255,255,.78);
       color:var(--muted);
       font-size:13px;
     }
@@ -158,19 +255,29 @@
     h1{
       margin:14px 0 10px;
       font-size:42px;
-      line-height:1.12;
+      line-height:1.10;
       letter-spacing:-1px;
     }
 
     .desc{
       color:var(--muted);
       font-size:15px;
-      line-height:1.75;
-      max-width: 62ch;
+      line-height:1.7;
+      max-width: 64ch;
       margin:0;
     }
 
     .hero-actions{display:flex; gap:10px; flex-wrap:wrap; margin-top:16px}
+
+    .hero-media{
+      margin-top:16px;
+      border-radius:18px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.78);
+      overflow:hidden;
+      min-height: 240px;
+    }
+    .hero-media img{width:100%; height:100%; object-fit:cover; display:block}
 
     .mini{
       display:grid;
@@ -183,33 +290,37 @@
       border-radius:16px;
       border:1px solid var(--line);
       background: rgba(255,255,255,.78);
+      min-width:0;
     }
     .mini .m b{display:block; font-size:14px}
     .mini .m span{display:block; margin-top:6px; color:var(--muted); font-size:12.5px; line-height:1.45}
 
-    .hero-right{padding:20px}
-    .hero-right .title{font-weight:950; margin-bottom:6px}
+    .hero-right{padding:18px}
+    .hero-right .title{font-weight:1000; margin-bottom:6px}
     .hero-right .subtxt{color:var(--muted); font-size:13px; line-height:1.6; margin-bottom:12px}
 
     .quick{
       display:flex; gap:10px; flex-wrap:wrap;
     }
+    .quick .btn:not(.primary):not(.insta):not(.nblog){ background: rgba(255,255,255,.95); }
 
-    section{padding:22px 0}
+    section{padding:20px 0}
     .section-title{display:flex; justify-content:space-between; align-items:flex-end; gap:12px; margin-bottom:10px}
     .section-title h2{margin:0; font-size:22px; letter-spacing:-.3px}
     .section-title p{margin:0; color:var(--muted); font-size:13px; line-height:1.5}
 
+    .grid-2{display:grid; grid-template-columns: 1fr 1fr; gap:12px; align-items:stretch}
     .grid-3{display:grid; grid-template-columns: repeat(3, 1fr); gap:12px; align-items:stretch}
 
-    .step{
-      padding:16px;
+    .media{
       border-radius:16px;
       border:1px solid var(--line);
-      background: rgba(255,255,255,.82);
+      background: rgba(255,255,255,.78);
+      overflow:hidden;
+      min-height: 220px;
+      position:relative;
     }
-    .step b{display:block; margin-bottom:6px}
-    .step span{display:block; color:var(--muted); font-size:13.5px; line-height:1.6}
+    .media img{width:100%; height:100%; object-fit:cover; display:block}
 
     .box{padding:16px}
     .list{
@@ -219,10 +330,53 @@
       font-size:14px;
     }
 
-    .mapCard{
-      display:flex; align-items:center; justify-content:space-between;
-      gap:12px; flex-wrap:wrap;
+    .step{
+      padding:16px;
+      border-radius:16px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.82);
+      min-width:0;
     }
+    .step b{display:block; margin-bottom:6px; word-break:keep-all}
+    .step span{display:block; color:var(--muted); font-size:13.5px; line-height:1.6}
+
+    .table{
+      width:100%;
+      border-collapse:collapse;
+      overflow:hidden;
+      border-radius:16px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.85);
+    }
+    .table th,.table td{
+      padding:12px 10px;
+      border-bottom:1px solid var(--line);
+      text-align:left;
+      font-size:14px;
+      vertical-align:top;
+    }
+    .table th{
+      color:var(--muted);
+      width:140px;
+      font-weight:1000;
+      background: rgba(0,0,0,.02)
+    }
+    .table tr:last-child td,.table tr:last-child th{border-bottom:0}
+
+    .ctaCard{
+      padding:18px;
+      border-radius:18px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.86);
+      box-shadow: var(--shadow);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+    .ctaCard b{font-size:16px}
+    .ctaCard p{margin:6px 0 0; color:var(--muted); font-size:13px; line-height:1.6}
 
     .foot{
       border-top:1px solid var(--line);
@@ -230,7 +384,6 @@
       color:var(--muted);
       font-size:12.5px;
       line-height:1.7;
-      text-align:center;
     }
 
     .floating{
@@ -242,12 +395,17 @@
       border-radius:999px;
       padding:12px 14px;
       border:1px solid var(--line);
-      background: rgba(255,255,255,.92);
+      background: rgba(255,255,255,.96);
       box-shadow: 0 14px 28px rgba(20,18,16,.12);
       color:var(--text);
       font-size:13px;
       cursor:pointer;
       white-space:nowrap;
+    }
+    .fab.primary{
+      border:0;
+      background: linear-gradient(135deg, var(--btn), rgba(216,181,122,.72));
+      font-weight:1000;
     }
     .fab:hover{transform: translateY(-1px)}
 
@@ -255,11 +413,15 @@
     @media (max-width: 980px){
       .hero{grid-template-columns: 1fr}
       nav.menu{display:none}
-      h1{font-size:34px}
+      h1{font-size:36px}
     }
     @media (max-width: 560px){
       .mini{grid-template-columns: 1fr}
+      .grid-2{grid-template-columns: 1fr}
       .grid-3{grid-template-columns: 1fr}
+      .brand{min-width:auto}
+
+      /* ✅ CTA 2x2 */
       .cta{
         width:100%;
         min-width:0;
@@ -268,230 +430,370 @@
         grid-template-columns: 1fr 1fr;
         gap:10px;
       }
-      .cta .btn{width:100%}
+      .cta .btn{width:100%; padding:12px 12px}
+
+      /* ✅ 긴 글자 줄떨어짐 방지 */
+      .step b{font-size:15px}
     }
   </style>
 
   <script>
-    /* ✅ 배포할 때마다 여기만 바꾸면 캐시 무력화(페이지/이미지/OG) */
+    // ✅ 배포할 때마다 여기만 바꾸면 캐시 무력화 확실
     window.__ASSET_VERSION__ = "20260107_01";
   </script>
 </head>
 
 <body>
-<header>
-  <div class="wrap nav">
-    <div class="brand">
-      <strong>바디제이 필라테스 (BODY J PILATES)</strong>
-      <div class="sub">기구 필라테스 · 체형교정 · 1:1 / 소그룹 레슨</div>
+  <header>
+    <div class="wrap nav">
+      <div class="brand">
+        <div class="logo" aria-label="바디제이 필라테스">
+          <!-- 로고 파일 있으면 data-asset="logo.png" 넣어도 됨 -->
+          BJ
+        </div>
+        <div>
+          <strong>바디제이 필라테스</strong>
+          <div class="sub">1:1 · 소그룹 맞춤 레슨 · 예약/문의 0507-1466-1381</div>
+        </div>
+      </div>
+
+      <nav class="menu" aria-label="상단 메뉴">
+        <a href="#about">소개</a>
+        <a href="#program">프로그램</a>
+        <a href="#gallery">공간</a>
+        <a href="#reserve">예약</a>
+        <a href="#location">오시는길</a>
+      </nav>
+
+      <div class="cta">
+        <a class="btn primary" href="https://m.place.naver.com/place/1032391574/ticket?entry=pll" target="_blank" rel="noopener">✅ 예약하기</a>
+        <a class="btn" href="tel:050714661381">📞 전화</a>
+        <a class="btn" href="sms:050714661381">✉️ 문자</a>
+        <a class="btn insta" href="https://www.instagram.com/body_j_pilates_" target="_blank" rel="noopener">Instagram</a>
+        <a class="btn nblog" href="https://blog.naver.com/richqueen0220" target="_blank" rel="noopener">
+          <span class="nmark">N</span><span class="ntext">blog</span>
+        </a>
+      </div>
     </div>
+  </header>
 
-    <nav class="menu" aria-label="상단 메뉴">
-      <a href="#about">소개</a>
-      <a href="#program">수업</a>
-      <a href="#reserve">예약</a>
-      <a href="#location">오시는길</a>
-      <a href="#contact">문의</a>
-    </nav>
+  <main>
+    <div class="wrap">
+      <!-- HERO -->
+      <div class="hero">
+        <section class="card hero-left" aria-label="메인 소개">
+          <span class="pill">밝고 편안한 공간 · 체형/자세 맞춤 필라테스</span>
+          <h1>바디 라인을 바르게,<br/>생활은 더 가볍게</h1>
+          <p class="desc">
+            바디제이 필라테스는 몸의 상태를 먼저 확인하고,
+            수업 목적(체형·자세·통증·라인)에 맞춰 레슨 방향을 함께 잡아드립니다.<br/>
+            1:1 또는 소그룹으로 밀도 있게 진행하며, 초보자도 부담 없이 시작할 수 있어요.
+          </p>
 
-    <div class="cta">
-      <a class="btn" href="#contact">문의하기</a>
-      <a class="btn" href="tel:050714661381">전화</a>
-      <a class="btn" href="sms:050714661381">문자</a>
-      <a class="btn primary" href="https://m.place.naver.com/place/1032391574/ticket?entry=pll" target="_blank" rel="noopener">예약하기</a>
-    </div>
-  </div>
-</header>
+          <div class="hero-actions">
+            <a class="btn primary" href="https://m.place.naver.com/place/1032391574/ticket?entry=pll" target="_blank" rel="noopener">✅ 네이버 예약</a>
+            <a class="btn" href="https://m.place.naver.com/place/1032391574/home?entry=pll" target="_blank" rel="noopener">⭐ 네이버 플레이스</a>
+            <a class="btn" href="#location">📍 위치 보기</a>
+          </div>
 
-<main>
-  <div class="wrap">
-    <div class="hero">
-      <section class="card hero-left" aria-label="메인 소개">
-        <span class="pill">바디제이 필라테스 · 네이버 예약 가능</span>
-        <h1>몸이 먼저 느끼는<br/>정확한 변화</h1>
-        <p class="desc">
-          바디제이 필라테스는 개인의 체형·호흡·근육 사용을 기준으로
-          <b>기구 필라테스</b>를 진행합니다.<br/>
-          단순 운동이 아니라, <b>몸의 사용법을 다시 정리</b>해
-          일상 움직임까지 편해지도록 돕습니다.
-        </p>
+          <div class="hero-media" aria-label="메인 이미지">
+            <img data-asset="hero.jpg" alt="바디제이 필라테스 메인 이미지">
+          </div>
 
-        <div class="hero-actions">
-          <a class="btn primary" href="https://m.place.naver.com/place/1032391574/ticket?entry=pll" target="_blank" rel="noopener">📅 네이버 예약</a>
-          <a class="btn" href="https://m.place.naver.com/place/1032391574/home?entry=pll" target="_blank" rel="noopener">⭐ 네이버 플레이스</a>
-          <a class="btn" href="https://m.place.naver.com/place/1032391574/location?entry=pll&filter=location&selected_place_id=1032391574" target="_blank" rel="noopener">📍 위치 보기</a>
+          <div class="mini" aria-label="핵심 안내">
+            <div class="m">
+              <b>맞춤 방향 설정</b>
+              <span>현재 상태/목표를 확인하고 수업 방향을 정합니다.</span>
+            </div>
+            <div class="m">
+              <b>1:1 · 소그룹</b>
+              <span>동작 질을 우선으로, 집중도 높은 레슨을 진행합니다.</span>
+            </div>
+            <div class="m">
+              <b>예약/문의 간단</b>
+              <span>예약은 네이버로, 문의는 전화/문자로 빠르게.</span>
+            </div>
+          </div>
+        </section>
+
+        <aside class="card hero-right" aria-label="빠른 안내">
+          <div class="title">빠른 안내</div>
+          <div class="subtxt">
+            예약은 네이버에서 바로 가능해요.<br/>
+            상담은 전화/문자를 남겨주시면 순서대로 안내드립니다.
+          </div>
+
+          <div class="quick">
+            <a class="btn primary" href="https://m.place.naver.com/place/1032391574/ticket?entry=pll" target="_blank" rel="noopener">✅ 예약하기</a>
+            <a class="btn" href="tel:050714661381">📞 전화</a>
+            <a class="btn" href="sms:050714661381">✉️ 문자</a>
+            <a class="btn insta" href="https://www.instagram.com/body_j_pilates_" target="_blank" rel="noopener">💬 인스타</a>
+            <a class="btn nblog" href="https://blog.naver.com/richqueen0220" target="_blank" rel="noopener">
+              <span class="nmark">N</span><span class="ntext">blog</span>
+            </a>
+          </div>
+
+          <div style="margin-top:14px">
+            <table class="table" aria-label="기본 정보">
+              <tr>
+                <th>전화/문자</th>
+                <td><b>0507-1466-1381</b></td>
+              </tr>
+              <tr>
+                <th>예약</th>
+                <td><a href="https://m.place.naver.com/place/1032391574/ticket?entry=pll" target="_blank" rel="noopener">네이버 예약 페이지</a></td>
+              </tr>
+              <tr>
+                <th>플레이스</th>
+                <td><a href="https://m.place.naver.com/place/1032391574/home?entry=pll" target="_blank" rel="noopener">네이버 플레이스 홈</a></td>
+              </tr>
+              <tr>
+                <th>위치(지도)</th>
+                <td><a href="https://m.place.naver.com/place/1032391574/location?entry=pll&filter=location&selected_place_id=1032391574" target="_blank" rel="noopener">지도 보기</a></td>
+              </tr>
+            </table>
+
+            <div style="margin-top:10px; color:var(--muted); font-size:12.5px; line-height:1.6;">
+              * 수업 중에는 전화 응대가 어려울 수 있어요. 문자 남겨주시면 확인 후 안내드립니다.
+            </div>
+          </div>
+        </aside>
+      </div>
+
+      <!-- ABOUT -->
+      <section id="about">
+        <div class="section-title">
+          <div>
+            <h2>소개</h2>
+            <p>밝고 편안한 분위기에서 “내 몸에 맞게” 진행합니다.</p>
+          </div>
         </div>
 
-        <div class="mini" aria-label="핵심 안내">
-          <div class="m">
-            <b>기구 필라테스</b>
-            <span>정확한 근육 사용을 유도해 안정적인 움직임을 만듭니다.</span>
+        <div class="grid-2">
+          <div class="card box">
+            <b style="font-size:16px;">바디제이 필라테스가 추구하는 레슨</b>
+            <ul class="list">
+              <li><b>현재 상태 확인</b>: 무리 없이 가능한 범위부터 안전하게</li>
+              <li><b>동작의 질</b>: 자세·호흡·코어 사용감 중심으로</li>
+              <li><b>꾸준함이 쉬워지게</b>: 루틴화가 가능한 수업 설계</li>
+              <li><b>목표 지향</b>: 체형·라인·자세 개선 목표에 맞춘 진행</li>
+            </ul>
           </div>
-          <div class="m">
-            <b>체형/자세 교정</b>
-            <span>현재 상태를 기준으로 단계별로 부담 없이 진행합니다.</span>
-          </div>
-          <div class="m">
-            <b>1:1 / 소그룹</b>
-            <span>목표와 생활 패턴에 맞춘 맞춤 레슨으로 안내합니다.</span>
+
+          <div class="card" style="padding:14px">
+            <div class="media" aria-label="스튜디오/강사 소개 이미지">
+              <img data-asset="about.jpg" alt="바디제이 필라테스 소개 이미지">
+            </div>
           </div>
         </div>
       </section>
 
-      <aside class="card hero-right" aria-label="빠른 안내">
-        <div class="title">빠른 연결</div>
-        <div class="subtxt">
-          예약/위치/후기/소식은 아래 버튼으로 바로 확인하세요.
-        </div>
-
-        <div class="quick">
-          <a class="btn" href="https://www.instagram.com/body_j_pilates_" target="_blank" rel="noopener">Instagram</a>
-          <a class="btn" href="https://blog.naver.com/richqueen0220" target="_blank" rel="noopener">블로그</a>
-          <a class="btn primary" href="https://m.place.naver.com/place/1032391574/ticket?entry=pll" target="_blank" rel="noopener">예약 바로가기</a>
-        </div>
-
-        <div style="margin-top:14px; color:var(--muted); font-size:12.5px; line-height:1.6;">
-          * 전화 연결이 어렵다면 <b>문자</b>를 남겨주시면 확인 후 안내드릴게요.
-        </div>
-      </aside>
-    </div>
-
-    <section id="about">
-      <div class="section-title">
-        <div>
-          <h2>소개</h2>
-          <p>바디제이 필라테스는 ‘몸이 바뀌는 느낌’을 정확하게 만드는 수업을 지향합니다.</p>
-        </div>
-      </div>
-
-      <div class="card box">
-        <ul class="list">
-          <li><b>상태 기반 진행</b>: 통증/불편/자세 패턴을 먼저 확인 후 단계별 진행</li>
-          <li><b>기구 중심</b>: 정확한 정렬과 안정적인 근육 사용을 도와 변화 체감</li>
-          <li><b>맞춤 레슨</b>: 목표(다이어트/체형/통증완화/기초체력)에 맞춰 구성</li>
-          <li><b>지속 관리</b>: 수업뿐 아니라 일상에서 유지되는 방향을 안내</li>
-        </ul>
-      </div>
-    </section>
-
-    <section id="program">
-      <div class="section-title">
-        <div>
-          <h2>수업 안내</h2>
-          <p>개인 상태와 목표에 맞춰 아래 방식으로 진행됩니다.</p>
-        </div>
-      </div>
-
-      <div class="grid-3">
-        <div class="card step">
-          <b>1) 체형/자세 체크</b>
-          <span>현재 몸의 패턴(어깨/골반/척추/호흡)을 확인합니다.</span>
-        </div>
-        <div class="card step">
-          <b>2) 기구 필라테스</b>
-          <span>무리 없이 정확한 근육 사용을 만들고 안정감을 키웁니다.</span>
-        </div>
-        <div class="card step">
-          <b>3) 유지 방향 안내</b>
-          <span>수업 후에도 유지될 수 있도록 생활 습관/움직임 팁을 드립니다.</span>
-        </div>
-      </div>
-    </section>
-
-    <section id="reserve">
-      <div class="section-title">
-        <div>
-          <h2>예약</h2>
-          <p>네이버 예약으로 빠르게 진행할 수 있어요.</p>
-        </div>
-      </div>
-
-      <div class="card box" style="display:flex; gap:10px; flex-wrap:wrap;">
-        <a class="btn primary" href="https://m.place.naver.com/place/1032391574/ticket?entry=pll" target="_blank" rel="noopener">📅 네이버 예약하기</a>
-        <a class="btn" href="https://m.place.naver.com/place/1032391574/home?entry=pll" target="_blank" rel="noopener">⭐ 플레이스 보기</a>
-        <a class="btn" href="https://m.place.naver.com/place/1032391574/location?entry=pll&filter=location&selected_place_id=1032391574" target="_blank" rel="noopener">📍 위치(지도)</a>
-      </div>
-    </section>
-
-    <section id="location">
-      <div class="section-title">
-        <div>
-          <h2>오시는길</h2>
-          <p>네이버 지도(플레이스 위치)로 바로 이동합니다.</p>
-        </div>
-      </div>
-
-      <div class="card box mapCard">
-        <div>
-          <b style="font-size:15px;">네이버 플레이스 위치</b>
-          <div style="color:var(--muted); font-size:13px; margin-top:6px;">
-            아래 버튼을 누르면 위치 안내 페이지로 이동합니다.
+      <!-- PROGRAM -->
+      <section id="program">
+        <div class="section-title">
+          <div>
+            <h2>프로그램</h2>
+            <p>개인/소그룹, 목적에 맞게 선택할 수 있어요.</p>
           </div>
         </div>
-        <a class="btn primary" href="https://m.place.naver.com/place/1032391574/location?entry=pll&filter=location&selected_place_id=1032391574" target="_blank" rel="noopener">📍 위치 보기</a>
-      </div>
-    </section>
 
-    <section id="contact">
-      <div class="section-title">
-        <div>
-          <h2>문의</h2>
-          <p>전화/문자/인스타/블로그로 편하게 연락 주세요.</p>
-        </div>
-      </div>
-
-      <div class="card box">
-        <div style="display:flex; gap:10px; flex-wrap:wrap;">
-          <a class="btn primary" href="tel:050714661381">📞 전화 문의</a>
-          <a class="btn" href="sms:050714661381">✉️ 문자 문의</a>
-          <a class="btn" href="https://www.instagram.com/body_j_pilates_" target="_blank" rel="noopener">💬 인스타그램</a>
-          <a class="btn" href="https://blog.naver.com/richqueen0220" target="_blank" rel="noopener">📝 블로그</a>
+        <div class="grid-3">
+          <div class="card step">
+            <b>1:1 프리미엄 레슨</b>
+            <span>체형·자세·통증·라인 목표에 맞춰 세밀하게 진행합니다.</span>
+          </div>
+          <div class="card step">
+            <b>소그룹 레슨</b>
+            <span>동기부여와 리듬이 필요한 분께 추천. 밀도는 유지합니다.</span>
+          </div>
+          <div class="card step">
+            <b>초보자 환영</b>
+            <span>기본부터 차근차근. 부담 없이 시작할 수 있게 안내합니다.</span>
+          </div>
         </div>
 
-        <div style="margin-top:14px; color:var(--muted); font-size:13px; line-height:1.6;">
-          * 수업 중에는 전화 응대가 어려울 수 있습니다. <b>문자</b>를 남겨주시면 확인 후 안내드릴게요.
+        <div class="grid-2" style="margin-top:12px">
+          <div class="card" style="padding:14px">
+            <div class="media" aria-label="프로그램 이미지 1">
+              <img data-asset="program-1.jpg" alt="프로그램 이미지 1">
+            </div>
+          </div>
+          <div class="card" style="padding:14px">
+            <div class="media" aria-label="프로그램 이미지 2">
+              <img data-asset="program-2.jpg" alt="프로그램 이미지 2">
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- GALLERY -->
+      <section id="gallery">
+        <div class="section-title">
+          <div>
+            <h2>공간</h2>
+            <p>햇살처럼 밝고, 움직임에 집중하기 좋은 공간.</p>
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div class="card" style="padding:14px">
+            <div class="media" aria-label="공간 이미지 1">
+              <img data-asset="space-1.jpg" alt="공간 이미지 1">
+            </div>
+          </div>
+          <div class="card" style="padding:14px">
+            <div class="media" aria-label="공간 이미지 2">
+              <img data-asset="space-2.jpg" alt="공간 이미지 2">
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- RESERVE -->
+      <section id="reserve">
+        <div class="section-title">
+          <div>
+            <h2>예약</h2>
+            <p>네이버 예약 페이지로 바로 이동합니다.</p>
+          </div>
+        </div>
+
+        <div class="ctaCard" aria-label="예약 CTA">
+          <div>
+            <b>✅ 네이버 예약으로 빠르게</b>
+            <p>원하는 일정 선택 → 간단 정보 입력 → 예약 완료</p>
+          </div>
+          <div style="display:flex; gap:10px; flex-wrap:wrap;">
+            <a class="btn primary" href="https://m.place.naver.com/place/1032391574/ticket?entry=pll" target="_blank" rel="noopener">예약하기</a>
+            <a class="btn" href="sms:050714661381">문자 문의</a>
+            <a class="btn" href="tel:050714661381">전화 문의</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- LOCATION -->
+      <section id="location">
+        <div class="section-title">
+          <div>
+            <h2>오시는길</h2>
+            <p>네이버 지도/플레이스에서 위치 확인이 가능합니다.</p>
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div class="card box">
+            <b style="font-size:16px;">위치 안내</b>
+            <ul class="list" style="margin-top:10px;">
+              <li>아래 버튼을 누르면 네이버 위치 페이지로 이동합니다.</li>
+              <li>길찾기/대중교통/주차 정보는 네이버에서 확인 가능</li>
+            </ul>
+
+            <div style="margin-top:12px; display:flex; gap:10px; flex-wrap:wrap;">
+              <a class="btn primary" href="https://m.place.naver.com/place/1032391574/location?entry=pll&filter=location&selected_place_id=1032391574" target="_blank" rel="noopener">📍 지도(위치) 보기</a>
+              <a class="btn" href="https://m.place.naver.com/place/1032391574/home?entry=pll" target="_blank" rel="noopener">⭐ 플레이스 홈</a>
+            </div>
+          </div>
+
+          <div class="card" style="padding:14px">
+            <div class="media" aria-label="위치 이미지">
+              <img data-asset="location.jpg" alt="바디제이 필라테스 위치 이미지">
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- FOOTER -->
+      <div class="foot">
+        <div style="text-align:center;">
+          바디제이 필라테스 · 1:1 · 소그룹 레슨<br/>
+          문의: 0507-1466-1381 · Instagram: body_j_pilates_<br/>
+          © <span id="year"></span> Body J Pilates. All rights reserved.
         </div>
       </div>
-    </section>
-
-    <div class="foot">
-      바디제이 필라테스 (BODY J PILATES)<br/>
-      전화/문자: 0507-1466-1381 · 네이버 예약/플레이스 운영 중<br/>
-      Instagram: body_j_pilates_ · Blog: richqueen0220<br/>
-      © <span id="year"></span> BODY J PILATES. All rights reserved.
     </div>
+  </main>
+
+  <!-- Floating -->
+  <div class="floating" aria-label="빠른 버튼">
+    <a class="fab primary" href="https://m.place.naver.com/place/1032391574/ticket?entry=pll" target="_blank" rel="noopener">✅ 예약</a>
+    <a class="fab" href="tel:050714661381">📞 전화</a>
+    <a class="fab" href="sms:050714661381">✉️ 문자</a>
+    <a class="fab" href="https://m.place.naver.com/place/1032391574/location?entry=pll&filter=location&selected_place_id=1032391574" target="_blank" rel="noopener">📍 위치</a>
   </div>
-</main>
 
-<!-- ✅ 우측 하단 고정 버튼 -->
-<div class="floating" aria-label="빠른 버튼">
-  <a class="fab" href="tel:050714661381">📞 전화</a>
-  <a class="fab" href="sms:050714661381">✉️ 문자</a>
-  <a class="fab" href="https://m.place.naver.com/place/1032391574/ticket?entry=pll" target="_blank" rel="noopener">📅 예약</a>
-  <a class="fab" href="https://m.place.naver.com/place/1032391574/location?entry=pll&filter=location&selected_place_id=1032391574" target="_blank" rel="noopener">📍 위치</a>
-</div>
+  <script>
+    const v = encodeURIComponent(window.__ASSET_VERSION__ || Date.now().toString());
 
-<script>
-  const v = encodeURIComponent(window.__ASSET_VERSION__ || Date.now().toString());
+    // ✅ 숨쉬기 배경도 v 붙여서 캐시 무력화
+    (function setBreathBg(){
+      const bgUrl = `url("home-bg-breath-pilates.jpg?v=${v}")`;
+      document.documentElement.style.setProperty("--bg-breath", bgUrl);
+    })();
 
-  // ✅ 페이지 자체 캐시 무력: URL에 v 없으면 자동으로 붙임
-  (function forcePageQuery(){
-    try{
-      const url = new URL(location.href);
-      if (!url.searchParams.get("v")) {
-        url.searchParams.set("v", window.__ASSET_VERSION__ || Date.now().toString());
-        history.replaceState(null, "", url.toString());
-      }
-    }catch(e){}
-  })();
+    // ✅ 이미지 파일에 v 자동 부착 + 확장자/파일명 fallback
+    function setSrcWithFallback(img, raw){
+      const base = raw;
+      img.src = `${base}?v=${v}`;
 
-  // ✅ OG 이미지도 캐시 무력
-  const og = document.querySelector('meta[property="og:image"]');
-  if (og && og.content) og.content = `${og.content.split("?")[0]}?v=${v}`;
+      img.onerror = () => {
+        const candidates = [];
 
-  // ✅ 연도
-  const y = document.getElementById("year");
-  if (y) y.textContent = new Date().getFullYear();
-</script>
+        // 대표적인 실수 케이스 보정
+        if (base.endsWith(".jpg.jpg")) candidates.push(base.replace(".jpg.jpg", ".jpg"));
+        if (base.endsWith(".png.jpg")) candidates.push(base.replace(".png.jpg", ".png"));
+        if (base.endsWith(".png.png")) candidates.push(base.replace(".png.png", ".png"));
+
+        // 확장자 없거나 잘못된 경우 대비
+        if (!base.includes(".")) {
+          candidates.push(base + ".jpg");
+          candidates.push(base + ".png");
+        } else {
+          if (base.endsWith(".jpg")) candidates.push(base.replace(".jpg", ".png"));
+          if (base.endsWith(".png")) candidates.push(base.replace(".png", ".jpg"));
+        }
+
+        // hero 파일명 교체 흔한 케이스
+        if (base === "hero.jpg") {
+          candidates.push("hero-main.jpg");
+          candidates.push("hero-main.png");
+        }
+
+        // 중복 제거
+        const uniq = [...new Set(candidates)].filter(Boolean);
+        if (!uniq.length) { img.remove(); return; }
+
+        let tried = 0;
+        const tryNext = () => {
+          if (tried >= uniq.length) { img.remove(); return; }
+          img.onerror = tryNext;
+          img.src = `${uniq[tried++]}?v=${v}`;
+        };
+        tryNext();
+      };
+    }
+
+    document.querySelectorAll("img[data-asset]").forEach(img=>{
+      setSrcWithFallback(img, img.getAttribute("data-asset"));
+    });
+
+    // ✅ OG 이미지도 v 적용
+    const og = document.querySelector('meta[property="og:image"]');
+    if (og && og.content) og.content = `${og.content.split("?")[0]}?v=${v}`;
+
+    // ✅ 연도 자동
+    const y = document.getElementById("year");
+    if (y) y.textContent = new Date().getFullYear();
+
+    // ✅ 페이지 자체 캐시 무력: URL에 v 없으면 자동으로 붙여줌
+    (function forcePageQuery(){
+      try{
+        const url = new URL(location.href);
+        if (!url.searchParams.get("v")) {
+          url.searchParams.set("v", window.__ASSET_VERSION__ || Date.now().toString());
+          history.replaceState(null, "", url.toString());
+        }
+      }catch(e){}
+    })();
+  </script>
 </body>
 </html>
