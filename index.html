@@ -1,0 +1,1207 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#f6efe6" />
+  <title>바디제이필라테스 | 예약 · 문의</title>
+  <meta name="description" content="바디제이필라테스 - 예약/문의, 프로그램 안내, 이벤트, 시간표, 강사소개, 위치 안내" />
+
+  <!-- 기본 OG -->
+  <meta property="og:title" content="바디제이필라테스" />
+  <meta property="og:description" content="예약 · 문의 · 프로그램 · 이벤트 · 시간표 · 위치" />
+  <meta property="og:type" content="website" />
+
+  <style>
+    :root{
+      /* 밝은 베이지 톤 */
+      --bg: #fbf7f1;
+      --card: #ffffff;
+      --ink: #1d1b16;
+      --muted: #6b655b;
+      --line: rgba(40,30,15,.10);
+
+      --beige-1:#f6efe6;
+      --beige-2:#efe2d2;
+      --beige-3:#e7d2bb;
+
+      --accent:#b38a62;      /* 버튼/포인트 */
+      --accent-2:#8d6a49;    /* 호버/진한 */
+      --green:#2fbf6d;       /* 네이버 느낌 포인트(과하지 않게) */
+      --shadow: 0 10px 30px rgba(30,20,10,.08);
+
+      --radius: 18px;
+      --radius2: 26px;
+      --max: 1120px;
+
+      --h1: clamp(28px, 3.5vw, 44px);
+      --h2: clamp(20px, 2.3vw, 28px);
+      --p: 16px;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", Arial, sans-serif;
+      color:var(--ink);
+      background: radial-gradient(900px 600px at 30% -10%, #fff 0%, var(--bg) 60%, var(--bg) 100%);
+      line-height:1.55;
+      letter-spacing:-0.2px;
+    }
+    a{color:inherit; text-decoration:none}
+    img{max-width:100%; height:auto; display:block}
+    .wrap{max-width:var(--max); margin:0 auto; padding:0 18px}
+    .hidden{display:none !important}
+
+    /* 상단 고정 헤더 */
+    .topbar{
+      position:sticky; top:0; z-index:40;
+      background: rgba(251,247,241,.78);
+      backdrop-filter: blur(10px);
+      border-bottom:1px solid var(--line);
+    }
+    .topbar .inner{
+      display:flex; align-items:center; justify-content:space-between;
+      gap:14px; padding:12px 0;
+    }
+    .brand{
+      display:flex; align-items:center; gap:10px;
+      min-width: 0;
+    }
+    .logo{
+      width:38px; height:38px; border-radius:12px;
+      background: linear-gradient(145deg, var(--beige-2), #fff);
+      border:1px solid var(--line);
+      box-shadow: 0 8px 18px rgba(50,30,10,.06);
+      display:grid; place-items:center;
+      font-weight:800; color:var(--accent-2);
+    }
+    .brand .t{
+      display:flex; flex-direction:column; line-height:1.1;
+      min-width:0;
+    }
+    .brand .t strong{
+      font-size:15px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+    }
+    .brand .t span{
+      font-size:12px; color:var(--muted);
+      white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+    }
+
+    .nav{
+      display:flex; gap:10px; align-items:center;
+    }
+    .nav a{
+      font-size:13px; color:var(--muted);
+      padding:8px 10px; border-radius:999px;
+      border:1px solid transparent;
+    }
+    .nav a:hover{
+      color:var(--ink);
+      border-color:var(--line);
+      background: rgba(255,255,255,.6);
+    }
+
+    .cta{
+      display:flex; gap:10px; align-items:center;
+    }
+
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center;
+      gap:8px;
+      padding:10px 14px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      background: #fff;
+      color:var(--ink);
+      font-size:13px;
+      box-shadow: 0 8px 20px rgba(30,20,10,.05);
+      cursor:pointer;
+      transition: transform .12s ease, background .12s ease, border-color .12s ease;
+      user-select:none;
+    }
+    .btn:hover{ transform: translateY(-1px); border-color: rgba(179,138,98,.35); }
+    .btn:active{ transform: translateY(0px); }
+
+    .btn.primary{
+      background: linear-gradient(180deg, var(--beige-2), var(--beige-1));
+      border-color: rgba(179,138,98,.35);
+      color: var(--accent-2);
+      font-weight:700;
+    }
+    .btn.primary:hover{
+      background: linear-gradient(180deg, #f2e6d8, #f9f2ea);
+    }
+    .btn.green{
+      background: linear-gradient(180deg, rgba(47,191,109,.16), rgba(47,191,109,.08));
+      border-color: rgba(47,191,109,.35);
+      color:#146b3b;
+      font-weight:700;
+      box-shadow: 0 10px 26px rgba(47,191,109,.12);
+    }
+
+    .icon{
+      width:16px; height:16px; display:inline-block;
+    }
+
+    /* 히어로 */
+    .hero{
+      padding:26px 0 10px;
+    }
+    .hero-grid{
+      display:grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap:18px;
+      align-items:stretch;
+    }
+    @media (max-width: 920px){
+      .hero-grid{grid-template-columns:1fr; }
+      .nav{display:none}
+    }
+
+    .hero-card{
+      background: linear-gradient(180deg, #fff, rgba(255,255,255,.74));
+      border:1px solid var(--line);
+      border-radius: var(--radius2);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      position:relative;
+    }
+    .hero-media{
+      position:relative;
+      aspect-ratio: 16/9;
+      background: radial-gradient(700px 360px at 30% 20%, #ffffff 0%, #f7f0e8 60%, #f1e5d6 100%);
+    }
+    .hero-media img{
+      width:100%; height:100%;
+      object-fit:cover;
+      filter: saturate(1.03) contrast(1.03);
+    }
+    .hero-overlay{
+      position:absolute; inset:0;
+      background: linear-gradient(90deg, rgba(251,247,241,.86) 0%, rgba(251,247,241,.55) 35%, rgba(251,247,241,0) 72%);
+      pointer-events:none;
+    }
+    .hero-content{
+      padding:18px 18px 18px;
+      display:flex; flex-direction:column; gap:10px;
+    }
+    .pill{
+      display:inline-flex; gap:8px; align-items:center;
+      padding:7px 10px;
+      border-radius:999px;
+      background: rgba(179,138,98,.10);
+      border:1px solid rgba(179,138,98,.22);
+      color: var(--accent-2);
+      width: fit-content;
+      font-size:12px; font-weight:700;
+    }
+    h1{
+      margin:0;
+      font-size:var(--h1);
+      letter-spacing:-0.8px;
+      line-height:1.1;
+    }
+    .sub{
+      margin:0;
+      color:var(--muted);
+      font-size:15px;
+    }
+    .hero-actions{
+      display:flex; flex-wrap:wrap; gap:10px;
+      margin-top:6px;
+    }
+    .meta-row{
+      display:flex; flex-wrap:wrap; gap:10px; align-items:center;
+      color:var(--muted);
+      font-size:13px;
+      margin-top:4px;
+    }
+    .dot{width:4px; height:4px; border-radius:999px; background:rgba(107,101,91,.45); display:inline-block}
+
+    /* 우측 카드(요약/공지/이벤트) */
+    .side{
+      display:flex; flex-direction:column; gap:12px;
+    }
+    .mini{
+      background: rgba(255,255,255,.78);
+      border:1px solid var(--line);
+      border-radius: var(--radius2);
+      box-shadow: 0 12px 30px rgba(30,20,10,.06);
+      padding:14px;
+    }
+    .mini h3{
+      margin:0 0 8px;
+      font-size:14px;
+      letter-spacing:-.2px;
+    }
+    .notice{
+      display:flex; gap:10px; align-items:flex-start;
+      padding:10px;
+      border-radius:16px;
+      background: linear-gradient(180deg, #fff, #fff8ef);
+      border:1px solid rgba(179,138,98,.18);
+    }
+    .badge{
+      padding:4px 8px;
+      border-radius:999px;
+      font-size:11px;
+      font-weight:800;
+      color: #1a6b3a;
+      background: rgba(47,191,109,.14);
+      border: 1px solid rgba(47,191,109,.28);
+      flex:0 0 auto;
+    }
+    .notice p{margin:0; color:var(--muted); font-size:13px}
+    .kv{
+      display:grid; grid-template-columns:1fr 1fr; gap:10px;
+      margin-top:10px;
+    }
+    .kv .k{
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.72);
+      border-radius: 16px;
+      padding:10px;
+    }
+    .kv .k b{display:block; font-size:13px}
+    .kv .k span{display:block; margin-top:2px; color:var(--muted); font-size:12px}
+
+    /* 섹션 */
+    section{ padding:28px 0; }
+    .section-head{
+      display:flex; align-items:flex-end; justify-content:space-between;
+      gap:12px; margin-bottom:12px;
+    }
+    .section-head h2{
+      margin:0;
+      font-size:var(--h2);
+      letter-spacing:-.5px;
+    }
+    .section-head p{
+      margin:0;
+      color:var(--muted);
+      font-size:13px;
+    }
+
+    /* 카드 그리드 */
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap:12px;
+    }
+    .card{
+      grid-column: span 4;
+      background: rgba(255,255,255,.86);
+      border:1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: 0 14px 34px rgba(30,20,10,.06);
+      overflow:hidden;
+      min-height: 100%;
+    }
+    @media (max-width: 980px){ .card{grid-column: span 6;} }
+    @media (max-width: 640px){ .card{grid-column: span 12;} }
+
+    .card .thumb{
+      aspect-ratio: 16/10;
+      background: #f5efe6;
+      border-bottom:1px solid var(--line);
+      position:relative;
+      overflow:hidden;
+    }
+    .card .thumb img{ width:100%; height:100%; object-fit:cover; }
+    .card .body{ padding:14px; display:flex; flex-direction:column; gap:10px;}
+    .card .title{
+      display:flex; align-items:center; justify-content:space-between; gap:10px;
+    }
+    .card .title strong{ font-size:15px; }
+    .card .desc{ margin:0; color:var(--muted); font-size:13px; }
+    .price{
+      display:flex; gap:10px; align-items:baseline; flex-wrap:wrap;
+    }
+    .price b{ font-size:18px; letter-spacing:-.3px; }
+    .price span{ color:var(--muted); font-size:12px; }
+    .card .actions{ display:flex; gap:10px; flex-wrap:wrap; }
+
+    /* 배너 */
+    .banner{
+      background: linear-gradient(180deg, #fff, rgba(255,255,255,.72));
+      border:1px solid rgba(179,138,98,.18);
+      border-radius: var(--radius2);
+      box-shadow: 0 14px 36px rgba(30,20,10,.06);
+      padding:18px;
+      display:flex; gap:16px; align-items:center; justify-content:space-between;
+    }
+    @media (max-width: 760px){ .banner{flex-direction:column; align-items:flex-start;} }
+    .banner .left{display:flex; flex-direction:column; gap:6px;}
+    .banner .left b{font-size:16px}
+    .banner .left span{font-size:13px; color:var(--muted)}
+    .banner .right{display:flex; gap:10px; flex-wrap:wrap}
+
+    /* 시간표 */
+    .table-wrap{
+      background: rgba(255,255,255,.86);
+      border:1px solid var(--line);
+      border-radius: var(--radius2);
+      box-shadow: 0 14px 34px rgba(30,20,10,.06);
+      overflow:hidden;
+    }
+    table{
+      width:100%;
+      border-collapse:collapse;
+      font-size:13px;
+    }
+    thead th{
+      background: linear-gradient(180deg, var(--beige-2), var(--beige-1));
+      color: var(--accent-2);
+      font-weight:800;
+      text-align:left;
+      padding:12px;
+      border-bottom:1px solid rgba(179,138,98,.22);
+    }
+    tbody td{
+      padding:12px;
+      border-bottom:1px solid var(--line);
+      color:var(--muted);
+      vertical-align:top;
+    }
+    tbody tr:hover td{ background: rgba(246,239,230,.45); color: var(--ink); }
+    .tag{
+      display:inline-flex;
+      padding:4px 8px;
+      border-radius:999px;
+      border:1px solid rgba(179,138,98,.22);
+      background: rgba(179,138,98,.10);
+      color: var(--accent-2);
+      font-size:11px;
+      font-weight:800;
+      margin-right:6px;
+      margin-top:6px;
+    }
+
+    /* 지도/위치 */
+    .two{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:12px;
+      align-items:stretch;
+    }
+    @media (max-width: 900px){ .two{grid-template-columns:1fr;} }
+    .box{
+      background: rgba(255,255,255,.86);
+      border:1px solid var(--line);
+      border-radius: var(--radius2);
+      box-shadow: 0 14px 34px rgba(30,20,10,.06);
+      padding:16px;
+    }
+    .box h3{ margin:0 0 10px; font-size:15px; }
+    .list{ margin:0; padding:0; list-style:none; display:flex; flex-direction:column; gap:10px;}
+    .li{
+      display:flex; gap:10px; align-items:flex-start;
+      padding:10px;
+      border-radius:16px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.7);
+    }
+    .li .k{
+      width:26px; height:26px; border-radius:10px;
+      background: linear-gradient(180deg, var(--beige-2), #fff);
+      border:1px solid var(--line);
+      display:grid; place-items:center;
+      color: var(--accent-2);
+      font-weight:900;
+      flex:0 0 auto;
+    }
+    .li b{display:block; font-size:13px}
+    .li span{display:block; margin-top:2px; color:var(--muted); font-size:12px}
+
+    /* 하단 */
+    footer{
+      padding:26px 0 50px;
+      color:var(--muted);
+      font-size:12px;
+    }
+    .foot{
+      display:flex; justify-content:space-between; gap:14px; flex-wrap:wrap;
+      border-top:1px solid var(--line);
+      padding-top:16px;
+    }
+
+    /* 탭(모바일 느낌) */
+    .tabs{
+      display:flex; gap:10px; flex-wrap:wrap;
+      margin-top:10px;
+    }
+    .tab{
+      padding:8px 12px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.72);
+      color:var(--muted);
+      font-size:13px;
+      cursor:pointer;
+      transition: .12s ease;
+      user-select:none;
+    }
+    .tab.active{
+      background: linear-gradient(180deg, var(--beige-2), var(--beige-1));
+      border-color: rgba(179,138,98,.35);
+      color: var(--accent-2);
+      font-weight:800;
+    }
+
+    /* 유틸 */
+    .small{font-size:12px; color:var(--muted)}
+    .sp{height:10px}
+  </style>
+</head>
+
+<body>
+  <!-- 상단 -->
+  <header class="topbar">
+    <div class="wrap">
+      <div class="inner">
+        <a class="brand" href="#top" aria-label="바디제이필라테스 홈">
+          <div class="logo">BJ</div>
+          <div class="t">
+            <strong>바디제이필라테스</strong>
+            <span>예약 · 문의 · 프로그램 · 시간표 · 위치</span>
+          </div>
+        </a>
+
+        <nav class="nav" aria-label="메인 메뉴">
+          <a href="#programs">프로그램</a>
+          <a href="#event">이벤트</a>
+          <a href="#timetable">시간표</a>
+          <a href="#instructors">강사진</a>
+          <a href="#gallery">사진</a>
+          <a href="#location">지도</a>
+        </nav>
+
+        <div class="cta">
+          <a class="btn" href="tel:0507-1466-1381" title="전화하기">
+            <span class="icon">📞</span>전화
+          </a>
+          <a class="btn primary" href="#inquiry" title="문의하기">
+            <span class="icon">💬</span>문의
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- 히어로 -->
+  <main id="top" class="hero">
+    <div class="wrap">
+      <div class="hero-grid">
+        <div class="hero-card">
+          <div class="hero-media">
+            <!-- 대표 이미지(캡처에 맞춰 대체 이미지/나중에 교체 가능) -->
+            <img
+              src="https://images.unsplash.com/photo-1518611012118-f0c5f1b7a8d4?auto=format&fit=crop&w=1600&q=80"
+              alt="필라테스 스튜디오 메인 이미지"
+              loading="eager"
+            />
+            <div class="hero-overlay"></div>
+          </div>
+
+          <div class="hero-content">
+            <div class="pill">척추를 바르게 · 재활 & 체형 · 맞춤 케어</div>
+            <h1>바디제이필라테스</h1>
+            <p class="sub">상담/예약부터 프로그램 확인까지 한 번에. (밝은 톤 · 베이지 버튼 기준)</p>
+
+            <div class="hero-actions">
+              <a class="btn green" href="#programs"><span class="icon">🗓️</span>예약 메뉴 보기</a>
+              <a class="btn primary" href="#event"><span class="icon">🎁</span>이벤트 확인</a>
+              <a class="btn" href="#timetable"><span class="icon">⏱️</span>시간표</a>
+              <a class="btn" href="#location"><span class="icon">📍</span>오시는 길</a>
+            </div>
+
+            <div class="meta-row" aria-label="요약 정보">
+              <span>영업 중</span><span class="dot"></span>
+              <span>22:00 종료</span><span class="dot"></span>
+              <span>부산 해운대구</span><span class="dot"></span>
+              <span>전화: 0507-1466-1381</span>
+            </div>
+
+            <div class="tabs" role="tablist" aria-label="퀵 탭">
+              <button class="tab active" data-tab="tab-home" type="button">홈</button>
+              <button class="tab" data-tab="tab-news" type="button">소식</button>
+              <button class="tab" data-tab="tab-book" type="button">예약</button>
+              <button class="tab" data-tab="tab-review" type="button">리뷰</button>
+              <button class="tab" data-tab="tab-photo" type="button">사진</button>
+              <button class="tab" data-tab="tab-map" type="button">지도</button>
+            </div>
+
+            <div id="tab-home" class="tabpane">
+              <div class="sp"></div>
+              <div class="banner">
+                <div class="left">
+                  <b>빠른 문의 / 빠른 예약</b>
+                  <span>아래 버튼을 누르면 바로 연결됩니다. (데모 페이지: 링크 교체 가능)</span>
+                </div>
+                <div class="right">
+                  <a class="btn primary" href="#inquiry"><span class="icon">💬</span>톡 문의</a>
+                  <a class="btn" href="tel:0507-1466-1381"><span class="icon">📞</span>전화 상담</a>
+                  <a class="btn green" href="#programs"><span class="icon">✅</span>프로그램 예약</a>
+                </div>
+              </div>
+            </div>
+
+            <div id="tab-news" class="tabpane hidden">
+              <div class="sp"></div>
+              <div class="mini">
+                <h3>알림</h3>
+                <div class="notice">
+                  <div class="badge">EVENT</div>
+                  <p>
+                    2026년 새해 이벤트 진행 중! <br />
+                    체험/등록 혜택은 아래 “이벤트” 섹션에서 확인하세요.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div id="tab-book" class="tabpane hidden">
+              <div class="sp"></div>
+              <div class="mini">
+                <h3>예약</h3>
+                <p class="small">네이버 예약/문의 버튼을 여기로 연결해두면 “말 안 해도 알아보는 고객” 흐름이 빨라집니다.</p>
+                <div class="hero-actions">
+                  <a class="btn green" href="#programs"><span class="icon">🟢</span>예약 항목 보기</a>
+                  <a class="btn primary" href="#inquiry"><span class="icon">💬</span>문의 먼저</a>
+                </div>
+              </div>
+            </div>
+
+            <div id="tab-review" class="tabpane hidden">
+              <div class="sp"></div>
+              <div class="mini">
+                <h3>리뷰</h3>
+                <p class="small">리뷰/후기 링크가 있으면 버튼으로 연결하세요.</p>
+                <div class="hero-actions">
+                  <a class="btn" href="#" onclick="alert('리뷰 링크를 여기에 연결하세요.'); return false;"><span class="icon">⭐</span>리뷰 보기</a>
+                </div>
+              </div>
+            </div>
+
+            <div id="tab-photo" class="tabpane hidden">
+              <div class="sp"></div>
+              <div class="mini">
+                <h3>사진</h3>
+                <p class="small">스튜디오/수업/강사 사진은 “사진” 섹션으로 안내합니다.</p>
+                <div class="hero-actions">
+                  <a class="btn primary" href="#gallery"><span class="icon">🖼️</span>사진 보기</a>
+                </div>
+              </div>
+            </div>
+
+            <div id="tab-map" class="tabpane hidden">
+              <div class="sp"></div>
+              <div class="mini">
+                <h3>지도</h3>
+                <p class="small">주소/내비게이션/거리뷰 등 링크를 버튼으로 정리해 둡니다.</p>
+                <div class="hero-actions">
+                  <a class="btn primary" href="#location"><span class="icon">📍</span>오시는 길</a>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <aside class="side">
+          <div class="mini">
+            <h3>오늘의 안내</h3>
+            <div class="notice">
+              <div class="badge">OPEN</div>
+              <p>
+                상담/예약은 전화 또는 톡으로 가능합니다.<br/>
+                “필요한지” 고민되면 체험권부터 확인해보세요.
+              </p>
+            </div>
+
+            <div class="kv" aria-label="핵심 혜택">
+              <div class="k">
+                <b>체험</b>
+                <span>처음 방문도 부담 없이</span>
+              </div>
+              <div class="k">
+                <b>맞춤</b>
+                <span>목표/컨디션 기반 진행</span>
+              </div>
+              <div class="k">
+                <b>재활</b>
+                <span>통증/체형 케어</span>
+              </div>
+              <div class="k">
+                <b>예약</b>
+                <span>메뉴별 빠른 신청</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="mini" id="inquiry">
+            <h3>문의/연결 버튼</h3>
+            <p class="small">아래 링크는 “버튼 자리”입니다. 실제 링크로 교체하세요.</p>
+            <div class="hero-actions">
+              <a class="btn primary" href="#" id="talkBtn">
+                <span class="icon">💬</span>톡톡 문의
+              </a>
+              <a class="btn" href="tel:0507-1466-1381">
+                <span class="icon">📞</span>전화 상담
+              </a>
+              <a class="btn" href="#" id="blogBtn">
+                <span class="icon">📝</span>블로그
+              </a>
+              <a class="btn" href="#" id="instaBtn">
+                <span class="icon">📷</span>인스타그램
+              </a>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </main>
+
+  <!-- 프로그램(예약 리스트 느낌) -->
+  <section id="programs">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <h2>예약 메뉴</h2>
+          <p>캡처에 나온 “예약 리스트” 느낌으로 카드형 구성</p>
+        </div>
+        <p>버튼 컬러: 보라 X → 베이지 계열</p>
+      </div>
+
+      <div class="grid">
+        <article class="card">
+          <div class="thumb">
+            <img src="https://images.unsplash.com/photo-1599447292180-45f6a9c4f1b9?auto=format&fit=crop&w=1200&q=80" alt="전화 상담 예약" />
+          </div>
+          <div class="body">
+            <div class="title">
+              <strong>전화 상담 예약</strong>
+              <span class="tag">예약</span>
+            </div>
+            <p class="desc">상담 후 일정 조율. (1:1 / 그룹 안내 포함)</p>
+            <div class="actions">
+              <a class="btn primary" href="tel:0507-1466-1381"><span class="icon">📞</span>전화하기</a>
+              <a class="btn" href="#location"><span class="icon">📍</span>위치 확인</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="thumb">
+            <img src="https://images.unsplash.com/photo-1599447421416-3414500d18a5?auto=format&fit=crop&w=1200&q=80" alt="개인레슨 3회 체험" />
+          </div>
+          <div class="body">
+            <div class="title">
+              <strong>개인레슨 3회 체험</strong>
+              <span class="tag">신규혜택</span>
+            </div>
+            <p class="desc">체형/컨디션 분석부터 맞춤 진행.</p>
+            <div class="price">
+              <b>150,000원</b>
+              <span>(3회)</span>
+            </div>
+            <div class="actions">
+              <a class="btn primary" href="#inquiry"><span class="icon">✅</span>체험 문의</a>
+              <a class="btn" href="#event"><span class="icon">🎁</span>이벤트 보기</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="thumb">
+            <img src="https://images.unsplash.com/photo-1599447421424-8b5219a8a7a6?auto=format&fit=crop&w=1200&q=80" alt="그룹 1회 체험" />
+          </div>
+          <div class="body">
+            <div class="title">
+              <strong>그룹 1회 체험</strong>
+              <span class="tag">쿠폰</span>
+            </div>
+            <p class="desc">그룹 분위기/수업 흐름을 먼저 경험.</p>
+            <div class="actions">
+              <a class="btn primary" href="#inquiry"><span class="icon">🎫</span>쿠폰/체험 문의</a>
+              <a class="btn" href="#timetable"><span class="icon">⏱️</span>시간표</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="thumb">
+            <img src="https://images.unsplash.com/photo-1599447421139-8a99f82f61e2?auto=format&fit=crop&w=1200&q=80" alt="바레 1회 체험" />
+          </div>
+          <div class="body">
+            <div class="title">
+              <strong>바레 1회 체험</strong>
+              <span class="tag">체험</span>
+            </div>
+            <p class="desc">밸런스/코어/하체 라인 집중.</p>
+            <div class="actions">
+              <a class="btn primary" href="#inquiry"><span class="icon">✅</span>체험 문의</a>
+              <a class="btn" href="#timetable"><span class="icon">🗓️</span>수업 시간</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="thumb">
+            <img src="https://images.unsplash.com/photo-1526402468144-1e0b23f3b8a3?auto=format&fit=crop&w=1200&q=80" alt="척추측만 개인레슨 1회 체험" />
+          </div>
+          <div class="body">
+            <div class="title">
+              <strong>척추측만 개인레슨 1회 체험</strong>
+              <span class="tag">전문</span>
+            </div>
+            <p class="desc">사전 예약 필수. 상태/목표에 맞춰 진행.</p>
+            <div class="actions">
+              <a class="btn primary" href="#inquiry"><span class="icon">🩺</span>상담 문의</a>
+              <a class="btn" href="#event"><span class="icon">🎁</span>혜택 확인</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="thumb">
+            <img src="https://images.unsplash.com/photo-1599447421341-7b2e3c1d5a0b?auto=format&fit=crop&w=1200&q=80" alt="키즈/기타 레슨" />
+          </div>
+          <div class="body">
+            <div class="title">
+              <strong>키즈/기타 레슨</strong>
+              <span class="tag">상담</span>
+            </div>
+            <p class="desc">키즈/골프/산전산후 등은 상담 후 안내.</p>
+            <div class="actions">
+              <a class="btn primary" href="#inquiry"><span class="icon">💬</span>문의하기</a>
+              <a class="btn" href="#location"><span class="icon">📍</span>오시는 길</a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- 이벤트 -->
+  <section id="event">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <h2>이벤트</h2>
+          <p>캡처에 있는 “2026 새해 이벤트” 문구를 텍스트로 정리</p>
+        </div>
+        <p>오타 없이 “텍스트 기반”으로 구성</p>
+      </div>
+
+      <div class="two">
+        <div class="box">
+          <h3>개인레슨 이벤트</h3>
+          <ul class="list">
+            <li class="li">
+              <div class="k">1</div>
+              <div>
+                <b>신규 회원님 체험 3회 15만원</b>
+                <span>처음 방문도 부담 없이 시작</span>
+              </div>
+            </li>
+            <li class="li">
+              <div class="k">2</div>
+              <div>
+                <b>회당 59,000원</b>
+                <span>(최소 20회 이상 기준)</span>
+              </div>
+            </li>
+            <li class="li">
+              <div class="k">3</div>
+              <div>
+                <b>개인 10회: 회당 66,000원</b>
+                <span>세부 조건은 상담 시 안내</span>
+              </div>
+            </li>
+          </ul>
+          <div class="sp"></div>
+          <div class="hero-actions">
+            <a class="btn primary" href="#inquiry"><span class="icon">✅</span>이벤트 문의</a>
+            <a class="btn" href="#programs"><span class="icon">🗓️</span>예약 메뉴</a>
+          </div>
+        </div>
+
+        <div class="box">
+          <h3>단체/그룹 이벤트</h3>
+          <ul class="list">
+            <li class="li">
+              <div class="k">A</div>
+              <div>
+                <b>100회 99만원</b>
+                <span>필라테스/아로마/바레/발레핏/웨이트 등(사용 범위는 상담)</span>
+              </div>
+            </li>
+            <li class="li">
+              <div class="k">B</div>
+              <div>
+                <b>1개월 무제한 29만원</b>
+                <span>일정/정원에 따라 운영</span>
+              </div>
+            </li>
+            <li class="li">
+              <div class="k">C</div>
+              <div>
+                <b>3개월 등록 시 +1개월 추가</b>
+                <span>기간/조건은 공지 기준 적용</span>
+              </div>
+            </li>
+          </ul>
+          <div class="sp"></div>
+          <p class="small">
+            ※ 이벤트 등록 후 환불/정지/양도/기간 연장: <b>절대 불가</b><br/>
+            ※ 기간/예외/부가세(VAT) 등 상세 조건은 공지/상담 기준 적용
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 시간표 -->
+  <section id="timetable">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <h2>시간표</h2>
+          <p>원본이 이미지(포스터)라면 웹에서는 “표 + 태그”로 깔끔하게</p>
+        </div>
+        <p>필요하면 이미지로도 같이 첨부 가능</p>
+      </div>
+
+      <div class="table-wrap" role="region" aria-label="그룹 수업 시간표">
+        <table>
+          <thead>
+            <tr>
+              <th style="width:140px">시간</th>
+              <th>월</th>
+              <th>화</th>
+              <th>수</th>
+              <th>목</th>
+              <th>금</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><b style="color:var(--ink)">09:00</b></td>
+              <td><span class="tag">리포머/바렐</span><span class="tag">캐딜락/체어</span></td>
+              <td>—</td>
+              <td><span class="tag">리포머/바렐</span><span class="tag">캐딜락/체어</span></td>
+              <td>—</td>
+              <td><span class="tag">리포머/바렐</span><span class="tag">캐딜락/체어</span></td>
+            </tr>
+            <tr>
+              <td><b style="color:var(--ink)">10:00</b></td>
+              <td><span class="tag">리포머/바렐</span><span class="tag">캐딜락/체어</span></td>
+              <td><span class="tag">리포머/바렐</span><span class="tag">캐딜락/체어</span></td>
+              <td><span class="tag">리포머/바렐</span><span class="tag">캐딜락/체어</span></td>
+              <td><span class="tag">리포머/바렐</span><span class="tag">캐딜락/체어</span></td>
+              <td><span class="tag">리포머/바렐</span><span class="tag">캐딜락/체어</span></td>
+            </tr>
+            <tr>
+              <td><b style="color:var(--ink)">11:00</b></td>
+              <td><span class="tag">리포머/바렐</span><span class="tag">캐딜락/체어</span></td>
+              <td>—</td>
+              <td><span class="tag">클래식 바레</span><span class="tag">모던 바레</span></td>
+              <td>—</td>
+              <td><span class="tag">발레핏</span></td>
+            </tr>
+            <tr>
+              <td><b style="color:var(--ink)">18:00</b></td>
+              <td><span class="tag">리포머/바렐</span><span class="tag">캐딜락/체어</span></td>
+              <td>—</td>
+              <td><span class="tag">리포머/바렐</span><span class="tag">캐딜락/체어</span></td>
+              <td>—</td>
+              <td><span class="tag">4:1 아로마 필라스</span></td>
+            </tr>
+            <tr>
+              <td><b style="color:var(--ink)">19:00</b></td>
+              <td><span class="tag">리포머/바렐</span><span class="tag">캐딜락/체어</span></td>
+              <td><span class="tag">리포머/바렐</span><span class="tag">캐딜락/체어</span></td>
+              <td><span class="tag">리포머/바렐</span><span class="tag">캐딜락/체어</span></td>
+              <td><span class="tag">리포머/바렐</span><span class="tag">캐딜락/체어</span></td>
+              <td><span class="tag">리포머/바렐</span><span class="tag">캐딜락/체어</span></td>
+            </tr>
+            <tr>
+              <td><b style="color:var(--ink)">20:00</b></td>
+              <td><span class="tag">리포머/바렐</span><span class="tag">캐딜락/체어</span></td>
+              <td><span class="tag">리포머/바렐</span><span class="tag">캐딜락/체어</span></td>
+              <td><span class="tag">리포머/바렐</span><span class="tag">캐딜락/체어</span></td>
+              <td><span class="tag">4:1 아로마 필라스</span></td>
+              <td><span class="tag">리포머/바렐</span><span class="tag">캐딜락/체어</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="sp"></div>
+      <div class="banner">
+        <div class="left">
+          <b>시간표는 주간/월간으로 변동될 수 있어요</b>
+          <span>변동이 잦다면 “시간표 이미지 1장 + 웹 표”를 같이 두는 게 관리가 편합니다.</span>
+        </div>
+        <div class="right">
+          <a class="btn primary" href="#inquiry"><span class="icon">💬</span>시간표 문의</a>
+          <a class="btn" href="#programs"><span class="icon">🗓️</span>예약 메뉴</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 강사진 -->
+  <section id="instructors">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <h2>강사진</h2>
+          <p>캡처에 “강사 소개 카드” 느낌 반영</p>
+        </div>
+        <p>사진/이력은 실제 정보로 교체</p>
+      </div>
+
+      <div class="grid">
+        <article class="card">
+          <div class="thumb">
+            <img src="https://images.unsplash.com/photo-1551836022-4c4c79ecde51?auto=format&fit=crop&w=1200&q=80" alt="대표원장" />
+          </div>
+          <div class="body">
+            <div class="title">
+              <strong>대표원장</strong>
+              <span class="tag">전문</span>
+            </div>
+            <p class="desc">20년 이상 경력 / 재활 · 체형 · 척추 케어</p>
+            <div class="actions">
+              <a class="btn primary" href="#inquiry"><span class="icon">💬</span>상담 요청</a>
+              <a class="btn" href="#programs"><span class="icon">🗓️</span>레슨 보기</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="thumb">
+            <img src="https://images.unsplash.com/photo-1555904142-2f4cba5a7f4b?auto=format&fit=crop&w=1200&q=80" alt="전문 강사진" />
+          </div>
+          <div class="body">
+            <div class="title">
+              <strong>전문 강사진</strong>
+              <span class="tag">1:1</span>
+            </div>
+            <p class="desc">자세 교정 / 재활 / 산전산후 / 골프 등 맞춤</p>
+            <div class="actions">
+              <a class="btn primary" href="#inquiry"><span class="icon">✅</span>강사 배정 문의</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="thumb">
+            <img src="https://images.unsplash.com/photo-1599058918144-1ffabb6ab9a0?auto=format&fit=crop&w=1200&q=80" alt="그룹/바레/발레핏" />
+          </div>
+          <div class="body">
+            <div class="title">
+              <strong>그룹 · 바레 · 발레핏</strong>
+              <span class="tag">그룹</span>
+            </div>
+            <p class="desc">수업 목적/난이도에 맞춰 클래스 운영</p>
+            <div class="actions">
+              <a class="btn primary" href="#timetable"><span class="icon">⏱️</span>시간표 확인</a>
+              <a class="btn" href="#programs"><span class="icon">🗓️</span>예약</a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- 갤러리 -->
+  <section id="gallery">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <h2>사진</h2>
+          <p>스튜디오/기구/수업 사진을 깔끔하게 전시</p>
+        </div>
+        <p>실제 사진으로 교체하면 완성</p>
+      </div>
+
+      <div class="grid">
+        <article class="card">
+          <div class="thumb">
+            <img src="https://images.unsplash.com/photo-1599447421141-3414500d18a5?auto=format&fit=crop&w=1200&q=80" alt="기구 수업" />
+          </div>
+          <div class="body">
+            <div class="title"><strong>기구 수업</strong><span class="tag">리포머</span></div>
+            <p class="desc">리포머/바렐/캐딜락/체어 등 기구 보유</p>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="thumb">
+            <img src="https://images.unsplash.com/photo-1552196563-55cd4e45efb3?auto=format&fit=crop&w=1200&q=80" alt="1:1 레슨" />
+          </div>
+          <div class="body">
+            <div class="title"><strong>1:1 레슨</strong><span class="tag">맞춤</span></div>
+            <p class="desc">목표/컨디션 기반 진행</p>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="thumb">
+            <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&w=1200&q=80" alt="그룹 클래스" />
+          </div>
+          <div class="body">
+            <div class="title"><strong>그룹 클래스</strong><span class="tag">클래스</span></div>
+            <p class="desc">분위기/흐름을 체험으로 확인 가능</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- 위치/지도 -->
+  <section id="location">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <h2>오시는 길</h2>
+          <p>캡처에 나온 정보처럼 “주소/역/전화/링크”를 버튼으로 고정</p>
+        </div>
+        <p>지도 링크는 실제 URL로 교체</p>
+      </div>
+
+      <div class="two">
+        <div class="box">
+          <h3>기본 정보</h3>
+          <ul class="list">
+            <li class="li">
+              <div class="k">📍</div>
+              <div>
+                <b>부산 해운대구 좌동로 88 울트라타워 3층</b>
+                <span>장산역 10번 출구에서 약 254m</span>
+              </div>
+            </li>
+            <li class="li">
+              <div class="k">⏰</div>
+              <div>
+                <b>영업시간</b>
+                <span>영업 중 · 22:00에 영업 종료</span>
+              </div>
+            </li>
+            <li class="li">
+              <div class="k">📞</div>
+              <div>
+                <b>0507-1466-1381</b>
+                <span>전화로 예약/상담 가능</span>
+              </div>
+            </li>
+          </ul>
+
+          <div class="sp"></div>
+          <div class="hero-actions">
+            <a class="btn primary" href="tel:0507-1466-1381"><span class="icon">📞</span>전화하기</a>
+            <a class="btn" href="#" onclick="alert('네이버 지도/플레이스 링크를 여기에 넣으세요.'); return false;"><span class="icon">🧭</span>내비게이션</a>
+            <a class="btn" href="#" onclick="alert('거리뷰 링크를 여기에 넣으세요.'); return false;"><span class="icon">👀</span>거리뷰</a>
+          </div>
+        </div>
+
+        <div class="box">
+          <h3>외부 링크(버튼 자리)</h3>
+          <p class="small">아래는 캡처에서 보이는 “예약/문의/블로그/인스타” 같은 링크를 정리하는 영역입니다.</p>
+
+          <div class="hero-actions" style="margin-top:10px">
+            <a class="btn green" href="#programs"><span class="icon">🟢</span>네이버 예약(연결)</a>
+            <a class="btn primary" href="#inquiry"><span class="icon">💬</span>문의하기</a>
+            <a class="btn" href="#" id="blogBtn2"><span class="icon">📝</span>블로그</a>
+            <a class="btn" href="#" id="instaBtn2"><span class="icon">📷</span>인스타그램</a>
+          </div>
+
+          <div class="sp"></div>
+          <div class="notice">
+            <div class="badge">TIP</div>
+            <p>
+              “버튼이 정리된 한 페이지”만 있어도 고객이 비교하다가 다시 돌아오기 쉬워요.<br/>
+              (특히 체험권/이벤트/시간표/위치가 한 화면에 있으면 강함)
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">
+      <div class="foot">
+        <div>
+          <b style="color:var(--ink)">바디제이필라테스</b>
+          <div>부산 해운대구 좌동로 88 울트라타워 3층</div>
+          <div>전화: 0507-1466-1381</div>
+        </div>
+        <div>
+          <div>© <span id="year"></span> Body J Pilates</div>
+          <div>이 페이지는 “밝은 베이지 톤” 웹 체험 시안 템플릿입니다.</div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // ---- 설정(여기만 바꾸면 링크 전체 반영) ----
+    const LINKS = {
+      // 네이버 톡톡(사용자가 준 링크 예시가 있었음): 실제 운영 링크로 교체
+      talk: "https://talk.naver.com/",
+
+      // 블로그/인스타: 실제 주소로 교체
+      blog: "https://blog.naver.com/",
+      instagram: "https://instagram.com/",
+
+      // 캐시 무력(예: samplepage.co.kr)에 쓰는 값
+      cacheBusterBase: "https://samplepage.co.kr/"
+    };
+
+    // 캐시 무력 주소 생성 (원하는 경로 넣으면 됨)
+    // 예) https://samplepage.co.kr/?cb=1700000000000
+    function cacheBust(url){
+      const u = new URL(url);
+      u.searchParams.set("cb", Date.now().toString());
+      return u.toString();
+    }
+
+    // 버튼들 연결
+    const talkBtn = document.getElementById("talkBtn");
+    const blogBtn = document.getElementById("blogBtn");
+    const instaBtn = document.getElementById("instaBtn");
+    const blogBtn2 = document.getElementById("blogBtn2");
+    const instaBtn2 = document.getElementById("instaBtn2");
+
+    if(talkBtn) talkBtn.href = LINKS.talk;
+    [blogBtn, blogBtn2].forEach(el => { if(el) el.href = LINKS.blog; });
+    [instaBtn, instaBtn2].forEach(el => { if(el) el.href = LINKS.instagram; });
+
+    // 연도
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    // 탭 동작
+    const tabs = Array.from(document.querySelectorAll(".tab"));
+    const panes = Array.from(document.querySelectorAll(".tabpane"));
+    tabs.forEach(t => {
+      t.addEventListener("click", () => {
+        tabs.forEach(x => x.classList.remove("active"));
+        t.classList.add("active");
+        const id = t.dataset.tab;
+        panes.forEach(p => p.classList.add("hidden"));
+        const pane = document.getElementById(id);
+        if(pane) pane.classList.remove("hidden");
+      });
+    });
+
+    // (참고) 캐시 무력 주소를 콘솔에서 바로 확인 가능
+    // console.log(cacheBust(LINKS.cacheBusterBase));
+  </script>
+</body>
+</html>
