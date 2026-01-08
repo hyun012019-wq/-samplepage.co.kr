@@ -3,1297 +3,1344 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-  <meta name="format-detection" content="telephone=no,email=no,address=no" />
-  <title>세무회계 글</title>
+  <meta name="theme-color" content="#f3efe6" />
+  <meta name="description" content="세무회계 글 · (주)하비럴 web기획 · 기획브랜딩" />
+  <title>세무회계 <span>글</span></title>
 
   <style>
+    /* =========================================================
+       TAX GEUL - Sample Page (주)하비럴 web기획 · 기획브랜딩
+       Single-file index.html
+       Assets:
+       - logo-taxgeul.png
+       - bg-office.jpg.jpg
+       - rep-profile.jpg
+       - post-01.jpg ~ post-09.jpg
+       ========================================================= */
+
     :root{
-      --bg: #f5f0e6;
-      --card: rgba(255,255,255,.84);
-      --card-strong: rgba(255,255,255,.92);
+      --bg: #f4f0e7;
+      --card: rgba(255,255,255,.78);
+      --card2: rgba(255,255,255,.86);
       --stroke: rgba(0,0,0,.08);
-      --text: #141414;
-      --muted: rgba(20,20,20,.64);
+      --shadow: 0 18px 45px rgba(0,0,0,.10);
+      --shadow2: 0 10px 28px rgba(0,0,0,.12);
 
-      --gold: #b6952f;
-      --gold-strong:#d5b24a;
-      --gold-soft: rgba(182,149,47,.18);
+      --text: #161616;
+      --muted: rgba(0,0,0,.62);
+      --muted2: rgba(0,0,0,.46);
 
-      --shadow: 0 18px 50px rgba(0,0,0,.18);
-      --shadow-soft: 0 12px 26px rgba(0,0,0,.12);
+      --gold: #b08f2b;
+      --goldDeep: #8a6d16;
 
-      --radius-xl: 28px;
-      --radius-lg: 22px;
-      --radius-md: 16px;
+      --pillBg: rgba(255,255,255,.75);
+      --pillStroke: rgba(0,0,0,.10);
+      --pillShadow: 0 10px 22px rgba(0,0,0,.08);
 
-      --max: 980px;
+      --radiusXL: 28px;
+      --radiusLG: 22px;
+      --radiusMD: 16px;
+      --radiusSM: 12px;
+      --radiusXS: 10px;
 
-      --safe-top: env(safe-area-inset-top);
-      --safe-bottom: env(safe-area-inset-bottom);
+      --maxW: 980px;
+      --pad: 18px;
+
+      --floatW: 92px;
     }
 
-    *{ box-sizing:border-box; }
+    *{ box-sizing: border-box; }
     html,body{ height:100%; }
     body{
       margin:0;
-      font-family: system-ui, -apple-system, "Apple SD Gothic Neo", "Noto Sans KR", Segoe UI, Roboto, Helvetica, Arial, sans-serif;
-      color:var(--text);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Apple SD Gothic Neo","Noto Sans KR","Malgun Gothic", sans-serif;
+      color: var(--text);
       background: var(--bg);
       overflow-x:hidden;
     }
 
-    /* ===== Background (office photo + fast “breathing” overlay) ===== */
+    /* ===== Background (사무실 사진 + 진한/빠른 숨쉬기) ===== */
     .bg{
       position:fixed;
       inset:0;
       z-index:-2;
-      background-size:cover;
-      background-position:center;
-      transform: translateZ(0);
-      will-change: transform;
+      background:
+        linear-gradient(120deg, rgba(0,0,0,.46), rgba(0,0,0,.20)),
+        url("bg-office.jpg.jpg");
+      background-size: cover;
+      background-position: center;
+      filter: saturate(1.05) contrast(1.02);
+      transform: scale(1.04);
+      animation: breathe 2.6s ease-in-out infinite; /* 빠르게 */
     }
-
     .bg::after{
       content:"";
       position:absolute;
-      inset:0;
-      z-index:1;
-
-      /* slightly darker + more vivid overlay */
-      background:
-        radial-gradient(1200px 700px at 20% 30%, rgba(255,255,255,.08), rgba(0,0,0,.38)),
-        radial-gradient(900px 600px at 80% 60%, rgba(182,149,47,.18), rgba(0,0,0,.42)),
-        linear-gradient(180deg, rgba(0,0,0,.25), rgba(0,0,0,.35));
-
-      mix-blend-mode: normal;
-      opacity: .95;
-
-      /* fast breathing */
-      animation: breathe 2.4s ease-in-out infinite;
+      inset:-40px;
+      background: radial-gradient(closest-side at 30% 20%, rgba(255,255,255,.10), transparent 60%),
+                  radial-gradient(closest-side at 70% 80%, rgba(255,210,90,.08), transparent 60%);
+      mix-blend-mode: overlay;
+      pointer-events:none;
+      animation: breatheGlow 2.6s ease-in-out infinite;
     }
-
     @keyframes breathe{
-      0%   { opacity:.88; filter:saturate(1.1) contrast(1.05); }
-      50%  { opacity:1;   filter:saturate(1.35) contrast(1.12); }
-      100% { opacity:.88; filter:saturate(1.1) contrast(1.05); }
+      0%{ filter: saturate(1.05) contrast(1.02) brightness(.95); transform: scale(1.04); }
+      50%{ filter: saturate(1.15) contrast(1.05) brightness(1.02); transform: scale(1.06); }
+      100%{ filter: saturate(1.05) contrast(1.02) brightness(.95); transform: scale(1.04); }
+    }
+    @keyframes breatheGlow{
+      0%{ opacity:.55; transform: scale(1.00); }
+      50%{ opacity:.85; transform: scale(1.02); }
+      100%{ opacity:.55; transform: scale(1.00); }
     }
 
     /* ===== Layout ===== */
     .wrap{
-      width: min(var(--max), calc(100% - 32px));
-      margin: 0 auto;
-      padding: calc(14px + var(--safe-top)) 0 calc(60px + var(--safe-bottom));
+      width: min(var(--maxW), calc(100% - 18px));
+      margin: 14px auto 42px;
+      padding-bottom: 84px;
+      position:relative;
     }
 
-    .glass{
-      background: var(--card);
+    /* ===== Top Bar ===== */
+    .topbar{
+      position: sticky;
+      top: 10px;
+      z-index: 50;
+      backdrop-filter: blur(14px);
+      background: rgba(255,255,255,.70);
       border: 1px solid var(--stroke);
-      border-radius: var(--radius-xl);
-      box-shadow: var(--shadow);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-    }
-
-    .glass-strong{
-      background: var(--card-strong);
-      border: 1px solid var(--stroke);
-      border-radius: var(--radius-xl);
-      box-shadow: var(--shadow-soft);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-    }
-
-    /* ===== Header ===== */
-    header{
+      border-radius: 26px;
+      box-shadow: var(--shadow2);
+      padding: 12px 12px;
       display:flex;
       align-items:center;
       justify-content:space-between;
-      gap:12px;
-      padding: 10px 12px;
+      gap: 10px;
     }
 
     .brand{
       display:flex;
       align-items:center;
-      gap:12px;
-      min-width:0;
-      flex:1;
+      gap: 10px;
+      min-width: 0;
+      flex: 1 1 auto;
     }
 
     .logoBox{
-      width:46px;
-      height:46px;
+      width: 44px;
+      height: 44px;
       border-radius: 14px;
       background: rgba(255,255,255,.85);
-      border:1px solid var(--stroke);
+      border: 1px solid var(--stroke);
+      overflow:hidden;
       display:grid;
       place-items:center;
-      overflow:hidden;
-      flex:0 0 auto;
+      flex: 0 0 auto;
     }
     .logoBox img{
-      width:100%;
-      height:100%;
-      object-fit:cover;
-      display:block;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      padding: 6px;
     }
 
     .brandText{
+      min-width:0;
       display:flex;
       flex-direction:column;
-      gap:2px;
+      line-height: 1.05;
+    }
+    .brandTitle{
+      font-size: 20px;
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      display:flex;
+      gap: 4px;
+      align-items:baseline;
       min-width:0;
-    }
-
-    .brandName{
-      font-weight:900;
-      letter-spacing:-0.5px;
-      font-size: clamp(18px, 3.8vw, 24px);
-      line-height:1.1;
-      white-space:nowrap;
+      white-space: nowrap; /* 모바일에서 짤림 방지: 아래에서 clamp로 처리 */
       overflow:hidden;
-      text-overflow:ellipsis;
+      text-overflow: ellipsis;
     }
-    .brandName .gold{ color: var(--gold-strong); }
-
+    .brandTitle .gold{
+      color: var(--gold);
+      font-weight: 900;
+    }
     .brandSub{
-      font-size: 13px;
-      color: var(--muted);
-      white-space:nowrap;
+      font-size: 12px;
+      color: var(--muted2);
+      margin-top: 4px;
+      white-space: nowrap;
       overflow:hidden;
-      text-overflow:ellipsis;
+      text-overflow: ellipsis;
     }
 
-    .headBtns{
+    .topBtns{
       display:flex;
       align-items:center;
-      gap:10px;
-      flex:0 0 auto;
+      gap: 10px;
+      flex: 0 0 auto;
     }
 
     .iconBtn{
-      width:44px;
-      height:44px;
+      width: 44px;
+      height: 44px;
       border-radius: 16px;
-      border:1px solid var(--stroke);
-      background: rgba(255,255,255,.86);
+      border: 1px solid var(--stroke);
+      background: rgba(255,255,255,.80);
       display:grid;
       place-items:center;
+      box-shadow: 0 8px 18px rgba(0,0,0,.06);
       cursor:pointer;
-      transition: transform .12s ease;
       user-select:none;
+      transition: transform .12s ease, background .12s ease;
     }
     .iconBtn:active{ transform: scale(.98); }
-
-    .iconBtn svg{ width:20px; height:20px; }
-    .kakaoCircle{
-      width:22px; height:22px; border-radius:999px;
-      display:grid; place-items:center;
+    .iconBtn svg{ width: 22px; height:22px; }
+    .iconBtn .naverN{
+      font-weight: 900;
+      font-size: 18px;
+      color: #03c75a;
+      font-family: ui-sans-serif, system-ui;
+    }
+    .iconBtn .kakaoDot{
+      width: 22px;
+      height: 22px;
+      border-radius: 999px;
       background: #fee500;
-      color:#111;
-      font-weight:900;
+      display:grid;
+      place-items:center;
+      font-weight: 900;
+      color: rgba(0,0,0,.70);
       font-size: 12px;
-      line-height: 1;
     }
 
     /* ===== Sections ===== */
     .section{
       margin-top: 14px;
-      padding: 14px;
+      background: var(--card);
+      border: 1px solid var(--stroke);
+      border-radius: var(--radiusXL);
+      box-shadow: var(--shadow);
+      padding: 16px;
+      backdrop-filter: blur(14px);
+      position:relative;
+      overflow:hidden;
     }
 
-    .sectionTitleRow{
+    .sectionHeader{
       display:flex;
       align-items:flex-start;
       justify-content:space-between;
-      gap:12px;
+      gap: 12px;
       margin-bottom: 12px;
     }
-    .sectionTitle{
+    .hTitle{
       font-size: 22px;
       font-weight: 900;
-      letter-spacing:-.6px;
+      letter-spacing:-0.03em;
       margin:0;
     }
-    .sectionDesc{
+    .hDesc{
       margin: 6px 0 0;
-      font-size: 14px;
+      font-size: 13px;
       color: var(--muted);
-      line-height:1.5;
+      line-height: 1.45;
     }
+
     .badge{
-      flex:0 0 auto;
-      padding: 8px 12px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding: 10px 14px;
       border-radius: 999px;
-      border:1px solid var(--stroke);
-      background: rgba(182,149,47,.14);
-      color: rgba(90,70,10,.92);
+      border: 1px solid var(--pillStroke);
+      background: rgba(255,255,255,.72);
+      box-shadow: var(--pillShadow);
       font-weight: 800;
-      letter-spacing:-.3px;
-      white-space:nowrap;
+      color: rgba(0,0,0,.78);
+      white-space: nowrap;
     }
 
     /* ===== Hero ===== */
     .heroGrid{
       display:grid;
-      grid-template-columns: 1fr;
-      gap: 12px;
+      grid-template-columns: 1.25fr .75fr;
+      gap: 14px;
+      align-items:stretch;
     }
 
     .pillRow{
       display:flex;
       align-items:center;
-      gap:10px;
-
-      /* make them sit nicely in one row and not ugly-wrap */
+      gap: 10px;
+      margin-bottom: 12px;
+      /* 기본은 1줄 유지 (PC 예쁨), 모바일은 아래 media에서 wrap */
       flex-wrap: nowrap;
       overflow-x: auto;
       -webkit-overflow-scrolling: touch;
-      padding-bottom: 4px;
+      padding-bottom: 2px;
     }
-    .pillRow::-webkit-scrollbar{ height:0; }
+    .pillRow::-webkit-scrollbar{ height: 0; }
 
     .pill{
-      padding: 9px 14px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap: 8px;
+      padding: 12px 16px;
       border-radius: 999px;
-      border:1px solid var(--stroke);
-      background: rgba(255,255,255,.72);
+      border: 1px solid var(--pillStroke);
+      background: rgba(255,255,255,.78);
+      box-shadow: var(--pillShadow);
       font-weight: 900;
-      letter-spacing:-.4px;
-      color: rgba(30,30,30,.92);
-      white-space:nowrap;
-      flex:0 0 auto;
-    }
-    .pill.gold{
-      background: rgba(182,149,47,.18);
-      color: rgba(90,70,10,.96);
+      letter-spacing:-0.02em;
+      color: rgba(0,0,0,.82);
+      white-space: nowrap;
+      flex: 0 0 auto;
     }
 
     .heroCard{
-      border-radius: var(--radius-xl);
+      background: rgba(255,255,255,.66);
+      border: 1px solid var(--stroke);
+      border-radius: var(--radiusXL);
+      padding: 14px;
       overflow:hidden;
-      border:1px solid var(--stroke);
-      background: rgba(0,0,0,.12);
+      position:relative;
+      box-shadow: 0 14px 36px rgba(0,0,0,.10);
+    }
+
+    .heroMedia{
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      border-radius: 22px;
+      overflow:hidden;
+      border: 1px solid rgba(0,0,0,.12);
+      background: rgba(0,0,0,.06);
       position:relative;
     }
-
-    .heroImg{
+    .heroMedia img{
       width:100%;
-      height: 320px;
-      display:block;
+      height:100%;
       object-fit: cover;
-      object-position:center;
-      filter: saturate(1.05) contrast(1.03);
+      display:block;
+      transform: scale(1.02);
     }
-
     .heroOverlay{
       position:absolute;
       inset:0;
-      background: linear-gradient(180deg, rgba(0,0,0,.12), rgba(0,0,0,.62));
+      background: linear-gradient(180deg, rgba(0,0,0,.05), rgba(0,0,0,.55));
+      pointer-events:none;
     }
 
     .heroText{
       position:absolute;
-      left:14px;
-      right:14px;
-      bottom:14px;
-      z-index:2;
-      color:#fff;
+      left: 18px;
+      right: 18px;
+      bottom: 16px;
+      color: #fff;
+      text-shadow: 0 10px 30px rgba(0,0,0,.40);
     }
     .heroKicker{
       display:inline-flex;
-      align-items:center;
-      gap:8px;
-      padding: 8px 14px;
-      border-radius:999px;
-      border:1px solid rgba(255,255,255,.2);
-      background: rgba(0,0,0,.18);
-      font-weight:900;
-      letter-spacing:-.3px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(0,0,0,.40);
+      border: 1px solid rgba(255,255,255,.18);
+      font-weight: 900;
+      letter-spacing:-0.02em;
       margin-bottom: 10px;
+      backdrop-filter: blur(10px);
     }
-    .heroH1{
-      margin:0;
-      font-size: clamp(28px, 7vw, 42px);
-      line-height: 1.05;
+    .heroHeadline{
+      font-size: 40px;
+      line-height: 1.08;
       font-weight: 950;
-      letter-spacing:-1px;
-      text-shadow: 0 10px 30px rgba(0,0,0,.25);
+      letter-spacing:-0.04em;
+      margin:0;
+      word-break: keep-all;
     }
-    .heroP{
+    .heroSubline{
       margin: 10px 0 0;
       font-size: 15px;
-      line-height:1.55;
-      color: rgba(255,255,255,.86);
-      text-shadow: 0 10px 30px rgba(0,0,0,.25);
+      line-height: 1.5;
+      opacity: .92;
+      word-break: keep-all;
     }
-    .heroSignature{
-      margin-top:10px;
+    .heroCredit{
+      margin-top: 10px;
       font-weight: 900;
-      letter-spacing:-.4px;
-      color: rgba(255,255,255,.9);
+      opacity: .92;
     }
 
-    .heroDots{
+    .heroSide{
       display:flex;
-      gap:10px;
+      flex-direction:column;
+      gap: 12px;
+    }
+
+    .chipGrid{
+      display:flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .chip{
+      flex: 0 0 auto;
+      padding: 12px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(0,0,0,.10);
+      background: rgba(255,255,255,.74);
+      box-shadow: 0 10px 18px rgba(0,0,0,.06);
+      font-weight: 900;
+      letter-spacing:-0.02em;
+      color: rgba(0,0,0,.82);
+      white-space: nowrap;
+    }
+    .chip.primary{
+      background: rgba(176,143,43,.20);
+      border-color: rgba(176,143,43,.35);
+      color: rgba(0,0,0,.84);
+    }
+
+    .miniNote{
+      border-radius: 22px;
+      border: 1px solid rgba(0,0,0,.10);
+      background: rgba(255,255,255,.68);
+      padding: 14px;
+      box-shadow: 0 12px 20px rgba(0,0,0,.06);
+      color: var(--muted);
+      line-height: 1.55;
+      font-weight: 700;
+    }
+
+    /* ===== Menu ===== */
+    .drawerMask{
+      position:fixed;
+      inset:0;
+      background: rgba(0,0,0,.25);
+      z-index: 80;
+      opacity:0;
+      pointer-events:none;
+      transition: opacity .18s ease;
+    }
+    .drawer{
+      position:fixed;
+      right: 12px;
+      top: 78px;
+      z-index: 90;
+      width: min(340px, calc(100% - 24px));
+      background: rgba(255,255,255,.86);
+      border: 1px solid rgba(0,0,0,.12);
+      border-radius: 22px;
+      box-shadow: 0 22px 60px rgba(0,0,0,.18);
+      backdrop-filter: blur(18px);
+      transform: translateY(-6px) scale(.98);
+      opacity:0;
+      pointer-events:none;
+      transition: opacity .18s ease, transform .18s ease;
+      overflow:hidden;
+    }
+    .drawer.open{
+      opacity:1;
+      pointer-events:auto;
+      transform: translateY(0) scale(1);
+    }
+    .drawerMask.open{
+      opacity:1;
+      pointer-events:auto;
+    }
+    .drawerHead{
+      padding: 14px 14px 10px;
+      display:flex;
       align-items:center;
-      padding: 10px 4px 0;
+      justify-content:space-between;
+      gap: 10px;
+      border-bottom: 1px solid rgba(0,0,0,.08);
     }
-    .dot{
-      width:12px; height:12px; border-radius:999px;
-      border: 1px solid rgba(0,0,0,.15);
-      background: rgba(255,255,255,.6);
-      cursor:pointer;
+    .drawerTitle{
+      font-weight: 950;
+      letter-spacing:-0.02em;
     }
-    .dot.active{ background: rgba(182,149,47,.85); }
-
-    .heroNav{
-      margin-left:auto;
-      display:flex;
-      gap:10px;
-    }
-    .navBtn{
-      width:44px; height:44px;
-      border-radius: 16px;
-      border:1px solid var(--stroke);
-      background: rgba(255,255,255,.78);
+    .drawerClose{
+      width: 38px;
+      height: 38px;
+      border-radius: 14px;
+      border: 1px solid rgba(0,0,0,.10);
+      background: rgba(255,255,255,.75);
       display:grid;
       place-items:center;
       cursor:pointer;
-      transition: transform .12s ease;
     }
-    .navBtn:active{ transform: scale(.98); }
-    .navBtn svg{ width:18px; height:18px; }
-
-    /* ===== Keyword Chips ===== */
-    .chipRow{
+    .drawerBody{
+      padding: 12px;
       display:flex;
-      flex-wrap:wrap;
-      gap:10px;
-      margin-top: 10px;
+      flex-direction:column;
+      gap: 10px;
     }
-    .chip{
-      padding: 10px 14px;
-      border-radius: 999px;
-      border:1px solid var(--stroke);
-      background: rgba(255,255,255,.72);
-      font-weight: 900;
-      letter-spacing:-.35px;
-      color: rgba(20,20,20,.92);
+    .menuItem{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding: 14px 14px;
+      border-radius: 18px;
+      border: 1px solid rgba(0,0,0,.10);
+      background: rgba(255,255,255,.75);
+      box-shadow: 0 12px 18px rgba(0,0,0,.06);
       cursor:pointer;
       user-select:none;
+      font-weight: 900;
+      letter-spacing:-0.02em;
     }
-    .chip.primary{
-      background: rgba(182,149,47,.18);
-      color: rgba(90,70,10,.96);
-    }
-
-    .noteLine{
-      margin-top:10px;
-      font-size: 13px;
+    .menuItem:active{ transform: scale(.99); }
+    .menuItem small{
+      font-weight: 800;
       color: var(--muted);
-      line-height:1.5;
     }
 
-    /* ===== Representative ===== */
+    /* ===== Rep Section ===== */
+    .repWrap{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+
     .repCard{
       display:grid;
-      grid-template-columns: 120px 1fr;
+      grid-template-columns: 140px 1fr;
       gap: 14px;
-      align-items:stretch;
+      align-items:center;
+      background: rgba(255,255,255,.78);
+      border: 1px solid rgba(0,0,0,.10);
+      border-radius: 24px;
       padding: 14px;
-      border-radius: var(--radius-xl);
-      border:1px solid var(--stroke);
-      background: rgba(255,255,255,.72);
-      overflow:hidden;
+      box-shadow: 0 14px 30px rgba(0,0,0,.08);
     }
 
     .repPhotoWrap{
-      width: 120px;
-      height: 120px;
-      border-radius: 20px;
-      border:1px solid var(--stroke);
+      width: 140px;
+      height: 140px;
+      border-radius: 22px;
       overflow:hidden;
-      background: rgba(255,255,255,.8);
+      border: 1px solid rgba(0,0,0,.10);
+      background: rgba(0,0,0,.06);
     }
     .repPhotoWrap img{
       width:100%;
       height:100%;
       object-fit: cover;
-      object-position: center 18%;
       display:block;
     }
 
     .repTitle{
       display:flex;
       align-items:baseline;
-      gap:10px;
-      flex-wrap:wrap;
+      gap: 10px;
+      flex-wrap: wrap;
     }
     .repName{
       font-size: 34px;
       font-weight: 950;
-      letter-spacing:-1px;
-      line-height:1;
+      letter-spacing:-0.04em;
       margin:0;
+      line-height: 1.05;
+      word-break: keep-all;
     }
     .repRole{
-      font-size: 22px;
+      font-size: 20px;
       font-weight: 900;
-      color: rgba(20,20,20,.62);
-      letter-spacing:-.6px;
-      white-space: nowrap; /* ✅ prevent 세무/사 break */
+      color: rgba(0,0,0,.55);
+      white-space: nowrap;
     }
 
     .repMeta{
       margin-top: 8px;
-      font-size: 16px;
-      font-weight: 850;
-      letter-spacing:-.4px;
-      color: rgba(20,20,20,.72);
-      line-height:1.4;
+      color: var(--muted);
+      font-weight: 800;
+      line-height: 1.55;
+      word-break: keep-all;
     }
-
     .repSignature{
-      margin-top: 10px;
-      font-size: 16px;
+      margin-top: 8px;
       font-weight: 950;
-      letter-spacing:-.5px;
-      color: rgba(20,20,20,.9);
+      letter-spacing:-0.02em;
     }
 
-    .infoRows{
-      margin-top: 12px;
-      display:grid;
-      gap: 10px;
+    .infoTable{
+      display:flex;
+      flex-direction:column;
+      gap: 12px;
     }
     .infoRow{
       display:grid;
-      grid-template-columns: 110px 1fr;
-      gap:0;
-      border-radius: 18px;
+      grid-template-columns: 120px 1fr;
       overflow:hidden;
-      border:1px solid var(--stroke);
-      background: rgba(255,255,255,.78);
+      border-radius: 22px;
+      border: 1px solid rgba(0,0,0,.10);
+      background: rgba(255,255,255,.76);
+      box-shadow: 0 12px 18px rgba(0,0,0,.06);
     }
-    .infoKey{
-      padding: 16px 16px;
-      font-weight: 950;
-      letter-spacing:-.5px;
-      background: rgba(182,149,47,.14);
-      color: rgba(90,70,10,.96);
+    .infoLabel{
+      background: rgba(176,143,43,.18);
       display:flex;
       align-items:center;
       justify-content:center;
-      white-space:nowrap;
-    }
-    .infoVal{
-      padding: 16px 16px;
-      font-weight: 900;
-      letter-spacing:-.4px;
-      color: rgba(20,20,20,.86);
-      line-height:1.35;
-      display:flex;
-      align-items:center;
-    }
-
-    /* ===== “세무 인사이트” Grid ===== */
-    .insightHead{
-      margin: 0;
-      font-size: 22px;
+      padding: 18px 12px;
       font-weight: 950;
-      letter-spacing:-.6px;
+      letter-spacing:-0.02em;
+      color: rgba(0,0,0,.78);
+      white-space: nowrap;
     }
-    .grid{
-      display:grid;
-      grid-template-columns: 1fr;
-      gap: 12px;
-      margin-top: 10px;
+    .infoValue{
+      padding: 18px 16px;
+      font-weight: 900;
+      color: rgba(0,0,0,.82);
+      line-height: 1.4;
+      word-break: keep-all;
     }
 
-    .tile{
-      border-radius: var(--radius-xl);
+    /* ===== Gallery Section (단어 '콘텐츠' 제거 -> 전문용어로 대체) ===== */
+    .galleryGrid{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+    .gCard{
+      background: rgba(255,255,255,.78);
+      border: 1px solid rgba(0,0,0,.10);
+      border-radius: 22px;
       overflow:hidden;
-      border:1px solid var(--stroke);
-      background: rgba(255,255,255,.72);
+      box-shadow: 0 14px 30px rgba(0,0,0,.08);
       position:relative;
     }
-    .tile img{
+    .gMedia{
       width:100%;
-      height: 210px;
+      aspect-ratio: 16/9;
+      background: rgba(0,0,0,.06);
+      overflow:hidden;
+    }
+    .gMedia img{
+      width:100%;
+      height:100%;
       object-fit: cover;
       display:block;
-      transition: transform .35s ease;
     }
-    .tile:hover img{ transform: scale(1.02); }
-
-    .tileMeta{
-      position:absolute;
-      inset:auto 10px 10px 10px;
-      display:flex;
-      align-items:flex-end;
-      justify-content:space-between;
-      gap:10px;
-      pointer-events:none;
-    }
-    .tileLabel{
-      pointer-events:none;
-      font-size: 12px;
-      font-weight: 950;
-      letter-spacing:-.2px;
-      color: rgba(255,255,255,.92);
-      text-shadow: 0 8px 22px rgba(0,0,0,.35);
-    }
-    .tileTag{
-      pointer-events:none;
-      padding: 8px 12px;
-      border-radius:999px;
-      border:1px solid rgba(255,255,255,.18);
-      background: rgba(0,0,0,.22);
-      color: rgba(255,255,255,.92);
-      font-weight: 950;
-      letter-spacing:-.3px;
-      white-space:nowrap;
-    }
-
-    /* ===== 상담 접수 ===== */
-    .form{
-      display:grid;
-      gap: 10px;
-      margin-top: 8px;
-    }
-    .field{
-      display:grid;
-      gap: 6px;
-    }
-    .label{
-      font-size: 13px;
-      font-weight: 900;
-      color: rgba(20,20,20,.72);
-      letter-spacing:-.2px;
-    }
-    input, textarea, select{
-      width:100%;
-      border-radius: 18px;
-      border:1px solid var(--stroke);
-      background: rgba(255,255,255,.78);
-      padding: 14px 14px;
-      font-size: 15px;
-      font-weight: 850;
-      letter-spacing:-.2px;
-      outline:none;
-    }
-    textarea{ min-height: 120px; resize: vertical; }
-
-    .btnRow{
-      display:flex;
-      gap: 10px;
-      flex-wrap:wrap;
-      margin-top: 4px;
-    }
-    .btn{
-      flex:1 1 180px;
-      border-radius: 18px;
-      border:1px solid var(--stroke);
-      background: rgba(255,255,255,.8);
-      padding: 16px 16px;
-      font-weight: 950;
-      letter-spacing:-.4px;
-      cursor:pointer;
-      transition: transform .12s ease, background .12s ease;
-    }
-    .btn:active{ transform: scale(.99); }
-    .btn.primary{
-      background: linear-gradient(180deg, rgba(182,149,47,.85), rgba(182,149,47,.68));
-      color: rgba(20,20,20,.92);
-    }
-
-    .smallNote{
-      font-size: 12.5px;
-      color: var(--muted);
-      line-height:1.5;
-      margin-top: 4px;
-    }
-
-    /* ===== Business info bottom box ===== */
-    .bizBox{
-      padding: 0;
-      overflow:hidden;
-    }
-    .bizHead{
-      padding: 14px;
-      background: rgba(182,149,47,.14);
-      border-bottom: 1px solid var(--stroke);
-      font-weight: 950;
-      letter-spacing:-.6px;
-      font-size: 18px;
-      text-align:center;
-      white-space:nowrap;
-      overflow:hidden;
-      text-overflow:ellipsis;
-    }
-    .bizBody{
-      padding: 14px;
-      text-align:center; /* ✅ center align inside */
-    }
-    .bizLine{
-      margin: 10px 0;
-      font-weight: 950;
-      letter-spacing:-.5px;
-      font-size: 18px;
-      line-height:1.5;
-    }
-    .bizSub{
-      margin: 12px 0 0;
-      font-weight: 900;
-      letter-spacing:-.4px;
-      color: rgba(20,20,20,.7);
-      line-height:1.55;
-    }
-    .copyright{
-      margin-top: 14px;
-      font-weight: 900;
-      color: rgba(20,20,20,.62);
-      letter-spacing:-.2px;
-    }
-
-    /* ===== Floating Actions ===== */
-    .floatStack{
-      position:fixed;
-      right: 14px;
-      top: calc(50% + 10px);
-      transform: translateY(-50%);
-      display:flex;
-      flex-direction:column;
-      gap:12px;
-      z-index:30;
-    }
-
-    .fab{
-      width: 92px;           /* ✅ give enough room so text won't wrap */
-      height: 92px;
-      border-radius: 26px;
-      border:1px solid var(--stroke);
-      background: rgba(255,255,255,.86);
-      box-shadow: var(--shadow-soft);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      cursor:pointer;
-      display:grid;
-      place-items:center;
-      gap: 6px;
-      padding: 10px 10px;
-      user-select:none;
-      transition: transform .12s ease;
-    }
-    .fab:active{ transform: scale(.98); }
-    .fab svg{ width: 22px; height: 22px; }
-    .fab span{
-      font-size: 14px;       /* ✅ 조금 줄여서 한 줄로 */
-      font-weight: 950;
-      letter-spacing:-.4px;
-      white-space: nowrap;   /* ✅ prevent “오시는/길” break */
-    }
-
-    .toTop{
-      position:fixed;
-      right: 14px;
-      bottom: calc(14px + var(--safe-bottom));
-      width: 56px;
-      height: 56px;
-      border-radius: 22px;
-      border:1px solid var(--stroke);
-      background: rgba(255,255,255,.86);
-      box-shadow: var(--shadow-soft);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      cursor:pointer;
-      z-index:30;
-      display:grid;
-      place-items:center;
-      transition: transform .12s ease, opacity .18s ease;
-      opacity:0;
-      pointer-events:none;
-    }
-    .toTop.show{
-      opacity:1;
-      pointer-events:auto;
-    }
-    .toTop:active{ transform: scale(.98); }
-
-    /* ===== Menu Drawer ===== */
-    .drawerBack{
-      position:fixed;
-      inset:0;
-      background: rgba(0,0,0,.35);
-      z-index:80;
-      display:none;
-    }
-    .drawerBack.show{ display:block; }
-    .drawer{
-      position:fixed;
-      right: 14px;
-      top: calc(14px + var(--safe-top));
-      width: min(360px, calc(100% - 28px));
-      border-radius: 26px;
-      border:1px solid rgba(255,255,255,.18);
-      background: rgba(255,255,255,.92);
-      box-shadow: var(--shadow);
-      z-index:81;
-      padding: 14px;
-      display:none;
-    }
-    .drawer.show{ display:block; }
-    .drawerTitle{
-      font-weight: 950;
-      letter-spacing:-.6px;
-      font-size: 18px;
-      margin: 2px 0 10px;
-    }
-    .drawerList{
-      display:grid;
-      gap: 10px;
-    }
-    .drawerBtn{
-      padding: 14px 14px;
-      border-radius: 18px;
-      border:1px solid var(--stroke);
-      background: rgba(255,255,255,.86);
-      font-weight: 950;
-      letter-spacing:-.4px;
-      cursor:pointer;
+    .gFoot{
+      padding: 12px 12px 14px;
       display:flex;
       align-items:center;
       justify-content:space-between;
       gap: 10px;
     }
+    .gTitle{
+      font-weight: 950;
+      letter-spacing:-0.02em;
+      color: rgba(0,0,0,.78);
+      font-size: 13px;
+    }
+    .gTag{
+      padding: 8px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(176,143,43,.28);
+      background: rgba(176,143,43,.16);
+      font-weight: 950;
+      font-size: 12px;
+      white-space: nowrap;
+      color: rgba(0,0,0,.78);
+    }
 
-    /* ===== Responsive / PC ===== */
-    @media (min-width: 860px){
-      .heroGrid{ grid-template-columns: 1.1fr .9fr; align-items:start; }
-      .heroImg{ height: 380px; }
+    /* ===== 상담 접수(폼) ===== */
+    .formCard{
+      margin-top: 14px;
+      background: rgba(255,255,255,.78);
+      border: 1px solid rgba(0,0,0,.10);
+      border-radius: 24px;
+      padding: 14px;
+      box-shadow: 0 14px 30px rgba(0,0,0,.08);
+    }
+    .formGrid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    .field{
+      display:flex;
+      flex-direction:column;
+      gap: 8px;
+    }
+    .label{
+      font-weight: 950;
+      letter-spacing:-0.02em;
+      color: rgba(0,0,0,.72);
+      font-size: 13px;
+    }
+    input, textarea, select{
+      border-radius: 16px;
+      border: 1px solid rgba(0,0,0,.12);
+      background: rgba(255,255,255,.86);
+      padding: 12px 12px;
+      outline:none;
+      font-weight: 800;
+      color: rgba(0,0,0,.84);
+      box-shadow: 0 10px 18px rgba(0,0,0,.05);
+    }
+    textarea{ min-height: 110px; resize: vertical; }
+    .field.full{ grid-column: 1 / -1; }
 
-      .grid{
-        grid-template-columns: 1fr 1fr;
+    .formActions{
+      display:flex;
+      gap: 10px;
+      margin-top: 12px;
+      flex-wrap: wrap;
+    }
+    .btn{
+      border: 1px solid rgba(0,0,0,.12);
+      background: rgba(255,255,255,.86);
+      padding: 14px 16px;
+      border-radius: 18px;
+      font-weight: 950;
+      letter-spacing:-0.02em;
+      cursor:pointer;
+      box-shadow: 0 14px 30px rgba(0,0,0,.08);
+      user-select:none;
+    }
+    .btn.primary{
+      background: linear-gradient(180deg, rgba(176,143,43,.92), rgba(140,110,22,.92));
+      color:#111;
+      border-color: rgba(140,110,22,.25);
+    }
+    .btn:active{ transform: scale(.99); }
+    .formHint{
+      margin-top: 10px;
+      color: var(--muted);
+      font-weight: 800;
+      line-height: 1.5;
+    }
+
+    /* ===== Bottom Info Box ===== */
+    .bottomBox{
+      margin-top: 14px;
+      background: rgba(255,255,255,.76);
+      border: 1px solid rgba(0,0,0,.10);
+      border-radius: var(--radiusXL);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      backdrop-filter: blur(14px);
+    }
+    .bottomHead{
+      background: rgba(176,143,43,.16);
+      border-bottom: 1px solid rgba(0,0,0,.08);
+      padding: 14px 16px;
+      font-weight: 950;
+      letter-spacing:-0.02em;
+      text-align:center;
+      word-break: keep-all;
+    }
+    .bottomBody{
+      padding: 14px 16px 18px;
+      display:flex;
+      flex-direction:column;
+      gap: 12px;
+      text-align:center; /* ✅ 최하단 박스 내용 정중앙 */
+      align-items:center; /* ✅ 중앙 */
+    }
+    .bLine{
+      font-weight: 950;
+      letter-spacing:-0.02em;
+      color: rgba(0,0,0,.80);
+      line-height: 1.55;
+      word-break: keep-all;
+    }
+    .copy{
+      margin-top: 6px;
+      font-weight: 900;
+      color: rgba(0,0,0,.55);
+    }
+
+    /* ===== Floating Quick Actions ===== */
+    .float{
+      position: fixed;
+      right: 14px;
+      top: 44%;
+      transform: translateY(-50%);
+      z-index: 60;
+      display:flex;
+      flex-direction:column;
+      gap: 12px;
+    }
+    .fab{
+      width: var(--floatW);
+      border-radius: 22px;
+      border: 1px solid rgba(0,0,0,.10);
+      background: rgba(255,255,255,.84);
+      box-shadow: 0 18px 45px rgba(0,0,0,.14);
+      padding: 12px 10px;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      gap: 8px;
+      cursor:pointer;
+      user-select:none;
+      backdrop-filter: blur(14px);
+    }
+    .fab svg{ width: 22px; height:22px; }
+    .fab span{
+      font-weight: 950;
+      letter-spacing:-0.02em;
+      color: rgba(0,0,0,.80);
+      font-size: 14px;
+      line-height: 1.1;
+      text-align:center;
+      white-space: nowrap; /* ✅ '오시는 길' 깨짐 방지 */
+    }
+    .fab:active{ transform: scale(.99); }
+
+    /* ===== Scroll Top ===== */
+    .toTop{
+      position: fixed;
+      right: 16px;
+      bottom: 18px;
+      z-index: 70;
+      width: 58px;
+      height: 58px;
+      border-radius: 22px;
+      border: 1px solid rgba(0,0,0,.10);
+      background: rgba(255,255,255,.84);
+      box-shadow: 0 18px 45px rgba(0,0,0,.14);
+      display:grid;
+      place-items:center;
+      cursor:pointer;
+      backdrop-filter: blur(14px);
+    }
+    .toTop svg{ width: 24px; height:24px; }
+    .toTop.hidden{ opacity:0; pointer-events:none; transform: translateY(6px); transition:.18s ease; }
+    .toTop.show{ opacity:1; pointer-events:auto; transform: translateY(0); transition:.18s ease; }
+
+    /* ===== Responsive ===== */
+    @media (max-width: 920px){
+      .heroGrid{ grid-template-columns: 1fr; }
+      .brandTitle{ font-size: 18px; }
+    }
+
+    /* ===== PC 전용 수정 (요청: PC에서만 카드 이미지 박스에 맞게) ===== */
+    @media (min-width: 921px){
+      .gMedia{ aspect-ratio: 4/3; } /* PC에서만 더 '박스' 느낌으로 */
+      .gMedia img{ object-fit: cover; }
+    }
+
+    /* ===== Mobile Fix (요청/문제: 상단 pill 잘림 + 대표자 소개 깨짐 방지) ===== */
+    @media (max-width: 520px){
+      /* 상단 브랜드 텍스트 더 안전하게 */
+      .brandTitle{ font-size: 18px; }
+
+      /* ✅ 상단 TAX GEUL / (주)하비럴 / 기획브랜딩: 가로로 예쁘게(줄바꿈 허용) */
+      .pillRow{
+        flex-wrap: wrap;
+        overflow-x: visible;
       }
-      /* ✅ PC에서 이미지가 박스에 더 “딱” 맞게 보이도록 높이만 살짝 조정 */
-      .tile img{
-        height: 240px; /* PC only fix */
-        object-fit: cover;
-        object-position: center;
+      .pill{
+        flex: 1 1 calc(50% - 10px);
+        justify-content: center;
+        text-align:center;
+      }
+      .pill:nth-child(3){
+        flex: 1 1 100%; /* 3번째는 아래 한 줄로 예쁘게 */
       }
 
+      /* ✅ 대표자 소개: 모바일에서 1열 + 사진 박스에 딱맞게 */
       .repCard{
-        grid-template-columns: 160px 1fr;
+        grid-template-columns: 1fr;
       }
       .repPhotoWrap{
-        width: 160px;
-        height: 160px;
-        border-radius: 24px;
+        width: 100%;
+        max-width: 240px;
+        height: 240px;
+        margin: 0 auto;
+      }
+      .repTitle{
+        justify-content: center;
+        text-align:center;
+      }
+      .repMeta,.repSignature{ text-align:center; }
+
+      /* 정보 표 라벨 폭 줄이기 */
+      .infoRow{
+        grid-template-columns: 92px 1fr;
       }
     }
 
+    /* ===== Small ===== */
     @media (max-width: 420px){
-      .fab{ width: 88px; height: 88px; }
-      .fab span{ font-size: 13.5px; }
-      .brandSub{ font-size: 12px; }
+      .heroHeadline{ font-size: 34px; }
+      .iconBtn{ width: 42px; height:42px; }
+      .fab{ width: 86px; }
+      .fab span{ font-size: 13px; }
+      .formGrid{ grid-template-columns: 1fr; }
     }
   </style>
 </head>
 
 <body>
-  <!-- ✅ cache buster (change this when you re-upload / want instant refresh) -->
-  <script>
-    const CACHE_BUSTER = "20260109-01";
-  </script>
+  <div class="bg" aria-hidden="true"></div>
 
-  <!-- Background -->
-  <div class="bg" id="bg"></div>
+  <!-- Drawer -->
+  <div class="drawerMask" id="drawerMask"></div>
+  <aside class="drawer" id="drawer" aria-hidden="true">
+    <div class="drawerHead">
+      <div class="drawerTitle">메뉴</div>
+      <div class="drawerClose" id="drawerClose" role="button" aria-label="메뉴 닫기">✕</div>
+    </div>
+    <div class="drawerBody">
+      <div class="menuItem" data-go="#hero">
+        <div>메인</div>
+        <small>(주)하비럴 web기획</small>
+      </div>
+      <div class="menuItem" data-go="#rep">
+        <div>대표자 소개</div>
+        <small>프로필/이력</small>
+      </div>
+      <div class="menuItem" data-go="#gallery">
+        <div>세무 인사이트</div>
+        <small>자료 이미지</small>
+      </div>
+      <div class="menuItem" data-go="#apply">
+        <div>세무상담접수</div>
+        <small>간편 접수</small>
+      </div>
+      <div class="menuItem" data-go="#biz">
+        <div>사업자 정보</div>
+        <small>하단 안내</small>
+      </div>
+    </div>
+  </aside>
 
   <div class="wrap">
-    <!-- Header -->
-    <header class="glass" id="top">
+
+    <!-- Top Bar -->
+    <header class="topbar">
       <div class="brand">
         <div class="logoBox" aria-label="로고">
-          <img id="logoImg" alt="세무회계 글 로고" />
+          <img src="logo-taxgeul.png" alt="세무회계 글 로고" />
         </div>
         <div class="brandText">
-          <div class="brandName">
-            세무회계 <span class="gold">글</span>
+          <div class="brandTitle" title="세무회계 글">
+            <span>세무회계</span>
+            <span class="gold">글</span>
           </div>
           <div class="brandSub">(주)하비럴 web기획 · 기획브랜딩</div>
         </div>
       </div>
 
-      <div class="headBtns">
+      <div class="topBtns">
         <!-- Naver -->
-        <button class="iconBtn" id="btnNaver" aria-label="네이버">
-          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M7 4h4.2l5.8 8.2V4H21v16h-4.1L11 11.6V20H7V4z" fill="#18C05D"/>
-          </svg>
+        <button class="iconBtn" id="btnNaver" aria-label="네이버 블로그로 이동" title="네이버">
+          <div class="naverN">N</div>
         </button>
 
-        <!-- Kakao -->
-        <button class="iconBtn" id="btnKakao" aria-label="카카오채널">
-          <div class="kakaoCircle">T</div>
+        <!-- Kakao Channel -->
+        <button class="iconBtn" id="btnKakao" aria-label="카카오채널로 이동" title="카카오채널">
+          <div class="kakaoDot">T</div>
         </button>
 
         <!-- Menu -->
-        <button class="iconBtn" id="btnMenu" aria-label="메뉴">
+        <button class="iconBtn" id="btnMenu" aria-label="메뉴 열기" title="메뉴">
           <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M4 6h16M4 12h16M4 18h16" stroke="#111" stroke-width="2.2" stroke-linecap="round"/>
+            <path d="M4 6h16M4 12h16M4 18h16" stroke="rgba(0,0,0,.78)" stroke-width="2.2" stroke-linecap="round"/>
           </svg>
         </button>
       </div>
     </header>
 
-    <!-- HERO -->
-    <section class="section glass-strong" id="home">
-      <div class="heroGrid">
+    <!-- Hero -->
+    <section class="section" id="hero">
+      <div class="sectionHeader">
         <div>
-          <!-- ✅ Top 3 small rounded boxes in one row (beautiful + no ugly wrap) -->
-          <div class="pillRow" aria-label="상단 태그">
-            <span class="pill gold">TAX GEUL</span>
-            <span class="pill">(주)하비럴 web기획</span>
-            <span class="pill">기획브랜딩</span>
-          </div>
+          <h1 class="hTitle">세무 문제는 모두 같지 않습니다.</h1>
+          <p class="hDesc">
+            단순히 “처리”하는 방식이 아니라, 사안의 무게를 기준으로 정리하고 대응합니다.
+            <b>(주)하비럴 web기획 · 기획브랜딩</b>
+          </p>
+        </div>
+        <div class="badge">대표 세무사</div>
+      </div>
 
-          <div class="heroCard" style="margin-top:10px;">
-            <img class="heroImg" id="heroImg" alt="대표 이미지" />
+      <!-- 3 Pills -->
+      <div class="pillRow" aria-label="브랜딩 표기">
+        <div class="pill">TAX GEUL</div>
+        <div class="pill">(주)하비럴 web기획</div>
+        <div class="pill">기획브랜딩</div>
+      </div>
+
+      <div class="heroGrid">
+        <div class="heroCard">
+          <div class="heroMedia" id="heroMedia">
+            <!-- 메인 이미지: post-02로 지정(원하면 바꿔도 됨) -->
+            <img src="post-02.jpg" alt="대표 인사이트 이미지" />
             <div class="heroOverlay"></div>
             <div class="heroText">
               <div class="heroKicker">TAX GEUL</div>
-              <h1 class="heroH1" id="heroTitle">세무 문제는<br/>모두 같지 않습니다.</h1>
-              <p class="heroP" id="heroDesc">
-                단순히 “처리”하는 방식이 아니라,<br/>
-                사안의 무게를 기준으로 정리하고 대응합니다.
+              <h2 class="heroHeadline">세무·증여<br/>판단포인트 정리</h2>
+              <p class="heroSubline">
+                범위와 기준을 명확히 잡아, 준비부터 대응까지 흐름을 설계합니다.
               </p>
-              <div class="heroSignature">(주)하비럴 web기획 · 기획브랜딩</div>
+              <div class="heroCredit">(주)하비럴 web기획 · 기획브랜딩</div>
             </div>
           </div>
-
-          <div style="display:flex;align-items:center;gap:12px;margin-top:10px;">
-            <div class="heroDots" id="dots"></div>
-            <div class="heroNav">
-              <button class="navBtn" id="prevHero" aria-label="이전">
-                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                  <path d="M14.5 6.5L9 12l5.5 5.5" stroke="#111" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-              </button>
-              <button class="navBtn" id="nextHero" aria-label="다음">
-                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                  <path d="M9.5 6.5L15 12l-5.5 5.5" stroke="#111" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-              </button>
-            </div>
-          </div>
-
-          <div class="chipRow" aria-label="키워드">
-            <div class="chip primary" data-tag="상속·증여">상속 · 증여</div>
-            <div class="chip" data-tag="양도소득">양도소득</div>
-            <div class="chip" data-tag="자금출처">자금출처</div>
-            <div class="chip" data-tag="세무조사">세무조사</div>
-            <div class="chip" data-tag="법인">법인</div>
-            <div class="chip" data-tag="고난도 신고">고난도 신고</div>
-          </div>
-
-          <div class="noteLine">(주)하비럴 web기획 문구 포함 · 페이지 체험형 구성</div>
         </div>
 
-        <!-- Right Side: Quick summary card -->
-        <div class="glass" style="padding:14px;border-radius:var(--radius-xl);">
-          <div class="sectionTitleRow" style="margin-bottom:8px;">
-            <div>
-              <h2 class="sectionTitle" style="margin:0;">분야</h2>
-              <p class="sectionDesc" style="margin:6px 0 0;">(주)하비럴 web기획 문구 포함 · 페이지 체험형 구성</p>
-            </div>
-            <div class="badge">(주)하비럴</div>
+        <div class="heroSide">
+          <div class="chipGrid" aria-label="주요 분야">
+            <div class="chip primary">상속 · 증여</div>
+            <div class="chip">양도소득</div>
+            <div class="chip">자금출처</div>
+            <div class="chip">세무조사</div>
+            <div class="chip">법인</div>
+            <div class="chip">고난도 신고</div>
           </div>
-          <div class="bizSub" style="margin-top:0;">
-            문의하시면 빠르고 신속하게 안내드리겠습니다. (주)하비럴 web기획
+
+          <div class="miniNote">
+            문의하시면 빠르고 신속하게 안내드리겠습니다. <b>(주)하비럴 web기획</b><br/>
+            상담은 상황 파악 → 자료 정리 → 방향 설계 → 실행 순으로 진행됩니다.
           </div>
         </div>
       </div>
     </section>
 
     <!-- Representative -->
-    <section class="section glass-strong" id="rep">
-      <div class="sectionTitleRow">
+    <section class="section" id="rep">
+      <div class="sectionHeader">
         <div>
-          <h2 class="sectionTitle">대표자 소개</h2>
-          <p class="sectionDesc">핵심 이력과 전문 분야를 한눈에. (주)하비럴 web기획</p>
+          <h2 class="hTitle">대표자 소개</h2>
+          <p class="hDesc">핵심 이력과 전문 분야를 한눈에. <b>(주)하비럴 web기획</b></p>
         </div>
         <div class="badge">대표 세무사</div>
       </div>
 
-      <div class="repCard">
-        <div class="repPhotoWrap" aria-label="대표자 사진">
-          <img id="repImg" alt="대표자 프로필" />
-        </div>
-
-        <div>
-          <div class="repTitle">
-            <h3 class="repName">하예진</h3>
-            <div class="repRole">· 세무사</div>
+      <div class="repWrap">
+        <div class="repCard">
+          <div class="repPhotoWrap">
+            <img src="rep-profile.jpg" alt="대표자 프로필 사진" />
           </div>
 
-          <div class="repMeta">
-            분야: 상속세 · 양도소득세 · 증여세 · 컨설팅 · 기장
-          </div>
+          <div>
+            <div class="repTitle">
+              <h3 class="repName">하예진</h3>
+              <div class="repRole">· 세무사</div>
+            </div>
 
-          <div class="repSignature">(주)하비럴 web기획 · 기획브랜딩</div>
+            <div class="repMeta">
+              분야: 상속세 · 양도소득세 · 증여세 · 컨설팅 · 기장<br/>
+              <b>(주)하비럴 web기획 · 기획브랜딩</b>
+            </div>
 
-          <div class="infoRows">
-            <div class="infoRow">
-              <div class="infoKey">소속</div>
-              <div class="infoVal">세무회계 글 (대표세무사)</div>
-            </div>
-            <div class="infoRow">
-              <div class="infoKey">학력</div>
-              <div class="infoVal">중앙대학교 경영학과 학사</div>
-            </div>
-            <div class="infoRow">
-              <div class="infoKey">경력</div>
-              <div class="infoVal">세무회계 글 대표세무사 · 법률사무소 글 전문위원</div>
-            </div>
+            <div class="repSignature">(주)하비럴 web기획</div>
           </div>
         </div>
+
+        <div class="infoTable" aria-label="대표자 정보">
+          <div class="infoRow">
+            <div class="infoLabel">소속</div>
+            <div class="infoValue">세무회계 글 (대표세무사)</div>
+          </div>
+          <div class="infoRow">
+            <div class="infoLabel">학력</div>
+            <div class="infoValue">중앙대학교 경영학과 학사</div>
+          </div>
+          <div class="infoRow">
+            <div class="infoLabel">경력</div>
+            <div class="infoValue">세무회계 글 대표세무사 · 법률사무소 글 전문위원</div>
+          </div>
+        </div>
       </div>
     </section>
 
-    <!-- ✅ Replace “콘텐츠” with “세무 인사이트” everywhere -->
-    <section class="section glass-strong" id="insight">
-      <div class="sectionTitleRow">
+    <!-- Gallery -->
+    <section class="section" id="gallery">
+      <div class="sectionHeader">
         <div>
-          <h2 class="sectionTitle">세무 인사이트</h2>
-          <p class="sectionDesc">이미지 자료는 파일명 기준으로 연동됩니다. (주)하비럴 web기획</p>
+          <h2 class="hTitle">세무 인사이트</h2>
+          <p class="hDesc">이미지 자료는 파일명 기준으로 연동됩니다. <b>(주)하비럴 web기획</b></p>
         </div>
-        <div class="badge">아카이브</div>
+        <div class="badge">자료 아카이브</div>
       </div>
 
-      <div class="grid" id="grid"></div>
+      <div class="galleryGrid">
+        <div class="gCard">
+          <div class="gMedia"><img src="post-01.jpg" alt="자료 01"></div>
+          <div class="gFoot"><div class="gTitle">자료 01</div><div class="gTag">상속</div></div>
+        </div>
+        <div class="gCard">
+          <div class="gMedia"><img src="post-02.jpg" alt="자료 02"></div>
+          <div class="gFoot"><div class="gTitle">자료 02</div><div class="gTag">양도</div></div>
+        </div>
+        <div class="gCard">
+          <div class="gMedia"><img src="post-03.jpg" alt="자료 03"></div>
+          <div class="gFoot"><div class="gTitle">자료 03</div><div class="gTag">법인</div></div>
+        </div>
+        <div class="gCard">
+          <div class="gMedia"><img src="post-04.jpg" alt="자료 04"></div>
+          <div class="gFoot"><div class="gTitle">자료 04</div><div class="gTag">세무조사</div></div>
+        </div>
+        <div class="gCard">
+          <div class="gMedia"><img src="post-05.jpg" alt="자료 05"></div>
+          <div class="gFoot"><div class="gTitle">자료 05</div><div class="gTag">기장</div></div>
+        </div>
+        <div class="gCard">
+          <div class="gMedia"><img src="post-06.jpg" alt="자료 06"></div>
+          <div class="gFoot"><div class="gTitle">자료 06</div><div class="gTag">신고</div></div>
+        </div>
+        <div class="gCard">
+          <div class="gMedia"><img src="post-07.jpg" alt="자료 07"></div>
+          <div class="gFoot"><div class="gTitle">자료 07</div><div class="gTag">자금출처</div></div>
+        </div>
+        <div class="gCard">
+          <div class="gMedia"><img src="post-08.jpg" alt="자료 08"></div>
+          <div class="gFoot"><div class="gTitle">자료 08</div><div class="gTag">컨설팅</div></div>
+        </div>
+        <div class="gCard">
+          <div class="gMedia"><img src="post-09.jpg" alt="자료 09"></div>
+          <div class="gFoot"><div class="gTitle">자료 09</div><div class="gTag">고난도</div></div>
+        </div>
+      </div>
     </section>
 
-    <!-- 상담 접수 -->
-    <section class="section glass-strong" id="apply">
-      <div class="sectionTitleRow">
+    <!-- 상담 접수 (하단 본자료 박스 바로 위) -->
+    <section class="section" id="apply">
+      <div class="sectionHeader">
         <div>
-          <h2 class="sectionTitle">세무상담 접수</h2>
-          <p class="sectionDesc">간단히 남겨주시면 빠르게 안내드립니다. (주)하비럴 web기획</p>
+          <h2 class="hTitle">세무상담접수</h2>
+          <p class="hDesc">간단한 정보만 입력하면 접수 초안이 생성됩니다. <b>(주)하비럴 web기획</b></p>
         </div>
-        <div class="badge">접수</div>
+        <div class="badge">간편 접수</div>
       </div>
 
-      <form class="form" id="applyForm">
-        <div class="field">
-          <div class="label">성함</div>
-          <input name="name" autocomplete="name" placeholder="예: 홍길동" required />
-        </div>
+      <div class="formCard">
+        <form id="applyForm" autocomplete="on">
+          <div class="formGrid">
+            <div class="field">
+              <div class="label">성함</div>
+              <input type="text" name="name" required placeholder="예: 홍길동" />
+            </div>
+            <div class="field">
+              <div class="label">연락처</div>
+              <input type="tel" name="phone" required placeholder="예: 010-0000-0000" />
+            </div>
+            <div class="field">
+              <div class="label">상담 주제</div>
+              <select name="topic" required>
+                <option value="" selected disabled>선택</option>
+                <option>상속 · 증여</option>
+                <option>양도소득</option>
+                <option>자금출처</option>
+                <option>세무조사</option>
+                <option>법인</option>
+                <option>기장</option>
+                <option>기타</option>
+              </select>
+            </div>
+            <div class="field">
+              <div class="label">희망 연락 시간</div>
+              <select name="time" required>
+                <option value="" selected disabled>선택</option>
+                <option>가능한 빠르게</option>
+                <option>오전</option>
+                <option>오후</option>
+                <option>저녁</option>
+              </select>
+            </div>
 
-        <div class="field">
-          <div class="label">연락처</div>
-          <input name="phone" inputmode="tel" autocomplete="tel" placeholder="예: 010-0000-0000" required />
-        </div>
+            <div class="field full">
+              <div class="label">상세 내용</div>
+              <textarea name="detail" placeholder="예: 보유 자산/거래 내역/궁금한 점 등을 간단히 적어주세요."></textarea>
+            </div>
+          </div>
 
-        <div class="field">
-          <div class="label">상담 주제</div>
-          <select name="topic" required>
-            <option value="" selected disabled>선택</option>
-            <option>상속 · 증여</option>
-            <option>양도소득</option>
-            <option>자금출처</option>
-            <option>세무조사</option>
-            <option>법인</option>
-            <option>기장 · 신고</option>
-            <option>기타</option>
-          </select>
-        </div>
+          <div class="formActions">
+            <button type="button" class="btn primary" id="btnSubmitApply">상담 접수하기</button>
+            <button type="button" class="btn" id="btnCall">전화하기</button>
+          </div>
 
-        <div class="field">
-          <div class="label">내용</div>
-          <textarea name="message" placeholder="예: 상황/일정/궁금한 점을 간단히 적어주세요." required></textarea>
-        </div>
-
-        <div class="btnRow">
-          <button type="submit" class="btn primary">상담 접수하기</button>
-          <button type="button" class="btn" id="callBtn">전화하기</button>
-        </div>
-
-        <div class="smallNote">
-          접수는 기본적으로 메일 작성 화면으로 연결됩니다. (주)하비럴 web기획
-        </div>
-      </form>
-    </section>
-
-    <!-- Business Info (Bottom Box) -->
-    <section class="section glass-strong bizBox" id="biz">
-      <div class="bizHead">본 자료는 체험용 (주)하비럴 기획브랜딩</div>
-      <div class="bizBody">
-        <div class="bizLine">
-          상호명&nbsp;&nbsp;세무회계 글&nbsp;&nbsp;·&nbsp;&nbsp;대표자&nbsp;&nbsp;하예진<br/>
-          전화&nbsp;&nbsp;02-6447-8662
-        </div>
-
-        <div class="bizLine">
-          메일&nbsp;&nbsp;office@taxgeul.com&nbsp;&nbsp;·&nbsp;&nbsp;사업자등록번호&nbsp;&nbsp;109-53-51248
-        </div>
-
-        <div class="bizLine">
-          주소<br/>
-          서울특별시 강남구 논현로507, 2011호 (역삼동, 성지하이츠3차빌딩)
-        </div>
-
-        <div class="copyright">Copyright © 2026</div>
-        <div class="bizSub">세무회계 글. All rights reserved. · (주)하비럴 web기획</div>
+          <div class="formHint">
+            접수 버튼을 누르면 <b>카카오채널</b>로 전송됩니다. <b>(주)하비럴 web기획 · 기획브랜딩</b>
+          </div>
+        </form>
       </div>
     </section>
+
+    <!-- Bottom Biz Info -->
+    <section class="bottomBox" id="biz" aria-label="사업자 정보">
+      <div class="bottomHead">본 자료는 체험용 (주)하비럴 기획브랜딩</div>
+      <div class="bottomBody">
+        <div class="bLine">상호명&nbsp;&nbsp;세무회계 글 · 대표자&nbsp;&nbsp;하예진 · 전화&nbsp;&nbsp;02-6447-8662</div>
+        <div class="bLine">메일&nbsp;&nbsp;office@taxgeul.com · 사업자등록번호&nbsp;&nbsp;109-53-51248</div>
+        <div class="bLine">주소</div>
+        <div class="bLine">서울특별시 강남구 논현로507, 2011호 (역삼동, 성지하이츠3차빌딩)</div>
+        <div class="copy">Copyright © 2026</div>
+        <div class="bLine">세무회계 글. All rights reserved. · (주)하비럴 web기획</div>
+      </div>
+    </section>
+
   </div>
 
   <!-- Floating actions -->
-  <div class="floatStack" aria-label="빠른 기능">
-    <button class="fab" id="fabCall" aria-label="전화연결">
+  <div class="float" aria-label="빠른 메뉴">
+    <div class="fab" id="fabCall" role="button" aria-label="전화연결">
       <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-        <path d="M7.5 3.5l3.1 2.2c.7.5.9 1.5.4 2.2l-1.2 1.6c1.3 2.3 3.1 4.1 5.4 5.4l1.6-1.2c.7-.5 1.7-.3 2.2.4l2.2 3.1c.5.7.4 1.7-.2 2.2-1 .9-2.4 1.4-3.7 1.1-6.1-1.3-11-6.2-12.3-12.3-.3-1.3.2-2.7 1.1-3.7.5-.6 1.5-.7 2.2-.2z" fill="#111"/>
+        <path d="M7 3.5c.7 0 1.3.4 1.6 1l1.2 2.7c.3.6.2 1.3-.2 1.8l-1 1.2c1.3 2.4 3.1 4.2 5.5 5.5l1.2-1c.5-.4 1.2-.5 1.8-.2l2.7 1.2c.6.3 1 .9 1 1.6v1.7c0 .9-.7 1.6-1.6 1.6C10.6 22.6 1.4 13.4 1.4 4.9c0-.9.7-1.6 1.6-1.6H4.7z" stroke="rgba(0,0,0,.78)" stroke-width="1.8" stroke-linejoin="round"/>
       </svg>
       <span>전화연결</span>
-    </button>
+    </div>
 
-    <button class="fab" id="fabMap" aria-label="오시는 길">
+    <div class="fab" id="fabMap" role="button" aria-label="오시는 길">
       <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-        <path d="M12 22s7-4.4 7-11a7 7 0 1 0-14 0c0 6.6 7 11 7 11z" fill="#111"/>
-        <circle cx="12" cy="11" r="2.5" fill="#fff"/>
+        <path d="M12 21s7-4.4 7-11a7 7 0 1 0-14 0c0 6.6 7 11 7 11z" stroke="rgba(0,0,0,.78)" stroke-width="1.8"/>
+        <path d="M12 12.2a2.2 2.2 0 1 0 0-4.4 2.2 2.2 0 0 0 0 4.4z" stroke="rgba(0,0,0,.78)" stroke-width="1.8"/>
       </svg>
       <span>오시는 길</span>
-    </button>
+    </div>
 
-    <button class="fab" id="fabChat" aria-label="상담">
+    <div class="fab" id="fabChat" role="button" aria-label="상담">
       <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-        <path d="M4 5.8C4 4.3 5.3 3 6.8 3h10.4C18.7 3 20 4.3 20 5.8v7.4c0 1.5-1.3 2.8-2.8 2.8H10l-4.8 4.2V16H6.8C5.3 16 4 14.7 4 13.2V5.8z" fill="#111"/>
+        <path d="M4 5.5c0-1 1-2 2-2h12c1 0 2 1 2 2v8c0 1-1 2-2 2H10l-4.5 3.2V15.5H6c-1 0-2-1-2-2v-8z" stroke="rgba(0,0,0,.78)" stroke-width="1.8" stroke-linejoin="round"/>
       </svg>
       <span>상담</span>
-    </button>
-  </div>
-
-  <button class="toTop" id="toTop" aria-label="위로">
-    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path d="M12 6l-6 6h4v6h4v-6h4l-6-6z" fill="#111"/>
-    </svg>
-  </button>
-
-  <!-- Menu Drawer -->
-  <div class="drawerBack" id="drawerBack"></div>
-  <div class="drawer" id="drawer" role="dialog" aria-modal="true" aria-label="메뉴">
-    <div class="drawerTitle">메뉴</div>
-    <div class="drawerList">
-      <button class="drawerBtn" data-go="#home">홈 <span>›</span></button>
-      <button class="drawerBtn" data-go="#rep">대표자 소개 <span>›</span></button>
-      <button class="drawerBtn" data-go="#insight">세무 인사이트 <span>›</span></button>
-      <button class="drawerBtn" data-go="#apply">세무상담 접수 <span>›</span></button>
-      <button class="drawerBtn" data-go="#biz">사업자 정보 <span>›</span></button>
     </div>
   </div>
 
+  <!-- Scroll Top -->
+  <button class="toTop hidden" id="toTop" aria-label="맨 위로">
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path d="M12 5l-6 6m6-6l6 6M12 5v14" stroke="rgba(0,0,0,.78)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
+
   <script>
-    // ===== File names (your uploaded ones) =====
-    const files = {
-      bg: "bg-office.jpg.jpg",
-      logo: "logo-taxgeul.png",
-      rep: "rep-profile.jpg",
-      posts: [
-        "post-01.jpg","post-02.jpg","post-03.jpg",
-        "post-04.jpg","post-05.jpg","post-06.jpg",
-        "post-07.jpg","post-08.jpg","post-09.jpg"
-      ]
-    };
+    /* =========================================================
+       Interactions
+       - Top buttons: Naver/Kakao/Menu
+       - Drawer: scroll to sections
+       - Floating actions: call/map/chat
+       - Apply form: send to Kakao channel (pf.kakao.com/_vxntlG/chat)
+       - Cache buster helper in console
+       ========================================================= */
 
-    // ===== Links =====
-    const KAKAO_CHANNEL = "http://pf.kakao.com/_vxntlG";
-    const KAKAO_CHAT = "https://pf.kakao.com/_vxntlG/chat";
-    const NAVER_BLOG = "http://naver.me/xyjgHPRv";
+    const NAVER_BLOG_URL = "http://naver.me/xyjgHPRv";
+    const KAKAO_CHANNEL_URL = "http://pf.kakao.com/_vxntlG";
+    const KAKAO_CHAT_URL = "https://pf.kakao.com/_vxntlG/chat";
+    const CALL_NUMBER = "02-6447-8662";
 
-    const PHONE_MAIN = "02-6447-8662";
-    const EMAIL = "office@taxgeul.com";
-
-    // cache buster helper
-    const withV = (p) => `${p}?v=${encodeURIComponent(CACHE_BUSTER)}`;
-
-    // set background + logo + rep
-    document.getElementById("bg").style.backgroundImage = `url('${withV(files.bg)}')`;
-    document.getElementById("logoImg").src = withV(files.logo);
-    document.getElementById("repImg").src = withV(files.rep);
-
-    // header quick buttons
-    document.getElementById("btnNaver").addEventListener("click", () => {
-      window.open(NAVER_BLOG, "_blank", "noopener,noreferrer");
-    });
-    document.getElementById("btnKakao").addEventListener("click", () => {
-      window.open(KAKAO_CHANNEL, "_blank", "noopener,noreferrer");
-    });
-
-    // floating actions
-    const doCall = () => { window.location.href = `tel:${PHONE_MAIN}`; };
-    document.getElementById("fabCall").addEventListener("click", doCall);
-    document.getElementById("callBtn").addEventListener("click", doCall);
-
-    // map (use a naver map / place link later if you want; for now open blog link)
-    document.getElementById("fabMap").addEventListener("click", () => {
-      window.open(NAVER_BLOG, "_blank", "noopener,noreferrer");
-    });
-
-    // chat
-    document.getElementById("fabChat").addEventListener("click", () => {
-      window.open(KAKAO_CHAT, "_blank", "noopener,noreferrer");
-    });
-
-    // ===== Hero Slider =====
-    const heroSlides = [
-      {
-        img: files.posts[0],
-        kicker: "TAX GEUL",
-        title: "세무 문제는<br/>모두 같지 않습니다.",
-        desc: "단순히 “처리”하는 방식이 아니라,<br/>사안의 무게를 기준으로 정리하고 대응합니다.",
-        sign: "(주)하비럴 web기획 · 기획브랜딩"
-      },
-      {
-        img: files.posts[1],
-        kicker: "(주)하비럴 web기획",
-        title: "핵심은 흐름입니다.",
-        desc: "준비부터 대응까지, 필요한 단계만 정확하게 안내합니다.",
-        sign: "(주)하비럴 web기획 · 기획브랜딩"
-      },
-      {
-        img: files.posts[2],
-        kicker: "기획브랜딩",
-        title: "정리하면 선명해집니다.",
-        desc: "리스크 포인트를 기준으로 우선순위를 잡아드립니다.",
-        sign: "(주)하비럴 web기획 · 기획브랜딩"
-      }
-    ];
-
-    let heroIndex = 0;
-    const heroImg = document.getElementById("heroImg");
-    const heroTitle = document.getElementById("heroTitle");
-    const heroDesc = document.getElementById("heroDesc");
-
-    const dotsWrap = document.getElementById("dots");
-    const dots = [];
-
-    function renderDots(){
-      dotsWrap.innerHTML = "";
-      dots.length = 0;
-      heroSlides.forEach((_, i) => {
-        const d = document.createElement("div");
-        d.className = "dot" + (i === heroIndex ? " active" : "");
-        d.addEventListener("click", () => setHero(i));
-        dotsWrap.appendChild(d);
-        dots.push(d);
-      });
-    }
-
-    function setHero(i){
-      heroIndex = (i + heroSlides.length) % heroSlides.length;
-      const s = heroSlides[heroIndex];
-      heroImg.src = withV(s.img);
-      heroTitle.innerHTML = s.title;
-      heroDesc.innerHTML = s.desc;
-      dots.forEach((d, idx) => d.classList.toggle("active", idx === heroIndex));
-    }
-
-    document.getElementById("prevHero").addEventListener("click", () => setHero(heroIndex - 1));
-    document.getElementById("nextHero").addEventListener("click", () => setHero(heroIndex + 1));
-
-    renderDots();
-    setHero(0);
-
-    // ===== Chips scroll target to “세무 인사이트” =====
-    document.querySelectorAll(".chip").forEach(ch => {
-      ch.addEventListener("click", () => {
-        document.querySelector("#insight").scrollIntoView({ behavior:"smooth", block:"start" });
-      });
-    });
-
-    // ===== “세무 인사이트” Grid =====
-    const grid = document.getElementById("grid");
-    const tags = ["상속","양도","자금출처","세무조사","법인","신고","특강","사례","정리"];
-
-    files.posts.forEach((p, idx) => {
-      const tile = document.createElement("div");
-      tile.className = "tile";
-      tile.innerHTML = `
-        <img src="${withV(p)}" alt="세무 인사이트 ${String(idx+1).padStart(2,'0')}" />
-        <div class="tileMeta">
-          <div class="tileLabel">인사이트 ${String(idx+1).padStart(2,'0')}</div>
-          <div class="tileTag">${tags[idx % tags.length]}</div>
-        </div>
-      `;
-      grid.appendChild(tile);
-    });
-
-    // ===== 상담 접수 (mailto) =====
-    document.getElementById("applyForm").addEventListener("submit", (e) => {
-      e.preventDefault();
-      const fd = new FormData(e.currentTarget);
-      const name = (fd.get("name") || "").toString().trim();
-      const phone = (fd.get("phone") || "").toString().trim();
-      const topic = (fd.get("topic") || "").toString().trim();
-      const msg = (fd.get("message") || "").toString().trim();
-
-      const subject = `[세무상담 접수] ${name} / ${topic}`;
-      const body =
-`성함: ${name}
-연락처: ${phone}
-상담 주제: ${topic}
-
-내용:
-${msg}
-
-(주)하비럴 web기획`;
-
-      const mailto = `mailto:${encodeURIComponent(EMAIL)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-      window.location.href = mailto;
-    });
-
-    // ===== Top button =====
-    const toTop = document.getElementById("toTop");
-    const onScroll = () => {
-      if(window.scrollY > 500) toTop.classList.add("show");
-      else toTop.classList.remove("show");
-    };
-    window.addEventListener("scroll", onScroll, { passive:true });
-    onScroll();
-
-    toTop.addEventListener("click", () => {
-      window.scrollTo({ top:0, behavior:"smooth" });
-    });
-
-    // ===== Drawer menu =====
+    // Drawer
     const drawer = document.getElementById("drawer");
-    const drawerBack = document.getElementById("drawerBack");
-    const openDrawer = () => {
-      drawer.classList.add("show");
-      drawerBack.classList.add("show");
-    };
-    const closeDrawer = () => {
-      drawer.classList.remove("show");
-      drawerBack.classList.remove("show");
-    };
+    const drawerMask = document.getElementById("drawerMask");
+    const btnMenu = document.getElementById("btnMenu");
+    const drawerClose = document.getElementById("drawerClose");
 
-    document.getElementById("btnMenu").addEventListener("click", openDrawer);
-    drawerBack.addEventListener("click", closeDrawer);
+    function openDrawer(){
+      drawer.classList.add("open");
+      drawerMask.classList.add("open");
+      drawer.setAttribute("aria-hidden","false");
+    }
+    function closeDrawer(){
+      drawer.classList.remove("open");
+      drawerMask.classList.remove("open");
+      drawer.setAttribute("aria-hidden","true");
+    }
 
-    drawer.querySelectorAll("[data-go]").forEach(btn => {
-      btn.addEventListener("click", () => {
-        const sel = btn.getAttribute("data-go");
+    btnMenu.addEventListener("click", () => {
+      if(drawer.classList.contains("open")) closeDrawer();
+      else openDrawer();
+    });
+    drawerClose.addEventListener("click", closeDrawer);
+    drawerMask.addEventListener("click", closeDrawer);
+
+    // Menu items scroll
+    drawer.querySelectorAll(".menuItem").forEach(item=>{
+      item.addEventListener("click", ()=>{
+        const sel = item.getAttribute("data-go");
+        const el = document.querySelector(sel);
         closeDrawer();
-        document.querySelector(sel).scrollIntoView({ behavior:"smooth", block:"start" });
+        if(el) el.scrollIntoView({behavior:"smooth", block:"start"});
       });
     });
 
-    // Escape to close
-    window.addEventListener("keydown", (e) => {
-      if(e.key === "Escape") closeDrawer();
+    // Top buttons
+    document.getElementById("btnNaver").addEventListener("click", ()=> window.open(NAVER_BLOG_URL, "_blank"));
+    document.getElementById("btnKakao").addEventListener("click", ()=> window.open(KAKAO_CHANNEL_URL, "_blank"));
+
+    // Floating actions
+    const fabCall = document.getElementById("fabCall");
+    const fabMap = document.getElementById("fabMap");
+    const fabChat = document.getElementById("fabChat");
+
+    fabCall.addEventListener("click", ()=> { window.location.href = `tel:${CALL_NUMBER}`; });
+    fabMap.addEventListener("click", ()=> {
+      const address = "서울특별시 강남구 논현로507 2011호";
+      const q = encodeURIComponent(address);
+      window.open(`https://map.naver.com/v5/search/${q}`, "_blank");
     });
+    fabChat.addEventListener("click", ()=> window.open(KAKAO_CHAT_URL, "_blank"));
+
+    // Form actions
+    document.getElementById("btnCall").addEventListener("click", ()=> { window.location.href = `tel:${CALL_NUMBER}`; });
+
+    document.getElementById("btnSubmitApply").addEventListener("click", ()=>{
+      const form = document.getElementById("applyForm");
+      const fd = new FormData(form);
+
+      const name = (fd.get("name")||"").toString().trim();
+      const phone = (fd.get("phone")||"").toString().trim();
+      const topic = (fd.get("topic")||"").toString().trim();
+      const time = (fd.get("time")||"").toString().trim();
+      const detail = (fd.get("detail")||"").toString().trim();
+
+      if(!name || !phone || !topic || !time){
+        alert("필수 항목(성함/연락처/상담 주제/희망 시간)을 입력해 주세요.");
+        return;
+      }
+
+      const message =
+`[세무상담접수]
+- 성함: ${name}
+- 연락처: ${phone}
+- 주제: ${topic}
+- 희망시간: ${time}
+- 상세: ${detail ? detail : "(미입력)"}
+
+(주)하비럴 web기획 · 기획브랜딩`;
+
+      // 카카오 채널 채팅으로 보내는 방식:
+      // 웹페이지에서 직접 '메시지 자동전송'은 카카오 정책상/보안상 불가.
+      // 대신 채팅창을 열고, 복사해서 붙여넣기 쉽게 처리.
+      navigator.clipboard?.writeText(message).catch(()=>{});
+
+      // 안내 후 카카오채팅 이동
+      alert("접수 내용이 클립보드에 복사되었습니다. 카카오채팅 창으로 이동합니다.");
+      window.open(KAKAO_CHAT_URL, "_blank");
+    });
+
+    // Scroll top button
+    const toTop = document.getElementById("toTop");
+    function onScroll(){
+      if(window.scrollY > 350){
+        toTop.classList.remove("hidden");
+        toTop.classList.add("show");
+      }else{
+        toTop.classList.add("hidden");
+        toTop.classList.remove("show");
+      }
+    }
+    window.addEventListener("scroll", onScroll, {passive:true});
+    onScroll();
+    toTop.addEventListener("click", ()=> window.scrollTo({top:0, behavior:"smooth"}));
+
+    // ESC closes drawer
+    window.addEventListener("keydown", (e)=>{
+      if(e.key === "Escape" && drawer.classList.contains("open")) closeDrawer();
+    });
+
+    // Console helper: cache buster
+    // 사용 예: https://samplepage.co.kr/?v=20260109-03&t=173
+    console.log("Cache-buster example:", location.origin + "/?v=" + Date.now());
   </script>
 </body>
 </html>
