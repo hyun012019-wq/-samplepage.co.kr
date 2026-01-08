@@ -3,1002 +3,1150 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-  <meta name="theme-color" content="#f4f1e8" />
-  <title>세무회계 <span>글</span> | 세무회계 글</title>
-
-  <!-- ✅ 사용 파일명 (그대로 업로드/유지) -->
-  <!-- logo: logo-taxgeul.png -->
-  <!-- bg:   bg-office.jpg.jpg -->
-  <!-- rep:  rep-profile.jpg -->
-  <!-- posts: post-01.jpg ~ post-09.jpg -->
+  <meta name="format-detection" content="telephone=no" />
+  <title>세무회계 글</title>
 
   <style>
     :root{
-      --bg:#f4f1e8;
-      --card:#ffffffcc;
-      --card2:#ffffffd9;
-      --line:#e8e2d4;
-      --ink:#111;
-      --muted:#6d6a63;
-      --gold:#c6a84b;
-      --gold-strong:#b28b16;
-      --pill:#f3eddc;
-      --pill2:#efe7d3;
-      --shadow: 0 20px 40px rgba(0,0,0,.10);
-      --shadow2: 0 10px 20px rgba(0,0,0,.08);
-      --r:26px;
-      --r2:18px;
-      --safeTop: env(safe-area-inset-top, 0px);
-      --safeBottom: env(safe-area-inset-bottom, 0px);
-      --speed: 3.2s; /* 숨쉬기 빠르게 */
+      --bg:#0f0f0f;
+      --paper:#ffffffcc;
+      --card:#ffffffd9;
+      --line:#00000012;
+      --text:#111;
+      --muted:#6b6b6b;
+      --gold:#c6a43a;
+      --gold-deep:#a88420;
+      --chip:#f3ecd8;
+      --chip2:#ebe6d8;
+      --shadow: 0 14px 40px rgba(0,0,0,.18);
+      --r: 26px;
+      --r2: 18px;
     }
-    *{box-sizing:border-box}
-    html,body{height:100%}
+
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
     body{
       margin:0;
-      font-family: ui-sans-serif, system-ui, -apple-system, "Apple SD Gothic Neo", "Noto Sans KR", Segoe UI, Roboto, "Malgun Gothic", Arial, sans-serif;
-      color:var(--ink);
+      font-family: ui-sans-serif, system-ui, -apple-system, "Apple SD Gothic Neo", "Noto Sans KR", Segoe UI, Roboto, Arial, sans-serif;
+      color:var(--text);
       background: var(--bg);
       overflow-x:hidden;
     }
 
-    /* ✅ 홈 배경: 사무실 사진 + 숨쉬기(조금 진하게/빠르게) */
+    /* ===== 배경(사무실 사진 + 숨쉬기 그라데이션) ===== */
     .bg{
       position:fixed; inset:0;
       background:
-        linear-gradient(180deg, rgba(0,0,0,.38), rgba(0,0,0,.46)),
-        url("bg-office.jpg.jpg") center/cover no-repeat;
-      filter:saturate(1.05) contrast(1.08);
+        radial-gradient(900px 600px at 15% 20%, rgba(255,255,255,.22), rgba(255,255,255,0) 60%),
+        radial-gradient(900px 650px at 85% 75%, rgba(255,255,255,.16), rgba(255,255,255,0) 60%),
+        linear-gradient(120deg, rgba(0,0,0,.46), rgba(0,0,0,.22), rgba(0,0,0,.46)),
+        url("./bg-office.jpg.jpg");
+      background-size: cover;
+      background-position: center;
+      filter: saturate(1.08) contrast(1.08);
       transform: translateZ(0);
       z-index:-2;
-      animation: breathe var(--speed) ease-in-out infinite;
     }
-    .bg::after{
-      content:"";
-      position:absolute; inset:0;
-      background: radial-gradient(1200px 700px at 30% 20%, rgba(255,255,255,.16), rgba(255,255,255,0) 55%);
+    .breath{
+      position:fixed; inset:-30%;
+      background:
+        radial-gradient(700px 520px at 20% 30%, rgba(198,164,58,.38), rgba(198,164,58,0) 62%),
+        radial-gradient(900px 600px at 75% 70%, rgba(198,164,58,.28), rgba(198,164,58,0) 60%),
+        radial-gradient(700px 520px at 55% 20%, rgba(255,255,255,.18), rgba(255,255,255,0) 58%);
       mix-blend-mode: overlay;
-      opacity:.8;
+      opacity:.95;
+      animation: breathe 2.2s ease-in-out infinite; /* 빠르게 */
+      z-index:-1;
+      pointer-events:none;
     }
     @keyframes breathe{
-      0%{transform:scale(1); filter:saturate(1.04) contrast(1.06) brightness(.98)}
-      50%{transform:scale(1.02); filter:saturate(1.10) contrast(1.10) brightness(1.01)}
-      100%{transform:scale(1); filter:saturate(1.04) contrast(1.06) brightness(.98)}
+      0%   { transform: translate3d(-2%, -1%, 0) scale(1.02); opacity:.88; }
+      50%  { transform: translate3d( 2%,  1%, 0) scale(1.08); opacity:1; }
+      100% { transform: translate3d(-2%, -1%, 0) scale(1.02); opacity:.88; }
     }
 
+    /* ===== 레이아웃 ===== */
     .wrap{
-      max-width: 980px;
+      width:min(980px, 92vw);
       margin: 0 auto;
-      padding: calc(14px + var(--safeTop)) 14px calc(28px + var(--safeBottom));
+      padding: 18px 0 120px;
     }
 
-    /* 헤더 */
+    /* ===== 상단 헤더 ===== */
     .topbar{
+      position: sticky;
+      top: 10px;
+      z-index: 50;
       display:flex;
       align-items:center;
-      gap:12px;
-      background: rgba(255,255,255,.86);
-      border: 1px solid rgba(232,226,212,.8);
-      border-radius: 999px;
+      gap:14px;
       padding: 10px 12px;
-      box-shadow: var(--shadow2);
+      border-radius: 22px;
+      background: rgba(255,255,255,.92);
       backdrop-filter: blur(10px);
-      position: sticky;
-      top: calc(10px + var(--safeTop));
-      z-index: 40;
+      box-shadow: 0 10px 26px rgba(0,0,0,.12);
     }
     .brand{
-      display:flex; align-items:center; gap:10px;
-      min-width: 0;
-      flex: 1;
+      display:flex; align-items:center; gap:12px;
+      min-width:0;
+      flex:1;
     }
-    .brand .logoBox{
-      width:44px; height:44px;
+    .logoBox{
+      width:46px; height:46px;
       border-radius: 14px;
+      border:1px solid var(--line);
       background: #fff;
-      border:1px solid rgba(232,226,212,.9);
       display:grid; place-items:center;
       overflow:hidden;
       flex: 0 0 auto;
     }
-    .brand .logoBox img{
-      width:100%; height:100%;
-      object-fit: contain;
-      padding:6px;
-    }
-    .brand .txt{min-width:0}
-    .brand .title{
-      font-weight:900;
-      font-size: 22px;
-      letter-spacing:-.6px;
-      line-height:1.05;
-      white-space:nowrap;
-      overflow:hidden;
-      text-overflow: ellipsis;
-      max-width: 100%;
-    }
-    .brand .title .g{
-      color: var(--gold);
-      font-weight: 950;
-    }
-    .brand .sub{
-      font-size: 13px;
-      color: var(--muted);
-      margin-top: 2px;
-      white-space:nowrap;
-      overflow:hidden;
-      text-overflow: ellipsis;
-      max-width: 100%;
-    }
-
-    /* 아이콘 버튼 */
-    .actions{display:flex; align-items:center; gap:8px}
-    .iconBtn{
-      width:44px; height:44px;
-      border-radius: 16px;
-      border:1px solid rgba(232,226,212,.9);
-      background: rgba(255,255,255,.92);
-      display:grid; place-items:center;
-      cursor:pointer;
-      box-shadow: 0 8px 16px rgba(0,0,0,.06);
-      text-decoration:none;
-      color:inherit;
-      user-select:none;
-    }
-    .iconBtn:active{transform: translateY(1px)}
-    .iconBtn .n{
-      font-weight:900;
-      color:#19ce60;
-      font-size:18px;
-      letter-spacing:-.5px;
-    }
-    .iconBtn .k{
-      width:20px; height:20px;
-    }
-    .iconBtn .menu{
-      width:22px; height:22px;
-      display:grid; gap:4px;
-    }
-    .iconBtn .menu span{
-      height:2px; border-radius:2px; background:#111;
-      opacity:.8;
-    }
-
-    /* 메인 카드 */
-    .card{
-      margin-top: 14px;
-      background: rgba(255,255,255,.86);
-      border:1px solid rgba(232,226,212,.85);
-      border-radius: var(--r);
-      box-shadow: var(--shadow);
-      overflow:hidden;
-      backdrop-filter: blur(10px);
-    }
-    .pad{padding:18px}
-
-    /* 히어로 상단 칩 */
-    .chipsTop{
-      display:flex;
-      align-items:center;
-      gap:10px;
-      justify-content: space-between;
-      padding: 14px 16px 0;
-    }
-    .chipsLeft{display:flex; gap:10px; align-items:center; min-width:0}
-    .pill{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      padding: 10px 14px;
-      border-radius: 999px;
-      border:1px solid rgba(232,226,212,.9);
-      background: rgba(243,237,220,.92);
-      color:#2a2a2a;
-      font-weight:800;
-      letter-spacing:-.2px;
-      box-shadow: 0 10px 18px rgba(0,0,0,.06);
-      min-width: 0;
-    }
-    .pill.gray{
-      background: rgba(235,235,235,.85);
-      color:#333;
-    }
-    /* ✅ 모바일: "기획브랜딩" 글자 예쁘게 떨어지게(줄바꿈 X, 크기/패딩 조정) */
-    .pill.branding{
-      white-space: nowrap;
-      padding: 10px 14px;
-    }
-    @media (max-width: 390px){
-      .pill.branding{
-        font-size: 12px;
-        padding: 9px 12px;
-      }
-    }
-
-    /* 슬라이더 */
-    .hero{
-      padding: 12px 14px 16px;
-    }
-    .sliderWrap{
-      background: rgba(255,255,255,.35);
-      border:1px solid rgba(232,226,212,.8);
-      border-radius: 22px;
-      padding: 10px;
-      position: relative;
-    }
-    .slide{
-      position: relative;
-      border-radius: 18px;
-      overflow:hidden;
-      background:#111;
-      height: 300px;
-      box-shadow: 0 16px 28px rgba(0,0,0,.16);
-    }
-    .slide img{
+    .logoBox img{
       width:100%; height:100%;
       object-fit: cover;
-      opacity:.85;
-      transform: scale(1.02);
-    }
-    .slideOverlay{
-      position:absolute; inset:0;
-      background: linear-gradient(90deg, rgba(0,0,0,.65), rgba(0,0,0,.2) 60%, rgba(0,0,0,.05));
-      display:flex;
-      flex-direction:column;
-      justify-content:flex-end;
-      padding: 18px;
-      gap:10px;
-      color:#fff;
-    }
-    .slideH{
-      font-size: 30px;
-      line-height:1.05;
-      letter-spacing:-1px;
-      font-weight: 950;
-      text-shadow: 0 10px 18px rgba(0,0,0,.35);
-      margin:0;
-    }
-    .slideP{
-      margin:0;
-      color: rgba(255,255,255,.86);
-      font-size: 16px;
-      line-height:1.45;
-      max-width: 520px;
-    }
-    .slideFoot{
-      font-weight:900;
-      opacity:.95;
-      letter-spacing:-.5px;
-      font-size: 18px;
     }
 
-    .dotsNav{
-      display:flex; gap:8px;
+    .brandText{
+      min-width:0;
+      display:flex;
+      flex-direction:column;
+      gap:2px;
+      line-height:1.05;
+    }
+    .brandName{
+      font-weight: 900;
+      font-size: 22px;
+      letter-spacing:-.6px;
+      display:flex;
+      align-items:baseline;
+      gap:6px;
+      white-space: nowrap;
+      min-width:0;
+    }
+    /* 모바일에서 상호가 짤려 보이는 문제 해결: 줄바꿈 금지 + 축소 */
+    .brandName span{ min-width:0; }
+    .brandName .word-geul{
+      color: var(--gold);
+      font-weight: 900;
+    }
+    .brandSub{
+      font-size: 13px;
+      color: var(--muted);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 100%;
+    }
+
+    .topActions{
+      display:flex; align-items:center; gap:10px;
+      flex: 0 0 auto;
+    }
+    .iconBtn{
+      width:46px; height:46px;
+      border-radius: 16px;
+      border:1px solid var(--line);
+      background:#fff;
+      display:grid; place-items:center;
+      cursor:pointer;
+      transition: transform .08s ease;
+      user-select:none;
+      text-decoration:none;
+      color:inherit;
+    }
+    .iconBtn:active{ transform: scale(.97); }
+    .iconBtn svg{ width:22px; height:22px; }
+
+    /* ===== 공통 카드 ===== */
+    .card{
+      margin-top: 16px;
+      border-radius: var(--r);
+      background: rgba(255,255,255,.92);
+      backdrop-filter: blur(10px);
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(255,255,255,.55);
+      overflow:hidden;
+    }
+    .cardInner{ padding: 18px; }
+
+    .sectionTitle{
+      font-size: 26px;
+      font-weight: 900;
+      letter-spacing:-.8px;
+      margin: 2px 0 6px;
+    }
+    .sectionDesc{
+      margin:0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height:1.6;
+    }
+    .hvMark{
+      margin-top: 10px;
+      color:#2e2e2e;
+      font-weight: 800;
+      letter-spacing:-.4px;
+    }
+
+    /* ===== Hero 슬라이더 ===== */
+    .hero{
+      padding: 18px;
+    }
+    .heroTopRow{
+      display:flex;
+      gap:10px;
       align-items:center;
-      justify-content:flex-start;
-      padding: 10px 4px 0;
+      justify-content:space-between;
+      padding: 0 0 12px;
+    }
+    .chips{
+      display:flex; gap:10px; flex-wrap:wrap;
+    }
+    .chip{
+      background: var(--chip);
+      color:#3b2f14;
+      border:1px solid rgba(0,0,0,.08);
+      padding: 9px 14px;
+      border-radius: 999px;
+      font-weight: 900;
+      font-size: 14px;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.5);
+    }
+    .chip.gray{
+      background: var(--chip2);
+      color:#2b2b2b;
+      font-weight: 800;
+    }
+
+    .heroMedia{
+      position:relative;
+      border-radius: 26px;
+      overflow:hidden;
+      border: 1px solid rgba(0,0,0,.10);
+      background:#000;
+      min-height: 320px;
+    }
+    .heroMedia img{
+      position:absolute; inset:0;
+      width:100%; height:100%;
+      object-fit: cover;
+      opacity:.92;
+      transform: scale(1.03);
+    }
+    .heroOverlay{
+      position:absolute; inset:0;
+      background: linear-gradient(180deg, rgba(0,0,0,.20), rgba(0,0,0,.45) 65%, rgba(0,0,0,.62));
+      z-index:1;
+    }
+    .heroText{
+      position:absolute;
+      left: 18px; right: 18px;
+      bottom: 16px;
+      z-index:2;
+      color:#fff;
+      max-width: 560px;
+    }
+    .heroText h2{
+      margin:0 0 8px;
+      font-size: 44px;
+      letter-spacing:-1.2px;
+      line-height:1.03;
+      font-weight: 950;
+      text-shadow: 0 10px 30px rgba(0,0,0,.35);
+    }
+    .heroText p{
+      margin:0;
+      font-size: 16px;
+      color: rgba(255,255,255,.88);
+      line-height:1.55;
+    }
+    .heroText .hvMark{
+      margin-top: 10px;
+      color: rgba(255,255,255,.92);
+      font-weight: 900;
+    }
+
+    .heroNav{
+      display:flex; align-items:center; justify-content:space-between;
+      padding: 12px 18px 16px;
+      gap: 12px;
+    }
+    .dots{
+      display:flex; gap:8px;
+      padding: 10px 12px;
+      border-radius: 999px;
+      background: rgba(0,0,0,.06);
+      border: 1px solid rgba(0,0,0,.06);
     }
     .dot{
-      width:10px; height:10px; border-radius:999px;
-      border:1px solid rgba(0,0,0,.14);
-      background: rgba(255,255,255,.55);
-      cursor:pointer;
+      width:10px; height:10px;
+      border-radius:999px;
+      background: rgba(0,0,0,.18);
     }
-    .dot.on{background: rgba(198,168,75,.95)}
-    .arrows{
-      position:absolute;
-      right: 18px;
-      bottom: 16px;
+    .dot.on{ background: var(--gold); }
+    .arrowBtns{
       display:flex; gap:10px;
     }
-    .arrowBtn{
-      width:44px; height:44px;
+    .arrow{
+      width:48px; height:44px;
       border-radius: 14px;
-      border:1px solid rgba(232,226,212,.95);
+      border: 1px solid rgba(0,0,0,.10);
       background: rgba(255,255,255,.88);
       display:grid; place-items:center;
       cursor:pointer;
-      box-shadow: 0 12px 18px rgba(0,0,0,.08);
       user-select:none;
+      transition: transform .08s ease;
     }
-    .arrowBtn:active{transform: translateY(1px)}
-    .arrowBtn svg{width:18px;height:18px; opacity:.85}
+    .arrow:active{ transform: scale(.98); }
 
-    /* 키워드 칩(문구만 유지: "키워드" 단어는 삭제 상태) */
-    .topicRow{
-      padding: 12px 14px 18px;
+    /* ===== 키워드 칩 (요청대로 ‘구조, 키워드’ 단어는 어디에도 안 씀) ===== */
+    .tagRow{
       display:flex;
-      flex-wrap: wrap;
       gap:10px;
+      flex-wrap:wrap;
+      padding: 0 18px 18px;
     }
-    .topic{
+    .tag{
       padding: 10px 14px;
       border-radius: 999px;
-      background: rgba(255,255,255,.80);
-      border:1px solid rgba(232,226,212,.95);
-      box-shadow: 0 12px 18px rgba(0,0,0,.06);
-      font-weight: 800;
-      color:#222;
-      letter-spacing:-.2px;
+      background: rgba(255,255,255,.85);
+      border:1px solid rgba(0,0,0,.10);
+      font-weight: 900;
+      color:#1a1a1a;
+      cursor:pointer;
+      user-select:none;
+      transition: transform .08s ease, background .2s ease;
     }
-
-    /* 섹션 */
-    .sectionTitle{
-      font-size: 24px;
-      font-weight: 950;
-      letter-spacing:-.8px;
-      margin:0 0 8px 0;
+    .tag:active{ transform: scale(.98); }
+    .tag.on{
+      background: rgba(198,164,58,.18);
+      border-color: rgba(198,164,58,.45);
     }
-    .sectionSub{
-      margin:0;
-      color: var(--muted);
+    .smallNote{
+      padding: 0 18px 18px;
+      color: rgba(0,0,0,.55);
+      font-size: 13px;
       line-height:1.5;
       font-weight: 700;
     }
 
-    /* 대표자 소개 */
-    .repHeader{
-      display:flex; align-items:center; justify-content:space-between;
-      gap:10px;
-      margin-bottom: 14px;
+    /* ===== 대표자 소개 ===== */
+    .profileWrap{ padding: 18px; }
+    .profileTop{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 12px;
+      padding-bottom: 8px;
     }
-    .repGrid{
-      display:grid;
-      gap: 14px;
+    .badge{
+      background: rgba(198,164,58,.16);
+      border:1px solid rgba(198,164,58,.35);
+      color:#3b2f14;
+      font-weight: 900;
+      padding: 10px 14px;
+      border-radius: 999px;
+      white-space:nowrap;
     }
-    .repCard{
-      border-radius: 22px;
-      border:1px solid rgba(232,226,212,.9);
-      background: rgba(255,255,255,.78);
-      box-shadow: 0 16px 26px rgba(0,0,0,.08);
+
+    .profileCard{
+      margin-top: 10px;
+      border-radius: 26px;
+      border:1px solid rgba(0,0,0,.10);
+      background: rgba(255,255,255,.80);
       overflow:hidden;
-    }
-    .repTop{
-      display:grid;
-      grid-template-columns: 132px 1fr;
-      gap: 14px;
+      display:flex;
+      gap: 16px;
       padding: 16px;
       align-items:center;
     }
     .repPhoto{
-      width: 132px;
-      height: 132px;
+      width: 140px;
+      height: 140px;
       border-radius: 22px;
-      border:1px solid rgba(232,226,212,.9);
-      background:#eee;
       overflow:hidden;
-      box-shadow: 0 14px 18px rgba(0,0,0,.10);
+      border:1px solid rgba(0,0,0,.10);
+      background:#f2f2f2;
+      flex: 0 0 auto;
     }
-    /* ✅ 대표 사진: 박스에 딱 맞게 */
+    /* 대표자 사진: 박스 안에 딱 맞게 */
     .repPhoto img{
       width:100%;
       height:100%;
       object-fit: cover;
-      object-position: center top;
       display:block;
     }
+    .repInfo{ min-width:0; flex:1; }
     .repName{
-      font-size: 34px;
-      font-weight: 950;
-      letter-spacing:-1px;
       margin:0;
-      line-height:1.05;
+      font-size: 38px;
+      font-weight: 950;
+      letter-spacing:-1.2px;
+      line-height:1.0;
     }
-    .repName small{
+    .repRole{
       font-size: 18px;
-      color: var(--muted);
+      color: rgba(0,0,0,.58);
       font-weight: 900;
-      letter-spacing:-.4px;
     }
     .repLine{
-      margin: 10px 0 0;
-      color:#3a3a3a;
-      font-weight: 850;
-      letter-spacing:-.3px;
-      line-height:1.45;
+      margin-top: 10px;
+      font-size: 18px;
+      color:#2b2b2b;
+      font-weight: 900;
+      line-height:1.35;
+    }
+    .profileHV{
+      margin-top: 10px;
+      font-weight: 900;
+      color:#2b2b2b;
     }
 
-    .infoRows{
-      padding: 0 16px 16px;
+    .infoGrid{
+      margin-top: 14px;
       display:grid;
+      grid-template-columns: 1fr;
       gap: 12px;
     }
-    .row{
+    .infoRow{
       display:grid;
-      grid-template-columns: 92px 1fr;
+      grid-template-columns: 110px 1fr;
       border-radius: 18px;
-      border:1px solid rgba(232,226,212,.92);
-      background: rgba(255,255,255,.75);
+      border:1px solid rgba(0,0,0,.10);
+      background: rgba(255,255,255,.86);
       overflow:hidden;
     }
-    .row .k{
-      padding: 12px 14px;
-      background: rgba(243,237,220,.92);
+    .infoKey{
+      padding: 14px 16px;
+      background: rgba(198,164,58,.16);
       font-weight: 950;
-      letter-spacing:-.3px;
-      color:#4a3b12;
-      display:flex; align-items:center; justify-content:center;
+      font-size: 18px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color:#3b2f14;
     }
-    .row .v{
-      padding: 12px 14px;
+    .infoVal{
+      padding: 14px 16px;
       font-weight: 900;
-      color:#222;
-      letter-spacing:-.3px;
-      display:flex; align-items:center;
-      line-height:1.4;
+      font-size: 18px;
+      color:#1f1f1f;
+      display:flex;
+      align-items:center;
     }
 
-    /* 콘텐츠 */
+    /* ===== 콘텐츠 ===== */
+    .contentWrap{ padding: 18px; }
     .contentGrid{
+      margin-top: 14px;
       display:grid;
       grid-template-columns: 1fr 1fr;
-      gap: 12px;
-      padding-top: 10px;
+      gap: 14px;
     }
     .contentItem{
-      position:relative;
-      border-radius: 18px;
+      border-radius: 20px;
+      border:1px solid rgba(0,0,0,.10);
       overflow:hidden;
-      border:1px solid rgba(232,226,212,.92);
-      background: rgba(255,255,255,.72);
-      box-shadow: 0 14px 22px rgba(0,0,0,.08);
-      min-height: 150px;
+      background:#fff;
+      box-shadow: 0 10px 26px rgba(0,0,0,.08);
+      position:relative;
+      height: 200px; /* 모바일 기준 */
     }
     .contentItem img{
-      width:100%;
-      height: 100%;
-      object-fit: cover; /* 기본 */
+      width:100%; height:100%;
+      object-fit: cover;
       display:block;
       transform: scale(1.01);
     }
-    .contentItem .cap{
+    .contentLabel{
       position:absolute;
-      left: 10px;
-      bottom: 10px;
+      left: 10px; bottom: 10px;
+      background: rgba(255,255,255,.86);
+      border:1px solid rgba(0,0,0,.10);
+      padding: 8px 10px;
+      border-radius: 12px;
+      font-weight: 950;
+      font-size: 13px;
+    }
+    .contentTag{
+      position:absolute;
+      right: 10px; bottom: 10px;
+      background: rgba(198,164,58,.18);
+      border:1px solid rgba(198,164,58,.38);
+      padding: 8px 10px;
+      border-radius: 999px;
       font-weight: 950;
       font-size: 12px;
-      color: rgba(255,255,255,.92);
-      text-shadow: 0 10px 18px rgba(0,0,0,.5);
-      letter-spacing:-.2px;
-      background: rgba(0,0,0,.28);
-      border:1px solid rgba(255,255,255,.22);
-      padding: 6px 10px;
-      border-radius: 999px;
-      backdrop-filter: blur(8px);
-    }
-    .contentItem .tag{
-      position:absolute;
-      right: 10px;
-      bottom: 10px;
-      font-weight: 950;
-      font-size: 12px;
-      color: #2a2a2a;
-      letter-spacing:-.2px;
-      background: rgba(243,237,220,.92);
-      border:1px solid rgba(232,226,212,.92);
-      padding: 6px 10px;
-      border-radius: 999px;
-      box-shadow: 0 10px 16px rgba(0,0,0,.08);
+      color:#3b2f14;
     }
 
-    /* ✅ PC 버전만: 콘텐츠 사진 박스에 맞게(사진 참고) */
-    @media (min-width: 900px){
-      .contentGrid{
-        grid-template-columns: 1fr 1fr;
-        gap: 16px;
-      }
-      .contentItem{
-        height: 240px;              /* 박스 고정으로 ‘딱 맞는 느낌’ */
-      }
-      .contentItem img{
-        height: 240px;
-        object-fit: cover;          /* PC에서 빈공간/늘어짐 방지 */
-        object-position: center;    /* 중앙 기준 */
-      }
-    }
-
-    /* ✅ 상담 접수 폼 (최하단 박스 바로 위) */
+    /* ===== 상담 폼 ===== */
+    .formWrap{ padding: 18px; }
     .formBox{
+      margin-top: 12px;
       border-radius: 22px;
-      border:1px solid rgba(232,226,212,.9);
-      background: rgba(255,255,255,.82);
-      box-shadow: 0 18px 30px rgba(0,0,0,.10);
-      overflow:hidden;
+      border:1px solid rgba(0,0,0,.10);
+      background: rgba(255,255,255,.86);
+      padding: 16px;
     }
-    .formPad{padding:16px}
-    .formTitle{
-      margin:0;
-      font-size: 22px;
-      font-weight: 950;
-      letter-spacing:-.7px;
-    }
-    .formSub{
-      margin: 6px 0 0;
-      color: var(--muted);
-      font-weight: 800;
-      line-height:1.45;
-    }
-    .formGrid{
+    .formRow{
       display:grid;
       grid-template-columns: 1fr;
-      gap: 10px;
-      margin-top: 14px;
+      gap: 12px;
     }
-    .in{
+    .input{
       width:100%;
       border-radius: 16px;
-      border:1px solid rgba(232,226,212,.95);
-      background: rgba(255,255,255,.92);
+      border:1px solid rgba(0,0,0,.12);
       padding: 14px 14px;
-      font-size: 15px;
-      font-weight: 850;
-      outline: none;
+      font-size: 16px;
+      font-weight: 800;
+      outline:none;
+      background:#fff;
     }
-    .in:focus{border-color: rgba(198,168,75,.85); box-shadow: 0 0 0 4px rgba(198,168,75,.18)}
-    textarea.in{min-height: 120px; resize: vertical}
-    .btnRow{display:flex; gap:10px; margin-top: 10px}
+    textarea.input{ min-height: 120px; resize: vertical; }
+    .btnRow{
+      display:flex;
+      gap: 12px;
+      margin-top: 12px;
+    }
     .btn{
       flex:1;
-      border-radius: 16px;
-      border:1px solid rgba(232,226,212,.95);
+      border-radius: 18px;
+      border:1px solid rgba(0,0,0,.10);
       padding: 14px 14px;
       font-weight: 950;
-      letter-spacing:-.3px;
+      font-size: 18px;
       cursor:pointer;
-      box-shadow: 0 14px 18px rgba(0,0,0,.08);
+      user-select:none;
+      background:#fff;
     }
     .btn.primary{
-      background: linear-gradient(180deg, rgba(198,168,75,.95), rgba(178,139,22,.92));
-      color:#1b1405;
-      border-color: rgba(178,139,22,.55);
+      background: linear-gradient(180deg, var(--gold), var(--gold-deep));
+      color:#111;
+      border-color: rgba(0,0,0,.08);
     }
-    .btn.ghost{
-      background: rgba(255,255,255,.90);
-      color:#222;
+    .btn:active{ transform: scale(.99); }
+    .formHint{
+      margin-top: 10px;
+      color: rgba(0,0,0,.55);
+      font-weight: 800;
+      font-size: 13px;
+      line-height:1.5;
     }
 
-    /* 최하단 사업자 정보 박스 */
-    .footerBox{
-      border-radius: 22px;
-      border:1px solid rgba(232,226,212,.9);
-      background: rgba(255,255,255,.78);
-      box-shadow: 0 18px 30px rgba(0,0,0,.10);
-      overflow:hidden;
-    }
-    .footerTop{
-      padding: 14px 16px;
-      border-bottom: 1px solid rgba(232,226,212,.85);
-      background: rgba(243,237,220,.92);
+    /* ===== 최하단 사업자 박스 ===== */
+    .bizWrap{ padding: 18px; }
+    .bizTopLabel{
+      background: rgba(198,164,58,.16);
+      border:1px solid rgba(198,164,58,.35);
+      color:#3b2f14;
       font-weight: 950;
-      color:#3a2a08;
-      letter-spacing:-.3px;
+      padding: 12px 14px;
+      border-radius: 16px;
+      text-align:center;
+      margin-bottom: 12px;
+    }
+    .bizBox{
+      border-radius: 26px;
+      border:1px solid rgba(0,0,0,.10);
+      background: rgba(255,255,255,.86);
+      padding: 18px;
+      /* ✅ 요청: 박스안 내용 정중앙 정렬 */
       text-align:center;
     }
-    .footerBody{
-      padding: 14px 16px 18px;
-      display:grid;
-      gap: 10px;
+    .bizBox .line{
+      margin: 10px 0;
+      font-weight: 950;
+      font-size: 20px;
+      letter-spacing:-.6px;
+    }
+    .bizBox .sub{
+      margin: 10px 0;
+      font-weight: 900;
+      font-size: 18px;
       color:#2b2b2b;
-      font-weight: 900;
-      letter-spacing:-.2px;
-
-      /* ✅ 요청: 최하단 박스 안 내용 정중앙 정렬 */
-      text-align:center;
-      justify-items:center;
+      line-height:1.55;
     }
-    .footLine{opacity:.95}
-    .copyright{
-      margin-top: 8px;
+    .bizBox .muted{
+      margin-top: 16px;
       font-weight: 900;
-      color: rgba(60,60,60,.85);
-      text-align:center;
-    }
-    .mini{
-      font-weight: 950;
-      color: rgba(60,60,60,.82);
-      text-align:center;
+      color: rgba(0,0,0,.55);
     }
 
-    /* 우측 플로팅 버튼 */
+    /* ===== 우측 플로팅 버튼 ===== */
     .floatCol{
       position: fixed;
       right: 14px;
-      top: 44%;
-      transform: translateY(-50%);
+      top: 50%;
+      transform: translateY(-10%);
       display:flex;
-      flex-direction: column;
+      flex-direction:column;
       gap: 10px;
       z-index: 60;
     }
     .floatBtn{
-      width: 78px;
-      height: 74px;
+      width:86px;
       border-radius: 18px;
-      border:1px solid rgba(232,226,212,.85);
-      background: rgba(255,255,255,.82);
-      box-shadow: 0 18px 24px rgba(0,0,0,.10);
-      display:flex;
-      flex-direction: column;
-      align-items:center;
-      justify-content:center;
-      gap: 6px;
-      text-decoration:none;
-      color:#1d1d1d;
-      font-weight: 950;
-      letter-spacing:-.2px;
+      border: 1px solid rgba(0,0,0,.10);
+      background: rgba(255,255,255,.90);
       backdrop-filter: blur(10px);
+      box-shadow: 0 12px 28px rgba(0,0,0,.18);
+      padding: 12px 10px;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      gap: 8px;
+      cursor:pointer;
       user-select:none;
+      text-decoration:none;
+      color:inherit;
     }
-    .floatBtn svg{width:22px;height:22px;opacity:.85}
-    .floatBtn span{font-size: 13px}
+    .floatBtn svg{ width:22px; height:22px; }
+    .floatBtn span{ font-weight: 950; }
+
+    /* ===== 스크롤 탑 ===== */
     .toTop{
       position: fixed;
       right: 14px;
-      bottom: calc(18px + var(--safeBottom));
-      width: 56px;
-      height: 56px;
+      bottom: 14px;
+      width: 54px; height: 54px;
       border-radius: 18px;
-      border:1px solid rgba(232,226,212,.85);
-      background: rgba(255,255,255,.82);
-      box-shadow: 0 18px 24px rgba(0,0,0,.10);
+      border: 1px solid rgba(0,0,0,.10);
+      background: rgba(255,255,255,.90);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 12px 28px rgba(0,0,0,.18);
       display:grid;
       place-items:center;
       cursor:pointer;
-      z-index: 60;
-      backdrop-filter: blur(10px);
-    }
-    .toTop svg{width:20px;height:20px;opacity:.85}
-
-    /* 반응형 미세 */
-    @media (max-width: 420px){
-      .brand .title{font-size: 21px}
-      .slide{height: 290px}
-      .slideH{font-size: 28px}
-    }
-    @media (max-width: 360px){
-      .iconBtn{width:42px;height:42px}
-      .brand .logoBox{width:42px;height:42px}
-      .slide{height: 280px}
-      .repName{font-size: 30px}
-      .repTop{grid-template-columns: 120px 1fr}
-      .repPhoto{width:120px;height:120px}
+      z-index: 70;
     }
 
-    /* 작은 디바이스에서 플로팅 버튼 살짝 축소 */
-    @media (max-width: 420px){
-      .floatBtn{width: 74px; height: 70px}
+    /* ===== 메뉴(햄버거) ===== */
+    .menuOverlay{
+      position: fixed; inset:0;
+      background: rgba(0,0,0,.45);
+      backdrop-filter: blur(6px);
+      display:none;
+      z-index: 200;
+    }
+    .menuOverlay.on{ display:block; }
+    .menuPanel{
+      position: fixed;
+      right: 12px;
+      top: 12px;
+      left: 12px;
+      max-width: 560px;
+      margin: 0 auto;
+      border-radius: 26px;
+      background: rgba(255,255,255,.96);
+      border: 1px solid rgba(255,255,255,.6);
+      box-shadow: 0 20px 50px rgba(0,0,0,.25);
+      padding: 14px;
+      transform: translateY(-10px);
+    }
+    .menuHead{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 10px;
+      padding: 6px 6px 12px;
+    }
+    .menuTitle{
+      font-weight: 950;
+      font-size: 18px;
+      letter-spacing:-.4px;
+    }
+    .menuClose{
+      width: 44px; height: 44px;
+      border-radius: 16px;
+      border:1px solid rgba(0,0,0,.10);
+      background:#fff;
+      display:grid; place-items:center;
+      cursor:pointer;
+    }
+    .menuList{
+      display:flex;
+      flex-direction:column;
+      gap: 10px;
+      padding: 6px;
+    }
+    .menuItem{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 12px;
+      padding: 14px 14px;
+      border-radius: 18px;
+      border:1px solid rgba(0,0,0,.10);
+      background: rgba(255,255,255,.88);
+      cursor:pointer;
+      user-select:none;
+      font-weight: 950;
+      letter-spacing:-.4px;
+      text-decoration:none;
+      color:inherit;
+    }
+    .menuItem small{
+      color: rgba(0,0,0,.55);
+      font-weight: 900;
+    }
+
+    /* ===== 반응형 ===== */
+    @media (max-width: 430px){
+      .wrap{ width: min(980px, 94vw); }
+      .brandName{ font-size: 20px; }
+      .brandSub{ font-size: 12px; }
+      .iconBtn{ width:44px; height:44px; border-radius: 16px; }
+      .heroText h2{ font-size: 38px; }
+      .repName{ font-size: 34px; }
+      .repPhoto{ width: 132px; height: 132px; }
+      .contentItem{ height: 190px; }
+      .floatBtn{ width:82px; }
+    }
+
+    /* ✅ PC버전만: 콘텐츠 이미지 박스에 맞게 ‘사이’ 조정 (모바일은 그대로) */
+    @media (min-width: 980px){
+      .contentGrid{
+        grid-template-columns: 1fr 1fr;
+        gap: 18px;
+      }
+      .contentItem{
+        height: 260px; /* PC에서 더 안정적으로 맞춤 */
+      }
+      .contentItem img{
+        object-fit: cover;
+        object-position: center;
+      }
     }
   </style>
 </head>
 
 <body>
-  <div class="bg" aria-hidden="true"></div>
+  <div class="bg"></div>
+  <div class="breath"></div>
 
-  <!-- 우측 플로팅 -->
-  <div class="floatCol" aria-label="빠른 메뉴">
+  <div class="wrap" id="home">
+    <!-- ===== 상단 ===== -->
+    <header class="topbar">
+      <div class="brand">
+        <div class="logoBox" aria-label="로고">
+          <!-- 로고 파일명: logo-taxgeul.png -->
+          <img src="./logo-taxgeul.png" alt="세무회계 글 로고" />
+        </div>
+
+        <div class="brandText">
+          <div class="brandName" title="세무회계 글">
+            <span>세무회계</span>
+            <span class="word-geul">글</span>
+          </div>
+          <div class="brandSub">(주)하비럴 web기획 · 기획브랜딩</div>
+        </div>
+      </div>
+
+      <div class="topActions">
+        <!-- 네이버(블로그 이동) -->
+        <a class="iconBtn" href="http://naver.me/xyigHPRv" aria-label="네이버">
+          <!-- N -->
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M6 6h4.2l3.6 5.4V6H18v12h-4.2L10.2 12.6V18H6V6Z" fill="#19CE60"/>
+          </svg>
+        </a>
+
+        <!-- 카카오채널 -->
+        <a class="iconBtn" href="http://pf.kakao.com/_vxntlG" aria-label="카카오채널">
+          <!-- bubble -->
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M12 4c-5 0-9 3.2-9 7.2 0 2.6 1.7 4.9 4.2 6.2l-.8 3.1c-.1.4.3.7.7.5l3.6-2c.8.1 1.5.2 2.3.2 5 0 9-3.2 9-7.2S17 4 12 4Z" fill="#FEE500"/>
+            <path d="M9.2 11.1h5.6" stroke="#111" stroke-width="1.6" stroke-linecap="round"/>
+          </svg>
+        </a>
+
+        <!-- 메뉴 -->
+        <button class="iconBtn" id="openMenu" aria-label="메뉴" type="button">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M5 7h14" stroke="#111" stroke-width="2.2" stroke-linecap="round"/>
+            <path d="M5 12h14" stroke="#111" stroke-width="2.2" stroke-linecap="round"/>
+            <path d="M5 17h14" stroke="#111" stroke-width="2.2" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- ===== HERO ===== -->
+    <section class="card">
+      <div class="hero">
+        <div class="heroTopRow">
+          <div class="chips">
+            <div class="chip">TAX GEUL</div>
+            <div class="chip gray">(주)하비럴 web기획</div>
+          </div>
+          <!-- 모바일에서 예쁘게 떨어지게: 줄바꿈 방지 -->
+          <div class="chip gray" style="white-space:nowrap;">기획브랜딩</div>
+        </div>
+
+        <div class="heroMedia" aria-label="슬라이드 배너">
+          <img id="heroImg" src="./post-01.jpg" alt="콘텐츠 이미지" />
+          <div class="heroOverlay"></div>
+          <div class="heroText">
+            <h2 id="heroTitle">세무 문제는<br/>모두 같지 않습니다.</h2>
+            <p id="heroDesc">단순히 “처리”하는 방식이 아니라, 사안의 무게를 기준으로 정리하고 대응합니다.</p>
+            <div class="hvMark">(주)하비럴 web기획 · 기획브랜딩</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="heroNav">
+        <div class="dots" aria-label="슬라이드 인디케이터">
+          <div class="dot on" data-dot="0"></div>
+          <div class="dot" data-dot="1"></div>
+          <div class="dot" data-dot="2"></div>
+        </div>
+        <div class="arrowBtns">
+          <button class="arrow" id="prevHero" type="button" aria-label="이전">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M14.5 6.5 9 12l5.5 5.5" stroke="#111" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <button class="arrow" id="nextHero" type="button" aria-label="다음">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M9.5 6.5 15 12l-5.5 5.5" stroke="#111" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="tagRow" aria-label="주제">
+        <div class="tag on" data-tag="상속·증여">상속 · 증여</div>
+        <div class="tag" data-tag="양도소득">양도소득</div>
+        <div class="tag" data-tag="자금출처">자금출처</div>
+        <div class="tag" data-tag="세무조사">세무조사</div>
+        <div class="tag" data-tag="법인">법인</div>
+        <div class="tag" data-tag="고난도 신고">고난도 신고</div>
+      </div>
+
+      <div class="smallNote">
+        (주)하비럴 web기획 문구 포함 · 페이지 체험형 구성
+      </div>
+    </section>
+
+    <!-- ===== 대표자 소개 ===== -->
+    <section class="card" id="profile">
+      <div class="profileWrap">
+        <div class="profileTop">
+          <div>
+            <div class="sectionTitle">대표자 소개</div>
+            <p class="sectionDesc">핵심 이력과 전문 분야를 한눈에. (주)하비럴 web기획</p>
+          </div>
+          <div class="badge">대표 세무사</div>
+        </div>
+
+        <div class="profileCard">
+          <div class="repPhoto" aria-label="대표자 사진">
+            <!-- 대표 사진 파일명: rep-profile.jpg -->
+            <img src="./rep-profile.jpg" alt="하예진 세무사" />
+          </div>
+          <div class="repInfo">
+            <div class="repName">하예진 <span class="repRole">· 세무사</span></div>
+            <div class="repLine">분야: 상속세 · 양도소득세 · 증여세 · 컨설팅 · 기장</div>
+            <div class="profileHV">(주)하비럴 web기획 · 기획브랜딩</div>
+          </div>
+        </div>
+
+        <div class="infoGrid">
+          <div class="infoRow">
+            <div class="infoKey">소속</div>
+            <div class="infoVal">세무회계 글 (대표세무사)</div>
+          </div>
+          <div class="infoRow">
+            <div class="infoKey">학력</div>
+            <div class="infoVal">중앙대학교 경영학과 학사</div>
+          </div>
+          <div class="infoRow">
+            <div class="infoKey">경력</div>
+            <div class="infoVal">세무회계 글 대표세무사 · 법률사무소 글 전문위원</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 콘텐츠 ===== -->
+    <section class="card" id="contents">
+      <div class="contentWrap">
+        <div class="sectionTitle">콘텐츠</div>
+        <p class="sectionDesc">이미지 콘텐츠는 파일명 기준으로 연동됩니다. (주)하비럴 web기획</p>
+
+        <div class="contentGrid" aria-label="콘텐츠 그리드">
+          <!-- 파일명: post-01.jpg ~ post-09.jpg -->
+          <div class="contentItem">
+            <img src="./post-01.jpg" alt="콘텐츠 01" />
+            <div class="contentLabel">콘텐츠 01</div>
+            <div class="contentTag">상속</div>
+          </div>
+          <div class="contentItem">
+            <img src="./post-02.jpg" alt="콘텐츠 02" />
+            <div class="contentLabel">콘텐츠 02</div>
+            <div class="contentTag">양도</div>
+          </div>
+          <div class="contentItem">
+            <img src="./post-03.jpg" alt="콘텐츠 03" />
+            <div class="contentLabel">콘텐츠 03</div>
+            <div class="contentTag">자금출처</div>
+          </div>
+          <div class="contentItem">
+            <img src="./post-04.jpg" alt="콘텐츠 04" />
+            <div class="contentLabel">콘텐츠 04</div>
+            <div class="contentTag">세무조사</div>
+          </div>
+          <div class="contentItem">
+            <img src="./post-05.jpg" alt="콘텐츠 05" />
+            <div class="contentLabel">콘텐츠 05</div>
+            <div class="contentTag">법인</div>
+          </div>
+          <div class="contentItem">
+            <img src="./post-06.jpg" alt="콘텐츠 06" />
+            <div class="contentLabel">콘텐츠 06</div>
+            <div class="contentTag">신고</div>
+          </div>
+          <div class="contentItem">
+            <img src="./post-07.jpg" alt="콘텐츠 07" />
+            <div class="contentLabel">콘텐츠 07</div>
+            <div class="contentTag">상속</div>
+          </div>
+          <div class="contentItem">
+            <img src="./post-08.jpg" alt="콘텐츠 08" />
+            <div class="contentLabel">콘텐츠 08</div>
+            <div class="contentTag">양도</div>
+          </div>
+          <div class="contentItem">
+            <img src="./post-09.jpg" alt="콘텐츠 09" />
+            <div class="contentLabel">콘텐츠 09</div>
+            <div class="contentTag">컨설팅</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 세무상담접수 (요청: 최하단 박스 위) ===== -->
+    <section class="card" id="contact">
+      <div class="formWrap">
+        <div class="sectionTitle">세무상담접수</div>
+        <p class="sectionDesc">상담 주제(예: 상속/증여/양도/기장/세무조사 등)</p>
+
+        <div class="formBox">
+          <div class="formRow">
+            <input class="input" id="fName" placeholder="성함" />
+            <input class="input" id="fPhone" placeholder="연락처" inputmode="tel" />
+            <textarea class="input" id="fMsg" placeholder="상담 내용을 적어주세요"></textarea>
+          </div>
+
+          <div class="btnRow">
+            <button class="btn primary" id="submitForm" type="button">상담 접수하기</button>
+            <a class="btn" href="tel:02-6447-8662" style="text-align:center; text-decoration:none; display:flex; align-items:center; justify-content:center;">전화하기</a>
+          </div>
+
+          <div class="formHint">
+            (주)하비럴 web기획 · 기획브랜딩
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 최하단 사업자정보 ===== -->
+    <section class="card" id="business">
+      <div class="bizWrap">
+        <div class="bizTopLabel">본 자료는 체험용 (주)하비럴 기획브랜딩</div>
+
+        <div class="bizBox">
+          <div class="sub">
+            상호명&nbsp; 세무회계 글 &nbsp;·&nbsp; 대표자&nbsp; 하예진 &nbsp;·&nbsp; 전화&nbsp; 02-6447-8662
+          </div>
+          <div class="sub">
+            메일&nbsp; office@taxgeul.com &nbsp;·&nbsp; 사업자등록번호&nbsp; 109-53-51248
+          </div>
+
+          <div class="line">주소</div>
+          <div class="sub">
+            서울특별시 강남구 논현로507, 2011호 (역삼동, 성지하이츠3차빌딩)
+          </div>
+
+          <div class="muted">Copyright © 2026</div>
+          <div class="muted">세무회계 글. All rights reserved. · (주)하비럴 web기획</div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ===== 우측 플로팅 ===== -->
+  <div class="floatCol" aria-label="빠른 실행">
     <a class="floatBtn" href="tel:02-6447-8662" aria-label="전화연결">
-      <svg viewBox="0 0 24 24" fill="none"><path d="M6.5 3.5c.7-.7 2.2-.4 3 .3l1.6 1.6c.7.7.7 1.8.2 2.6l-.8 1.2c-.3.5-.3 1.2.1 1.7l2.9 2.9c.5.5 1.2.5 1.7.1l1.2-.8c.8-.5 1.9-.5 2.6.2l1.6 1.6c.7.8 1 2.3.3 3-1.2 1.2-2.9 1.6-4.5 1.1-3.2-1-6.3-3.5-9.1-6.2C5 13 2.5 9.9 1.5 6.7 1 5.1 1.4 3.4 2.6 2.2" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M8.6 11.2c1.2 2.4 3 4.2 5.4 5.4l1.8-1.8c.3-.3.7-.4 1.1-.3 1 .3 2.1.5 3.1.5.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C11.4 21 3 12.6 3 2c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1 .2 2.1.5 3.1.1.4 0 .8-.3 1.1l-2.1 2Z" fill="#111"/>
+      </svg>
       <span>전화연결</span>
     </a>
-    <a class="floatBtn" href="https://map.naver.com/" target="_blank" rel="noopener" aria-label="오시는 길">
-      <svg viewBox="0 0 24 24" fill="none"><path d="M12 22s7-6 7-13a7 7 0 0 0-14 0c0 7 7 13 7 13Z" stroke="currentColor" stroke-width="1.7"/><path d="M12 12a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" stroke="currentColor" stroke-width="1.7"/></svg>
+
+    <a class="floatBtn" href="https://map.naver.com/" aria-label="오시는 길">
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M12 22s7-6.4 7-13a7 7 0 1 0-14 0c0 6.6 7 13 7 13Z" fill="#111"/>
+        <path d="M12 12.2a3.2 3.2 0 1 0 0-6.4 3.2 3.2 0 0 0 0 6.4Z" fill="#fff"/>
+      </svg>
       <span>오시는 길</span>
     </a>
-    <a class="floatBtn" href="http://pf.kakao.com/_vxntlG" target="_blank" rel="noopener" aria-label="상담">
-      <svg viewBox="0 0 24 24" fill="none"><path d="M4 5.5C4 4.1 5.1 3 6.5 3h11C18.9 3 20 4.1 20 5.5v8c0 1.4-1.1 2.5-2.5 2.5H10l-4.5 3V16H6.5C5.1 16 4 14.9 4 13.5v-8Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg>
+
+    <a class="floatBtn" href="http://pf.kakao.com/_vxntlG" aria-label="상담">
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M12 4c-5 0-9 3.2-9 7.2 0 2.6 1.7 4.9 4.2 6.2l-.8 3.1c-.1.4.3.7.7.5l3.6-2c.8.1 1.5.2 2.3.2 5 0 9-3.2 9-7.2S17 4 12 4Z" fill="#111"/>
+        <path d="M8.7 11.3c0-.8.7-1.5 1.5-1.5h3.6c.8 0 1.5.7 1.5 1.5v1.4c0 .8-.7 1.5-1.5 1.5h-3.6c-.8 0-1.5-.7-1.5-1.5v-1.4Z" fill="#fff"/>
+      </svg>
       <span>상담</span>
     </a>
   </div>
 
-  <button class="toTop" type="button" aria-label="맨 위로">
-    <svg viewBox="0 0 24 24" fill="none"><path d="M12 5l-7 7m7-7 7 7M12 5v14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  <button class="toTop" id="toTop" aria-label="상단으로">
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path d="M12 6 6.5 11.5" stroke="#111" stroke-width="2.2" stroke-linecap="round"/>
+      <path d="M12 6 17.5 11.5" stroke="#111" stroke-width="2.2" stroke-linecap="round"/>
+      <path d="M12 6v12" stroke="#111" stroke-width="2.2" stroke-linecap="round"/>
+    </svg>
   </button>
 
-  <div class="wrap">
-
-    <!-- TOPBAR -->
-    <header class="topbar">
-      <div class="brand">
-        <div class="logoBox" aria-label="로고">
-          <img src="logo-taxgeul.png" alt="세무회계 글 로고">
-        </div>
-        <div class="txt">
-          <div class="title" title="세무회계 글">
-            세무회계 <span class="g">글</span>
-          </div>
-          <div class="sub">(주)하비럴 web기획 · 기획브랜딩</div>
-        </div>
-      </div>
-
-      <nav class="actions" aria-label="상단 바로가기">
-        <a class="iconBtn" href="http://naver.me/xyjgHPRv" target="_blank" rel="noopener" aria-label="네이버">
-          <div class="n">N</div>
-        </a>
-        <a class="iconBtn" href="http://pf.kakao.com/_vxntlG" target="_blank" rel="noopener" aria-label="카카오채널">
-          <svg class="k" viewBox="0 0 24 24" fill="none">
-            <path d="M12 4c5 0 9 3 9 7.1 0 2.7-1.8 5-4.6 6.3l.4 3.1c.1.6-.6 1-1.1.6l-3.2-2.1c-.5.1-1 .1-1.5.1C6 19.1 2 16.1 2 11.1 2 7 6.9 4 12 4Z" fill="#F7D300"/>
-            <path d="M9 11h6" stroke="#111" stroke-width="1.6" stroke-linecap="round"/>
+  <!-- ===== 메뉴 패널 (✅ 기존 “확장 예정” 팝업 제거 → 정상 메뉴 기능) ===== -->
+  <div class="menuOverlay" id="menuOverlay" aria-hidden="true">
+    <div class="menuPanel" role="dialog" aria-modal="true" aria-label="메뉴">
+      <div class="menuHead">
+        <div class="menuTitle">메뉴</div>
+        <button class="menuClose" id="closeMenu" type="button" aria-label="닫기">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M7 7l10 10" stroke="#111" stroke-width="2.2" stroke-linecap="round"/>
+            <path d="M17 7 7 17" stroke="#111" stroke-width="2.2" stroke-linecap="round"/>
           </svg>
-        </a>
-        <button class="iconBtn" id="menuBtn" type="button" aria-label="메뉴">
-          <div class="menu" aria-hidden="true">
-            <span></span><span></span><span></span>
-          </div>
         </button>
-      </nav>
-    </header>
-
-    <!-- HERO CARD -->
-    <section class="card" aria-label="메인">
-      <div class="chipsTop">
-        <div class="chipsLeft">
-          <div class="pill">TAX GEUL</div>
-          <div class="pill gray">(주)하비럴 web기획</div>
-        </div>
-        <div class="pill gray branding">기획브랜딩</div>
       </div>
 
-      <div class="hero">
-        <div class="sliderWrap">
-          <div class="slide" id="slide">
-            <img id="slideImg" src="post-02.jpg" alt="메인 이미지" />
-            <div class="slideOverlay">
-              <h2 class="slideH" id="slideH">상속·증여<br/>판단포인트 정리</h2>
-              <p class="slideP" id="slideP">범위와 기준을 명확히 잡아, 준비부터 대응까지 흐름을 설계합니다.</p>
-              <div class="slideFoot">(주)하비럴 web기획 · 기획브랜딩</div>
-            </div>
-          </div>
-
-          <div class="arrows" aria-label="슬라이더 이동">
-            <button class="arrowBtn" type="button" id="prevBtn" aria-label="이전">
-              <svg viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </button>
-            <button class="arrowBtn" type="button" id="nextBtn" aria-label="다음">
-              <svg viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </button>
-          </div>
-
-          <div class="dotsNav" id="dots" aria-label="슬라이더 페이지"></div>
-        </div>
-
-        <div class="topicRow" aria-label="분야">
-          <div class="topic">상속 · 증여</div>
-          <div class="topic">양도소득</div>
-          <div class="topic">자금출처</div>
-          <div class="topic">세무조사</div>
-          <div class="topic">법인</div>
-          <div class="topic">고난도 신고</div>
-        </div>
+      <div class="menuList">
+        <a class="menuItem" href="#home"><span>홈</span><small>(주)하비럴 web기획</small></a>
+        <a class="menuItem" href="#profile"><span>대표자 소개</span><small>하예진 · 세무사</small></a>
+        <a class="menuItem" href="#contents"><span>콘텐츠</span><small>post-01~09</small></a>
+        <a class="menuItem" href="#contact"><span>세무상담접수</span><small>상담 입력</small></a>
+        <a class="menuItem" href="#business"><span>사업자정보</span><small>하단 안내</small></a>
       </div>
-    </section>
-
-    <!-- 대표자 소개 -->
-    <section class="card" style="margin-top:14px" aria-label="대표자 소개">
-      <div class="pad">
-        <div class="repHeader">
-          <div>
-            <h3 class="sectionTitle">대표자 소개</h3>
-            <p class="sectionSub">핵심 이력과 전문 분야를 한눈에. (주)하비럴 web기획</p>
-          </div>
-          <div class="pill">대표 세무사</div>
-        </div>
-
-        <div class="repGrid">
-          <div class="repCard">
-            <div class="repTop">
-              <div class="repPhoto" aria-label="대표자 사진">
-                <img src="rep-profile.jpg" alt="하예진 세무사">
-              </div>
-              <div>
-                <p class="repName">하예진 <small>· 세무사</small></p>
-                <p class="repLine">분야: 상속세 · 양도소득세 · 증여세 · 컨설팅 · 기장<br>(주)하비럴 web기획 · 기획브랜딩</p>
-              </div>
-            </div>
-
-            <div class="infoRows" aria-label="프로필">
-              <div class="row">
-                <div class="k">소속</div>
-                <div class="v">세무회계 글 (대표세무사)</div>
-              </div>
-              <div class="row">
-                <div class="k">학력</div>
-                <div class="v">중앙대학교 경영학과 학사</div>
-              </div>
-              <div class="row">
-                <div class="k">경력</div>
-                <div class="v">세무회계 글 대표세무사 · 법률사무소 글 전문위원</div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- 콘텐츠 -->
-    <section class="card" style="margin-top:14px" aria-label="콘텐츠">
-      <div class="pad">
-        <h3 class="sectionTitle">콘텐츠</h3>
-        <p class="sectionSub">이미지 콘텐츠는 파일명 기준으로 연동됩니다. (주)하비럴 web기획</p>
-
-        <div class="contentGrid" id="contentGrid">
-          <!-- JS로 주입 -->
-        </div>
-      </div>
-    </section>
-
-    <!-- ✅ 세무상담접수 문의란 (최하단 체험용 박스 바로 위) -->
-    <section class="card" style="margin-top:14px" aria-label="세무상담접수">
-      <div class="pad">
-        <div class="formBox">
-          <div class="formPad">
-            <h3 class="formTitle">세무상담접수</h3>
-            <p class="formSub">기본 정보를 남기시면 빠르고 신속하게 안내드리겠습니다. (주)하비럴 web기획</p>
-
-            <form id="leadForm" class="formGrid">
-              <input class="in" name="name" placeholder="성함" autocomplete="name" required />
-              <input class="in" name="phone" placeholder="연락처" inputmode="tel" autocomplete="tel" required />
-              <input class="in" name="topic" placeholder="상담 주제 (예: 상속/증여/양도/기장/세무조사)" />
-              <textarea class="in" name="message" placeholder="간단 내용 (상황/일정/희망 상담 방식 등)"></textarea>
-
-              <div class="btnRow">
-                <button class="btn primary" type="submit">상담 접수하기</button>
-                <a class="btn ghost" href="tel:02-6447-8662" style="text-align:center; text-decoration:none; display:grid; place-items:center;">전화하기</a>
-              </div>
-
-              <div class="mini" style="margin-top:6px;">(주)하비럴 web기획 · 기획브랜딩</div>
-            </form>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- FOOTER / 사업자정보 -->
-    <section class="card" style="margin-top:14px" aria-label="사업자정보">
-      <div class="pad">
-        <div class="footerBox">
-          <div class="footerTop">본 자료는 체험용 (주)하비럴 기획브랜딩</div>
-          <div class="footerBody">
-            <div class="footLine">상호명&nbsp;&nbsp;세무회계 글&nbsp;&nbsp;·&nbsp;&nbsp;대표자&nbsp;&nbsp;하예진&nbsp;&nbsp;·&nbsp;&nbsp;전화&nbsp;&nbsp;02-6447-8662</div>
-            <div class="footLine">메일&nbsp;&nbsp;office@taxgeul.com&nbsp;&nbsp;·&nbsp;&nbsp;사업자등록번호&nbsp;&nbsp;109-53-51248</div>
-            <div class="footLine">주소</div>
-            <div class="footLine">서울특별시 강남구 논현로507, 2011호 (역삼동, 성지하이츠3차빌딩)</div>
-            <div class="copyright">Copyright © 2026</div>
-            <div class="mini">세무회계 글. All rights reserved. · (주)하비럴 web기획</div>
-          </div>
-        </div>
-      </div>
-    </section>
-
+    </div>
   </div>
 
   <script>
-    /* ===== 슬라이더 데이터 ===== */
+    /* ===== 슬라이더 ===== */
     const slides = [
       {
-        img: "post-02.jpg",
-        h: "상속·증여\\n판단포인트 정리",
-        p: "범위와 기준을 명확히 잡아, 준비부터 대응까지 흐름을 설계합니다."
+        img: "./post-01.jpg",
+        title: "세무 문제는\\n모두 같지 않습니다.",
+        desc: "단순히 “처리”하는 방식이 아니라, 사안의 무게를 기준으로 정리하고 대응합니다."
       },
       {
-        img: "post-01.jpg",
-        h: "164억 상속세\\n취소 판결",
-        p: "사례 기반으로 핵심 쟁점을 요약해, 판단의 기준선을 잡아드립니다."
+        img: "./post-02.jpg",
+        title: "판단 포인트를\\n정리합니다.",
+        desc: "범위와 기준을 명확히 잡아, 준비부터 대응까지 흐름을 설계합니다."
       },
       {
-        img: "post-03.jpg",
-        h: "별산제\\n구분기장",
-        p: "혼재된 거래를 분리 정리해, 리스크를 줄이는 방향을 제시합니다."
-      },
-      {
-        img: "post-04.jpg",
-        h: "학원강사\\n세무 포인트",
-        p: "수입구조·원천·필요경비 등 체크 포인트를 구조화합니다."
+        img: "./post-03.jpg",
+        title: "상속·증여\\n리스크를 줄입니다.",
+        desc: "핵심 쟁점을 빠르게 정리하고 필요한 자료를 체계적으로 안내합니다."
       }
     ];
+    let sIdx = 0;
 
-    const slideImg = document.getElementById("slideImg");
-    const slideH = document.getElementById("slideH");
-    const slideP = document.getElementById("slideP");
-    const dots = document.getElementById("dots");
-    let idx = 0;
-    let timer = null;
+    const heroImg = document.getElementById("heroImg");
+    const heroTitle = document.getElementById("heroTitle");
+    const heroDesc = document.getElementById("heroDesc");
+    const dots = Array.from(document.querySelectorAll(".dot"));
 
-    function renderDots(){
-      dots.innerHTML = "";
-      slides.forEach((_, i)=>{
-        const d = document.createElement("div");
-        d.className = "dot" + (i===idx ? " on" : "");
-        d.addEventListener("click", ()=>go(i, true));
-        dots.appendChild(d);
+    function setSlide(i){
+      sIdx = (i + slides.length) % slides.length;
+      heroImg.src = slides[sIdx].img;
+      heroTitle.innerHTML = slides[sIdx].title.replaceAll("\\n","<br/>");
+      heroDesc.textContent = slides[sIdx].desc;
+
+      dots.forEach(d => d.classList.remove("on"));
+      const on = dots.find(d => Number(d.dataset.dot) === sIdx);
+      if(on) on.classList.add("on");
+    }
+    document.getElementById("prevHero").addEventListener("click", ()=> setSlide(sIdx-1));
+    document.getElementById("nextHero").addEventListener("click", ()=> setSlide(sIdx+1));
+    dots.forEach(d => d.addEventListener("click", ()=> setSlide(Number(d.dataset.dot))));
+
+    /* ===== 태그 토글 ===== */
+    const tags = Array.from(document.querySelectorAll(".tag"));
+    tags.forEach(t => t.addEventListener("click", ()=>{
+      tags.forEach(x => x.classList.remove("on"));
+      t.classList.add("on");
+    }));
+
+    /* ===== 메뉴 (✅ 정상 동작) ===== */
+    const menuOverlay = document.getElementById("menuOverlay");
+    const openMenu = document.getElementById("openMenu");
+    const closeMenu = document.getElementById("closeMenu");
+
+    function showMenu(){
+      menuOverlay.classList.add("on");
+      menuOverlay.setAttribute("aria-hidden","false");
+      document.body.style.overflow = "hidden";
+    }
+    function hideMenu(){
+      menuOverlay.classList.remove("on");
+      menuOverlay.setAttribute("aria-hidden","true");
+      document.body.style.overflow = "";
+    }
+
+    openMenu.addEventListener("click", showMenu);
+    closeMenu.addEventListener("click", hideMenu);
+    menuOverlay.addEventListener("click", (e)=>{
+      if(e.target === menuOverlay) hideMenu();
+    });
+
+    // 메뉴 클릭 시 부드럽게 이동 + 닫기
+    document.querySelectorAll(".menuItem").forEach(a=>{
+      a.addEventListener("click", (e)=>{
+        const href = a.getAttribute("href") || "";
+        if(href.startsWith("#")){
+          e.preventDefault();
+          const el = document.querySelector(href);
+          hideMenu();
+          if(el){
+            el.scrollIntoView({behavior:"smooth", block:"start"});
+          }
+        }
       });
-    }
-
-    function go(i, user=false){
-      idx = (i + slides.length) % slides.length;
-      const s = slides[idx];
-      slideImg.src = s.img;
-      slideH.innerHTML = s.h.replaceAll("\\n","<br/>");
-      slideP.textContent = s.p;
-      renderDots();
-      if(user) restart();
-    }
-
-    function next(){ go(idx+1, true); }
-    function prev(){ go(idx-1, true); }
-
-    document.getElementById("nextBtn").addEventListener("click", next);
-    document.getElementById("prevBtn").addEventListener("click", prev);
-
-    function start(){
-      timer = setInterval(()=>go(idx+1), 4500);
-    }
-    function stop(){ if(timer){ clearInterval(timer); timer=null; } }
-    function restart(){ stop(); start(); }
-
-    renderDots();
-    start();
-
-    /* ===== 콘텐츠 그리드(파일명 기준) ===== */
-    const contents = [
-      {img:"post-01.jpg", cap:"콘텐츠 01", tag:"상속"},
-      {img:"post-02.jpg", cap:"콘텐츠 02", tag:"양도"},
-      {img:"post-03.jpg", cap:"콘텐츠 03", tag:"자금출처"},
-      {img:"post-04.jpg", cap:"콘텐츠 04", tag:"세무조사"},
-      {img:"post-05.jpg", cap:"콘텐츠 05", tag:"법인"},
-      {img:"post-06.jpg", cap:"콘텐츠 06", tag:"신고"},
-      {img:"post-07.jpg", cap:"콘텐츠 07", tag:"상속"},
-      {img:"post-08.jpg", cap:"콘텐츠 08", tag:"증여"},
-      {img:"post-09.jpg", cap:"콘텐츠 09", tag:"컨설팅"},
-    ];
-
-    const grid = document.getElementById("contentGrid");
-    contents.forEach((c)=>{
-      const item = document.createElement("div");
-      item.className = "contentItem";
-      item.innerHTML = `
-        <img src="${c.img}" alt="${c.cap}">
-        <div class="cap">${c.cap}</div>
-        <div class="tag">${c.tag}</div>
-      `;
-      grid.appendChild(item);
     });
 
-    /* ===== 문의 폼: 정적페이지용(카카오채널로 내용 전달) ===== */
-    const form = document.getElementById("leadForm");
-    form.addEventListener("submit", (e)=>{
-      e.preventDefault();
-      const fd = new FormData(form);
-      const name = (fd.get("name")||"").toString().trim();
-      const phone = (fd.get("phone")||"").toString().trim();
-      const topic = (fd.get("topic")||"").toString().trim();
-      const message = (fd.get("message")||"").toString().trim();
-
-      const text =
-        `[세무상담접수]\\n` +
-        `성함: ${name}\\n` +
-        `연락처: ${phone}\\n` +
-        (topic ? `주제: ${topic}\\n` : "") +
-        (message ? `내용: ${message}\\n` : "") +
-        `\\n(주)하비럴 web기획`;
-
-      // 카카오 채널로 이동(정적 페이지 대응)
-      // 일부 환경에서 메시지 프리필은 제한될 수 있어, 이동 후 붙여넣기 용도로 안내만 띄움.
-      navigator.clipboard?.writeText(text).catch(()=>{});
-      alert("상담 접수 내용이 복사되었습니다. 카카오채널로 이동합니다.");
-      window.open("http://pf.kakao.com/_vxntlG", "_blank", "noopener");
-      form.reset();
+    // ESC 닫기
+    window.addEventListener("keydown", (e)=>{
+      if(e.key === "Escape" && menuOverlay.classList.contains("on")) hideMenu();
     });
 
-    /* 메뉴 버튼(샘플 동작) */
-    document.getElementById("menuBtn").addEventListener("click", ()=>{
-      alert("메뉴는 확장 예정입니다. (주)하비럴 web기획");
-    });
-
-    /* 맨 위로 */
-    document.querySelector(".toTop").addEventListener("click", ()=>{
+    /* ===== 상단 이동 ===== */
+    document.getElementById("toTop").addEventListener("click", ()=>{
       window.scrollTo({top:0, behavior:"smooth"});
     });
+
+    /* ===== 상담 폼 (데모 동작) ===== */
+    document.getElementById("submitForm").addEventListener("click", ()=>{
+      const name = document.getElementById("fName").value.trim();
+      const phone = document.getElementById("fPhone").value.trim();
+      const msg = document.getElementById("fMsg").value.trim();
+
+      if(!name || !phone || !msg){
+        alert("성함/연락처/상담 내용을 모두 입력해주세요.");
+        return;
+      }
+
+      // 현재는 체험용: 실제 전송 연결은 별도 서버/API 작업 필요
+      alert("상담이 접수되었습니다. (체험용)\\n\\n(주)하비럴 web기획 · 기획브랜딩");
+      document.getElementById("fName").value = "";
+      document.getElementById("fPhone").value = "";
+      document.getElementById("fMsg").value = "";
+    });
+
+    // 초기
+    setSlide(0);
   </script>
 </body>
 </html>
