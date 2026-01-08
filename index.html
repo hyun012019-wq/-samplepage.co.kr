@@ -1,1731 +1,1230 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>세무회계 글 | TAX GEUL</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="theme-color" content="#F6F1E6" />
+  <title>세무회계 글</title>
 
-  <!-- =========================
-    SEO (체험용 기본값)
-  ========================== -->
-  <meta name="description" content="세무회계 글. 단순 신고가 아니라, 사안의 무게를 기준으로 정리하고 대응합니다." />
-  <meta name="robots" content="index,follow" />
-  <meta property="og:title" content="세무회계 글 | TAX GEUL" />
-  <meta property="og:description" content="단순 상담이 아닌, 검토가 필요한 사안만 연결됩니다." />
-  <meta property="og:type" content="website" />
-
-  <!-- =========================
-    STYLE
-  ========================== -->
   <style>
     :root{
-      --bg:#f6f4ef;
-      --card:#ffffff;
-      --text:#1b1b1b;
-      --muted:#6f6f6f;
-      --line:#e7e1d6;
-
-      --gold:#c9a44c;
-      --gold2:#ad8a37;
-      --dark:#111111;
-      --dark2:#1c1c1c;
-
-      --naver:#03c75a;
-      --kakao:#ffe812;
-      --kakaoText:#3b1e1e;
-
-      --radius:14px;
-      --shadow:0 10px 30px rgba(0,0,0,.06);
-
-      --max:1120px;
+      --bg:#F6F1E6;
+      --card:#FFFFFF;
+      --ink:#141414;
+      --muted:#6B6B6B;
+      --line:#E9E2D3;
+      --gold:#B6943A;
+      --gold2:#C7A24A;
+      --chip:#F2EAD8;
+      --shadow: 0 10px 30px rgba(0,0,0,.08);
+      --shadow2: 0 10px 40px rgba(0,0,0,.12);
+      --radius: 22px;
+      --radius2: 28px;
+      --safe-top: env(safe-area-inset-top, 0px);
+      --safe-btm: env(safe-area-inset-bottom, 0px);
     }
 
-    *{box-sizing:border-box;}
-    html,body{height:100%;}
+    *{box-sizing:border-box}
+    html,body{height:100%}
     body{
       margin:0;
-      font-family:-apple-system,BlinkMacSystemFont,"Noto Sans KR","Apple SD Gothic Neo",Segoe UI,Roboto,Arial,sans-serif;
-      background:var(--bg);
-      color:var(--text);
-      line-height:1.65;
-      letter-spacing:-0.2px;
+      font-family: ui-sans-serif, system-ui, -apple-system, "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", sans-serif;
+      background: radial-gradient(1200px 700px at 50% -10%, rgba(182,148,58,.18), transparent 60%),
+                  linear-gradient(#fbf7ef, var(--bg));
+      color:var(--ink);
     }
-    a{color:inherit;text-decoration:none;}
-    button{font-family:inherit;}
-    img{max-width:100%;display:block;}
+    a{color:inherit; text-decoration:none}
+    button{font-family:inherit}
 
-    /* =========================
-      LAYOUT WRAPPERS
-    ========================== */
-    .container{
-      width:100%;
-      max-width:var(--max);
-      margin:0 auto;
-      padding:0 20px;
-    }
-    .section{
-      padding:72px 0;
-    }
-    .section.tight{padding:52px 0;}
-    .sectionTitle{
-      font-size:28px;
-      font-weight:900;
-      margin:0 0 12px;
-    }
-    .sectionDesc{
-      margin:0 0 28px;
-      color:var(--muted);
-      font-size:15px;
-    }
-
-    /* =========================
-      TOP BAR
-    ========================== */
+    /* Top bar */
     .topbar{
       position:sticky;
       top:0;
       z-index:50;
-      background:rgba(255,255,255,.92);
+      background: rgba(246,241,230,.9);
       backdrop-filter: blur(10px);
-      border-bottom:1px solid rgba(0,0,0,.06);
+      border-bottom:1px solid rgba(233,226,211,.75);
+      padding-top: var(--safe-top);
     }
-    .topbarInner{
+    .topbar-inner{
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 12px 14px;
       display:flex;
       align-items:center;
-      justify-content:space-between;
-      height:64px;
-      gap:12px;
+      gap:10px;
     }
     .brand{
       display:flex;
       align-items:center;
-      gap:12px;
-      min-width:0;
+      gap:10px;
+      min-width: 0;
+      flex: 1 1 auto;
     }
-    .logoSlot{
-      width:38px;
-      height:38px;
-      border-radius:10px;
-      border:1px dashed rgba(0,0,0,.25);
-      background:linear-gradient(135deg, rgba(201,164,76,.12), rgba(201,164,76,.03));
+    .brand-logo{
+      width:44px;
+      height:44px;
+      border-radius:14px;
+      background: #fff;
+      border:1px solid var(--line);
       display:grid;
       place-items:center;
+      overflow:hidden;
       flex:0 0 auto;
+      box-shadow: 0 8px 20px rgba(0,0,0,.06);
     }
-    .logoSlot span{
-      font-weight:900;
-      color:var(--gold2);
-      font-size:14px;
-      letter-spacing:0.6px;
+    .brand-logo img{
+      width:100%;
+      height:100%;
+      object-fit: cover;
+      display:block;
     }
-    .brandText{
+    .brand-text{
       min-width:0;
-    }
-    .brandName{
       display:flex;
-      align-items:baseline;
-      gap:10px;
-      min-width:0;
+      flex-direction:column;
+      line-height:1.05;
     }
-    .brandName h1{
-      margin:0;
-      font-size:16px;
+    .brand-name{
       font-weight:900;
+      letter-spacing:-.02em;
+      font-size: 18px;
+      white-space: normal;     /* ✅ 모바일에서 안 잘리게: 줄바꿈 허용 */
+      word-break: keep-all;
+    }
+    .brand-sub{
+      margin-top:4px;
+      font-size:12px;
+      color:var(--muted);
       white-space:nowrap;
       overflow:hidden;
       text-overflow:ellipsis;
+      max-width: 45vw;
     }
-    .brandName small{
-      font-size:12px;
-      color:var(--gold2);
-      font-weight:800;
-      letter-spacing:0.14em;
-      text-transform:uppercase;
-    }
-    .topActions{
+    .actions{
       display:flex;
       align-items:center;
       gap:10px;
       flex:0 0 auto;
     }
-    .iconBtn{
-      width:40px;
-      height:40px;
-      border-radius:12px;
-      border:1px solid rgba(0,0,0,.08);
+    .iconbtn{
+      width:42px;
+      height:42px;
+      border-radius:16px;
+      border:1px solid var(--line);
       background:#fff;
       display:grid;
       place-items:center;
+      box-shadow: 0 8px 20px rgba(0,0,0,.06);
       cursor:pointer;
-      transition:.15s transform ease, .15s background ease, .15s border-color ease;
+      transition: transform .12s ease;
     }
-    .iconBtn:hover{
-      transform:translateY(-1px);
-      border-color:rgba(0,0,0,.16);
+    .iconbtn:active{transform: scale(.97)}
+    .iconbtn svg{display:block}
+    .menuBtn{
+      width:42px;height:42px;border-radius:16px;
     }
-    .menuBtn .bars{
-      width:18px;height:12px;position:relative;
-    }
-    .menuBtn .bars:before,
-    .menuBtn .bars:after,
-    .menuBtn .bars div{
-      content:"";
-      position:absolute;left:0;right:0;height:2px;border-radius:3px;
-      background:#1c1c1c;
-    }
-    .menuBtn .bars:before{top:0;}
-    .menuBtn .bars div{top:5px;}
-    .menuBtn .bars:after{bottom:0;}
 
-    /* =========================
-      NAV DRAWER
-    ========================== */
-    .drawerOverlay{
-      position:fixed;inset:0;
-      background:rgba(0,0,0,.4);
-      z-index:80;
-      display:none;
+    /* Layout */
+    .wrap{
+      max-width:1100px;
+      margin:0 auto;
+      padding: 14px 14px calc(110px + var(--safe-btm));
     }
-    .drawer{
-      position:fixed;
-      top:0;right:0;bottom:0;
-      width:min(380px, 92vw);
-      background:#fff;
-      z-index:90;
-      transform:translateX(110%);
-      transition:.22s transform ease;
-      box-shadow:-20px 0 50px rgba(0,0,0,.12);
+
+    .grid{
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap:18px;
+      align-items:start;
+    }
+    @media (max-width: 920px){
+      .grid{grid-template-columns: 1fr; gap:14px;}
+      .brand-sub{max-width: 70vw;}
+    }
+
+    /* Hero */
+    .hero{
+      background: linear-gradient(180deg, rgba(255,255,255,.85), rgba(255,255,255,.75));
+      border:1px solid var(--line);
+      border-radius: var(--radius2);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+
+    /* ✅ 업로드 가능한 배경 파일명 */
+    /* bg-office.jpg (사무실 배경 이미지) */
+    .hero-bg{
+      position:relative;
+      height: 370px;
+      background:
+        linear-gradient(180deg, rgba(0,0,0,.35), rgba(0,0,0,.40)),
+        url("bg-office.jpg") center/cover no-repeat;
+      border-bottom:1px solid var(--line);
+      animation: breathe 6.5s ease-in-out infinite; /* ✅ 숨쉬기: 빠르게 */
+      will-change: transform;
+    }
+    @keyframes breathe{
+      0%{transform: scale(1) translateY(0px)}
+      50%{transform: scale(1.055) translateY(2px)} /* ✅ 조금 더 진하게/느낌: 확대량 살짝 */
+      100%{transform: scale(1) translateY(0px)}
+    }
+    .hero-inner{
+      position:absolute;
+      inset:0;
       display:flex;
       flex-direction:column;
-    }
-    .drawerHeader{
-      padding:18px 18px 12px;
-      border-bottom:1px solid rgba(0,0,0,.06);
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
+      justify-content:flex-end;
+      padding: 22px 20px;
       gap:10px;
     }
-    .drawerHeader strong{font-size:14px;}
-    .drawerBody{padding:14px 18px; overflow:auto;}
-    .navList{display:flex;flex-direction:column;gap:10px;}
-    .navItem{
-      padding:12px 12px;
-      border-radius:12px;
-      border:1px solid rgba(0,0,0,.08);
-      cursor:pointer;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:10px;
-    }
-    .navItem:hover{border-color:rgba(0,0,0,.18);}
-    .navItem span{font-weight:800;}
-    .navItem em{font-style:normal;color:var(--muted);font-size:12px;}
-
-    .drawerFooter{
-      margin-top:auto;
-      padding:14px 18px 18px;
-      border-top:1px solid rgba(0,0,0,.06);
-      display:flex;
-      gap:10px;
-    }
-    .drawerFooter a{
-      flex:1;
-      border-radius:12px;
-      padding:12px 12px;
-      font-weight:900;
-      text-align:center;
-      border:1px solid rgba(0,0,0,.08);
-      background:#fff;
-    }
-    .drawerFooter a.primary{
-      background:var(--dark);
-      color:#fff;
-      border-color:transparent;
-    }
-
-    .drawerOpen .drawerOverlay{display:block;}
-    .drawerOpen .drawer{transform:translateX(0);}
-
-    /* =========================
-      HERO / SLIDER
-    ========================== */
-    .hero{
-      padding:34px 0 0;
-    }
-    .heroGrid{
-      display:grid;
-      grid-template-columns: 1.15fr .85fr;
-      gap:18px;
-      align-items:stretch;
-    }
-    @media (max-width: 980px){
-      .heroGrid{grid-template-columns:1fr; }
-    }
-
-    .heroMain{
-      border-radius:var(--radius);
-      background:linear-gradient(180deg, #ffffff, rgba(255,255,255,.85));
-      box-shadow:var(--shadow);
-      border:1px solid rgba(0,0,0,.06);
-      overflow:hidden;
-      position:relative;
-      min-height:360px;
-    }
-    .slider{
-      height:100%;
-      position:relative;
-    }
-    .slide{
-      position:absolute; inset:0;
-      padding:34px 28px;
-      display:grid;
-      align-content:center;
-      opacity:0;
-      transform:translateY(10px);
-      transition:.35s opacity ease, .35s transform ease;
-    }
-    .slide.active{
-      opacity:1;
-      transform:translateY(0);
-    }
-    .slideTag{
+    .pill{
       display:inline-flex;
       align-items:center;
-      gap:10px;
-      padding:8px 12px;
-      border-radius:999px;
-      background:rgba(201,164,76,.14);
-      border:1px solid rgba(201,164,76,.22);
-      width:max-content;
-      font-weight:900;
-      color:var(--gold2);
-      font-size:12px;
-      letter-spacing:.08em;
-      text-transform:uppercase;
-    }
-    .slide h2{
-      margin:14px 0 12px;
-      font-size:34px;
-      line-height:1.15;
-      font-weight:1000;
-      letter-spacing:-1px;
-    }
-    .slide p{
-      margin:0;
-      color:var(--muted);
-      font-size:15px;
-      max-width:560px;
-    }
-    .sliderControls{
-      position:absolute;
-      left:18px; right:18px; bottom:16px;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:12px;
-    }
-    .dots{
-      display:flex;
-      align-items:center;
       gap:8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(246,241,230,.92);
+      border:1px solid rgba(233,226,211,.85);
+      width: fit-content;
+      font-weight:800;
+      color:#3b2f11;
+      letter-spacing:.02em;
     }
-    .dot{
-      width:8px;height:8px;border-radius:50%;
-      background:rgba(0,0,0,.18);
-      cursor:pointer;
-    }
-    .dot.active{background:var(--gold2);}
-    .sliderBtns{
-      display:flex; gap:8px;
-    }
-    .miniBtn{
-      width:38px;height:38px;
-      border-radius:12px;
-      border:1px solid rgba(0,0,0,.08);
-      background:#fff;
-      cursor:pointer;
-      display:grid;
-      place-items:center;
-    }
-    .miniBtn:hover{border-color:rgba(0,0,0,.18);}
-
-    .heroSide{
-      display:flex;
-      flex-direction:column;
-      gap:14px;
-    }
-    .sideCard{
-      background:#fff;
-      border:1px solid rgba(0,0,0,.06);
-      border-radius:var(--radius);
-      box-shadow:var(--shadow);
-      padding:18px;
-    }
-    .sideCard strong{
-      display:block;
-      font-size:14px;
-      font-weight:1000;
-      margin-bottom:10px;
-    }
-    .badgeRow{
-      display:flex;
-      flex-wrap:wrap;
-      gap:8px;
-    }
-    .badge{
-      padding:8px 10px;
-      border-radius:999px;
-      border:1px solid rgba(0,0,0,.08);
-      font-size:12px;
-      font-weight:900;
-      color:#333;
-      background:rgba(0,0,0,.02);
-    }
-
-    /* Quick links buttons */
-    .quickLinks{
-      display:flex;
-      flex-direction:column;
-      gap:10px;
-      margin-top:8px;
-    }
-    .ql{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:12px;
-      padding:12px 12px;
-      border-radius:14px;
-      border:1px solid rgba(0,0,0,.08);
-      cursor:pointer;
-      background:#fff;
-      transition:.15s transform ease,.15s border-color ease;
-    }
-    .ql:hover{transform:translateY(-1px); border-color:rgba(0,0,0,.18);}
-    .qlLeft{display:flex; align-items:center; gap:10px; min-width:0;}
-    .qlTitle{
-      font-weight:1000;
-      font-size:14px;
-      white-space:nowrap;
-      overflow:hidden;
-      text-overflow:ellipsis;
-    }
-    .qlSub{font-size:12px;color:var(--muted);}
-    .qlRight{font-size:12px;color:var(--muted); font-weight:900;}
-    .pillIcon{
-      width:38px; height:38px;
-      border-radius:12px;
-      display:grid;
-      place-items:center;
-      flex:0 0 auto;
-      border:1px solid rgba(0,0,0,.08);
-      background:rgba(0,0,0,.02);
-    }
-
-    /* =========================
-      STEPS (사진 느낌)
-    ========================== */
-    .stepGrid{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:16px;
-    }
-    @media (max-width: 860px){
-      .stepGrid{grid-template-columns:1fr;}
-    }
-    .stepCard{
-      background:#fff;
-      border:1px solid rgba(0,0,0,.06);
-      border-radius:var(--radius);
-      overflow:hidden;
-      box-shadow:var(--shadow);
-      position:relative;
-      min-height:190px;
-    }
-    .stepTop{
-      padding:16px 18px 0;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-    }
-    .stepPill{
-      background:rgba(3,199,90,.10);
-      border:1px solid rgba(3,199,90,.18);
-      color:#0b7e41;
-      font-weight:1000;
-      font-size:12px;
-      padding:8px 12px;
-      border-radius:999px;
-      letter-spacing:.08em;
-    }
-    .stepNum{
-      color:rgba(0,0,0,.25);
-      font-weight:1000;
-      font-size:12px;
-      letter-spacing:.12em;
-    }
-    .stepBody{
-      padding:10px 18px 18px;
-    }
-    .stepTitle{
-      margin:6px 0 10px;
-      font-size:20px;
-      font-weight:1000;
-    }
-    .stepList{
-      margin:0;
-      padding:0;
-      list-style:none;
-      color:#444;
-      font-weight:700;
-      font-size:14px;
-    }
-    .stepList li{
-      display:flex;
-      gap:10px;
-      align-items:flex-start;
-      padding:6px 0;
-    }
-    .tick{
-      width:18px;height:18px;border-radius:6px;
-      border:1px solid rgba(0,0,0,.12);
-      background:rgba(0,0,0,.03);
-      display:grid; place-items:center;
-      flex:0 0 auto;
-      margin-top:1px;
-    }
-    .tick svg{width:12px;height:12px;}
-
-    /* =========================
-      DARK FOCUS STATEMENT
-    ========================== */
-    .focus{
-      background:linear-gradient(180deg, #0f0f0f, #171717);
+    .hero-title{
       color:#fff;
-      border-top:1px solid rgba(255,255,255,.06);
-      border-bottom:1px solid rgba(255,255,255,.06);
+      font-weight: 1000;
+      letter-spacing: -0.04em;
+      font-size: 44px;
+      line-height: 1.03;
+      margin:0;
+      text-shadow: 0 10px 30px rgba(0,0,0,.35);
     }
-    .focusInner{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap:18px;
+    .hero-desc{
+      color: rgba(255,255,255,.92);
+      font-size: 15px;
+      line-height: 1.6;
+      margin:0;
+      max-width: 58ch;
+      text-shadow: 0 10px 30px rgba(0,0,0,.32);
+    }
+    .hero-meta{
+      margin-top: 10px;
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
       align-items:center;
     }
-    @media (max-width: 980px){
-      .focusInner{grid-template-columns:1fr;}
-    }
-    .focus h3{
-      margin:0 0 10px;
-      font-size:30px;
-      line-height:1.15;
-      font-weight:1100;
-      letter-spacing:-1px;
-    }
-    .focus p{
-      margin:0;
-      color:rgba(255,255,255,.78);
-      font-size:15px;
-    }
-    .focusBox{
-      background:rgba(255,255,255,.06);
-      border:1px solid rgba(255,255,255,.10);
-      border-radius:var(--radius);
-      padding:16px;
-    }
-    .focusBox strong{
-      display:block;
-      font-size:14px;
-      font-weight:1000;
-      margin-bottom:12px;
-    }
-    .focusBox ul{
-      margin:0;
-      padding:0;
-      list-style:none;
-      display:flex;
-      flex-direction:column;
-      gap:10px;
-      color:rgba(255,255,255,.78);
-      font-weight:800;
-      font-size:13px;
-    }
-    .focusBox li{
-      display:flex;
-      gap:10px;
-      align-items:flex-start;
-    }
-    .bullet{
-      width:8px;height:8px;border-radius:50%;
-      background:var(--gold);
-      margin-top:7px;
-      flex:0 0 auto;
+    .meta-chip{
+      background: rgba(255,255,255,.16);
+      border:1px solid rgba(255,255,255,.22);
+      color: rgba(255,255,255,.92);
+      padding: 9px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      letter-spacing:.01em;
     }
 
-    /* =========================
-      SERVICE GRID (사진의 2x2 느낌)
-    ========================== */
-    .svcGrid{
-      display:grid;
-      grid-template-columns:repeat(4, 1fr);
-      gap:14px;
-    }
-    @media (max-width: 980px){
-      .svcGrid{grid-template-columns:repeat(2, 1fr);}
-    }
-    @media (max-width: 520px){
-      .svcGrid{grid-template-columns:1fr;}
-    }
-    .svc{
-      background:#fff;
-      border:1px solid rgba(0,0,0,.06);
-      border-radius:var(--radius);
-      padding:18px;
-      box-shadow:var(--shadow);
-      min-height:120px;
+    .hero-controls{
       display:flex;
-      flex-direction:column;
       justify-content:space-between;
-      gap:8px;
+      align-items:center;
+      padding: 14px 14px;
     }
-    .svc strong{
-      font-size:16px;
-      font-weight:1000;
+    .dots{display:flex; gap:8px}
+    .dot{
+      width:10px; height:10px; border-radius:999px;
+      border:1px solid rgba(182,148,58,.55);
+      background: rgba(182,148,58,.25);
+      cursor:pointer;
     }
-    .svc span{
-      font-size:13px;
-      color:var(--muted);
-      font-weight:800;
+    .dot.active{background: rgba(182,148,58,.85)}
+    .navbtns{display:flex; gap:10px}
+    .navbtn{
+      width:46px;height:46px;border-radius:16px;
+      border:1px solid var(--line); background:#fff;
+      display:grid; place-items:center;
+      box-shadow: 0 8px 18px rgba(0,0,0,.06);
+      cursor:pointer;
     }
 
-    /* =========================
-      CONTENT / POSTS GRID (사진처럼 썸네일 타일 느낌)
-    ========================== */
-    .postsTop{
+    /* Cards */
+    .card{
+      background: rgba(255,255,255,.82);
+      border:1px solid var(--line);
+      border-radius: var(--radius2);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+    .card-hd{
+      padding: 16px 16px 0;
       display:flex;
       align-items:flex-end;
       justify-content:space-between;
-      gap:12px;
-      flex-wrap:wrap;
-      margin-bottom:16px;
+      gap:10px;
     }
-    .postsTop .note{
-      color:var(--muted);
-      font-size:13px;
-      font-weight:800;
-    }
-    .postGrid{
-      display:grid;
-      grid-template-columns:repeat(3, 1fr);
-      gap:14px;
-    }
-    @media (max-width: 980px){
-      .postGrid{grid-template-columns:repeat(2,1fr);}
-    }
-    @media (max-width: 520px){
-      .postGrid{grid-template-columns:1fr;}
-    }
-    .post{
-      border-radius:var(--radius);
-      overflow:hidden;
-      border:1px solid rgba(0,0,0,.06);
-      background:#fff;
-      box-shadow:var(--shadow);
-      cursor:pointer;
-      transition:.15s transform ease, .15s border-color ease;
-    }
-    .post:hover{
-      transform:translateY(-2px);
-      border-color:rgba(0,0,0,.16);
-    }
-    .postThumb{
-      height:150px;
-      display:grid;
-      place-items:center;
-      background:
-        linear-gradient(135deg, rgba(201,164,76,.15), rgba(201,164,76,.02)),
-        repeating-linear-gradient(0deg, rgba(0,0,0,.04) 0, rgba(0,0,0,.04) 1px, transparent 1px, transparent 16px);
-      position:relative;
-    }
-    .postThumb .stamp{
-      position:absolute;
-      left:12px; top:12px;
-      background:rgba(0,0,0,.78);
-      color:#fff;
-      font-weight:1000;
-      font-size:11px;
-      padding:7px 10px;
-      border-radius:999px;
-      letter-spacing:.08em;
-    }
-    .postThumb h4{
+    .card-title{
       margin:0;
-      font-size:20px;
-      font-weight:1100;
-      color:#2b2b2b;
-      text-align:center;
-      padding:0 12px;
-      line-height:1.1;
+      font-size: 18px;
+      font-weight: 950;
+      letter-spacing:-.02em;
     }
-    .postBody{
-      padding:14px 14px 16px;
+    .card-sub{
+      margin: 6px 0 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.55;
     }
-    .postTitle{
-      margin:0 0 6px;
-      font-size:15px;
-      font-weight:1000;
-      letter-spacing:-0.4px;
-    }
-    .postMeta{
-      margin:0;
-      color:var(--muted);
-      font-size:12px;
+    .card-body{padding: 14px 16px 16px;}
+    .note{
+      color:#705a1f;
       font-weight:800;
+      font-size: 12px;
+      letter-spacing:.02em;
+      background: rgba(182,148,58,.14);
+      border:1px solid rgba(182,148,58,.22);
+      padding: 10px 12px;
+      border-radius: 14px;
     }
 
-    /* =========================
-      INQUIRY SECTION
-    ========================== */
-    .inquiryWrap{
+    /* Chips */
+    .chips{display:flex; flex-wrap:wrap; gap:10px; margin-top: 12px;}
+    .chip{
+      background: var(--chip);
+      border:1px solid var(--line);
+      border-radius: 999px;
+      padding: 10px 12px;
+      font-weight:800;
+      font-size: 13px;
+      cursor:pointer;
+      user-select:none;
+    }
+    .chip:active{transform: scale(.99)}
+
+    /* Quick tiles */
+    .tiles{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:12px;
+    }
+    @media (max-width: 520px){
+      .tiles{grid-template-columns: repeat(2, 1fr);}
+      .hero-title{font-size: 38px;}
+      .hero-bg{height: 350px;}
+    }
+    .tile{
+      background: #fff;
+      border:1px solid var(--line);
+      border-radius: 20px;
+      padding: 14px 12px;
+      box-shadow: 0 8px 18px rgba(0,0,0,.06);
+      display:flex;
+      gap:10px;
+      align-items:center;
+      cursor:pointer;
+      transition: transform .12s ease;
+      min-height: 64px;
+    }
+    .tile:active{transform: scale(.98)}
+    .tile svg{flex:0 0 auto}
+    .tile .ttext{
+      display:flex; flex-direction:column; min-width:0;
+    }
+    .tile .tname{
+      font-weight: 950; letter-spacing:-.02em;
+      white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+    }
+    .tile .tsub{
+      margin-top:3px; font-size:12px; color: var(--muted);
+      white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+    }
+
+    /* Gallery */
+    .gallery{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+    @media (max-width: 920px){
+      .gallery{grid-template-columns: repeat(2, 1fr);}
+    }
+    @media (max-width: 520px){
+      .gallery{grid-template-columns: 1fr;}
+    }
+    .gcard{
       background:#fff;
-      border:1px solid rgba(0,0,0,.06);
-      border-radius:var(--radius);
-      box-shadow:var(--shadow);
+      border:1px solid var(--line);
+      border-radius: 22px;
+      overflow:hidden;
+      box-shadow: 0 10px 24px rgba(0,0,0,.07);
+      cursor:pointer;
+      transition: transform .12s ease;
+    }
+    .gcard:active{transform: scale(.99)}
+    .gimg{
+      height: 180px;
+      background: #efe7d6;
+      position:relative;
       overflow:hidden;
     }
-    .inquiryHead{
-      padding:20px;
-      border-bottom:1px solid rgba(0,0,0,.06);
-      display:flex;
-      align-items:flex-start;
-      justify-content:space-between;
-      gap:14px;
-      flex-wrap:wrap;
+    .gimg img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+      filter: contrast(1.02) saturate(1.02);
     }
-    .inquiryHead h3{
+    .gbody{padding: 14px 14px 16px;}
+    .gtitle{
       margin:0;
-      font-size:22px;
-      font-weight:1100;
+      font-weight: 1000;
+      letter-spacing:-.03em;
+      font-size: 18px;
     }
-    .inquiryHead p{
-      margin:6px 0 0;
-      color:var(--muted);
-      font-size:13px;
-      font-weight:800;
-      max-width:720px;
+    .gdesc{
+      margin: 8px 0 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.55;
     }
-    .inquiryBody{
-      padding:20px;
+    .gfoot{
+      margin-top: 10px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:10px;
+    }
+    .badge{
+      font-size:12px;
+      font-weight:900;
+      padding: 7px 10px;
+      border-radius: 999px;
+      border:1px solid rgba(182,148,58,.28);
+      background: rgba(182,148,58,.14);
+      color:#5b4a19;
+      white-space:nowrap;
+    }
+    .mini{
+      font-size:12px;
+      color: var(--muted);
+      white-space:nowrap;
+    }
+
+    /* Side floating contact */
+    .float{
+      position: fixed;
+      right: 14px;
+      top: 52%;
+      transform: translateY(-50%);
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+      z-index:60;
+    }
+    @media (max-width: 920px){
+      .float{top:auto; bottom: calc(92px + var(--safe-btm)); transform:none;}
+    }
+    .fab{
+      width:70px;
+      border-radius: 22px;
+      background:#fff;
+      border:1px solid var(--line);
+      box-shadow: var(--shadow2);
+      padding: 12px 10px;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      gap:8px;
+      cursor:pointer;
+      user-select:none;
+    }
+    .fab span{
+      font-size: 12px;
+      font-weight: 950;
+      letter-spacing:-.02em;
+      color:#2b2b2b;
+    }
+
+    /* Bottom sheet menu */
+    .sheet-backdrop{
+      position:fixed; inset:0;
+      background: rgba(0,0,0,.25);
+      opacity:0; pointer-events:none;
+      transition: opacity .18s ease;
+      z-index:80;
+    }
+    .sheet{
+      position:fixed;
+      left:0; right:0;
+      bottom: -520px;
+      background: rgba(255,255,255,.92);
+      backdrop-filter: blur(12px);
+      border-top:1px solid var(--line);
+      box-shadow: 0 -20px 50px rgba(0,0,0,.18);
+      border-radius: 26px 26px 0 0;
+      padding: 12px 14px calc(18px + var(--safe-btm));
+      transition: bottom .22s ease;
+      z-index:90;
+    }
+    .sheet.open{bottom:0}
+    .sheet-backdrop.open{opacity:1; pointer-events:auto}
+    .grab{
+      width:48px; height:5px; border-radius:999px;
+      background: rgba(0,0,0,.12);
+      margin: 4px auto 10px;
+    }
+    .sheet-title{
+      font-weight: 1000;
+      letter-spacing:-.03em;
+      margin: 6px 0 12px;
+      text-align:center;
+    }
+    .sheet-menu{
       display:grid;
       grid-template-columns: 1fr 1fr;
-      gap:14px;
+      gap:12px;
     }
-    @media (max-width: 860px){
-      .inquiryBody{grid-template-columns:1fr;}
-    }
-    .field{
-      display:flex;
-      flex-direction:column;
-      gap:8px;
-    }
-    .field label{
-      font-size:12px;
-      font-weight:1000;
-      color:#333;
-    }
-    .input, .textarea{
-      width:100%;
-      border:1px solid rgba(0,0,0,.12);
-      border-radius:12px;
-      padding:13px 12px;
-      font-size:14px;
-      outline:none;
+    .sbtn{
       background:#fff;
+      border:1px solid var(--line);
+      border-radius: 18px;
+      padding: 14px 12px;
+      display:flex;
+      align-items:center;
+      gap:10px;
+      box-shadow: 0 10px 26px rgba(0,0,0,.06);
+      cursor:pointer;
     }
-    .textarea{min-height:120px; resize:vertical;}
-    .input:focus, .textarea:focus{
-      border-color:rgba(201,164,76,.7);
-      box-shadow:0 0 0 4px rgba(201,164,76,.14);
+    .sbtn strong{
+      font-weight: 1000;
+      letter-spacing:-.02em;
+    }
+    .sbtn small{
+      display:block;
+      margin-top:3px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.3;
     }
 
-    .consentRow{
-      grid-column:1 / -1;
+    /* Modal */
+    .modal-backdrop{
+      position:fixed; inset:0;
+      background: rgba(0,0,0,.32);
+      opacity:0; pointer-events:none;
+      transition: opacity .18s ease;
+      z-index:120;
+    }
+    .modal{
+      position:fixed;
+      left:50%; top:50%;
+      transform: translate(-50%,-50%) scale(.98);
+      width: min(560px, calc(100vw - 28px));
+      background: rgba(255,255,255,.94);
+      backdrop-filter: blur(12px);
+      border:1px solid var(--line);
+      border-radius: 26px;
+      box-shadow: 0 30px 90px rgba(0,0,0,.22);
+      padding: 16px;
+      opacity:0;
+      pointer-events:none;
+      transition: opacity .18s ease, transform .18s ease;
+      z-index:130;
+    }
+    .modal.open{
+      opacity:1; pointer-events:auto;
+      transform: translate(-50%,-50%) scale(1);
+    }
+    .modal-backdrop.open{opacity:1; pointer-events:auto}
+    .modal-hd{
       display:flex;
       align-items:flex-start;
-      gap:10px;
-      padding:12px;
-      border-radius:12px;
-      border:1px solid rgba(0,0,0,.08);
-      background:rgba(0,0,0,.02);
-    }
-    .consentRow input{margin-top:3px;}
-    .consentRow strong{
-      font-size:13px;
-      font-weight:1000;
-    }
-    .consentRow span{
-      display:block;
-      font-size:12px;
-      color:var(--muted);
-      font-weight:800;
-      margin-top:2px;
-    }
-
-    .submitRow{
-      grid-column:1 / -1;
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      margin-top:4px;
-    }
-    .btn{
-      border:none;
-      cursor:pointer;
-      border-radius:14px;
-      padding:14px 14px;
-      font-weight:1100;
-      font-size:14px;
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      gap:10px;
-      transition:.15s transform ease, .15s opacity ease;
-    }
-    .btn:active{transform:scale(.99);}
-    .btn.primary{
-      background:var(--dark);
-      color:#fff;
-      flex:1;
-      min-width:220px;
-    }
-    .btn.ghost{
-      background:#fff;
-      border:1px solid rgba(0,0,0,.12);
-      color:#222;
-      min-width:180px;
-    }
-    .toast{
-      position:fixed;
-      left:50%;
-      bottom:92px;
-      transform:translateX(-50%);
-      background:rgba(17,17,17,.92);
-      color:#fff;
-      padding:12px 14px;
-      border-radius:14px;
-      font-weight:900;
-      font-size:13px;
-      display:none;
-      z-index:120;
-      box-shadow:0 20px 50px rgba(0,0,0,.18);
-    }
-
-    /* =========================
-      FLOATING ACTIONS (사진처럼 우측)
-    ========================== */
-    .floatStack{
-      position:fixed;
-      right:14px;
-      top:44%;
-      transform:translateY(-50%);
-      z-index:110;
-      display:flex;
-      flex-direction:column;
-      gap:8px;
-    }
-    .floatBtn{
-      width:68px;
-      height:68px;
-      border-radius:14px;
-      background:#fff;
-      border:1px solid rgba(0,0,0,.10);
-      box-shadow:0 10px 26px rgba(0,0,0,.10);
-      cursor:pointer;
-      display:grid;
-      place-items:center;
-      gap:6px;
-      padding:8px;
-      text-align:center;
-      font-weight:1000;
-      font-size:11px;
-      color:#333;
-    }
-    .floatBtn svg{width:22px;height:22px;}
-    .floatBtn:hover{border-color:rgba(0,0,0,.18);}
-    @media (max-width: 520px){
-      .floatStack{right:10px;}
-      .floatBtn{width:62px;height:62px;}
-    }
-
-    .toTop{
-      position:fixed;
-      right:18px;
-      bottom:18px;
-      width:54px;height:54px;
-      border-radius:999px;
-      border:1px solid rgba(0,0,0,.12);
-      background:#fff;
-      box-shadow:0 12px 24px rgba(0,0,0,.10);
-      display:grid;
-      place-items:center;
-      cursor:pointer;
-      z-index:110;
-    }
-    .toTop svg{width:20px;height:20px;}
-
-    /* =========================
-      BUSINESS INFO FOOTER (최하단, 접기/펼치기)
-    ========================== */
-    .bizFooter{
-      margin-top:70px;
-      background:#0f0f0f;
-      color:#cfcfcf;
-      border-top:1px solid rgba(255,255,255,.08);
-    }
-    .bizInner{
-      padding:18px 0 22px;
-    }
-    .bizHead{
-      display:flex;
-      align-items:center;
       justify-content:space-between;
       gap:10px;
-      padding:16px 0;
+      margin-bottom: 10px;
     }
-    .bizHead strong{
-      font-size:14px;
-      font-weight:1100;
-      color:#fff;
-    }
-    .bizToggle{
-      border:1px solid rgba(255,255,255,.14);
-      background:rgba(255,255,255,.06);
-      color:#fff;
-      padding:10px 12px;
-      border-radius:12px;
-      cursor:pointer;
-      font-weight:1000;
-      font-size:12px;
-    }
-    .bizGrid{
-      display:none;
-      padding:14px 0 0;
-      border-top:1px solid rgba(255,255,255,.08);
-      gap:10px;
-    }
-    .bizGrid.open{display:grid;}
-    .bizRow{
-      display:grid;
-      grid-template-columns: 130px 1fr;
-      gap:10px;
-      padding:10px 0;
-      border-bottom:1px solid rgba(255,255,255,.06);
-      font-size:13px;
-    }
-    .bizKey{color:rgba(255,255,255,.70); font-weight:1000;}
-    .bizVal{color:#fff; font-weight:900;}
-    .bizCopy{
-      padding-top:14px;
-      font-size:12px;
-      color:rgba(255,255,255,.65);
-      font-weight:800;
-      text-align:center;
-    }
-
-    /* =========================
-      ICONS (SVG BASE)
-    ========================== */
-    .svg{display:block;}
-    .icoNaver{
-      width:22px;height:22px;
-    }
-    .icoKakao{
-      width:22px;height:22px;
-    }
-
-    /* =========================
-      SMALL UTIL
-    ========================== */
-    .hide{display:none !important;}
-    .hr{
-      height:1px;
-      background:rgba(0,0,0,.08);
-      border:none;
+    .modal-hd h3{
       margin:0;
+      font-size: 18px;
+      font-weight: 1000;
+      letter-spacing:-.02em;
+    }
+    .close{
+      width:42px;height:42px;
+      border-radius: 16px;
+      border:1px solid var(--line);
+      background:#fff;
+      cursor:pointer;
+      display:grid;
+      place-items:center;
+    }
+    .modal-body{
+      color:#2b2b2b;
+      font-size: 14px;
+      line-height: 1.75;
+    }
+    .modal-body .muted{color: var(--muted)}
+    .kv{
+      margin-top: 10px;
+      display:grid;
+      gap:10px;
+    }
+    .kvrow{
+      display:grid;
+      grid-template-columns: 96px 1fr;
+      gap:10px;
+      padding: 12px 12px;
+      border-radius: 18px;
+      border:1px solid var(--line);
+      background: rgba(246,241,230,.55);
+    }
+    .k{
+      font-weight: 950;
+      color:#4a3a12;
+    }
+    .v{
+      color:#2b2b2b;
+      word-break: keep-all;
+    }
+
+    /* Footer */
+    .footer{
+      margin-top: 16px;
+      border:1px solid var(--line);
+      border-radius: 26px;
+      background: rgba(255,255,255,.82);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+    .footer-inner{
+      padding: 16px;
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+    }
+    .footline{
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      align-items:center;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.6;
+    }
+    .footbadge{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding: 8px 10px;
+      border-radius: 14px;
+      background: rgba(182,148,58,.14);
+      border:1px solid rgba(182,148,58,.22);
+      color:#5b4a19;
+      font-weight: 950;
+      width: fit-content;
+    }
+
+    /* Back to top */
+    .toTop{
+      position: fixed;
+      right: 14px;
+      bottom: calc(18px + var(--safe-btm));
+      width: 56px;
+      height: 56px;
+      border-radius: 20px;
+      border: 1px solid var(--line);
+      background: #fff;
+      box-shadow: var(--shadow2);
+      display:grid;
+      place-items:center;
+      cursor:pointer;
+      z-index: 70;
+      opacity:.92;
     }
   </style>
 </head>
 
 <body>
 
-  <!-- =========================
-    DRAWER
-  ========================== -->
-  <div class="drawerOverlay" id="drawerOverlay"></div>
-  <aside class="drawer" id="drawer">
-    <div class="drawerHeader">
-      <strong>메뉴</strong>
-      <button class="iconBtn" id="drawerClose" aria-label="닫기">
-        <svg class="svg" width="18" height="18" viewBox="0 0 24 24" fill="none">
-          <path d="M6 6L18 18M18 6L6 18" stroke="#111" stroke-width="2.2" stroke-linecap="round"/>
-        </svg>
-      </button>
-    </div>
-    <div class="drawerBody">
-      <div class="navList">
-        <div class="navItem" data-scroll="#top"><span>홈</span><em>첫 화면</em></div>
-        <div class="navItem" data-scroll="#steps"><span>진행 흐름</span><em>STEP</em></div>
-        <div class="navItem" data-scroll="#services"><span>업무 영역</span><em>분야</em></div>
-        <div class="navItem" data-scroll="#posts"><span>콘텐츠</span><em>타일</em></div>
-        <div class="navItem" data-scroll="#inquiry"><span>문의</span><em>검토 요청</em></div>
-        <div class="navItem" data-scroll="#biz"><span>사업자정보</span><em>최하단</em></div>
-      </div>
-    </div>
-    <div class="drawerFooter">
-      <a href="https://blog.naver.com/taxyejin" target="_blank" rel="noopener">블로그</a>
-      <a class="primary" href="http://pf.kakao.com/_vxntlG" target="_blank" rel="noopener">카카오채널</a>
-    </div>
-  </aside>
-
-  <!-- =========================
-    TOPBAR
-  ========================== -->
-  <div class="topbar" id="top">
-    <div class="container">
-      <div class="topbarInner">
-        <div class="brand">
-          <!-- 로고 자리(네가 디자인 넣으면 됨) -->
-          <div class="logoSlot" title="로고 자리">
-            <span>LOGO</span>
-          </div>
-
-          <div class="brandText">
-            <div class="brandName">
-              <h1>세무회계 글</h1>
-              <small>TAX GEUL</small>
-            </div>
-          </div>
+  <!-- Top -->
+  <header class="topbar" role="banner">
+    <div class="topbar-inner">
+      <div class="brand" aria-label="브랜드">
+        <!-- ✅ 업로드한 로고 파일명: logo-taxgeul.png -->
+        <div class="brand-logo" aria-label="로고">
+          <img src="logo-taxgeul.png" alt="세무회계 글 로고" />
         </div>
 
-        <div class="topActions">
-          <a class="iconBtn" href="https://blog.naver.com/taxyejin" target="_blank" rel="noopener" aria-label="네이버 블로그">
-            <!-- NAVER ICON -->
-            <svg class="svg icoNaver" viewBox="0 0 24 24" aria-hidden="true">
-              <path fill="var(--naver)" d="M8.2 7.1c.4 0 .7.2.9.5l4.2 6.1V7.9c0-.5.4-.8.9-.8h1.6c.5 0 .9.4.9.9v8.9c0 .5-.4.9-.9.9h-1.7c-.4 0-.7-.2-.9-.5l-4.2-6v5.6c0 .5-.4.9-.9.9H7.3c-.5 0-.9-.4-.9-.9V8c0-.5.4-.9.9-.9h.9z"/>
-            </svg>
-          </a>
-
-          <a class="iconBtn" href="http://pf.kakao.com/_vxntlG" target="_blank" rel="noopener" aria-label="카카오채널">
-            <!-- KAKAO ICON -->
-            <svg class="svg icoKakao" viewBox="0 0 24 24" aria-hidden="true">
-              <path fill="var(--kakao)" d="M12 3.2c-5.1 0-9.2 3.1-9.2 7 0 2.5 1.7 4.7 4.2 6.1-.2.8-.8 2.8-.9 3.2-.1.4.1.4.3.3.2-.1 2.8-1.9 3.6-2.4.6.1 1.3.2 2 .2 5.1 0 9.2-3.1 9.2-7s-4.1-7-9.2-7z"/>
-              <path fill="var(--kakaoText)" d="M8.5 9.6c0-.5.4-.9.9-.9h5.2c.5 0 .9.4.9.9s-.4.9-.9.9h-1.7v3c0 .5-.4.9-.9.9s-.9-.4-.9-.9v-3H9.4c-.5 0-.9-.4-.9-.9z"/>
-            </svg>
-          </a>
-
-          <button class="iconBtn menuBtn" id="menuOpen" aria-label="메뉴 열기">
-            <div class="bars"><div></div></div>
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- =========================
-    HERO
-  ========================== -->
-  <section class="hero">
-    <div class="container">
-      <div class="heroGrid">
-        <div class="heroMain">
-          <div class="slider" id="slider">
-
-            <div class="slide active">
-              <div class="slideTag">TAX GEUL</div>
-              <h2>세무 문제는<br>모두 같지 않습니다.</h2>
-              <p>
-                단순히 “처리”하는 방식이 아니라,<br>
-                사안의 무게를 기준으로 정리하고 대응합니다.
-              </p>
-            </div>
-
-            <div class="slide">
-              <div class="slideTag">SCREENING</div>
-              <h2>아무나 연결되지 않게<br>설계되어 있습니다.</h2>
-              <p>
-                가벼운 문의가 많을수록, 중요한 사안이 묻힙니다.<br>
-                필요한 분만 남도록 안내합니다.
-              </p>
-            </div>
-
-            <div class="slide">
-              <div class="slideTag">CONSISTENCY</div>
-              <h2>지금 필요한 건<br>정리와 기준입니다.</h2>
-              <p>
-                상황이 복잡할수록, 먼저 기준을 세우고<br>
-                불리한 방향을 줄이는 것이 핵심입니다.
-              </p>
-            </div>
-
-            <div class="sliderControls">
-              <div class="dots" id="dots"></div>
-              <div class="sliderBtns">
-                <button class="miniBtn" id="prevBtn" aria-label="이전">
-                  <svg class="svg" width="16" height="16" viewBox="0 0 24 24" fill="none">
-                    <path d="M15 18l-6-6 6-6" stroke="#111" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
-                </button>
-                <button class="miniBtn" id="nextBtn" aria-label="다음">
-                  <svg class="svg" width="16" height="16" viewBox="0 0 24 24" fill="none">
-                    <path d="M9 6l6 6-6 6" stroke="#111" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
-                </button>
-              </div>
-            </div>
-
-          </div>
-        </div>
-
-        <div class="heroSide">
-          <div class="sideCard">
-            <strong>키워드</strong>
-            <div class="badgeRow">
-              <div class="badge">상속 · 증여</div>
-              <div class="badge">양도소득</div>
-              <div class="badge">자금출처</div>
-              <div class="badge">세무조사</div>
-              <div class="badge">법인</div>
-              <div class="badge">고난도 신고</div>
-            </div>
-          </div>
-
-          <div class="sideCard">
-            <strong>바로가기</strong>
-
-            <div class="quickLinks">
-              <a class="ql" href="https://blog.naver.com/taxyejin" target="_blank" rel="noopener">
-                <div class="qlLeft">
-                  <div class="pillIcon" style="background:rgba(3,199,90,.10);border-color:rgba(3,199,90,.18);">
-                    <svg class="svg icoNaver" viewBox="0 0 24 24" aria-hidden="true">
-                      <path fill="var(--naver)" d="M8.2 7.1c.4 0 .7.2.9.5l4.2 6.1V7.9c0-.5.4-.8.9-.8h1.6c.5 0 .9.4.9.9v8.9c0 .5-.4.9-.9.9h-1.7c-.4 0-.7-.2-.9-.5l-4.2-6v5.6c0 .5-.4.9-.9.9H7.3c-.5 0-.9-.4-.9-.9V8c0-.5.4-.9.9-.9h.9z"/>
-                    </svg>
-                  </div>
-                  <div style="min-width:0;">
-                    <div class="qlTitle">네이버 블로그</div>
-                    <div class="qlSub">세무회계 글 · 콘텐츠</div>
-                  </div>
-                </div>
-                <div class="qlRight">열기</div>
-              </a>
-
-              <a class="ql" href="http://pf.kakao.com/_vxntlG" target="_blank" rel="noopener">
-                <div class="qlLeft">
-                  <div class="pillIcon" style="background:rgba(255,232,18,.35);border-color:rgba(0,0,0,.08);">
-                    <svg class="svg icoKakao" viewBox="0 0 24 24" aria-hidden="true">
-                      <path fill="var(--kakao)" d="M12 3.2c-5.1 0-9.2 3.1-9.2 7 0 2.5 1.7 4.7 4.2 6.1-.2.8-.8 2.8-.9 3.2-.1.4.1.4.3.3.2-.1 2.8-1.9 3.6-2.4.6.1 1.3.2 2 .2 5.1 0 9.2-3.1 9.2-7s-4.1-7-9.2-7z"/>
-                      <path fill="var(--kakaoText)" d="M8.5 9.6c0-.5.4-.9.9-.9h5.2c.5 0 .9.4.9.9s-.4.9-.9.9h-1.7v3c0 .5-.4.9-.9.9s-.9-.4-.9-.9v-3H9.4c-.5 0-.9-.4-.9-.9z"/>
-                    </svg>
-                  </div>
-                  <div style="min-width:0;">
-                    <div class="qlTitle">카카오채널</div>
-                    <div class="qlSub">실시간 상담</div>
-                  </div>
-                </div>
-                <div class="qlRight">열기</div>
-              </a>
-
-              <div class="ql" data-scroll="#inquiry" role="button" tabindex="0">
-                <div class="qlLeft">
-                  <div class="pillIcon">
-                    <svg class="svg" width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                      <path d="M20 3H4a2 2 0 00-2 2v12a2 2 0 002 2h3l5 3 5-3h3a2 2 0 002-2V5a2 2 0 00-2-2z" stroke="#111" stroke-width="2" stroke-linejoin="round"/>
-                      <path d="M7 8h10M7 12h6" stroke="#111" stroke-width="2" stroke-linecap="round"/>
-                    </svg>
-                  </div>
-                  <div style="min-width:0;">
-                    <div class="qlTitle">검토 요청</div>
-                    <div class="qlSub">문의 남기기</div>
-                  </div>
-                </div>
-                <div class="qlRight">이동</div>
-              </div>
-
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- =========================
-    STEPS
-  ========================== -->
-  <section class="section" id="steps">
-    <div class="container">
-      <h2 class="sectionTitle">진행 흐름</h2>
-      <p class="sectionDesc">설명을 늘리지 않습니다. 필요한 핵심만 남깁니다.</p>
-
-      <div class="stepGrid">
-        <div class="stepCard">
-          <div class="stepTop">
-            <div class="stepPill">STEP 01</div>
-            <div class="stepNum">PRECHECK</div>
-          </div>
-          <div class="stepBody">
-            <div class="stepTitle">사전 검토 및 정리</div>
-            <ul class="stepList">
-              <li>
-                <div class="tick">
-                  <svg class="svg" viewBox="0 0 24 24" fill="none">
-                    <path d="M20 6L9 17l-5-5" stroke="#111" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
-                </div>
-                <div>자산·거래 흐름 정리</div>
-              </li>
-              <li>
-                <div class="tick">
-                  <svg class="svg" viewBox="0 0 24 24" fill="none">
-                    <path d="M20 6L9 17l-5-5" stroke="#111" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
-                </div>
-                <div>리스크 요소 선별</div>
-              </li>
-              <li>
-                <div class="tick">
-                  <svg class="svg" viewBox="0 0 24 24" fill="none">
-                    <path d="M20 6L9 17l-5-5" stroke="#111" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
-                </div>
-                <div>사안 적합성 판단</div>
-              </li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="stepCard">
-          <div class="stepTop">
-            <div class="stepPill">STEP 02</div>
-            <div class="stepNum">SCREENING</div>
-          </div>
-          <div class="stepBody">
-            <div class="stepTitle">문제점 분석 · 선제 차단</div>
-            <ul class="stepList">
-              <li>
-                <div class="tick"><svg class="svg" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#111" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-                <div>사실관계 분리</div>
-              </li>
-              <li>
-                <div class="tick"><svg class="svg" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#111" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-                <div>적용 쟁점 분류</div>
-              </li>
-              <li>
-                <div class="tick"><svg class="svg" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#111" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-                <div>불리한 방향 최소화</div>
-              </li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="stepCard">
-          <div class="stepTop">
-            <div class="stepPill">STEP 03</div>
-            <div class="stepNum">EXECUTION</div>
-          </div>
-          <div class="stepBody">
-            <div class="stepTitle">대응 · 신고 · 제출</div>
-            <ul class="stepList">
-              <li><div class="tick"><svg class="svg" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#111" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div>필요 자료 정리</div></li>
-              <li><div class="tick"><svg class="svg" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#111" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div>방향성 유지</div></li>
-              <li><div class="tick"><svg class="svg" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#111" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div>핵심만 남기고 진행</div></li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="stepCard">
-          <div class="stepTop">
-            <div class="stepPill">STEP 04</div>
-            <div class="stepNum">AFTERCARE</div>
-          </div>
-          <div class="stepBody">
-            <div class="stepTitle">사후 관리 · 추가 리스크 차단</div>
-            <ul class="stepList">
-              <li><div class="tick"><svg class="svg" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#111" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div>추가 요구 대응</div></li>
-              <li><div class="tick"><svg class="svg" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#111" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div>기준 유지</div></li>
-              <li><div class="tick"><svg class="svg" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#111" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div>불필요한 흔들림 차단</div></li>
-            </ul>
-          </div>
+        <div class="brand-text">
+          <div class="brand-name">세무회계 글</div>
+          <div class="brand-sub">(주)하비럴 web기획 · 기획브랜딩</div>
         </div>
       </div>
 
-    </div>
-  </section>
-
-  <!-- =========================
-    FOCUS (검은 영역)
-  ========================== -->
-  <section class="section focus">
-    <div class="container">
-      <div class="focusInner">
-        <div>
-          <h3>전문가를 표방하지만<br>아무나 이길 수는 없습니다.</h3>
-          <p>
-            이 페이지는 “설명”을 늘리기 위해 존재하지 않습니다.<br>
-            본질은 간단합니다. 필요한 분만 남도록, 기준을 세웁니다.
-          </p>
-        </div>
-
-        <div class="focusBox">
-          <strong>기본 원칙</strong>
-          <ul>
-            <li><span class="bullet"></span><span>단순 문의 중심 구조가 아닙니다.</span></li>
-            <li><span class="bullet"></span><span>사안의 무게가 기준입니다.</span></li>
-            <li><span class="bullet"></span><span>불필요한 과정 노출 없이, 결과로 정리합니다.</span></li>
-          </ul>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- =========================
-    SERVICES
-  ========================== -->
-  <section class="section" id="services">
-    <div class="container">
-      <h2 class="sectionTitle">업무 영역</h2>
-      <p class="sectionDesc">분야는 늘어놓지 않습니다. 필요한 항목만 빠르게 확인합니다.</p>
-
-      <div class="svcGrid">
-        <div class="svc"><strong>상속 · 증여</strong><span>신고/정리/기준 수립</span></div>
-        <div class="svc"><strong>양도소득</strong><span>사전 점검 / 리스크 관리</span></div>
-        <div class="svc"><strong>자금출처</strong><span>흐름 정리 / 대응 방향</span></div>
-        <div class="svc"><strong>세무조사</strong><span>선제 차단 / 대응 설계</span></div>
-        <div class="svc"><strong>법인</strong><span>구조보다 결과 중심</span></div>
-        <div class="svc"><strong>고난도 신고</strong><span>쟁점 분리 / 정리</span></div>
-        <div class="svc"><strong>검토 의견</strong><span>핵심만 압축</span></div>
-        <div class="svc"><strong>사후 관리</strong><span>추가 리스크 최소화</span></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- =========================
-    POSTS (블로그 타일 느낌)
-  ========================== -->
-  <section class="section" id="posts">
-    <div class="container">
-      <div class="postsTop">
-        <div>
-          <h2 class="sectionTitle" style="margin-bottom:6px;">콘텐츠</h2>
-          <p class="sectionDesc" style="margin:0;">대표 키워드 중심으로 타일 형태로 정리합니다.</p>
-        </div>
-        <div class="note">※ 실제 링크 연결은 블로그로 보내는 방식이 제일 깔끔함</div>
-      </div>
-
-      <div class="postGrid" id="postGrid"></div>
-
-      <div style="margin-top:16px;display:flex;gap:10px;flex-wrap:wrap;">
-        <a class="btn ghost" href="https://blog.naver.com/taxyejin" target="_blank" rel="noopener" style="text-decoration:none;">
-          <svg class="svg icoNaver" viewBox="0 0 24 24" aria-hidden="true">
-            <path fill="var(--naver)" d="M8.2 7.1c.4 0 .7.2.9.5l4.2 6.1V7.9c0-.5.4-.8.9-.8h1.6c.5 0 .9.4.9.9v8.9c0 .5-.4.9-.9.9h-1.7c-.4 0-.7-.2-.9-.5l-4.2-6v5.6c0 .5-.4.9-.9.9H7.3c-.5 0-.9-.4-.9-.9V8c0-.5.4-.9.9-.9h.9z"/>
+      <div class="actions">
+        <!-- Naver blog -->
+        <button class="iconbtn" id="btnNaver" aria-label="네이버 블로그로 이동" title="네이버 블로그">
+          <!-- N icon -->
+          <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M7 7h4.2l5.8 10V7H21v14h-4.2L11 11v10H7V7z" fill="#03C75A"/>
           </svg>
-          블로그로 이동
-        </a>
+        </button>
 
-        <a class="btn ghost" href="http://pf.kakao.com/_vxntlG" target="_blank" rel="noopener" style="text-decoration:none;">
-          <svg class="svg icoKakao" viewBox="0 0 24 24" aria-hidden="true">
-            <path fill="var(--kakao)" d="M12 3.2c-5.1 0-9.2 3.1-9.2 7 0 2.5 1.7 4.7 4.2 6.1-.2.8-.8 2.8-.9 3.2-.1.4.1.4.3.3.2-.1 2.8-1.9 3.6-2.4.6.1 1.3.2 2 .2 5.1 0 9.2-3.1 9.2-7s-4.1-7-9.2-7z"/>
-            <path fill="var(--kakaoText)" d="M8.5 9.6c0-.5.4-.9.9-.9h5.2c.5 0 .9.4.9.9s-.4.9-.9.9h-1.7v3c0 .5-.4.9-.9.9s-.9-.4-.9-.9v-3H9.4c-.5 0-.9-.4-.9-.9z"/>
+        <!-- Kakao channel -->
+        <button class="iconbtn" id="btnKakao" aria-label="카카오 채널로 이동" title="카카오 채널">
+          <!-- bubble icon -->
+          <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 3c5.1 0 9.2 3.1 9.2 6.9 0 3.8-4.1 6.9-9.2 6.9-.7 0-1.3-.1-2-.2l-3.7 2 .9-3.1C5.3 14.2 2.8 12.2 2.8 9.9 2.8 6.1 6.9 3 12 3z" fill="#FEE500"/>
+            <path d="M7.8 9.4h8.4v1.3H7.8V9.4zm0 2.6h6.2v1.3H7.8V12z" fill="#191600" opacity=".85"/>
           </svg>
-          카카오채널 이동
-        </a>
+        </button>
+
+        <button class="iconbtn menuBtn" id="btnMenu" aria-label="메뉴 열기" title="메뉴">
+          <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M4 7h16M4 12h16M4 17h16" stroke="#141414" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </button>
       </div>
     </div>
-  </section>
+  </header>
 
-  <!-- =========================
-    INQUIRY
-  ========================== -->
-  <section class="section" id="inquiry">
-    <div class="container">
-      <div class="inquiryWrap">
-        <div class="inquiryHead">
-          <div>
-            <h3>문의</h3>
-            <p>
-              단순 비용 문의/비교 상담은 답변이 어려울 수 있습니다.<br>
-              현재 상황을 “짧고 정확하게” 남겨주시면 검토 후 안내드립니다.
+  <main class="wrap" role="main">
+    <section class="grid">
+
+      <!-- Left -->
+      <div class="hero" id="home">
+        <div class="hero-bg" id="heroBg">
+          <div class="hero-inner">
+            <div class="pill">TAX GEUL</div>
+            <h1 class="hero-title">세무 문제는<br/>모두 같지 않습니다.</h1>
+            <p class="hero-desc">
+              단순히 “처리”하는 방식이 아니라, 사안의 무게를 기준으로 정리하고 대응합니다.<br/>
+              <span style="opacity:.9;">(주)하비럴 web기획 · 기획브랜딩</span>
             </p>
+            <div class="hero-meta">
+              <div class="meta-chip">상속 · 증여</div>
+              <div class="meta-chip">양도소득</div>
+              <div class="meta-chip">자금출처</div>
+              <div class="meta-chip">세무조사</div>
+            </div>
           </div>
         </div>
 
-        <div class="inquiryBody">
-          <div class="field">
-            <label for="name">성함</label>
-            <input class="input" id="name" placeholder="예: 홍길동" />
-          </div>
-          <div class="field">
-            <label for="phone">연락처</label>
-            <input class="input" id="phone" placeholder="예: 010-0000-0000" />
-          </div>
-
-          <div class="field" style="grid-column:1 / -1;">
-            <label for="topic">사안(한 줄)</label>
-            <input class="input" id="topic" placeholder="예: 상속 관련 정리 필요 / 자금출처 정리 / 양도 관련 검토" />
-          </div>
-
-          <div class="field" style="grid-column:1 / -1;">
-            <label for="detail">현재 상황</label>
-            <textarea class="textarea" id="detail" placeholder="핵심만 적어주세요. (날짜/금액/관계/거래 흐름 등)"></textarea>
-          </div>
-
-          <div class="consentRow">
-            <input type="checkbox" id="consent" />
-            <div>
-              <strong>개인정보 수집·이용에 동의합니다.</strong>
-              <span>문의 응대를 위한 최소한의 정보만 활용됩니다.</span>
-            </div>
-          </div>
-
-          <div class="submitRow">
-            <button class="btn primary" id="submitBtn" type="button">
-              검토 요청 보내기
-              <svg class="svg" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M22 2L11 13" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/>
-                <path d="M22 2L15 22l-4-9-9-4 20-7z" stroke="#fff" stroke-width="2.2" stroke-linejoin="round"/>
+        <div class="hero-controls" aria-label="슬라이드 제어">
+          <div class="dots" id="dots"></div>
+          <div class="navbtns">
+            <button class="navbtn" id="prev" aria-label="이전">
+              <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M14.5 6l-6 6 6 6" fill="none" stroke="#141414" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
             </button>
-
-            <button class="btn ghost" id="copyBtn" type="button">내용 복사</button>
-            <a class="btn ghost" href="http://pf.kakao.com/_vxntlG" target="_blank" rel="noopener" style="text-decoration:none;">카카오채널로 이동</a>
+            <button class="navbtn" id="next" aria-label="다음">
+              <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M9.5 6l6 6-6 6" fill="none" stroke="#141414" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
           </div>
         </div>
       </div>
+
+      <!-- Right -->
+      <aside>
+        <div class="card" id="areas">
+          <div class="card-hd">
+            <div>
+              <p class="card-title" style="margin:0;">분야</p>
+              <p class="card-sub">(주)하비럴 web기획 문구 포함 · 페이지 체험형 구성</p>
+            </div>
+            <div class="badge">(주)하비럴 web기획</div>
+          </div>
+          <div class="card-body">
+            <div class="note">
+              문의하시면 빠르고 신속하게 안내드리겠습니다. (주)하비럴 web기획
+            </div>
+
+            <div class="chips" aria-label="분야 선택">
+              <div class="chip" data-filter="inherit">상속 · 증여</div>
+              <div class="chip" data-filter="capitalgains">양도소득</div>
+              <div class="chip" data-filter="fundsource">자금출처</div>
+              <div class="chip" data-filter="audit">세무조사</div>
+              <div class="chip" data-filter="corp">법인</div>
+              <div class="chip" data-filter="etc">기타</div>
+            </div>
+          </div>
+        </div>
+
+        <div style="height:14px"></div>
+
+        <div class="card" id="shortcuts">
+          <div class="card-hd">
+            <div>
+              <p class="card-title" style="margin:0;">바로가기</p>
+              <p class="card-sub">원하시는 항목을 빠르게 확인하세요. (주)하비럴 web기획</p>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="tiles" aria-label="바로가기 타일">
+              <div class="tile" data-open="notice">
+                <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M6 3h12v18H6z" fill="none" stroke="#141414" stroke-width="2" />
+                  <path d="M8 7h8M8 11h8M8 15h6" stroke="#141414" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+                <div class="ttext">
+                  <div class="tname">공지사항</div>
+                  <div class="tsub">(주)하비럴 web기획</div>
+                </div>
+              </div>
+
+              <div class="tile" data-open="news">
+                <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M5 6h14v12H5z" fill="none" stroke="#141414" stroke-width="2"/>
+                  <path d="M7.5 9h9M7.5 12h6.5M7.5 15h7.5" stroke="#141414" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+                <div class="ttext">
+                  <div class="tname">세금 소식</div>
+                  <div class="tsub">(주)하비럴 web기획</div>
+                </div>
+              </div>
+
+              <div class="tile" data-open="visit">
+                <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M12 21s7-4.4 7-11a7 7 0 1 0-14 0c0 6.6 7 11 7 11z" fill="none" stroke="#141414" stroke-width="2"/>
+                  <path d="M12 10.5a2 2 0 1 1 0-4 2 2 0 0 1 0 4z" fill="none" stroke="#141414" stroke-width="2"/>
+                </svg>
+                <div class="ttext">
+                  <div class="tname">오시는 길</div>
+                  <div class="tsub">(주)하비럴 web기획</div>
+                </div>
+              </div>
+            </div>
+
+            <div style="margin-top:12px; color:var(--muted); font-size:12px; line-height:1.6;">
+              (주)하비럴 web기획 · 기획브랜딩
+            </div>
+          </div>
+        </div>
+      </aside>
+
+    </section>
+
+    <div style="height:16px"></div>
+
+    <!-- Representative intro (NEW) -->
+    <section class="card" id="rep">
+      <div class="card-hd">
+        <div>
+          <p class="card-title" style="margin:0;">대표자 소개</p>
+          <p class="card-sub">핵심 이력과 전문 분야를 한눈에. (주)하비럴 web기획</p>
+        </div>
+        <div class="badge">대표 세무사</div>
+      </div>
+      <div class="card-body">
+        <div style="display:flex; gap:14px; align-items:center; flex-wrap:wrap;">
+          <!-- ✅ 업로드 예정 이미지 파일명 -->
+          <!-- rep-profile.jpg (대표자 프로필 사진) -->
+          <div style="width:86px;height:86px;border-radius:26px;border:1px solid var(--line);background:#fff;overflow:hidden;box-shadow:0 10px 24px rgba(0,0,0,.08);">
+            <img src="rep-profile.jpg" alt="대표자 프로필" style="width:100%;height:100%;object-fit:cover;display:block;" />
+          </div>
+          <div style="min-width:240px; flex:1 1 auto;">
+            <div style="font-size:20px;font-weight:1000;letter-spacing:-.03em;">하예진 <span style="font-weight:900;color:var(--muted);font-size:14px;">· 세무사</span></div>
+            <div style="margin-top:6px;color:var(--muted);font-size:13px;line-height:1.6;">
+              분야: 상속세 · 양도소득세 · 증여세 · 컨설팅 · 기장<br/>
+              (주)하비럴 web기획 · 기획브랜딩
+            </div>
+          </div>
+        </div>
+
+        <div class="kv">
+          <div class="kvrow">
+            <div class="k">소속</div>
+            <div class="v">세무회계 글 (대표세무사)</div>
+          </div>
+          <div class="kvrow">
+            <div class="k">학력</div>
+            <div class="v">중앙대학교 경영학과 학사</div>
+          </div>
+          <div class="kvrow">
+            <div class="k">경력</div>
+            <div class="v">세무회계 글 대표세무사 · 법률사무소 글 전문위원</div>
+          </div>
+          <div class="kvrow">
+            <div class="k">사이트</div>
+            <div class="v">블로그</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div style="height:16px"></div>
+
+    <!-- Content gallery -->
+    <section class="card" id="contents">
+      <div class="card-hd">
+        <div>
+          <p class="card-title" style="margin:0;">콘텐츠</p>
+          <p class="card-sub">카드형 썸네일 영역. (주)하비럴 web기획</p>
+        </div>
+        <div class="badge">전체</div>
+      </div>
+      <div class="card-body">
+        <div class="gallery" id="gallery">
+          <!-- ✅ 업로드할 콘텐츠 이미지 파일명(예시) -->
+          <!-- post-01.jpg ~ post-09.jpg -->
+        </div>
+
+        <div style="margin-top:12px;color:var(--muted);font-size:12px;line-height:1.6;">
+          (주)하비럴 web기획 · 기획브랜딩
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer (business info at bottom) -->
+    <section class="footer" id="biz">
+      <div class="footer-inner">
+        <div class="footbadge">본 자료는 체험용 (주)하비럴 기획브랜딩</div>
+
+        <div class="footline">
+          <strong style="color:#2b2b2b;">상호명</strong> 세무회계 글 ·
+          <strong style="color:#2b2b2b;">대표자</strong> 하예진 ·
+          <strong style="color:#2b2b2b;">전화</strong> 02-6447-8662
+        </div>
+
+        <div class="footline">
+          <strong style="color:#2b2b2b;">메일</strong> office@taxgeul.com ·
+          <strong style="color:#2b2b2b;">사업자등록번호</strong> 109-53-51248
+        </div>
+
+        <div class="footline">
+          <strong style="color:#2b2b2b;">주소</strong> 서울특별시 강남구 논현로 507, 2011호 (역삼동, 성지하이츠3차빌딩)
+        </div>
+
+        <div class="footline">
+          Copyright © <span id="year"></span> 세무회계 글. All rights reserved. · (주)하비럴 web기획
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Floating contact -->
+  <div class="float" aria-label="빠른 문의">
+    <div class="fab" id="fabCall" aria-label="전화">
+      <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M6.6 10.6c1.4 2.6 3.2 4.4 5.8 5.8l1.9-1.9c.3-.3.7-.4 1.1-.3 1.2.4 2.4.6 3.7.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.4 21 3 13.6 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.7.1.4 0 .8-.3 1.1l-1.2 1.8z" fill="none" stroke="#141414" stroke-width="2" stroke-linejoin="round"/>
+      </svg>
+      <span>전화연결</span>
     </div>
-  </section>
 
-  <!-- =========================
-    FLOATING ACTIONS (우측)
-  ========================== -->
-  <div class="floatStack" aria-label="빠른 메뉴">
-    <a class="floatBtn" href="tel:02-6447-8662" aria-label="전화연결">
-      <svg class="svg" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-        <path d="M22 16.92v3a2 2 0 01-2.18 2A19.86 19.86 0 012 5.18 2 2 0 014 3h3a2 2 0 012 1.72c.12.86.3 1.7.54 2.5a2 2 0 01-.45 2.11L8 10a16 16 0 007 7l.67-1.09a2 2 0 012.11-.45c.8.24 1.64.42 2.5.54A2 2 0 0122 16.92z" stroke="#111" stroke-width="2" stroke-linejoin="round"/>
+    <div class="fab" id="fabMap" aria-label="오시는 길">
+      <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M12 21s7-4.4 7-11a7 7 0 1 0-14 0c0 6.6 7 11 7 11z" fill="none" stroke="#141414" stroke-width="2"/>
+        <path d="M12 10.5a2 2 0 1 1 0-4 2 2 0 0 1 0 4z" fill="none" stroke="#141414" stroke-width="2"/>
       </svg>
-      전화연결
-    </a>
+      <span>오시는 길</span>
+    </div>
 
-    <!-- 오시는 길: 우선 네이버 지도 검색 링크로 세팅(주소 기반) -->
-    <a class="floatBtn" href="https://map.naver.com/v5/search/%EC%84%9C%EC%9A%B8%EC%8B%9C%20%EA%B0%95%EB%82%A8%EA%B5%AC%20%EB%85%BC%ED%98%84%EB%A1%9C507%202011%ED%98%B8" target="_blank" rel="noopener" aria-label="오시는 길">
-      <svg class="svg" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-        <path d="M12 21s7-4.35 7-11a7 7 0 10-14 0c0 6.65 7 11 7 11z" stroke="#111" stroke-width="2" stroke-linejoin="round"/>
-        <path d="M12 10.5a2.5 2.5 0 110-5 2.5 2.5 0 010 5z" stroke="#111" stroke-width="2"/>
+    <div class="fab" id="fabChat" aria-label="상담">
+      <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M21 14c0 1.1-.4 2.1-1.1 2.9-.9 1-2.3 1.6-3.9 1.6H9l-4 3v-3.7C3.8 16.7 3 15.4 3 14V7c0-2.2 1.8-4 4-4h10c2.2 0 4 1.8 4 4v7z" fill="none" stroke="#141414" stroke-width="2" stroke-linejoin="round"/>
+        <path d="M7.5 9.2h9M7.5 12h6" stroke="#141414" stroke-width="2" stroke-linecap="round"/>
       </svg>
-      오시는 길
-    </a>
-
-    <a class="floatBtn" href="http://pf.kakao.com/_vxntlG" target="_blank" rel="noopener" aria-label="실시간 상담">
-      <svg class="svg" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-        <path d="M21 11.5c0 4.14-4.03 7.5-9 7.5-1.2 0-2.34-.2-3.38-.57L3 20l1.36-4.06C3.5 14.7 3 13.63 3 12.5 3 8.36 7.03 5 12 5s9 3.36 9 6.5z" stroke="#111" stroke-width="2" stroke-linejoin="round"/>
-        <path d="M8 12h.01M12 12h.01M16 12h.01" stroke="#111" stroke-width="3" stroke-linecap="round"/>
-      </svg>
-      상담
-    </a>
+      <span>상담</span>
+    </div>
   </div>
 
   <button class="toTop" id="toTop" aria-label="맨 위로">
-    <svg class="svg" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path d="M12 5l-7 7h4v7h6v-7h4l-7-7z" fill="#111"/>
+    <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M12 5l-6 6h4v8h4v-8h4l-6-6z" fill="#141414"/>
     </svg>
   </button>
 
-  <div class="toast" id="toast">복사되었습니다.</div>
+  <!-- Sheet menu -->
+  <div class="sheet-backdrop" id="sheetBackdrop"></div>
+  <div class="sheet" id="sheet" aria-label="메뉴">
+    <div class="grab"></div>
+    <div class="sheet-title">메뉴</div>
 
-  <!-- =========================
-    BUSINESS FOOTER (최하단)
-  ========================== -->
-  <footer class="bizFooter" id="biz">
-    <div class="container bizInner">
-      <div class="bizHead">
-        <strong>사업자정보</strong>
-        <button class="bizToggle" id="bizToggle" type="button">펼치기</button>
+    <div class="sheet-menu">
+      <div class="sbtn" data-jump="#home">
+        <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M3 11l9-8 9 8v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1V11z" fill="none" stroke="#141414" stroke-width="2" stroke-linejoin="round"/>
+        </svg>
+        <div>
+          <strong>홈</strong>
+          <small>(주)하비럴 web기획</small>
+        </div>
       </div>
 
-      <div class="bizGrid" id="bizGrid" aria-label="사업자정보 상세">
-        <div class="bizRow"><div class="bizKey">상호명</div><div class="bizVal">세무회계 글</div></div>
-        <div class="bizRow"><div class="bizKey">대표자</div><div class="bizVal">하예진</div></div>
-        <div class="bizRow"><div class="bizKey">주소</div><div class="bizVal">서울특별시 강남구 논현로507, 2011호 (역삼동, 성지하이츠3차빌딩)</div></div>
-        <div class="bizRow"><div class="bizKey">전화</div><div class="bizVal">02-6447-8662</div></div>
-        <div class="bizRow"><div class="bizKey">메일</div><div class="bizVal">office@taxgeul.com</div></div>
-        <div class="bizRow"><div class="bizKey">사업자등록번호</div><div class="bizVal">109-53-51248</div></div>
-        <div class="bizRow"><div class="bizKey">이용약관</div><div class="bizVal"><span style="opacity:.8;">(링크 연결 예정)</span></div></div>
+      <div class="sbtn" data-jump="#rep">
+        <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M12 12a4 4 0 1 0-4-4 4 4 0 0 0 4 4z" fill="none" stroke="#141414" stroke-width="2"/>
+          <path d="M4 21a8 8 0 0 1 16 0" fill="none" stroke="#141414" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        <div>
+          <strong>대표자 소개</strong>
+          <small>(주)하비럴 web기획</small>
+        </div>
       </div>
 
-      <div class="bizCopy">© TAX GEUL · 본 페이지는 체험용 구조입니다.</div>
+      <div class="sbtn" data-jump="#contents">
+        <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M4 6h16v12H4z" fill="none" stroke="#141414" stroke-width="2"/>
+          <path d="M8 10h8M8 14h6" stroke="#141414" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        <div>
+          <strong>콘텐츠</strong>
+          <small>(주)하비럴 web기획</small>
+        </div>
+      </div>
+
+      <div class="sbtn" data-jump="#biz">
+        <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M4 7h16v14H4z" fill="none" stroke="#141414" stroke-width="2"/>
+          <path d="M7 3h10v4H7z" fill="none" stroke="#141414" stroke-width="2"/>
+        </svg>
+        <div>
+          <strong>사업자정보</strong>
+          <small>(주)하비럴 web기획</small>
+        </div>
+      </div>
     </div>
-  </footer>
+  </div>
 
-  <!-- =========================
-    SCRIPT
-  ========================== -->
+  <!-- Modals -->
+  <div class="modal-backdrop" id="modalBackdrop"></div>
+  <div class="modal" id="modal" aria-label="팝업">
+    <div class="modal-hd">
+      <h3 id="modalTitle">안내</h3>
+      <button class="close" id="modalClose" aria-label="닫기">
+        <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M6 6l12 12M18 6L6 18" stroke="#141414" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </button>
+    </div>
+    <div class="modal-body" id="modalBody"></div>
+  </div>
+
   <script>
-    // -------------------------
-    // Helpers
-    // -------------------------
-    const $ = (s, p=document) => p.querySelector(s);
-    const $$ = (s, p=document) => Array.from(p.querySelectorAll(s));
+    // ---- Settings (외부 단어 표시 최소화) ----
+    const BLOG_URL = "https://blog.naver.com/taxyejin";
+    const KAKAO_URL = "http://pf.kakao.com/_vxntlG";
 
-    function scrollToEl(sel){
-      const el = typeof sel === "string" ? $(sel) : sel;
-      if(!el) return;
-      const top = el.getBoundingClientRect().top + window.scrollY - 72;
-      window.scrollTo({ top, behavior: "smooth" });
+    // ✅ 업로드할 이미지 파일명(콘텐츠)
+    // post-01.jpg ~ post-09.jpg
+    const posts = [
+      { img: "post-01.jpg", title: "164억 상속세 취소 판결", desc: "핵심 쟁점과 실무 포인트를 정리합니다. (주)하비럴 web기획", tag: "상속" },
+      { img: "post-02.jpg", title: "1015 부동산대책", desc: "변경 포인트를 빠르게 확인하세요. (주)하비럴 web기획", tag: "부동산" },
+      { img: "post-03.jpg", title: "법무법인 세무 별산제 구분기장", desc: "실무에서 놓치기 쉬운 부분을 체크합니다. (주)하비럴 web기획", tag: "법인" },
+      { img: "post-04.jpg", title: "학원세무사 · 학원강사 채용", desc: "세무 포인트 정리. (주)하비럴 web기획", tag: "기타" },
+      { img: "post-05.jpg", title: "양도소득세 분할토지 양도", desc: "사례 기반으로 정리합니다. (주)하비럴 web기획", tag: "양도" },
+      { img: "post-06.jpg", title: "부동산매매업 매매차익 예정신고", desc: "일정과 체크사항을 요약합니다. (주)하비럴 web기획", tag: "신고" },
+      { img: "post-07.jpg", title: "부동산매매업 사업자등록 면세/과세", desc: "구분 기준을 정리합니다. (주)하비럴 web기획", tag: "사업" },
+      { img: "post-08.jpg", title: "부동산매매업 단점/주의할 점", desc: "리스크 포인트를 점검합니다. (주)하비럴 web기획", tag: "리스크" },
+      { img: "post-09.jpg", title: "상속세 과세대상", desc: "범위와 판단 포인트를 정리합니다. (주)하비럴 web기획", tag: "상속" },
+    ];
+
+    // ✅ 슬라이드 배경 이미지 파일명(옵션)
+    // hero-01.jpg, hero-02.jpg, hero-03.jpg (원하면 업로드)
+    // 업로드가 없으면 bg-office.jpg가 기본으로 보입니다.
+    const heroSlides = [
+      { bg: "bg-office.jpg", pill: "TAX GEUL", title: "세무 문제는\n모두 같지 않습니다.", desc: "단순히 “처리”하는 방식이 아니라, 사안의 무게를 기준으로 정리하고 대응합니다.\n(주)하비럴 web기획 · 기획브랜딩" },
+      { bg: "hero-02.jpg", pill: "TAX GEUL", title: "상속 · 증여\n상담 안내", desc: "핵심 판단 포인트를 정리하고, 진행 방향을 제시합니다.\n(주)하비럴 web기획 · 기획브랜딩" },
+      { bg: "hero-03.jpg", pill: "TAX GEUL", title: "세무조사\n대응 안내", desc: "상황별 체크사항을 빠르게 정리합니다.\n(주)하비럴 web기획 · 기획브랜딩" },
+    ];
+
+    // ---- Helpers ----
+    const $ = (q, el=document) => el.querySelector(q);
+    const $$ = (q, el=document) => Array.from(el.querySelectorAll(q));
+
+    function openUrl(url){
+      window.location.href = url;
     }
 
-    function showToast(msg){
-      const t = $("#toast");
-      t.textContent = msg || "완료";
-      t.style.display = "block";
-      clearTimeout(window.__toastTimer);
-      window.__toastTimer = setTimeout(()=>{ t.style.display="none"; }, 1600);
+    // ---- Top buttons ----
+    $("#btnNaver").addEventListener("click", () => openUrl(BLOG_URL));
+    $("#btnKakao").addEventListener("click", () => openUrl(KAKAO_URL));
+
+    // ---- Floating actions ----
+    $("#fabCall").addEventListener("click", () => openUrl("tel:02-6447-8662"));
+    $("#fabMap").addEventListener("click", () => openModal("오시는 길", `
+      <div class="muted">주소</div>
+      <div style="font-weight:950;margin-top:6px;">서울특별시 강남구 논현로 507, 2011호 (역삼동, 성지하이츠3차빌딩)</div>
+      <div style="margin-top:10px;color:var(--muted);font-size:12px;line-height:1.6;">(주)하비럴 web기획</div>
+    `));
+    $("#fabChat").addEventListener("click", () => openUrl(KAKAO_URL));
+
+    // ---- To top ----
+    $("#toTop").addEventListener("click", () => window.scrollTo({top:0, behavior:"smooth"}));
+
+    // ---- Sheet menu ----
+    const sheet = $("#sheet");
+    const sheetBackdrop = $("#sheetBackdrop");
+    const btnMenu = $("#btnMenu");
+
+    function openSheet(){
+      sheet.classList.add("open");
+      sheetBackdrop.classList.add("open");
     }
-
-    // -------------------------
-    // Drawer
-    // -------------------------
-    const body = document.body;
-    const menuOpen = $("#menuOpen");
-    const drawerOverlay = $("#drawerOverlay");
-    const drawerClose = $("#drawerClose");
-
-    function openDrawer(){ body.classList.add("drawerOpen"); }
-    function closeDrawer(){ body.classList.remove("drawerOpen"); }
-
-    menuOpen.addEventListener("click", openDrawer);
-    drawerOverlay.addEventListener("click", closeDrawer);
-    drawerClose.addEventListener("click", closeDrawer);
-
-    $$(".navItem").forEach(item=>{
-      item.addEventListener("click", ()=>{
-        const target = item.getAttribute("data-scroll");
-        closeDrawer();
-        if(target) scrollToEl(target);
-      });
-    });
-
-    // -------------------------
-    // Slider
-    // -------------------------
-    const slides = $$("#slider .slide");
-    const dotsWrap = $("#dots");
-    let idx = 0;
-    let timer = null;
-
-    function renderDots(){
-      dotsWrap.innerHTML = "";
-      slides.forEach((_, i)=>{
-        const d = document.createElement("div");
-        d.className = "dot" + (i===idx ? " active" : "");
-        d.addEventListener("click", ()=>{ go(i); });
-        dotsWrap.appendChild(d);
-      });
+    function closeSheet(){
+      sheet.classList.remove("open");
+      sheetBackdrop.classList.remove("open");
     }
+    btnMenu.addEventListener("click", openSheet);
+    sheetBackdrop.addEventListener("click", closeSheet);
 
-    function go(i){
-      idx = (i + slides.length) % slides.length;
-      slides.forEach((s, si)=> s.classList.toggle("active", si===idx));
-      renderDots();
-    }
-
-    function next(){ go(idx+1); }
-    function prev(){ go(idx-1); }
-
-    $("#nextBtn").addEventListener("click", next);
-    $("#prevBtn").addEventListener("click", prev);
-
-    function startAuto(){
-      stopAuto();
-      timer = setInterval(next, 4500);
-    }
-    function stopAuto(){
-      if(timer) clearInterval(timer);
-      timer = null;
-    }
-
-    $("#slider").addEventListener("mouseenter", stopAuto);
-    $("#slider").addEventListener("mouseleave", startAuto);
-
-    renderDots();
-    startAuto();
-
-    // -------------------------
-    // QuickLink scroll (hero)
-    // -------------------------
-    $$("[data-scroll]").forEach(el=>{
-      el.addEventListener("click", ()=>{
-        const target = el.getAttribute("data-scroll");
-        if(target) scrollToEl(target);
-      });
-      el.addEventListener("keydown", (e)=>{
-        if(e.key === "Enter" || e.key === " "){
-          e.preventDefault();
-          const target = el.getAttribute("data-scroll");
-          if(target) scrollToEl(target);
+    $$(".sbtn", sheet).forEach(btn => {
+      btn.addEventListener("click", () => {
+        const jump = btn.getAttribute("data-jump");
+        closeSheet();
+        if(jump){
+          const target = document.querySelector(jump);
+          if(target) target.scrollIntoView({behavior:"smooth", block:"start"});
         }
       });
     });
 
-    // -------------------------
-    // Posts grid (체험용 타일)
-    //  - 실제는 블로그로 보내는 게 제일 간단
-    // -------------------------
-    const demoPosts = [
-      { stamp:"핵심", title:"상속세 신고 지원 관리", meta:"주요 키워드 · 상속", q:"상속세" },
-      { stamp:"정리", title:"양도소득 흐름 정리", meta:"주요 키워드 · 양도", q:"양도소득세" },
-      { stamp:"점검", title:"자금출처 검토", meta:"주요 키워드 · 자금출처", q:"자금출처" },
-      { stamp:"대응", title:"세무조사 대응", meta:"주요 키워드 · 조사", q:"세무조사" },
-      { stamp:"기준", title:"법인 관련 검토", meta:"주요 키워드 · 법인", q:"법인세" },
-      { stamp:"요약", title:"부동산 관련 이슈", meta:"주요 키워드 · 부동산", q:"부동산 세금" },
-      { stamp:"리스크", title:"예정신고 체크", meta:"주요 키워드 · 예정", q:"예정신고" },
-      { stamp:"정리", title:"구분기장 관련", meta:"주요 키워드 · 기장", q:"구분기장" },
-      { stamp:"핵심", title:"절세 포인트", meta:"주요 키워드 · 절세", q:"절세" }
-    ];
+    // ---- Modal ----
+    const modal = $("#modal");
+    const modalBackdrop = $("#modalBackdrop");
+    const modalTitle = $("#modalTitle");
+    const modalBody = $("#modalBody");
 
-    const postGrid = $("#postGrid");
+    function openModal(title, html){
+      modalTitle.textContent = title;
+      modalBody.innerHTML = html;
+      modal.classList.add("open");
+      modalBackdrop.classList.add("open");
+    }
+    function closeModal(){
+      modal.classList.remove("open");
+      modalBackdrop.classList.remove("open");
+    }
+    $("#modalClose").addEventListener("click", closeModal);
+    modalBackdrop.addEventListener("click", closeModal);
 
+    // ---- Quick tiles modal content ----
+    $$(".tile").forEach(t => {
+      t.addEventListener("click", () => {
+        const kind = t.getAttribute("data-open");
+        if(kind === "notice"){
+          openModal("공지사항", `
+            <div>공지 영역입니다. 필요 시 내용을 업데이트하세요.</div>
+            <div style="margin-top:10px;color:var(--muted);font-size:12px;line-height:1.6;">(주)하비럴 web기획</div>
+          `);
+        }
+        if(kind === "news"){
+          openModal("세금 소식", `
+            <div>소식 영역입니다. 카드/리스트 형태로 확장 가능합니다.</div>
+            <div style="margin-top:10px;color:var(--muted);font-size:12px;line-height:1.6;">(주)하비럴 web기획</div>
+          `);
+        }
+        if(kind === "visit"){
+          openModal("오시는 길", `
+            <div class="muted">주소</div>
+            <div style="font-weight:950;margin-top:6px;">서울특별시 강남구 논현로 507, 2011호 (역삼동, 성지하이츠3차빌딩)</div>
+            <div class="muted" style="margin-top:12px;">상담 시간</div>
+            <div style="font-weight:950;margin-top:6px;">AM 10:00 ~ PM 17:00</div>
+            <div style="margin-top:10px;color:var(--muted);font-size:12px;line-height:1.6;">(주)하비럴 web기획</div>
+          `);
+        }
+      });
+    });
+
+    // ---- Chips filter (UI only) ----
+    $$(".chip").forEach(c => {
+      c.addEventListener("click", () => {
+        const label = c.textContent.trim();
+        openModal("분야 선택", `
+          <div><strong>${label}</strong> 항목을 확인 중입니다.</div>
+          <div style="margin-top:10px;color:var(--muted);font-size:12px;line-height:1.6;">(주)하비럴 web기획</div>
+        `);
+      });
+    });
+
+    // ---- Gallery render ----
+    const gallery = $("#gallery");
     function renderPosts(){
-      postGrid.innerHTML = "";
-      demoPosts.forEach(p=>{
-        const card = document.createElement("div");
-        card.className = "post";
-        card.innerHTML = `
-          <div class="postThumb">
-            <div class="stamp">${p.stamp}</div>
-            <h4>${p.q}</h4>
-          </div>
-          <div class="postBody">
-            <p class="postTitle">${p.title}</p>
-            <p class="postMeta">${p.meta}</p>
-          </div>
+      gallery.innerHTML = posts.map((p, idx) => {
+        return `
+          <article class="gcard" data-idx="${idx}" aria-label="${p.title}">
+            <div class="gimg">
+              <img src="${p.img}" alt="${p.title}">
+            </div>
+            <div class="gbody">
+              <h3 class="gtitle">${p.title}</h3>
+              <p class="gdesc">${p.desc}</p>
+              <div class="gfoot">
+                <div class="badge">${p.tag}</div>
+                <div class="mini">(주)하비럴 web기획</div>
+              </div>
+            </div>
+          </article>
         `;
-        // 클릭 시 블로그 검색(키워드)로 보내기
-        card.addEventListener("click", ()=>{
-          const url = "https://blog.naver.com/taxyejin";
-          window.open(url, "_blank", "noopener");
+      }).join("");
+      $$(".gcard", gallery).forEach(card => {
+        card.addEventListener("click", () => {
+          const i = Number(card.getAttribute("data-idx"));
+          const p = posts[i];
+          openUrl(BLOG_URL);
         });
-        postGrid.appendChild(card);
       });
     }
     renderPosts();
 
-    // -------------------------
-    // Inquiry (메일/복사 체험)
-    // -------------------------
-    const submitBtn = $("#submitBtn");
-    const copyBtn = $("#copyBtn");
+    // ---- Hero slider ----
+    const heroBg = $("#heroBg");
+    const dots = $("#dots");
+    const prev = $("#prev");
+    const next = $("#next");
 
-    function buildPayload(){
-      const name = $("#name").value.trim();
-      const phone = $("#phone").value.trim();
-      const topic = $("#topic").value.trim();
-      const detail = $("#detail").value.trim();
+    let heroIndex = 0;
 
-      const text =
-`[검토 요청]
-- 성함: ${name || "-"}
-- 연락처: ${phone || "-"}
-- 사안: ${topic || "-"}
-- 내용:
-${detail || "-"}
+    function setHero(i){
+      heroIndex = (i + heroSlides.length) % heroSlides.length;
+      const s = heroSlides[heroIndex];
 
-(본 메시지는 세무회계 글 체험 페이지에서 생성됨)`;
+      // background swap
+      heroBg.style.backgroundImage =
+        `linear-gradient(180deg, rgba(0,0,0,.35), rgba(0,0,0,.40)), url("${s.bg}")`;
 
-      return { name, phone, topic, detail, text };
+      // texts
+      const pill = $(".pill", heroBg);
+      const title = $(".hero-title", heroBg);
+      const desc = $(".hero-desc", heroBg);
+
+      pill.textContent = s.pill;
+      title.innerHTML = s.title.replaceAll("\n","<br/>");
+      desc.innerHTML = s.desc.replaceAll("\n","<br/>");
+
+      // dots
+      $$(".dot", dots).forEach((d, idx) => {
+        d.classList.toggle("active", idx === heroIndex);
+      });
     }
 
-    function validate(){
-      const consent = $("#consent").checked;
-      if(!consent){
-        showToast("개인정보 동의가 필요합니다.");
-        return false;
-      }
-      const { name, phone, detail } = buildPayload();
-      if(!name || !phone || !detail){
-        showToast("성함/연락처/내용을 입력해주세요.");
-        return false;
-      }
-      return true;
+    function buildDots(){
+      dots.innerHTML = heroSlides.map((_, i) => `<button class="dot ${i===0?'active':''}" aria-label="슬라이드 ${i+1}"></button>`).join("");
+      $$(".dot", dots).forEach((d, i) => d.addEventListener("click", () => setHero(i)));
     }
+    buildDots();
+    setHero(0);
 
-    submitBtn.addEventListener("click", ()=>{
-      if(!validate()) return;
+    prev.addEventListener("click", () => setHero(heroIndex - 1));
+    next.addEventListener("click", () => setHero(heroIndex + 1));
 
-      const payload = buildPayload();
+    // autoplay
+    setInterval(() => setHero(heroIndex + 1), 6500);
 
-      // 체험용: localStorage 저장
-      try{
-        const list = JSON.parse(localStorage.getItem("taxgeul_inquiries") || "[]");
-        list.unshift({ ...payload, at: new Date().toISOString() });
-        localStorage.setItem("taxgeul_inquiries", JSON.stringify(list).slice(0, 200000));
-      }catch(e){}
-
-      // 체험용: mailto 열기 (원하면 제거 가능)
-      const subject = encodeURIComponent("세무회계 글 | 검토 요청");
-      const body = encodeURIComponent(payload.text);
-      const mailto = `mailto:office@taxgeul.com?subject=${subject}&body=${body}`;
-      window.location.href = mailto;
-
-      showToast("검토 요청을 준비했습니다.");
-    });
-
-    copyBtn.addEventListener("click", async ()=>{
-      const payload = buildPayload();
-      try{
-        await navigator.clipboard.writeText(payload.text);
-        showToast("문의 내용이 복사되었습니다.");
-      }catch(e){
-        showToast("복사 실패: 브라우저 권한 확인");
-      }
-    });
-
-    // -------------------------
-    // Business footer toggle
-    // -------------------------
-    const bizToggle = $("#bizToggle");
-    const bizGrid = $("#bizGrid");
-    let bizOpen = false;
-
-    bizToggle.addEventListener("click", ()=>{
-      bizOpen = !bizOpen;
-      bizGrid.classList.toggle("open", bizOpen);
-      bizToggle.textContent = bizOpen ? "접기" : "펼치기";
-      if(bizOpen) scrollToEl("#biz");
-    });
-
-    // -------------------------
-    // To top
-    // -------------------------
-    $("#toTop").addEventListener("click", ()=> scrollToEl("#top"));
-
-    // -------------------------
-    // Improve phone input formatting (simple)
-    // -------------------------
-    $("#phone").addEventListener("input", (e)=>{
-      let v = e.target.value.replace(/[^\d]/g,"");
-      if(v.length > 11) v = v.slice(0,11);
-      // 010-1234-5678
-      if(v.startsWith("02")){
-        if(v.length >= 9) v = v.replace(/^(\d{2})(\d{3,4})(\d{4}).*$/, "$1-$2-$3");
-        else if(v.length >= 6) v = v.replace(/^(\d{2})(\d{3,4}).*$/, "$1-$2");
-      }else{
-        if(v.length >= 11) v = v.replace(/^(\d{3})(\d{4})(\d{4}).*$/, "$1-$2-$3");
-        else if(v.length >= 8) v = v.replace(/^(\d{3})(\d{3,4})(\d{0,4}).*$/, "$1-$2-$3").replace(/-$/,"");
-        else if(v.length >= 4) v = v.replace(/^(\d{3})(\d{0,4}).*$/, "$1-$2").replace(/-$/,"");
-      }
-      e.target.value = v;
-    });
+    // ---- Footer year ----
+    $("#year").textContent = new Date().getFullYear();
   </script>
 
+  <!-- ✅ 업로드해야 하는 파일명 정리
+    1) logo-taxgeul.png        (이미 업로드 완료)
+    2) bg-office.jpg           (사무실 배경 이미지)
+    3) rep-profile.jpg         (대표자 프로필 이미지)
+    4) post-01.jpg ~ post-09.jpg (콘텐츠 카드 이미지)
+    5) hero-02.jpg, hero-03.jpg  (원하면 슬라이드 배경 추가)
+  -->
 </body>
 </html>
