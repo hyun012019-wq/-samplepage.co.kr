@@ -255,8 +255,10 @@
     @media (max-width:420px){
       .ceoWrap{grid-template-columns:120px 1fr}
     }
+
+    /* ✅ (요청한 수정) 대표사진만: 소개 글자와 겹치지 않도록 사이즈/레이아웃 최소 조정 */
     .ceoPhoto{
-      width:140px;height:140px;border-radius:18px;
+      width:120px;height:120px;border-radius:18px;
       overflow:hidden;border:1px solid var(--line);
       background:#f4f7fb;
     }
@@ -264,6 +266,22 @@
     .ceoName{margin:0;font-weight:900;font-size:20px;letter-spacing:-.03em}
     .ceoRole{margin:2px 0 10px;color:var(--sub);font-size:14px}
     .ceoCopy{margin:0;color:#333;line-height:1.7}
+
+    @media (max-width:520px){
+      .ceoWrap{
+        grid-template-columns:110px 1fr;
+        align-items:flex-start;
+      }
+      .ceoPhoto{width:110px;height:110px}
+    }
+    @media (max-width:380px){
+      .ceoWrap{
+        grid-template-columns:96px 1fr;
+        gap:12px;
+      }
+      .ceoPhoto{width:96px;height:96px}
+    }
+    /* ✅ (요청한 수정 끝) */
 
     /* ===== 업무분야(그리드) ===== */
     .workGrid{
