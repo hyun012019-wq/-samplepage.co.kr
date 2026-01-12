@@ -185,13 +185,19 @@
       padding:16px 16px 0;
       display:flex; gap:12px; align-items:center;
     }
-    .avatar{
+
+    /* ✅ 대표 사진 칸 (추가) */
+    .rep-photo{
       width:56px; height:56px; border-radius:18px;
-      background: linear-gradient(135deg, rgba(242,140,40,.35), rgba(255,182,107,.35));
+      object-fit:cover;
       border:1px solid rgba(242,140,40,.25);
+      background: linear-gradient(135deg, rgba(242,140,40,.22), rgba(255,182,107,.22));
+    }
+    .rep-photo.fallback{
       display:grid; place-items:center;
       font-weight:900; color: var(--orange-dark);
     }
+
     .profile-title{ font-weight:900; letter-spacing:-.03em; }
     .profile-sub{ color:var(--gray-500); font-size:13px; margin-top:2px; }
     .profile-body{
@@ -266,6 +272,32 @@
       width:max-content;
       margin-top:10px;
     }
+
+    /* ✅ 대표 소개 카드(추가) */
+    .rep-card{
+      display:grid; gap:14px;
+      align-items:start;
+    }
+    .rep-card .photo{
+      width:100%;
+      max-width:280px;
+      aspect-ratio: 4 / 5;
+      border-radius: 22px;
+      border:1px solid rgba(214,214,214,.65);
+      background: linear-gradient(135deg, rgba(242,140,40,.18), rgba(255,182,107,.12));
+      overflow:hidden;
+      box-shadow: var(--shadow);
+    }
+    .rep-card .photo img{
+      width:100%; height:100%; object-fit:cover; display:block;
+    }
+    .rep-card .bullets{
+      margin:0; padding-left:18px;
+      color: var(--gray-700);
+      line-height:1.75;
+      font-size:14px;
+    }
+    .rep-card .bullets li{ margin:6px 0; }
 
     /* Services */
     .service-grid{
@@ -401,6 +433,9 @@
       .form-row{ grid-template-columns: 1fr 1fr; }
       .footer-grid{ grid-template-columns: 1.2fr .8fr; }
       .h1{ font-size:42px; }
+
+      /* ✅ 대표 소개 카드(추가) */
+      .rep-card{ grid-template-columns: 280px 1fr; gap:18px; }
     }
   </style>
 </head>
@@ -463,6 +498,13 @@
         <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.08 4.18 2 2 0 0 1 4.06 2h3a2 2 0 0 1 2 1.72c.12.86.31 1.7.57 2.5a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.58-1.09a2 2 0 0 1 2.11-.45c.8.26 1.64.45 2.5.57A2 2 0 0 1 22 16.92z"/>
       </svg>
     </button>
+    <button class="fab" onclick="window.open('https://m.place.naver.com/place/1001670922/location?entry=pll&bk_query=%EC%8A%A4%EB%A7%88%EC%9D%BC%EC%84%B8%EB%AC%B4%ED%9A%8C%EA%B3%84&filter=location','_blank')" aria-label="네이버 지도 열기">
+      <!-- map icon -->
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/>
+        <path d="M12 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+      </svg>
+    </button>
     <button class="fab" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="상단으로">
       <!-- arrow up -->
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -497,10 +539,14 @@
           <!-- Profile card -->
           <div class="hero-card" aria-label="대표세무사 소개 카드">
             <div class="profile-top">
-              <div class="avatar">NS</div>
+              <!-- ✅ 대표 사진 파일명: rep.jpg (같은 폴더에 넣으면 자동 표시됩니다) -->
+              <img class="rep-photo" src="rep.jpg" alt="나수빈 대표세무사 프로필 사진"
+                   onerror="this.style.display='none'; document.getElementById('repFallback').style.display='grid';" />
+              <div id="repFallback" class="rep-photo fallback" style="display:none;" aria-hidden="true">NS</div>
+
               <div style="min-width:0;">
                 <div class="profile-title">나수빈 대표세무사</div>
-                <div class="profile-sub">스마일세무회계 · 서울 영등포권 (상담/전화/온라인)</div>
+                <div class="profile-sub">스마일세무회계 · 서울 영등포구 양평로19길 8, 701호</div>
               </div>
             </div>
 
@@ -527,9 +573,9 @@
 
               <div style="display:flex; gap:10px; flex-wrap:wrap;">
                 <a class="btn btn-primary" href="#contact" style="flex:1;">상담 남기기</a>
-                <a class="btn btn-ghost" href="#process" style="flex:1;">진행 절차</a>
+                <a class="btn btn-ghost" href="https://m.place.naver.com/place/1001670922/location?entry=pll&bk_query=%EC%8A%A4%EB%A7%88%EC%9D%BC%EC%84%B8%EB%AC%B4%ED%9A%8C%EA%B3%84&filter=location" target="_blank" rel="noopener" style="flex:1;">네이버 지도</a>
               </div>
-              <div class="help">* 본 페이지는 예시 코드입니다. 실제 사업자정보/주소/연락처는 운영 정보로 교체하세요.</div>
+              <div class="help">* 상호/대표/주소/연락처/사업자번호는 하단 ‘사업자정보’에도 동일 표기됩니다.</div>
             </div>
           </div>
         </div>
@@ -562,6 +608,43 @@
             <p>신고가 끝이 아닙니다. 신고 이후 정리/질문/추가 이슈까지 “연결”해서 관리합니다.</p>
           </div>
         </div>
+
+        <!-- ✅ 대표세무사 소개(추가) -->
+        <div style="height:12px;"></div>
+        <div class="card">
+          <div class="section-head" style="margin-bottom:10px;">
+            <div class="kicker">REPRESENTATIVE</div>
+            <h2 class="h2" style="font-size:20px;">대표세무사 소개</h2>
+            <p class="desc">
+              다년간의 세무 실무 경험을 바탕으로, “절세 포인트”와 “리스크 포인트”를 함께 봅니다.
+              단순 대행이 아니라, 고객이 앞으로 더 안전하게 운영할 수 있도록 방향까지 정리해드립니다.
+            </p>
+          </div>
+
+          <div class="rep-card">
+            <div class="photo" aria-label="대표세무사 사진 영역">
+              <!-- ✅ 업로드 파일명: rep.jpg (이 파일과 같은 폴더에 두세요) -->
+              <img src="rep.jpg" alt="나수빈 대표세무사 사진"
+                   onerror="this.style.display='none'; this.parentElement.innerHTML='<div style=&quot;display:grid;place-items:center;height:100%;color:var(--gray-500);font-weight:850;&quot;>대표 사진 (rep.jpg)</div>';" />
+            </div>
+
+            <div>
+              <ul class="bullets">
+                <li><b>절세 노하우</b>: 업종·매출 구조에 맞는 공제/비용 처리 포인트를 정리해 “합법적 절세” 방향을 제시합니다.</li>
+                <li><b>리스크 관리</b>: 누락·과다·증빙 미흡 등 빈번한 리스크를 선제 점검해 불필요한 문제를 줄입니다.</li>
+                <li><b>설명 중심</b>: 결과만 통보하지 않고, 왜 그렇게 되는지 “쉽게” 설명해 다음 선택이 가능하도록 돕습니다.</li>
+                <li><b>끝까지 책임</b>: 신고 이후 문의/정리/추가 이슈까지 이어서 챙기는 사후관리 운영을 지향합니다.</li>
+              </ul>
+
+              <div class="pill">📍 상담/방문: 서울시 영등포구 양평로19길 8, 701호 (양평동4가, 우진타워)</div>
+              <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:12px;">
+                <a class="btn btn-primary" href="#contact">대표에게 상담 남기기</a>
+                <a class="btn btn-ghost" href="tel:02-2633-4231">전화하기</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /대표세무사 소개 -->
       </div>
     </section>
 
@@ -796,6 +879,7 @@
             <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:6px;">
               <button class="btn btn-primary" type="submit">상담 요청 보내기</button>
               <a class="btn btn-ghost" href="tel:02-2633-4231">지금 전화하기</a>
+              <a class="btn btn-ghost" href="https://m.place.naver.com/place/1001670922/location?entry=pll&bk_query=%EC%8A%A4%EB%A7%88%EC%9D%BC%EC%84%B8%EB%AC%B4%ED%9A%8C%EA%B3%84&filter=location" target="_blank" rel="noopener">네이버 지도</a>
             </div>
 
             <div class="help">
@@ -812,15 +896,20 @@
         <div class="section-head">
           <div class="kicker">LOCATION</div>
           <h2 class="h2">오시는 길</h2>
-          <p class="desc">지도는 구글맵/네이버지도 임베드로 교체하면 됩니다. (아래는 자리표시용 박스)</p>
+          <p class="desc">아래 ‘네이버 지도 열기’ 버튼으로 바로 길찾기/위치를 확인할 수 있습니다.</p>
         </div>
 
         <div class="card" style="padding:0; overflow:hidden;">
           <div style="padding:16px; border-bottom:1px solid rgba(214,214,214,.65); background:#fff;">
             <b>스마일세무회계</b><br/>
             <span style="color:var(--gray-700); line-height:1.6;">
-              서울 영등포구 (예시) · 자세한 주소는 실제 운영 정보로 교체
+              서울시 영등포구 양평로19길 8, 701호 (양평동4가, 우진타워)
             </span>
+            <div style="height:10px;"></div>
+            <div style="display:flex; gap:10px; flex-wrap:wrap;">
+              <a class="btn btn-primary" href="https://m.place.naver.com/place/1001670922/location?entry=pll&bk_query=%EC%8A%A4%EB%A7%88%EC%9D%BC%EC%84%B8%EB%AC%B4%ED%9A%8C%EA%B3%84&filter=location" target="_blank" rel="noopener">네이버 지도 열기</a>
+              <a class="btn btn-ghost" href="tel:02-2633-4231">전화: 02-2633-4231</a>
+            </div>
           </div>
 
           <div style="height:260px; background:
@@ -828,7 +917,7 @@
             radial-gradient(circle at 70% 60%, rgba(47,91,234,.12), rgba(47,91,234,0) 55%),
             linear-gradient(180deg, #fff, #f3f4f7);
             display:grid; place-items:center; color:var(--gray-500);">
-            지도 임베드 영역 (Google / Naver)
+            지도 임베드 영역 (원하시면 네이버 지도 iframe/스크립트로 교체)
           </div>
         </div>
       </div>
@@ -844,13 +933,17 @@
               <div style="font-weight:950;">스마일세무회계</div>
             </div>
             <div style="height:8px;"></div>
+
+            <!-- ✅ 사업자정보(추가/반영) -->
             <small>
-              대표세무사: 나수빈<br/>
-              대표번호: 02-2633-4231 (예시)<br/>
-              이메일: ctasmiIe@naver.com (예시)<br/>
-              주소: 서울 영등포구 (예시)<br/>
-              사업자등록번호: (예시)
+              상호명: 스마일세무회계<br/>
+              대표자성명: 나수빈<br/>
+              주소: 서울시 영등포구 양평로19길 8, 701호 (양평동4가, 우진타워)<br/>
+              전화: 02-2633-4231<br/>
+              메일: ctasmile@naver.com<br/>
+              사업자등록번호: 183-63-00635
             </small>
+
             <small style="margin-top:10px; color:var(--gray-500);">
               © <span id="year"></span> Smile Tax Accounting. All rights reserved.
             </small>
@@ -861,7 +954,7 @@
             <div class="foot-actions">
               <a class="btn btn-primary" href="#contact">무료 상담</a>
               <a class="btn btn-ghost" href="tel:02-2633-4231">전화</a>
-              <a class="btn btn-ghost" href="#location">지도</a>
+              <a class="btn btn-ghost" href="https://m.place.naver.com/place/1001670922/location?entry=pll&bk_query=%EC%8A%A4%EB%A7%88%EC%9D%BC%EC%84%B8%EB%AC%B4%ED%9A%8C%EA%B3%84&filter=location" target="_blank" rel="noopener">네이버 지도</a>
               <a class="btn btn-ghost" href="#services">서비스</a>
             </div>
             <div class="help" style="margin-top:10px;">
