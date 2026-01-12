@@ -40,6 +40,7 @@
       background:var(--white);
       width:100%;
       overflow-x:hidden; /* ✅ 중앙 깨짐(가로 오버플로우) 방지 */
+      overflow-x:clip;   /* ✅ (추가) 모바일 일부 브라우저에서 가로 스크롤 폭 잡는 현상 더 강하게 차단 */
     }
     a{ color:inherit; text-decoration:none; }
     button, input, textarea, select{ font:inherit; }
@@ -180,12 +181,12 @@
       position:relative;
       padding:18px 0 10px;
       overflow:hidden;
-      overflow-x: clip; /* ✅ (수정) 모바일 히어로 가로 삐져나감 차단 */
       background: linear-gradient(180deg, var(--orange-light), #fff 65%);
     }
     .hero::before{
       content:"";
-      position:absolute; inset:0; /* ✅ (수정) -80px 제거 */
+      position:absolute;
+      inset:0; /* ✅ (수정) -80px 제거: 모바일 상단에서 가로 오버플로우/우측 삐져나감 원인 차단 */
       background:
         /* ✅ 오버레이를 줄이고(흐림↓) 사진을 더 진하게 */
         linear-gradient(180deg, rgba(255,243,230,.25), rgba(255,255,255,.35) 60%),
@@ -194,7 +195,7 @@
       background-position: center;
       filter: saturate(1.18) contrast(1.18);
       opacity: .78;                 /* ✅ 더 진하게 */
-      transform: scale(1.08);       /* ✅ (수정) inset 대신 scale로 여유 확보 */
+      transform: scale(1.05);
       animation: breatheFast 3.0s ease-in-out infinite;
       will-change: transform, opacity;
       z-index:0;
