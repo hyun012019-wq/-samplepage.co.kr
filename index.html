@@ -39,12 +39,12 @@
       color:var(--gray-900);
       background:var(--white);
       width:100%;
-      overflow-x:hidden; /* ✅ 중앙 깨짐(가로 오버플로우) 방지 */
+      overflow-x:hidden; /* ✅ 가로 오버플로우 방지 */
     }
     a{ color:inherit; text-decoration:none; }
     button, input, textarea, select{ font:inherit; }
 
-    /* ✅ container 중앙 고정(모바일에서 vw 반올림 문제 제거) */
+    /* ✅ container 중앙 고정 */
     .container{
       width:100%;
       max-width: var(--max);
@@ -74,8 +74,6 @@
       flex:0 0 auto;
       display:grid; place-items:center;
     }
-
-    /* ✅ 실제 로고 이미지 사용 (logo.png) */
     .logo img{
       width:100%;
       height:100%;
@@ -105,8 +103,9 @@
       display:inline-flex; align-items:center; justify-content:center; gap:8px;
       transition: transform .08s ease, background .2s ease, box-shadow .2s ease, border-color .2s ease;
       user-select:none;
-      white-space:nowrap;  /* ✅ 모바일에서 "무료 상담" 줄바꿈 방지 */
+      white-space:nowrap;
       max-width:100%;
+      min-width:0;
     }
     .btn:active{ transform: translateY(1px); }
     .btn-primary{
@@ -131,7 +130,6 @@
     }
     .hamburger:hover{ border-color: rgba(242,140,40,.55); background: rgba(242,140,40,.06); }
 
-    /* ✅ 모바일 상단 더 타이트(텍스트/버튼 모두 화면 안에) */
     @media (max-width: 520px){
       .header-inner{ gap:8px; }
       .brand{ gap:8px; }
@@ -171,10 +169,7 @@
     .nav a:hover{ border-color: rgba(242,140,40,.55); background: rgba(242,140,40,.08); }
 
     /* =========================
-       ✅ HOME HERO 배경(숨쉬기) + 더 진하게
-       파일명:
-       - hero-bg.jpg (필수)
-       - (선택) hero-noise.png (없으면 무시)
+       HOME HERO
        ========================= */
     .hero{
       position:relative;
@@ -186,13 +181,12 @@
       content:"";
       position:absolute; inset:-80px;
       background:
-        /* ✅ 오버레이를 줄이고(흐림↓) 사진을 더 진하게 */
         linear-gradient(180deg, rgba(255,243,230,.25), rgba(255,255,255,.35) 60%),
         url("hero-bg.jpg");
       background-size: cover;
       background-position: center;
       filter: saturate(1.18) contrast(1.18);
-      opacity: .78;                 /* ✅ 더 진하게 */
+      opacity: .78;
       transform: scale(1.05);
       animation: breatheFast 3.0s ease-in-out infinite;
       will-change: transform, opacity;
@@ -220,6 +214,7 @@
       grid-template-columns: 1fr;
       gap:16px;
       padding:18px 0 6px;
+      min-width:0;
     }
 
     .badge{
@@ -245,22 +240,37 @@
       color: var(--gray-700);
       line-height:1.65;
       font-size:15px;
+      max-width:100%;
+      overflow-wrap:anywhere;     /* ✅ 문장/따옴표/특수문자 때문에 우측 넘침 방지 */
+      word-break:keep-all;
     }
     .hero-cta{
       display:flex; gap:10px; flex-wrap:wrap;
       margin-top:14px;
+      width:100%;
+      min-width:0;
     }
+
+    /* ✅ 모바일에서 HERO CTA는 "세로"로 강제 (사용자 요구) */
+    @media (max-width: 520px){
+      .hero-cta{ flex-direction:column; align-items:stretch; }
+      .hero-cta .btn{ width:100%; }
+    }
+
     .hero-card{
       background:#fff;
       border:1px solid rgba(214,214,214,.65);
       border-radius: var(--radius-xl);
       box-shadow: var(--shadow);
       overflow:hidden;
+      min-width:0;
+      max-width:100%;
     }
     .profile-top{
       padding:16px 16px 0;
       display:flex; gap:12px; align-items:center;
       min-width:0;
+      max-width:100%;
     }
     .rep-photo{
       width:56px; height:56px; border-radius:18px;
@@ -279,23 +289,43 @@
       font-size:13px; margin-top:2px;
       white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
       max-width:100%;
+      min-width:0;
     }
     .profile-body{
       padding:12px 16px 16px;
       display:grid; gap:10px;
+      min-width:0;
+      max-width:100%;
     }
+
     .mini-stats{
       display:grid; grid-template-columns: 1fr 1fr 1fr; gap:10px;
+      min-width:0;
+      max-width:100%;
     }
+
+    /* ✅ 모바일에서 대표카드(나수빈 대표세무사 박스) "세로"로 강제 */
+    @media (max-width: 520px){
+      .mini-stats{ grid-template-columns: 1fr; }
+    }
+
     .stat{
       background: var(--gray-100);
       border:1px solid rgba(214,214,214,.55);
       border-radius: 16px;
       padding:12px;
       min-width:0;
+      max-width:100%;
+      overflow:hidden;
     }
     .stat b{ display:block; font-size:14px; }
-    .stat span{ display:block; margin-top:4px; color: var(--gray-500); font-size:12px; line-height:1.25; }
+    .stat span{
+      display:block; margin-top:4px; color: var(--gray-500);
+      font-size:12px; line-height:1.25;
+      overflow-wrap:anywhere;
+      word-break:keep-all;
+    }
+
     .note{
       background: rgba(47,91,234,.07);
       border: 1px solid rgba(47,91,234,.14);
@@ -304,7 +334,12 @@
       color: var(--gray-700);
       font-size:13px;
       line-height:1.5;
+      max-width:100%;
+      overflow:hidden;
+      overflow-wrap:anywhere;
+      word-break:keep-all;
     }
+
     .pill{
       display:inline-flex; align-items:center; gap:8px;
       padding:8px 10px; border-radius:999px;
@@ -314,18 +349,41 @@
       width:max-content;
       margin-top:10px;
       max-width:100%;
+      overflow:hidden;
+      text-overflow:ellipsis;
+      white-space:nowrap;
+      min-width:0;
+    }
+
+    /* ✅ "우진타워" 위치 pill(둥근 박스)만 모바일에서 줄바꿈 허용해서 바깥으로 안 나가게 */
+    @media (max-width: 520px){
+      .pill{
+        width:100%;
+        white-space:normal;
+        overflow:visible;
+        text-overflow:clip;
+        line-height:1.4;
+        overflow-wrap:anywhere;
+        word-break:keep-all;
+      }
     }
 
     /* Sections */
     section{ padding:26px 0; }
-    .section-head{ display:flex; flex-direction:column; gap:6px; margin-bottom:12px; }
+    .section-head{ display:flex; flex-direction:column; gap:6px; margin-bottom:12px; min-width:0; }
     .kicker{ color: var(--orange-dark); font-weight:850; letter-spacing:.02em; font-size:12px; }
     .h2{ font-size:22px; margin:0; letter-spacing:-.03em; font-weight:900; }
-    .desc{ margin:0; color: var(--gray-700); line-height:1.65; font-size:14px; }
+    .desc{
+      margin:0; color: var(--gray-700); line-height:1.65; font-size:14px;
+      max-width:100%;
+      overflow-wrap:anywhere;
+      word-break:keep-all;
+    }
 
     .cards{
       display:grid; gap:12px;
       grid-template-columns: 1fr;
+      min-width:0;
     }
     .card{
       background:#fff;
@@ -334,12 +392,22 @@
       box-shadow: var(--shadow);
       padding:16px;
       max-width:100%;
+      min-width:0;
+      overflow:hidden; /* ✅ 카드 내부 글씨가 오른쪽으로 새는 것 차단 */
     }
-    .card h3{ margin:0 0 8px; font-size:16px; letter-spacing:-.02em; font-weight:900; }
-    .card p{ margin:0; color:var(--gray-700); line-height:1.65; font-size:14px; }
+    .card h3{
+      margin:0 0 8px; font-size:16px; letter-spacing:-.02em; font-weight:900;
+      overflow-wrap:anywhere;
+      word-break:keep-all;
+    }
+    .card p{
+      margin:0; color:var(--gray-700); line-height:1.65; font-size:14px;
+      overflow-wrap:anywhere;
+      word-break:keep-all;
+    }
 
     /* 대표 소개 */
-    .rep-card{ display:grid; gap:14px; align-items:start; }
+    .rep-card{ display:grid; gap:14px; align-items:start; min-width:0; }
     .rep-card .photo{
       width:100%;
       max-width:280px;
@@ -356,11 +424,14 @@
       color: var(--gray-700);
       line-height:1.75;
       font-size:14px;
+      max-width:100%;
+      overflow-wrap:anywhere;   /* ✅ 리스트 글씨 우측 넘침 방지 */
+      word-break:keep-all;
     }
-    .rep-card .bullets li{ margin:6px 0; }
+    .rep-card .bullets li{ margin:6px 0; overflow-wrap:anywhere; word-break:keep-all; }
 
     /* Services */
-    .service-grid{ display:grid; gap:12px; grid-template-columns: 1fr; }
+    .service-grid{ display:grid; gap:12px; grid-template-columns: 1fr; min-width:0; }
     .service-item{
       padding:16px;
       border-radius: var(--radius-xl);
@@ -368,9 +439,11 @@
       background: #fff;
       box-shadow: var(--shadow);
       max-width:100%;
+      min-width:0;
+      overflow:hidden;
     }
-    .service-item .top{ display:flex; align-items:flex-start; justify-content:space-between; gap:10px; margin-bottom:10px; }
-    .service-item .title{ font-weight:950; letter-spacing:-.03em; font-size:16px; }
+    .service-item .top{ display:flex; align-items:flex-start; justify-content:space-between; gap:10px; margin-bottom:10px; min-width:0; }
+    .service-item .title{ font-weight:950; letter-spacing:-.03em; font-size:16px; min-width:0; overflow:hidden; text-overflow:ellipsis; }
     .tag{
       display:inline-flex; align-items:center; justify-content:center;
       font-size:11px; font-weight:850;
@@ -380,19 +453,23 @@
       border:1px solid rgba(242,140,40,.18);
       color: var(--orange-dark);
       white-space:nowrap;
+      flex:0 0 auto;
     }
     .service-item ul{
       margin:0; padding-left:18px;
       color: var(--gray-700);
       line-height:1.7;
       font-size:14px;
+      max-width:100%;
+      overflow-wrap:anywhere;
+      word-break:keep-all;
     }
     .service-item li{ margin:4px 0; }
-    .service-actions{ margin-top:12px; display:flex; gap:10px; flex-wrap:wrap; }
+    .service-actions{ margin-top:12px; display:flex; gap:10px; flex-wrap:wrap; width:100%; }
 
     /* 상담 폼 */
-    .form{ display:grid; gap:10px; }
-    .field{ display:grid; gap:6px; }
+    .form{ display:grid; gap:10px; min-width:0; }
+    .field{ display:grid; gap:6px; min-width:0; }
     .label{
       font-size:13px; font-weight:850; color: var(--gray-800);
       display:flex; align-items:center; gap:8px;
@@ -407,14 +484,15 @@
       outline:none;
       transition: border-color .2s ease, box-shadow .2s ease;
       max-width:100%;
+      min-width:0;
     }
     .input:focus, .textarea:focus, .select:focus{
       border-color: rgba(242,140,40,.65);
       box-shadow: 0 0 0 4px rgba(242,140,40,.12);
     }
     .textarea{ min-height:110px; resize:vertical; }
-    .form-row{ display:grid; gap:10px; grid-template-columns: 1fr; }
-    .help{ font-size:12px; color: var(--gray-500); line-height:1.5; margin-top:6px; }
+    .form-row{ display:grid; gap:10px; grid-template-columns: 1fr; min-width:0; }
+    .help{ font-size:12px; color: var(--gray-500); line-height:1.5; margin-top:6px; max-width:100%; overflow-wrap:anywhere; word-break:keep-all; }
     .consent{
       display:flex; gap:10px; align-items:flex-start;
       font-size:13px; color: var(--gray-700);
@@ -424,6 +502,8 @@
       border-radius: 18px;
       padding:12px;
       max-width:100%;
+      min-width:0;
+      overflow:hidden;
     }
     .consent input{ margin-top:2px; }
 
@@ -472,11 +552,19 @@
       display:grid; gap:12px;
       grid-template-columns: 1fr;
       align-items:start;
+      min-width:0;
     }
-    .footer small{ color: var(--gray-700); display:block; line-height:1.65; }
+    .footer small{
+      color: var(--gray-700);
+      display:block;
+      line-height:1.65;
+      max-width:100%;
+      overflow-wrap:anywhere;
+      word-break:keep-all;
+    }
     .footer .foot-actions{ display:flex; flex-wrap:wrap; gap:10px; }
 
-    /* Responsive */
+    /* Responsive (Desktop) */
     @media (min-width: 860px){
       .container{ padding: 0 20px; }
       .hero-grid{ grid-template-columns: 1.25fr .75fr; align-items:stretch; }
@@ -486,51 +574,6 @@
       .footer-grid{ grid-template-columns: 1.2fr .8fr; }
       .h1{ font-size:42px; }
       .rep-card{ grid-template-columns: 280px 1fr; gap:18px; }
-    }
-
-    /* =========================================================
-       ✅✅✅ [추가된 유일한 수정] 모바일 히어로/우측삐짐/가로배치 해결
-       - 다른 부분 절대 안 건드림
-       ========================================================= */
-    @media (max-width: 768px){
-
-      /* 히어로에서만 가로 오버플로우 차단(우측 파란줄/새어 나감 방지) */
-      .hero,
-      .hero *{
-        max-width:100%;
-        overflow-x:hidden;
-        word-break:keep-all;
-      }
-
-      /* 🔥 핵심: 모바일에서 히어로를 무조건 세로(1컬럼)로 */
-      .hero-grid{
-        grid-template-columns: 1fr !important;
-      }
-
-      /* 히어로 CTA 버튼 3개 세로 스택 */
-      .hero-cta{
-        flex-direction:column !important;
-        align-items:stretch !important;
-      }
-      .hero-cta .btn{
-        width:100% !important;
-        justify-content:center !important;
-      }
-
-      /* 나수빈 대표세무사 카드(미니 스탯) 3칸 → 1칸 세로 */
-      .mini-stats{
-        grid-template-columns: 1fr !important;
-      }
-
-      /* 프로필 카드 하단 2개 버튼(상담/네이버지도)도 세로 */
-      .profile-body > div[style*="display:flex"]{
-        flex-direction:column !important;
-        align-items:stretch !important;
-      }
-      .profile-body > div[style*="display:flex"] .btn{
-        width:100% !important;
-        justify-content:center !important;
-      }
     }
   </style>
 </head>
