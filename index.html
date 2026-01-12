@@ -1,756 +1,309 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>스마일세무회계 | 나수빈 대표세무사</title>
-  <meta name="description" content="어렵게 말하지 않고, 필요한 것만 정확히. 스마일세무회계 나수빈 대표세무사가 상담부터 신고·환급·사후관리까지 책임집니다." />
+
+  <!-- SEO -->
+  <meta name="description" content="세금 문제, 혼자 고민하지 마세요. 스마일세무회계 나수빈 대표세무사가 직접 상담부터 신고, 사후관리까지 책임집니다." />
+  <meta name="keywords" content="스마일세무회계, 나수빈 세무사, 영등포 세무사, 절세 상담, 세무대리" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="스마일세무회계 | 나수빈 대표세무사" />
+  <meta property="og:description" content="쉽게 설명하고, 정확하게 처리합니다." />
+  <meta property="og:image" content="/assets/hero-bg.jpg" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
 
   <style>
-    :root{
-      /* Smile Orange Brand */
-      --bg: #fffaf4;
-      --card: #ffffff;
-      --text: #111;
-      --muted: #666;
-      --line: rgba(0,0,0,.08);
+/* =========================
+   RESET & BASE
+========================= */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body {
+  font-family: 'Noto Sans KR', sans-serif;
+  background: #fff;
+  color: #222;
+  line-height: 1.6;
+}
+img { max-width: 100%; display: block; }
+a { text-decoration: none; color: inherit; }
+button { border: none; background: none; cursor: pointer; }
 
-      --brand: #ff8a00;       /* primary orange */
-      --brand2:#ffb047;       /* light orange */
-      --ink: #141414;
+/* =========================
+   BRAND COLOR
+========================= */
+:root {
+  --brand: #f28c28;
+  --brand-dark: #d8741f;
+  --bg-soft: #fff7ef;
+  --text-sub: #666;
+  --radius: 18px;
+}
 
-      --shadow: 0 10px 30px rgba(0,0,0,.08);
-      --radius: 18px;
-      --radius2: 26px;
+/* =========================
+   HEADER
+========================= */
+header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background: #fff;
+  z-index: 100;
+  box-shadow: 0 2px 10px rgba(0,0,0,.05);
+}
+.header-inner {
+  max-width: 1100px;
+  margin: auto;
+  padding: 14px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.logo {
+  font-weight: 800;
+  font-size: 18px;
+}
+.cta-header {
+  background: var(--brand);
+  color: #fff;
+  padding: 10px 16px;
+  border-radius: 30px;
+  font-weight: 600;
+}
 
-      --container: 980px;
-    }
+/* =========================
+   HERO (숨쉬기 효과)
+========================= */
+.hero {
+  margin-top: 72px;
+  height: 88vh;
+  position: relative;
+  background: url('/assets/hero-bg.jpg') center/cover no-repeat;
+  animation: breathe 8s ease-in-out infinite;
+}
+@keyframes breathe {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.03); }
+  100% { transform: scale(1); }
+}
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(255,245,235,.92);
+}
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 1000px;
+  margin: auto;
+  padding: 80px 20px;
+}
+.hero-badge {
+  display: inline-block;
+  background: #ffe5cc;
+  color: var(--brand-dark);
+  padding: 8px 14px;
+  border-radius: 30px;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+.hero h1 {
+  font-size: 34px;
+  line-height: 1.3;
+  margin-bottom: 16px;
+}
+.hero p {
+  color: #444;
+  margin-bottom: 28px;
+}
+.hero-actions {
+  display: flex;
+  gap: 12px;
+}
+.hero-actions a {
+  padding: 14px 20px;
+  border-radius: var(--radius);
+  font-weight: 700;
+}
+.btn-primary {
+  background: var(--brand);
+  color: #fff;
+}
+.btn-outline {
+  border: 1px solid var(--brand);
+  color: var(--brand);
+}
 
-    *{ box-sizing:border-box; }
-    html,body{ height:100%; }
-    body{
-      margin:0;
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, "Noto Sans KR", "Apple SD Gothic Neo", sans-serif;
-      color:var(--text);
-      background: var(--bg);
-      overflow-x:hidden;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-    }
-    a{ color:inherit; text-decoration:none; }
-    img{ max-width:100%; display:block; }
+/* =========================
+   SECTIONS COMMON
+========================= */
+section {
+  padding: 80px 20px;
+}
+.section-inner {
+  max-width: 1100px;
+  margin: auto;
+}
+.section-title {
+  font-size: 26px;
+  margin-bottom: 40px;
+}
 
-    /* ===== Layout ===== */
-    .wrap{
-      width:min(var(--container), 100%);
-      margin:0 auto;
-      padding: 0 16px calc(24px + env(safe-area-inset-bottom));
-    }
+/* =========================
+   REPRESENTATIVE
+========================= */
+.rep-card {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 30px;
+  background: var(--bg-soft);
+  padding: 30px;
+  border-radius: var(--radius);
+}
+.rep-card img {
+  border-radius: var(--radius);
+}
+.rep-info h3 {
+  font-size: 22px;
+  margin-bottom: 10px;
+}
+.rep-info p {
+  color: var(--text-sub);
+  margin-bottom: 8px;
+}
 
-    /* ===== Top Bar ===== */
-    .topbar{
-      position:sticky;
-      top:0;
-      z-index:50;
-      backdrop-filter: blur(10px);
-      background: rgba(255,250,244,.85);
-      border-bottom: 1px solid var(--line);
-    }
-    .topbar-inner{
-      width:min(var(--container), 100%);
-      margin:0 auto;
-      padding: calc(10px + env(safe-area-inset-top)) 16px 10px;
-      display:flex;
-      align-items:center;
-      gap:12px;
-    }
-    .brandmark{
-      width:38px; height:38px;
-      border-radius: 14px;
-      background: radial-gradient(circle at 30% 30%, #fff 0%, rgba(255,255,255,.6) 28%, rgba(255,255,255,0) 40%),
-                  linear-gradient(135deg, var(--brand) 0%, #ff6a00 55%, #ffbf5d 100%);
-      box-shadow: 0 10px 18px rgba(255,138,0,.25);
-      flex: 0 0 auto;
-    }
-    .brandtitle{
-      min-width:0;
-      display:flex; flex-direction:column;
-      gap:2px;
-    }
-    .brandtitle .t1{
-      font-weight:800;
-      letter-spacing:-0.4px;
-      line-height:1.1;
-      font-size: 16px;
-      white-space:nowrap;
-      overflow:hidden;
-      text-overflow:ellipsis;
-    }
-    .brandtitle .t2{
-      font-size: 12px;
-      color: var(--muted);
-      white-space:nowrap;
-      overflow:hidden;
-      text-overflow:ellipsis;
-    }
-    .topbar-actions{
-      margin-left:auto;
-      display:flex;
-      align-items:center;
-      gap:10px;
-      flex:0 0 auto;
-    }
-    .btn{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      gap:8px;
-      border: 1px solid var(--line);
-      background: #fff;
-      color: var(--ink);
-      padding: 12px 14px;
-      border-radius: 14px;
-      font-weight:800;
-      letter-spacing:-0.2px;
-      box-shadow: 0 6px 16px rgba(0,0,0,.06);
-      cursor:pointer;
-      user-select:none;
-      min-height: 44px;
-    }
-    .btn-primary{
-      border: 0;
-      background: linear-gradient(135deg, var(--brand) 0%, #ff6a00 70%);
-      color:#fff;
-      box-shadow: 0 12px 22px rgba(255,138,0,.30);
-    }
-    .btn-ghost{
-      background:#fff;
-    }
-    .btn-round{
-      width:44px; height:44px;
-      border-radius: 16px;
-      padding:0;
-    }
+/* =========================
+   SERVICES
+========================= */
+.services {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 20px;
+}
+.service {
+  border: 1px solid #eee;
+  padding: 24px;
+  border-radius: var(--radius);
+}
+.service h4 {
+  margin-bottom: 8px;
+}
 
-    /* ===== Hero (with breathing background) ===== */
-    .hero{
-      margin-top: 16px;
-      border-radius: 28px;
-      overflow:hidden;
-      position:relative;
-      box-shadow: var(--shadow);
-      border: 1px solid rgba(0,0,0,.06);
-      background:
-        radial-gradient(circle at 20% 10%, rgba(255,138,0,.25) 0%, rgba(255,138,0,0) 55%),
-        radial-gradient(circle at 80% 40%, rgba(255,176,71,.28) 0%, rgba(255,176,71,0) 55%),
-        linear-gradient(180deg, #fff6ea 0%, #fffaf4 70%);
-    }
-    /* (선택) hero-bg.jpg 업로드하면 자동으로 얹히게 */
-    .hero::before{
-      content:"";
-      position:absolute;
-      inset:0;
-      background:
-        linear-gradient(180deg, rgba(255,250,244,.88), rgba(255,250,244,.92)),
-        url("hero-bg.jpg");
-      background-size: cover;
-      background-position: center;
-      opacity: .0; /* 기본은 이미지 없다고 가정 (0) */
-      pointer-events:none;
-    }
-    /* hero-bg.jpg가 있으면 아래 opacity만 0.22~0.35 정도로 올리면 됨 */
-    /* .hero.has-bg::before{ opacity:.28; } */
+/* =========================
+   MAP
+========================= */
+.map-wrap iframe {
+  width: 100%;
+  height: 360px;
+  border-radius: var(--radius);
+  border: none;
+}
 
-    /* 숨쉬기(빠르게) */
-    .hero::after{
-      content:"";
-      position:absolute;
-      inset:-40px;
-      background:
-        radial-gradient(circle at 20% 20%, rgba(255,138,0,.22) 0%, rgba(255,138,0,0) 58%),
-        radial-gradient(circle at 80% 60%, rgba(255,176,71,.22) 0%, rgba(255,176,71,0) 62%);
-      animation: breathe 4.2s ease-in-out infinite; /* ✅ 빠르게 */
-      pointer-events:none;
-    }
-    @keyframes breathe{
-      0%   { transform: scale(1) translateY(0); filter: blur(0px); opacity:.9; }
-      50%  { transform: scale(1.06) translateY(-6px); filter: blur(1px); opacity:1; }
-      100% { transform: scale(1) translateY(0); filter: blur(0px); opacity:.9; }
-    }
+/* =========================
+   FOOTER
+========================= */
+footer {
+  background: #222;
+  color: #eee;
+  padding: 50px 20px;
+  font-size: 14px;
+}
+footer p {
+  margin-bottom: 6px;
+}
 
-    .hero-inner{
-      position:relative;
-      padding: 18px 18px 16px;
-    }
-    .pill{
-      display:inline-flex;
-      gap:8px;
-      align-items:center;
-      padding: 10px 12px;
-      border-radius: 999px;
-      background: rgba(255,138,0,.10);
-      border: 1px solid rgba(255,138,0,.22);
-      color: #a64b00;
-      font-weight:900;
-      letter-spacing:-0.2px;
-      font-size: 13px;
-      max-width: 100%;
-    }
-    .hero h1{
-      margin: 12px 0 8px;
-      font-size: clamp(28px, 6.6vw, 44px);
-      line-height: 1.08;
-      letter-spacing: -1px;
-    }
-    .hero p{
-      margin: 0;
-      color: #333;
-      line-height: 1.55;
-      font-size: 15px;
-      max-width: 60ch;
-    }
-    .cta-row{
-      margin-top: 14px;
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-    }
-    .cta-row .btn{
-      flex: 1 1 160px;
-    }
-    .tip{
-      margin-top: 12px;
-      padding: 12px 12px;
-      border-radius: 14px;
-      background: rgba(255,255,255,.70);
-      border: 1px solid var(--line);
-      color: #444;
-      font-size: 13px;
-      line-height: 1.5;
-    }
-
-    /* ===== Sections ===== */
-    section{
-      margin-top: 14px;
-    }
-    .grid{
-      display:grid;
-      gap:12px;
-      grid-template-columns: 1fr;
-    }
-    @media (min-width: 900px){
-      .grid.two{ grid-template-columns: 1.2fr .8fr; }
-      .grid.three{ grid-template-columns: 1fr 1fr 1fr; }
-    }
-    .card{
-      background: var(--card);
-      border: 1px solid var(--line);
-      border-radius: var(--radius2);
-      box-shadow: 0 10px 26px rgba(0,0,0,.06);
-      padding: 16px;
-      min-width:0;
-    }
-    .card h2{
-      margin:0;
-      font-size: 18px;
-      letter-spacing: -0.4px;
-    }
-    .sub{
-      margin: 6px 0 0;
-      color: var(--muted);
-      font-size: 13px;
-      line-height: 1.45;
-    }
-
-    /* ===== Rep Card ===== */
-    .rep{
-      display:flex;
-      gap:14px;
-      align-items:center;
-    }
-    .rep-photo{
-      width:72px;
-      height:72px;
-      border-radius: 18px;
-      overflow:hidden;
-      flex:0 0 auto;
-      background: #f2f2f2;
-      border: 1px solid var(--line);
-    }
-    .rep-photo img{
-      width:100%;
-      height:100%;
-      object-fit: cover; /* ✅ 폰에서 안 깨지게 */
-      object-position: center;
-    }
-    .rep-name{
-      font-size: 18px;
-      font-weight: 900;
-      letter-spacing: -0.4px;
-      margin:0;
-      line-height:1.2;
-    }
-    .rep-meta{
-      margin-top: 4px;
-      font-size: 13px;
-      color: var(--muted);
-      line-height: 1.4;
-      word-break: keep-all;
-    }
-
-    .feature{
-      display:flex;
-      gap:12px;
-      align-items:flex-start;
-      padding: 14px;
-      border-radius: 18px;
-      border: 1px solid var(--line);
-      background: #fff;
-      min-width:0;
-    }
-    .badge{
-      width:44px; height:44px;
-      border-radius: 16px;
-      background: rgba(255,138,0,.12);
-      border: 1px solid rgba(255,138,0,.22);
-      display:grid;
-      place-items:center;
-      flex:0 0 auto;
-      font-weight:900;
-      color:#a64b00;
-    }
-    .feature b{
-      display:block;
-      margin:0 0 2px;
-      font-size: 15px;
-      letter-spacing:-0.2px;
-    }
-    .feature span{
-      display:block;
-      color: var(--muted);
-      font-size: 13px;
-      line-height: 1.4;
-    }
-
-    /* ===== Services ===== */
-    .service-list{
-      display:grid;
-      gap:10px;
-      grid-template-columns: 1fr;
-    }
-    @media (min-width: 700px){
-      .service-list{ grid-template-columns: 1fr 1fr; }
-    }
-    .service-item{
-      padding: 14px;
-      border-radius: 18px;
-      border: 1px solid var(--line);
-      background: #fff;
-    }
-    .service-item .title{
-      font-weight: 900;
-      letter-spacing:-0.2px;
-      margin:0 0 4px;
-    }
-    .service-item .desc{
-      margin:0;
-      color: var(--muted);
-      font-size: 13px;
-      line-height: 1.45;
-    }
-
-    /* ===== Map ===== */
-    .mapbox{
-      overflow:hidden;
-      border-radius: 22px;
-      border: 1px solid var(--line);
-      background: #fff;
-    }
-    .mapbox .maphead{
-      padding: 14px 14px 0;
-    }
-    .mapbox .mapframe{
-      padding: 14px;
-    }
-    .map-placeholder{
-      height: 220px;
-      border-radius: 16px;
-      border: 1px dashed rgba(0,0,0,.18);
-      background: linear-gradient(180deg, rgba(255,138,0,.06), rgba(255,138,0,.02));
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      text-align:center;
-      color:#444;
-      padding: 18px;
-    }
-    .map-actions{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      padding: 0 14px 14px;
-    }
-    .map-actions .btn{ flex: 1 1 160px; }
-
-    /* ===== Contact Form ===== */
-    .form{
-      display:grid;
-      gap:10px;
-    }
-    .field label{
-      display:block;
-      font-size: 13px;
-      color:#333;
-      font-weight: 800;
-      margin-bottom: 6px;
-      letter-spacing:-0.2px;
-    }
-    .field input, .field textarea, .field select{
-      width:100%;
-      border: 1px solid var(--line);
-      border-radius: 16px;
-      padding: 14px 14px;
-      font-size: 15px;
-      outline:none;
-      background: #fff;
-      min-height: 48px;
-    }
-    .field textarea{ min-height: 110px; resize: vertical; }
-    .form .btn{ width:100%; }
-
-    /* ===== Footer ===== */
-    footer{
-      margin-top: 18px;
-      padding: 18px 0 6px;
-      color: var(--muted);
-      font-size: 12.5px;
-      line-height: 1.6;
-    }
-    .footer-card{
-      background:#fff;
-      border: 1px solid var(--line);
-      border-radius: 22px;
-      padding: 14px;
-      box-shadow: 0 10px 24px rgba(0,0,0,.05);
-    }
-    .footer-title{
-      font-weight: 900;
-      color:#222;
-      margin-bottom: 6px;
-      letter-spacing:-0.2px;
-    }
-    .footer-row{
-      display:flex;
-      flex-wrap:wrap;
-      gap:10px 14px;
-    }
-    .footer-row b{ color:#333; }
-
-    /* ===== Floating Quick Actions (right) ===== */
-    .floatbar{
-      position:fixed;
-      right: 12px;
-      bottom: calc(14px + env(safe-area-inset-bottom));
-      z-index: 60;
-      display:flex;
-      flex-direction:column;
-      gap:10px;
-    }
-    .fab{
-      width:54px; height:54px;
-      border-radius: 18px;
-      border: 1px solid var(--line);
-      background: rgba(255,255,255,.92);
-      box-shadow: 0 14px 30px rgba(0,0,0,.12);
-      display:grid;
-      place-items:center;
-      cursor:pointer;
-      user-select:none;
-    }
-    .fab svg{ width:22px; height:22px; opacity:.9; }
+/* =========================
+   FLOAT BUTTON
+========================= */
+.float-call {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  background: var(--brand);
+  color: #fff;
+  padding: 16px;
+  border-radius: 50%;
+  font-size: 18px;
+  z-index: 200;
+}
   </style>
 </head>
 
 <body>
-  <!-- Topbar -->
-  <div class="topbar">
-    <div class="topbar-inner">
-      <div class="brandmark" aria-hidden="true"></div>
-      <div class="brandtitle">
-        <div class="t1">스마일세무회계</div>
-        <div class="t2">나수빈 대표세무사</div>
-      </div>
 
-      <div class="topbar-actions">
-        <a class="btn btn-primary" href="#contact">무료 상담</a>
-        <button class="btn btn-round btn-ghost" type="button" id="menuBtn" aria-label="메뉴">
-          ☰
-        </button>
+<header>
+  <div class="header-inner">
+    <div class="logo">스마일세무회계</div>
+    <a href="#contact" class="cta-header">무료 상담</a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-badge">😊 쉬운 설명 · 정확한 처리 · 빠른 피드백</div>
+    <h1>세금 문제,<br>혼자 고민하지 마세요.</h1>
+    <p>상담부터 신고·환급·사후관리까지<br>나수빈 대표세무사가 직접 책임집니다.</p>
+    <div class="hero-actions">
+      <a href="#contact" class="btn-primary">무료 상담 신청</a>
+      <a href="#service" class="btn-outline">서비스 보기</a>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-inner">
+    <div class="section-title">대표세무사 소개</div>
+    <div class="rep-card">
+      <img src="/assets/rep.jpg" alt="나수빈 대표세무사">
+      <div class="rep-info">
+        <h3>나수빈 대표세무사</h3>
+        <p>다년간의 세무 실무 경험을 바탕으로,</p>
+        <p>복잡한 세금 문제를 고객 눈높이에서</p>
+        <p>쉽고 명확하게 설명하는 것을 원칙으로 합니다.</p>
+        <p>절세는 요령이 아니라 구조입니다.</p>
       </div>
     </div>
   </div>
+</section>
 
-  <div class="wrap">
-    <!-- Hero -->
-    <div class="hero" id="home">
-      <div class="hero-inner">
-        <div class="pill">😊 쉬운 설명 · 정확한 처리 · 빠른 피드백</div>
-        <h1>세금 문제,<br>혼자 고민하지 마세요.</h1>
-        <p>
-          스마일세무회계는 “어렵게 말하지 않고” 고객이 이해할 수 있게 설명합니다.<br>
-          상담부터 신고·환급·사후관리까지, <b>대표세무사가 직접 책임지고</b> 챙깁니다.
-        </p>
-
-        <div class="cta-row">
-          <a class="btn btn-primary" href="#contact">무료 상담 신청하기</a>
-          <a class="btn" href="#service">서비스 알아보기</a>
-          <a class="btn" href="tel:02-2633-4231">02-2633-4231</a>
-        </div>
-
-        <div class="tip">📌 TIP: “환급 가능성”은 케이스별로 다릅니다. 간단 정보만으로도 1차 안내가 가능합니다.</div>
-      </div>
+<section id="service">
+  <div class="section-inner">
+    <div class="section-title">주요 서비스</div>
+    <div class="services">
+      <div class="service"><h4>신고 대리</h4><p>부가세·종합소득세·법인세</p></div>
+      <div class="service"><h4>기장 대행</h4><p>월 관리 + 절세 구조</p></div>
+      <div class="service"><h4>양도·상속·증여</h4><p>사전 설계 중심</p></div>
+      <div class="service"><h4>세무조사 대응</h4><p>초기 대응이 핵심</p></div>
     </div>
-
-    <!-- Rep / Key Promise -->
-    <section>
-      <div class="card">
-        <div class="rep">
-          <div class="rep-photo" title="대표세무사 사진">
-            <!-- ✅ 업로드한 파일명: rep.jpg -->
-            <img src="rep.jpg" alt="나수빈 대표세무사" />
-          </div>
-          <div style="min-width:0;">
-            <p class="rep-name">나수빈 대표세무사</p>
-            <div class="rep-meta">
-              스마일세무회계 · 서울 영등포구 양평로19길 8, 701호(우진타워)<br>
-              다년간 세무업무 경험을 바탕으로, <b>불필요한 세금을 줄이고(절세)</b> 놓치기 쉬운 공제/환급 포인트를 꼼꼼히 점검합니다.
-            </div>
-          </div>
-        </div>
-
-        <div class="grid three" style="margin-top:14px;">
-          <div class="feature">
-            <div class="badge">⚡</div>
-            <div>
-              <b>빠른 응답</b>
-              <span>상담 접수 후 우선 연락(가능한 빠르게 1차 안내)</span>
-            </div>
-          </div>
-          <div class="feature">
-            <div class="badge">👩‍💼</div>
-            <div>
-              <b>대표 직접</b>
-              <span>상담·검토·진행 핵심 구간은 대표세무사가 책임</span>
-            </div>
-          </div>
-          <div class="feature">
-            <div class="badge">🧾</div>
-            <div>
-              <b>사후관리</b>
-              <span>신고 이후 질문/정리/추가 요청까지 흐름 관리</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="card" style="margin-top:12px; background: #fff; border-radius: 22px;">
-          <h2>스마일 전용 핵심 약속</h2>
-          <p class="sub">
-            ① 이해될 때까지 쉽게 설명 · ② 필요한 것만 정확히 · ③ 일정/진행상황 투명 공유
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <!-- Service -->
-    <section id="service">
-      <div class="card">
-        <h2>서비스</h2>
-        <p class="sub">필요한 업무만 선택해도 되고, 상황에 따라 가장 효율적인 진행을 안내드립니다.</p>
-
-        <div class="service-list" style="margin-top:12px;">
-          <div class="service-item">
-            <div class="title">기장대행</div>
-            <p class="desc">월/분기 기장관리, 증빙정리, 비용/매출 구조 점검</p>
-          </div>
-          <div class="service-item">
-            <div class="title">신고대리</div>
-            <p class="desc">종합소득세, 부가세 등 신고 대행 및 리스크 체크</p>
-          </div>
-          <div class="service-item">
-            <div class="title">성실신고 검증</div>
-            <p class="desc">성실신고 대상 점검, 누락/과다 위험 사전 정리</p>
-          </div>
-          <div class="service-item">
-            <div class="title">불복청구 / 경정청구</div>
-            <p class="desc">사안 검토 후 가능성 판단 → 자료구성 → 청구 진행</p>
-          </div>
-          <div class="service-item">
-            <div class="title">양도 / 상속 / 증여</div>
-            <p class="desc">사전 시뮬레이션과 절세 포인트 설계</p>
-          </div>
-          <div class="service-item">
-            <div class="title">세무조사 / 세무진단</div>
-            <p class="desc">사전 점검으로 리스크를 줄이고 대응 방향 정리</p>
-          </div>
-          <div class="service-item">
-            <div class="title">기타 세무용역</div>
-            <p class="desc">케이스 기반으로 필요한 범위만 정확히 제안</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Map -->
-    <section id="map">
-      <div class="mapbox">
-        <div class="maphead">
-          <div class="card" style="border:0; box-shadow:none; padding: 0 0 8px;">
-            <h2>오시는 길</h2>
-            <p class="sub">서울시 영등포구 양평로19길 8, 701호 (양평동4가, 우진타워)</p>
-          </div>
-        </div>
-
-        <div class="mapframe">
-          <!-- ✅ 임베드가 막힐 수 있어 “영역 + 링크”로 안정 구성 -->
-          <div class="map-placeholder" role="note" aria-label="지도 영역">
-            이 영역은 “네이버 지도” 연결용입니다.<br>
-            아래 버튼을 누르면 네이버 플레이스 위치로 이동합니다.
-          </div>
-        </div>
-
-        <div class="map-actions">
-          <a class="btn btn-primary"
-             href="https://m.place.naver.com/place/1001670922/location?entry=pll&bk_query=%EC%8A%A4%EB%A7%88%EC%9D%BC%EC%84%B8%EB%AC%B4%ED%9A%8C%EA%B3%84&filter=location"
-             target="_blank" rel="noopener noreferrer">
-            네이버 지도 보기
-          </a>
-          <a class="btn" href="tel:02-2633-4231">전화하기</a>
-        </div>
-
-        <!--
-          ✅ (선택) 진짜 “사이트 안에 지도”로 보이게 하려면:
-          1) 아래 스크립트 주석 해제 후 ncpClientId 입력
-          2) map-placeholder 대신 <div id="naverMap" style="height:260px; border-radius:16px;"></div>로 교체
-          3) initMap() 주석 해제
-        -->
-        <!-- <script src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=YOUR_NCP_CLIENT_ID"></script> -->
-      </div>
-    </section>
-
-    <!-- Contact -->
-    <section id="contact">
-      <div class="card">
-        <h2>스마일과 상담하기</h2>
-        <p class="sub">궁금한 점을 남겨주세요. 접수 확인 후 연락드리겠습니다.</p>
-
-        <form class="form" onsubmit="return handleSubmit(event)" style="margin-top:12px;">
-          <div class="field">
-            <label>업체 / 회사명</label>
-            <input name="company" placeholder="업체 또는 회사명을 입력하십시오." />
-          </div>
-          <div class="field">
-            <label>이름 *</label>
-            <input name="name" placeholder="이름을 써주십시오." required />
-          </div>
-          <div class="field">
-            <label>연락처 *</label>
-            <input name="phone" placeholder="010-0000-0000" inputmode="tel" required />
-          </div>
-          <div class="field">
-            <label>이메일</label>
-            <input name="email" placeholder="example@email.com" inputmode="email" />
-          </div>
-          <div class="field">
-            <label>문의 서비스</label>
-            <select name="service">
-              <option value="기장대행">기장대행</option>
-              <option value="신고대리">신고대리</option>
-              <option value="성실신고검증">성실신고검증</option>
-              <option value="불복/경정청구">불복청구 / 경정청구</option>
-              <option value="양도/상속/증여">양도 / 상속 / 증여</option>
-              <option value="세무조사/세무진단">세무조사 / 세무진단</option>
-              <option value="기타세무용역">기타세무용역</option>
-            </select>
-          </div>
-          <div class="field">
-            <label>문의 내용</label>
-            <textarea name="message" placeholder="현재 상황을 간단히 적어주시면 1차 안내가 빨라집니다."></textarea>
-          </div>
-
-          <button class="btn btn-primary" type="submit">상담 신청하기</button>
-          <div class="sub" style="margin-top:2px;">
-            ※ 안내: 본 폼은 “상담 접수” 목적이며, 구체적인 세무 판단은 추가자료 확인 후 진행됩니다.
-          </div>
-        </form>
-      </div>
-    </section>
-
-    <!-- Footer (사업자정보) -->
-    <footer>
-      <div class="footer-card">
-        <div class="footer-title">사업자정보</div>
-        <div class="footer-row">
-          <div><b>상호명</b> 스마일세무회계</div>
-          <div><b>대표자</b> 나수빈</div>
-        </div>
-        <div class="footer-row">
-          <div><b>주소</b> 서울시 영등포구 양평로19길 8, 701호 (양평동4가, 우진타워)</div>
-        </div>
-        <div class="footer-row">
-          <div><b>전화</b> 02-2633-4231</div>
-          <div><b>메일</b> ctasmile@naver.com</div>
-        </div>
-        <div class="footer-row">
-          <div><b>사업자등록번호</b> 183-63-00635</div>
-        </div>
-        <div style="margin-top:8px;">
-          Copyright © <span id="year"></span> 스마일세무회계
-        </div>
-      </div>
-    </footer>
   </div>
+</section>
 
-  <!-- Floating quick actions -->
-  <div class="floatbar" aria-label="빠른 메뉴">
-    <button class="fab" type="button" onclick="location.href='#contact'" aria-label="상담">
-      <!-- chat icon -->
-      <svg viewBox="0 0 24 24" fill="none"><path d="M4 5.5C4 4.12 5.12 3 6.5 3h11C19.88 3 21 4.12 21 5.5v8c0 1.38-1.12 2.5-2.5 2.5H10l-4.2 3.15c-.5.38-1.2.02-1.2-.6V16H6.5C5.12 16 4 14.88 4 13.5v-8Z" stroke="currentColor" stroke-width="1.8"/></svg>
-    </button>
-    <a class="fab" href="tel:02-2633-4231" aria-label="전화">
-      <svg viewBox="0 0 24 24" fill="none"><path d="M7.5 3.8c.6-1 2-.9 2.5.1l1.2 2.2c.4.7.2 1.6-.4 2.1l-1.1.9c.8 1.7 2.2 3.1 3.9 3.9l.9-1.1c.5-.6 1.4-.8 2.1-.4l2.2 1.2c1 .5 1.1 1.9.1 2.5l-1.1.7c-1.1.7-2.4 1-3.7.6-5.1-1.5-9.2-5.6-10.7-10.7-.4-1.3-.1-2.6.6-3.7l.7-1.1Z" stroke="currentColor" stroke-width="1.8"/></svg>
-    </a>
-    <button class="fab" type="button" onclick="location.href='#map'" aria-label="지도">
-      <svg viewBox="0 0 24 24" fill="none"><path d="M12 21s6-5.2 6-10.2A6 6 0 1 0 6 10.8C6 15.8 12 21 12 21Z" stroke="currentColor" stroke-width="1.8"/><path d="M12 10.8a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z" stroke="currentColor" stroke-width="1.8"/></svg>
-    </button>
-    <button class="fab" type="button" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="위로">
-      <svg viewBox="0 0 24 24" fill="none"><path d="M12 5l7 7-1.4 1.4L13 8.8V20h-2V8.8L6.4 13.4 5 12l7-7Z" stroke="currentColor" stroke-width="1.8"/></svg>
-    </button>
+<section>
+  <div class="section-inner">
+    <div class="section-title">오시는 길</div>
+    <div class="map-wrap">
+      <!-- 네이버 지도 iframe 교체 -->
+      <iframe src="https://m.place.naver.com/place/1001670922/location"></iframe>
+    </div>
   </div>
+</section>
 
-  <script>
-    document.getElementById('year').textContent = new Date().getFullYear();
+<footer>
+  <p>상호명 : 스마일세무회계</p>
+  <p>대표자 : 나수빈</p>
+  <p>주소 : 서울시 영등포구 양평로19길 8, 701호 (양평동4가, 우진타워)</p>
+  <p>전화 : 02-2633-4231 | 이메일 : ctasmile@naver.com</p>
+  <p>사업자등록번호 : 183-63-00635</p>
+  <p>© Smile Tax Accounting</p>
+</footer>
 
-    // 간단 메뉴 버튼(필요하면 확장)
-    document.getElementById('menuBtn').addEventListener('click', () => {
-      // 원하는 섹션으로 이동하는 간단 메뉴(추후 네가 원하면 진짜 메뉴로 바꿔줌)
-      const next = document.getElementById('service');
-      next?.scrollIntoView({behavior:'smooth', block:'start'});
-    });
+<a href="tel:0226334231" class="float-call">📞</a>
 
-    // 상담 폼: 지금은 “전송 UI”만 (백엔드/메일 연동은 추후)
-    function handleSubmit(e){
-      e.preventDefault();
-      const fd = new FormData(e.target);
-      const name = (fd.get('name') || '').toString().trim();
-      const phone = (fd.get('phone') || '').toString().trim();
-      if(!name || !phone){
-        alert('이름과 연락처는 필수입니다.');
-        return false;
-      }
-      alert('상담 신청이 접수되었습니다. 확인 후 연락드리겠습니다.');
-      e.target.reset();
-      return false;
-    }
-  </script>
 </body>
 </html>
