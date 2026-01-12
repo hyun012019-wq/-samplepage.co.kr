@@ -49,29 +49,44 @@
       height:64px; display:flex; align-items:center; justify-content:space-between; gap:12px;
     }
     .brand{ display:flex; align-items:center; gap:10px; min-width:0; }
+
+    /* ✅ 로고: logo.png 사용 + 없으면 기존 그라데이션 fallback */
     .logo{
       width:38px; height:38px; border-radius:12px;
+      overflow:hidden;
       background: radial-gradient(circle at 30% 30%, #fff, #fff0 45%),
                   linear-gradient(135deg, var(--orange-main), #ffb66b);
       box-shadow: 0 8px 18px rgba(242,140,40,.25);
       position:relative;
+      flex:0 0 auto;
+      display:grid;
+      place-items:center;
+    }
+    .logo img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
     }
     .logo::after{
       content:""; position:absolute; inset:9px;
       border-radius:10px; border:2px solid rgba(255,255,255,.7);
       transform: rotate(8deg);
+      pointer-events:none;
     }
+
     .brand-text{ display:flex; flex-direction:column; line-height:1.1; min-width:0; }
     .brand-title{ font-weight:800; letter-spacing:-.02em; font-size:14px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
     .brand-sub{ font-size:12px; color:var(--gray-500); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
 
-    .header-actions{ display:flex; align-items:center; gap:10px; }
+    .header-actions{ display:flex; align-items:center; gap:10px; flex:0 0 auto; }
     .btn{
       border:0; cursor:pointer;
       padding:11px 14px; border-radius:14px;
       display:inline-flex; align-items:center; justify-content:center; gap:8px;
       transition: transform .08s ease, background .2s ease, box-shadow .2s ease, border-color .2s ease;
       user-select:none;
+      white-space:nowrap; /* ✅ 줄바꿈 방지 기본 */
     }
     .btn:active{ transform: translateY(1px); }
     .btn-primary{
@@ -92,6 +107,7 @@
       border:1px solid rgba(214,214,214,.8);
       background:#fff; cursor:pointer;
       display:grid; place-items:center;
+      flex:0 0 auto;
     }
     .hamburger:hover{ border-color: rgba(242,140,40,.55); background: rgba(242,140,40,.06); }
 
@@ -139,23 +155,22 @@
       content:"";
       position:absolute; inset:-90px;
       background:
-        /* ✅ 기존보다 "덜 하얗게" 덮어서 배경 진하게 */
-        linear-gradient(180deg, rgba(255,243,230,.45), rgba(255,255,255,.55) 55%),
+        /* ✅ 더 진하게(덜 하얗게 덮음) */
+        linear-gradient(180deg, rgba(255,243,230,.35), rgba(255,255,255,.45) 55%),
         url("hero-bg.jpg");
       background-size: cover;
       background-position: center;
-      /* ✅ 진하게 */
-      filter: saturate(1.35) contrast(1.14);
-      opacity: .82;
+      filter: saturate(1.45) contrast(1.18);
+      opacity: .88;
       transform: scale(1.10);
       animation: breatheFast 2.1s ease-in-out infinite;
       will-change: transform, opacity;
       z-index:0;
     }
     @keyframes breatheFast{
-      0%   { transform: scale(1.10) translate3d(0,0,0); opacity:.78; }
-      50%  { transform: scale(1.18) translate3d(0,-10px,0); opacity:.90; }
-      100% { transform: scale(1.10) translate3d(0,0,0); opacity:.78; }
+      0%   { transform: scale(1.10) translate3d(0,0,0); opacity:.84; }
+      50%  { transform: scale(1.18) translate3d(0,-10px,0); opacity:.95; }
+      100% { transform: scale(1.10) translate3d(0,0,0); opacity:.84; }
     }
 
     .hero .container{ position:relative; z-index:1; }
@@ -395,30 +410,30 @@
     .footer small{ color: var(--gray-700); display:block; line-height:1.65; }
     .footer .foot-actions{ display:flex; flex-wrap:wrap; gap:10px; }
 
-    /* ✅ 모바일 화면 사이즈 보정 + ✅ 플로팅바가 글 덮는 문제 해결 */
+    /* ✅ 모바일: 플로팅바 겹침 방지 + 헤더 버튼 줄바꿈 방지 */
     @media (max-width: 520px){
-      /* 오른쪽 플로팅바가 글자를 가리므로, 컨텐츠에 오른쪽 여백 확보 */
-      .container{
-        width: min(var(--max), calc(100vw - 92px));
-        margin-left: auto;
-        margin-right: auto;
-      }
+      /* 오른쪽 플로팅바 공간 확보 (컨테이너 폭 건드리지 않음) */
+      body{ padding-right: 78px; padding-bottom: 110px; }
 
-      /* 하단도 플로팅바 때문에 버튼/텍스트 가려짐 → 바닥 여백 확보 */
-      body{ padding-bottom: 110px; }
-
-      /* 플로팅바를 중앙이 아닌 "하단"으로 내려서 상단 텍스트 겹침 최소화 */
+      /* 플로팅바는 하단으로 내려서 텍스트 겹침 최소화 */
       .floatbar{
-        top: auto;
-        bottom: 18px;
-        transform: none;
-        right: 12px;
-        gap: 10px;
+        top:auto;
+        bottom:18px;
+        transform:none;
+        right:12px;
       }
-      .fab{
-        width:52px; height:52px;
-        border-radius: 18px;
+      .fab{ width:52px; height:52px; }
+
+      /* 헤더 CTA 버튼: 줄바꿈 절대 금지 + 사이즈 축소 */
+      .header-actions .btn-primary{
+        padding:10px 12px;
+        font-size:13px;
+        min-width: 86px;
+        white-space:nowrap;
       }
+      /* 브랜드 텍스트가 너무 눌리면 1줄 유지 */
+      .brand-title{ font-size:13px; }
+      .brand-sub{ font-size:11px; }
 
       /* hero 높이/비율 보정 */
       .hero{
@@ -448,7 +463,9 @@
   <header class="header" role="banner">
     <div class="container header-inner">
       <a class="brand" href="#top" aria-label="스마일세무회계 홈">
-        <div class="logo" aria-hidden="true"></div>
+        <div class="logo" aria-hidden="true">
+          <img src="logo.png" alt="" onerror="this.remove();" />
+        </div>
         <div class="brand-text">
           <div class="brand-title">스마일세무회계</div>
           <div class="brand-sub">나수빈 대표세무사</div>
@@ -923,7 +940,9 @@
         <div class="footer-grid">
           <div>
             <div style="display:flex; align-items:center; gap:10px;">
-              <div class="logo" aria-hidden="true" style="width:34px;height:34px;border-radius:12px;"></div>
+              <div class="logo" aria-hidden="true" style="width:34px;height:34px;border-radius:12px;">
+                <img src="logo.png" alt="" onerror="this.remove();" />
+              </div>
               <div style="font-weight:950;">스마일세무회계</div>
             </div>
             <div style="height:8px;"></div>
