@@ -30,21 +30,27 @@
       --radius-sm: 12px;
 
       --max: 1024px;
-
-      /* header height (mobile-safe) */
-      --header-h: 64px;
-      /* right safe area for floatbar on mobile */
-      --right-safe: 0px;
     }
 
     *{ box-sizing:border-box; }
-    html,body{ margin:0; padding:0; font-family: system-ui,-apple-system,"Segoe UI",Roboto,"Noto Sans KR",Arial,sans-serif; color:var(--gray-900); background:var(--white); }
+    html,body{
+      margin:0; padding:0;
+      font-family: system-ui,-apple-system,"Segoe UI",Roboto,"Noto Sans KR",Arial,sans-serif;
+      color:var(--gray-900);
+      background:var(--white);
+      width:100%;
+      overflow-x:hidden; /* ✅ 중앙 깨짐(가로 오버플로우) 방지 */
+    }
     a{ color:inherit; text-decoration:none; }
     button, input, textarea, select{ font:inherit; }
-    .container{ width:min(var(--max), 92vw); margin:0 auto; }
 
-    /* ✅ 모바일에서 플로팅바 겹침 방지용(PC엔 영향 거의 없음) */
-    body{ padding-right: var(--right-safe); }
+    /* ✅ container 중앙 고정(모바일에서 vw 반올림 문제 제거) */
+    .container{
+      width:100%;
+      max-width: var(--max);
+      margin:0 auto;
+      padding: 0 16px;
+    }
 
     /* Header */
     .header{
@@ -54,39 +60,44 @@
       border-bottom:1px solid rgba(214,214,214,.6);
     }
     .header-inner{
-      height:var(--header-h);
-      display:flex; align-items:center; justify-content:space-between; gap:12px;
+      height:64px; display:flex; align-items:center; justify-content:space-between; gap:10px;
+      min-width:0;
     }
     .brand{ display:flex; align-items:center; gap:10px; min-width:0; }
-
-    /* ✅ 로고: 무조건 logo.png 표시(없으면 기존 배경이 보이게) */
     .logo{
       width:38px; height:38px; border-radius:12px;
-      overflow:hidden;
       background: radial-gradient(circle at 30% 30%, #fff, #fff0 45%),
                   linear-gradient(135deg, var(--orange-main), #ffb66b);
       box-shadow: 0 8px 18px rgba(242,140,40,.25);
       position:relative;
+      overflow:hidden;
       flex:0 0 auto;
+      display:grid; place-items:center;
     }
+
+    /* ✅ 실제 로고 이미지 사용 (logo.png) */
     .logo img{
       width:100%;
       height:100%;
       object-fit:cover;
       display:block;
     }
-    .logo::after{
-      content:""; position:absolute; inset:9px;
-      border-radius:10px; border:2px solid rgba(255,255,255,.7);
-      transform: rotate(8deg);
-      pointer-events:none;
-    }
 
     .brand-text{ display:flex; flex-direction:column; line-height:1.1; min-width:0; }
-    .brand-title{ font-weight:800; letter-spacing:-.02em; font-size:14px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-    .brand-sub{ font-size:12px; color:var(--gray-500); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    .brand-title{
+      font-weight:800; letter-spacing:-.02em; font-size:14px;
+      white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+    }
+    .brand-sub{
+      font-size:12px; color:var(--gray-500);
+      white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+    }
 
-    .header-actions{ display:flex; align-items:center; gap:10px; flex:0 0 auto; }
+    .header-actions{
+      display:flex; align-items:center; gap:10px;
+      flex:0 0 auto;
+      min-width:0;
+    }
 
     .btn{
       border:0; cursor:pointer;
@@ -94,8 +105,8 @@
       display:inline-flex; align-items:center; justify-content:center; gap:8px;
       transition: transform .08s ease, background .2s ease, box-shadow .2s ease, border-color .2s ease;
       user-select:none;
-      white-space:nowrap; /* ✅ 모바일 줄바꿈 방지 핵심 */
-      min-width: 0;
+      white-space:nowrap;  /* ✅ 모바일에서 "무료 상담" 줄바꿈 방지 */
+      max-width:100%;
     }
     .btn:active{ transform: translateY(1px); }
     .btn-primary{
@@ -119,6 +130,16 @@
       flex:0 0 auto;
     }
     .hamburger:hover{ border-color: rgba(242,140,40,.55); background: rgba(242,140,40,.06); }
+
+    /* ✅ 모바일 상단 더 타이트(텍스트/버튼 모두 화면 안에) */
+    @media (max-width: 520px){
+      .header-inner{ gap:8px; }
+      .brand{ gap:8px; }
+      .brand-title{ font-size:13px; }
+      .brand-sub{ font-size:11px; }
+      .btn{ padding:10px 10px; border-radius:13px; font-size:13px; }
+      .hamburger{ width:42px; height:42px; border-radius:13px; }
+    }
 
     /* Drawer */
     .drawer-backdrop{
@@ -150,9 +171,10 @@
     .nav a:hover{ border-color: rgba(242,140,40,.55); background: rgba(242,140,40,.08); }
 
     /* =========================
-       ✅ HOME HERO 배경(숨쉬기)
+       ✅ HOME HERO 배경(숨쉬기) + 더 진하게
        파일명:
        - hero-bg.jpg (필수)
+       - (선택) hero-noise.png (없으면 무시)
        ========================= */
     .hero{
       position:relative;
@@ -162,24 +184,34 @@
     }
     .hero::before{
       content:"";
-      position:absolute; inset:-90px;
+      position:absolute; inset:-80px;
       background:
-        /* ✅ 더 진하게: 흰 덮개 줄이고 채도/대비 ↑ */
-        linear-gradient(180deg, rgba(255,243,230,.22), rgba(255,255,255,.32) 55%),
+        /* ✅ 오버레이를 줄이고(흐림↓) 사진을 더 진하게 */
+        linear-gradient(180deg, rgba(255,243,230,.25), rgba(255,255,255,.35) 60%),
         url("hero-bg.jpg");
       background-size: cover;
       background-position: center;
-      filter: saturate(1.55) contrast(1.22);
-      opacity: .95;
-      transform: scale(1.10);
-      animation: breatheFast 2.05s ease-in-out infinite;
+      filter: saturate(1.18) contrast(1.18);
+      opacity: .78;                 /* ✅ 더 진하게 */
+      transform: scale(1.05);
+      animation: breatheFast 3.0s ease-in-out infinite;
       will-change: transform, opacity;
       z-index:0;
     }
+    .hero::after{
+      content:"";
+      position:absolute; inset:0;
+      background: url("hero-noise.png");
+      background-size: 420px 420px;
+      opacity:.08;
+      mix-blend-mode: overlay;
+      pointer-events:none;
+      z-index:0;
+    }
     @keyframes breatheFast{
-      0%   { transform: scale(1.10) translate3d(0,0,0); opacity:.90; }
-      50%  { transform: scale(1.18) translate3d(0,-10px,0); opacity:1; }
-      100% { transform: scale(1.10) translate3d(0,0,0); opacity:.90; }
+      0%   { transform: scale(1.05) translate3d(0,0,0); opacity:.72; }
+      50%  { transform: scale(1.10) translate3d(0,-6px,0); opacity:.86; }
+      100% { transform: scale(1.05) translate3d(0,0,0); opacity:.72; }
     }
 
     .hero .container{ position:relative; z-index:1; }
@@ -194,15 +226,12 @@
       display:inline-flex; align-items:center; gap:8px;
       padding:8px 12px;
       border-radius:999px;
-      background: rgba(242,140,40,.12);
-      border:1px solid rgba(242,140,40,.18);
+      background: rgba(242,140,40,.14);
+      border:1px solid rgba(242,140,40,.22);
       color: var(--orange-dark);
       font-weight:750;
       width:max-content;
       max-width:100%;
-      white-space:nowrap;
-      overflow:hidden;
-      text-overflow:ellipsis;
     }
     .h1{
       font-size:30px;
@@ -246,8 +275,9 @@
     }
     .profile-title{ font-weight:900; letter-spacing:-.03em; }
     .profile-sub{
-      color:var(--gray-500); font-size:13px; margin-top:2px;
-      white-space:nowrap; overflow:hidden; text-overflow:ellipsis; /* ✅ 모바일 한줄로 정리 */
+      color:var(--gray-500);
+      font-size:13px; margin-top:2px;
+      white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
       max-width:100%;
     }
     .profile-body{
@@ -262,6 +292,7 @@
       border:1px solid rgba(214,214,214,.55);
       border-radius: 16px;
       padding:12px;
+      min-width:0;
     }
     .stat b{ display:block; font-size:14px; }
     .stat span{ display:block; margin-top:4px; color: var(--gray-500); font-size:12px; line-height:1.25; }
@@ -302,6 +333,7 @@
       border-radius: var(--radius-xl);
       box-shadow: var(--shadow);
       padding:16px;
+      max-width:100%;
     }
     .card h3{ margin:0 0 8px; font-size:16px; letter-spacing:-.02em; font-weight:900; }
     .card p{ margin:0; color:var(--gray-700); line-height:1.65; font-size:14px; }
@@ -335,6 +367,7 @@
       border:1px solid rgba(214,214,214,.65);
       background: #fff;
       box-shadow: var(--shadow);
+      max-width:100%;
     }
     .service-item .top{ display:flex; align-items:flex-start; justify-content:space-between; gap:10px; margin-bottom:10px; }
     .service-item .title{ font-weight:950; letter-spacing:-.03em; font-size:16px; }
@@ -373,6 +406,7 @@
       background: #fff;
       outline:none;
       transition: border-color .2s ease, box-shadow .2s ease;
+      max-width:100%;
     }
     .input:focus, .textarea:focus, .select:focus{
       border-color: rgba(242,140,40,.65);
@@ -389,6 +423,7 @@
       border:1px solid rgba(214,214,214,.6);
       border-radius: 18px;
       padding:12px;
+      max-width:100%;
     }
     .consent input{ margin-top:2px; }
 
@@ -410,6 +445,22 @@
     .fab:hover{ transform: translateY(-1px); border-color: rgba(242,140,40,.55); background: rgba(242,140,40,.06); }
     .fab svg{ width:22px; height:22px; opacity:.9; }
 
+    /* Map Embed Card */
+    .map-wrap{
+      width:100%;
+      aspect-ratio: 16 / 9;
+      min-height: 260px;
+      background: #f3f4f7;
+      border-top:1px solid rgba(214,214,214,.65);
+      overflow:hidden;
+    }
+    .map-wrap iframe{
+      width:100%;
+      height:100%;
+      border:0;
+      display:block;
+    }
+
     /* Footer */
     .footer{
       margin-top:26px;
@@ -425,55 +476,9 @@
     .footer small{ color: var(--gray-700); display:block; line-height:1.65; }
     .footer .foot-actions{ display:flex; flex-wrap:wrap; gap:10px; }
 
-    /* =========================================================
-       ✅ 모바일 전용(핵심)
-       - 상단 영역(주소창 변화) 때문에 잘리는 문제 해결
-       - 버튼 줄바꿈 방지/사이즈 조정
-       - 플로팅바 겹침 방지(본문 안전 여백)
-       ========================================================= */
-    @media (max-width: 520px){
-      :root{
-        --right-safe: 78px; /* 플로팅바 공간 */
-      }
-
-      /* 주소창 접힘/펼침에서도 hero가 안정적으로 꽉 차게 */
-      .hero{
-        padding: 26px 0 18px;
-        min-height: calc(100svh - var(--header-h));
-      }
-
-      .hero-grid{
-        padding: 26px 0 14px;
-        gap: 18px;
-      }
-
-      /* header 폭 부족으로 무료상담이 세로로 깨지는 문제 해결 */
-      .header-actions .btn-primary{
-        padding:10px 12px;
-        font-size:13px;
-        min-width: 86px;
-      }
-      .hamburger{ width:44px; height:44px; }
-
-      .brand-title{ font-size:13px; }
-      .brand-sub{ font-size:11px; }
-
-      /* CTA 버튼들이 너무 길면 2열로 자연스럽게 */
-      .hero-cta .btn{ flex:1 1 auto; }
-      .hero-cta .btn-ghost[href^="tel"]{ flex:1 1 100%; }
-
-      /* 플로팅바는 모바일에서 아래쪽으로 내려서 겹침 더 줄임 */
-      .floatbar{
-        top:auto;
-        bottom:18px;
-        transform:none;
-        right:12px;
-      }
-      .fab{ width:52px; height:52px; }
-    }
-
     /* Responsive */
     @media (min-width: 860px){
+      .container{ padding: 0 20px; }
       .hero-grid{ grid-template-columns: 1.25fr .75fr; align-items:stretch; }
       .cards{ grid-template-columns: repeat(3, 1fr); }
       .service-grid{ grid-template-columns: repeat(2, 1fr); }
@@ -926,7 +931,7 @@
         <div class="section-head">
           <div class="kicker">LOCATION</div>
           <h2 class="h2">오시는 길</h2>
-          <p class="desc">네이버 지도는 버튼으로 안내합니다. (정책상 외부 iframe 제공이 제한될 수 있습니다)</p>
+          <p class="desc">네이버 지도 임베드(iframe) 코드를 붙여넣으면 아래에 지도 자체가 표시됩니다.</p>
         </div>
 
         <div class="card" style="padding:0; overflow:hidden;">
@@ -941,21 +946,15 @@
               <a class="btn btn-ghost" href="tel:02-2633-4231">전화: 02-2633-4231</a>
             </div>
             <div class="help" style="margin-top:10px;">
-              ✅ 버튼을 누르면 네이버 지도 앱/웹에서 바로 확인됩니다.
+              ✅ 네이버에서 받은 iframe 코드를 아래 영역에 붙여넣으면 됩니다.
             </div>
           </div>
 
-          <!-- ✅ 선택지 A: iframe 없이 안내 카드 -->
-          <div style="width:100%; min-height:260px; background:#f3f4f7; border-top:1px solid rgba(214,214,214,.65);
-                      display:grid; place-items:center; padding:16px; text-align:center; line-height:1.6; color:var(--gray-700);">
-            <div>
-              <b style="color:var(--gray-900);">네이버 지도 안내</b><br/>
-              네이버 정책상 외부 사이트에<br/>
-              <b>지도 iframe 제공이 제한</b>될 수 있습니다.<br/><br/>
-              아래 버튼을 눌러<br/>
-              <b>네이버 지도에서 바로 확인</b>해 주세요.
-              <div style="height:12px;"></div>
-              <a class="btn btn-primary" href="https://m.place.naver.com/place/1001670922/location?entry=pll&bk_query=%EC%8A%A4%EB%A7%88%EC%9D%BC%EC%84%B8%EB%AC%B4%ED%9A%8C%EA%B3%84&filter=location" target="_blank" rel="noopener">네이버 지도 열기</a>
+          <div class="map-wrap">
+            <!-- NAVER_MAP_IFRAME_HERE -->
+            <div style="height:100%;display:grid;place-items:center;color:var(--gray-500);padding:14px;text-align:center;line-height:1.5;">
+              여기( NAVER_MAP_IFRAME_HERE )에<br/>
+              네이버에서 복사한 <b>&lt;iframe ...&gt;</b> 코드를 붙여넣으세요.
             </div>
           </div>
         </div>
@@ -1059,5 +1058,7 @@
       e.target.reset();
     });
   </script>
+
+  <!-- NAVER_MAP_SCRIPT_HERE -->
 </body>
 </html>
