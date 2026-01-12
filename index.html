@@ -105,7 +105,7 @@
       display:inline-flex; align-items:center; justify-content:center; gap:8px;
       transition: transform .08s ease, background .2s ease, box-shadow .2s ease, border-color .2s ease;
       user-select:none;
-      white-space:nowrap;  /* ✅ 기본은 줄바꿈 방지 */
+      white-space:nowrap;  /* ✅ 모바일에서 "무료 상담" 줄바꿈 방지 */
       max-width:100%;
     }
     .btn:active{ transform: translateY(1px); }
@@ -180,11 +180,12 @@
       position:relative;
       padding:18px 0 10px;
       overflow:hidden;
+      overflow-x: clip; /* ✅ (수정) 모바일 히어로 가로 삐져나감 차단 */
       background: linear-gradient(180deg, var(--orange-light), #fff 65%);
     }
     .hero::before{
       content:"";
-      position:absolute; inset:-80px;
+      position:absolute; inset:0; /* ✅ (수정) -80px 제거 */
       background:
         /* ✅ 오버레이를 줄이고(흐림↓) 사진을 더 진하게 */
         linear-gradient(180deg, rgba(255,243,230,.25), rgba(255,255,255,.35) 60%),
@@ -193,7 +194,7 @@
       background-position: center;
       filter: saturate(1.18) contrast(1.18);
       opacity: .78;                 /* ✅ 더 진하게 */
-      transform: scale(1.05);
+      transform: scale(1.08);       /* ✅ (수정) inset 대신 scale로 여유 확보 */
       animation: breatheFast 3.0s ease-in-out infinite;
       will-change: transform, opacity;
       z-index:0;
@@ -250,19 +251,6 @@
       display:flex; gap:10px; flex-wrap:wrap;
       margin-top:14px;
     }
-
-    /* ✅✅ [요청한 수정 1개만] 모바일 상단(히어로 CTA) 우측 삐져나감 해결 */
-    @media (max-width: 420px){
-      .hero-cta{ width:100%; }
-      .hero-cta .btn{
-        width:100%;
-        flex: 1 1 100%;
-        white-space: normal; /* ✅ 히어로 CTA에서만 nowrap 해제 */
-        justify-content:center;
-        text-align:center;
-      }
-    }
-
     .hero-card{
       background:#fff;
       border:1px solid rgba(214,214,214,.65);
