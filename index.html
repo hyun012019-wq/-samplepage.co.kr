@@ -1,0 +1,787 @@
+<!DOCTYPE html><html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>삼사월 | 프랜차이즈 고깃집 공식 홈페이지</title>
+  <meta name="description" content="삼사월은 고기의 본질과 공간의 분위기를 함께 설계한 프랜차이즈 고깃집 브랜드입니다. 브랜드 소개, 대표 메뉴, 매장 안내, 창업 및 가맹 문의를 확인해보세요." />
+  <meta name="keywords" content="삼사월, 프랜차이즈 고깃집, 고깃집 창업, 고기집 브랜드, 삼겹살, 목살, 고깃집 홈페이지" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="삼사월 | 프랜차이즈 고깃집 공식 홈페이지" />
+  <meta property="og:description" content="불향이 기억에 남는 곳, 삼사월. 좋은 고기와 편안한 공간, 다시 찾고 싶은 식사 경험을 제안합니다." />
+  <meta property="og:image" content="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=1600&q=80" />
+  <meta property="og:locale" content="ko_KR" />
+  <style>
+    :root {
+      --bg: #0d0d0d;
+      --bg-soft: #141414;
+      --card: rgba(255,255,255,0.04);
+      --line: rgba(255,255,255,0.08);
+      --text: #f5f1ea;
+      --muted: #d0c6ba;
+      --point: #d7a263;
+      --white: #ffffff;
+      --shadow: 0 18px 50px rgba(0,0,0,0.25);
+      --radius-xl: 28px;
+      --radius-lg: 22px;
+      --radius-md: 16px;
+      --transition: 0.25s ease;
+    }* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  font-family: "Pretendard", "Noto Sans KR", Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.65;
+  word-break: keep-all;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+.container {
+  width: min(1200px, calc(100% - 40px));
+  margin: 0 auto;
+}
+
+header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: rgba(10,10,10,0.82);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--line);
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  min-height: 78px;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 30px;
+  font-weight: 900;
+  letter-spacing: -0.06em;
+  color: var(--white);
+}
+
+.brand-mark {
+  width: 12px;
+  height: 12px;
+  border-radius: 999px;
+  background: var(--point);
+  box-shadow: 0 0 20px rgba(215,162,99,0.45);
+}
+
+nav {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  color: #ded6cb;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+nav a {
+  position: relative;
+  transition: var(--transition);
+}
+
+nav a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -8px;
+  width: 0;
+  height: 2px;
+  background: var(--point);
+  transition: var(--transition);
+}
+
+nav a:hover {
+  color: var(--white);
+}
+
+nav a:hover::after {
+  width: 100%;
+}
+
+.hero {
+  min-height: 94vh;
+  display: flex;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  background:
+    linear-gradient(180deg, rgba(8,8,8,0.35), rgba(8,8,8,0.84)),
+    linear-gradient(90deg, rgba(0,0,0,0.6), rgba(0,0,0,0.18)),
+    url('https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=1800&q=80') center/cover no-repeat;
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 20% 20%, rgba(215,162,99,0.18), transparent 32%);
+  pointer-events: none;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+  max-width: 760px;
+  padding: 110px 0 90px;
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px;
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 999px;
+  background: rgba(255,255,255,0.05);
+  color: #f2d1a4;
+  font-size: 13px;
+  font-weight: 700;
+  margin-bottom: 22px;
+}
+
+.hero h1 {
+  margin: 0 0 20px;
+  font-size: clamp(44px, 7vw, 82px);
+  line-height: 1.06;
+  letter-spacing: -0.06em;
+}
+
+.hero p {
+  margin: 0 0 34px;
+  font-size: 19px;
+  color: #e4dccf;
+  max-width: 650px;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 54px;
+  padding: 0 24px;
+  border-radius: 16px;
+  font-weight: 800;
+  transition: var(--transition);
+  border: 1px solid transparent;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+}
+
+.btn-primary {
+  background: var(--point);
+  color: #16120d;
+  box-shadow: 0 14px 40px rgba(215,162,99,0.18);
+}
+
+.btn-secondary {
+  color: var(--white);
+  border-color: rgba(255,255,255,0.14);
+  background: rgba(255,255,255,0.05);
+}
+
+.hero-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 28px;
+}
+
+.hero-badges span {
+  padding: 10px 14px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.08);
+  font-size: 14px;
+  color: #ddd3c6;
+}
+
+section {
+  padding: 110px 0;
+}
+
+.section-head {
+  margin-bottom: 46px;
+}
+
+.section-label {
+  display: inline-block;
+  margin-bottom: 14px;
+  color: var(--point);
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+}
+
+.section-title {
+  margin: 0 0 14px;
+  font-size: clamp(32px, 5vw, 52px);
+  line-height: 1.16;
+  letter-spacing: -0.05em;
+}
+
+.section-desc {
+  margin: 0;
+  max-width: 760px;
+  color: var(--muted);
+  font-size: 17px;
+}
+
+.grid-2,
+.grid-3,
+.grid-4 {
+  display: grid;
+  gap: 24px;
+}
+
+.grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.grid-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+
+.about-photo {
+  min-height: 480px;
+  background:
+    linear-gradient(rgba(0,0,0,0.16), rgba(0,0,0,0.18)),
+    url('https://images.unsplash.com/photo-1552566626-52f8b828add9?auto=format&fit=crop&w=1400&q=80') center/cover no-repeat;
+}
+
+.about-text {
+  padding: 36px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.about-text h3,
+.feature-card h3,
+.menu-body h3,
+.store-card h3,
+.info-card h3,
+.franchise-box h3 {
+  margin: 0 0 14px;
+  font-size: 26px;
+  line-height: 1.25;
+  letter-spacing: -0.04em;
+}
+
+.about-text p,
+.feature-card p,
+.menu-body p,
+.store-card p,
+.info-card p,
+.franchise-box p,
+.franchise-box li {
+  margin: 0;
+  color: var(--muted);
+  font-size: 16px;
+}
+
+.stats {
+  margin-top: 28px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.stat-item {
+  padding: 18px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 18px;
+}
+
+.stat-item strong {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--white);
+  font-size: 22px;
+  letter-spacing: -0.04em;
+}
+
+.feature-card {
+  padding: 28px;
+}
+
+.feature-no {
+  display: inline-flex;
+  margin-bottom: 14px;
+  color: var(--point);
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+}
+
+.menu-card {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.menu-thumb {
+  height: 250px;
+  background-position: center;
+  background-size: cover;
+}
+
+.menu-body {
+  padding: 26px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 1;
+}
+
+.menu-tag {
+  display: inline-flex;
+  align-self: flex-start;
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: rgba(215,162,99,0.14);
+  color: #f2c489;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.menu-price {
+  margin-top: auto;
+  padding-top: 12px;
+  font-size: 22px;
+  font-weight: 900;
+  color: #f0c58e;
+  letter-spacing: -0.03em;
+}
+
+.store-card {
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 280px;
+}
+
+.store-meta {
+  margin-top: 18px;
+  display: grid;
+  gap: 10px;
+  font-size: 15px;
+  color: #e4dacd;
+}
+
+.store-link {
+  margin-top: 24px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--point);
+  font-weight: 800;
+}
+
+.split-section {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 24px;
+  align-items: stretch;
+}
+
+.franchise-box,
+.info-card {
+  padding: 30px;
+}
+
+.franchise-box ul {
+  margin: 18px 0 0;
+  padding-left: 18px;
+  display: grid;
+  gap: 10px;
+}
+
+.info-card strong {
+  color: var(--white);
+  display: block;
+  margin-bottom: 6px;
+  font-size: 15px;
+}
+
+.info-line + .info-line {
+  margin-top: 20px;
+}
+
+.banner {
+  position: relative;
+  overflow: hidden;
+  padding: 46px;
+  border-radius: 30px;
+  background:
+    linear-gradient(135deg, rgba(215,162,99,0.16), rgba(255,255,255,0.04)),
+    #131313;
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+.banner h3 {
+  margin: 0 0 14px;
+  font-size: clamp(28px, 4vw, 42px);
+  line-height: 1.2;
+  letter-spacing: -0.05em;
+}
+
+.banner p {
+  margin: 0 0 24px;
+  max-width: 720px;
+  color: var(--muted);
+  font-size: 17px;
+}
+
+footer {
+  padding: 34px 0 54px;
+  border-top: 1px solid var(--line);
+  background: #0b0b0b;
+}
+
+.footer-inner {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+  color: #c7bcae;
+  font-size: 14px;
+}
+
+.footer-brand {
+  font-weight: 800;
+  color: var(--white);
+}
+
+@media (max-width: 1080px) {
+  .grid-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .split-section { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 900px) {
+  nav { display: none; }
+  .grid-2,
+  .grid-3,
+  .grid-4,
+  .stats { grid-template-columns: 1fr; }
+  .hero { min-height: 82vh; }
+  .hero-content { padding: 90px 0 70px; }
+  section { padding: 84px 0; }
+  .about-photo { min-height: 320px; }
+  .banner { padding: 30px; }
+}
+
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container header-inner">
+      <a href="#home" class="brand" aria-label="삼사월 홈페이지 메인으로 이동">
+        <span class="brand-mark"></span>
+        <span>삼사월</span>
+      </a>
+      <nav aria-label="주요 메뉴">
+        <a href="#about">브랜드</a>
+        <a href="#features">강점</a>
+        <a href="#menu">대표 메뉴</a>
+        <a href="#stores">매장 안내</a>
+        <a href="#franchise">가맹 문의</a>
+        <a href="#contact">문의</a>
+      </nav>
+    </div>
+  </header>  <main>
+    <section class="hero" id="home">
+      <div class="container hero-content">
+        <span class="eyebrow">프랜차이즈 고깃집 브랜드 · SAMSAWOL</span>
+        <h1>불향이 기억에 남는 곳,<br>삼사월</h1>
+        <p>
+          삼사월은 좋은 고기의 만족감과 오래 머물고 싶은 공간의 분위기를 함께 담아낸 프랜차이즈 고깃집입니다.
+          식사의 기본을 더 정교하게 준비해, 누구와 방문해도 만족스러운 한 끼를 제안합니다.
+        </p>
+        <div class="hero-actions">
+          <a href="#menu" class="btn btn-primary">대표 메뉴 보기</a>
+          <a href="#franchise" class="btn btn-secondary">가맹 상담 문의</a>
+        </div>
+        <div class="hero-badges">
+          <span>삼겹살 중심 메뉴 구성</span>
+          <span>가족 외식 · 회식 · 모임 최적화</span>
+          <span>브랜드형 고깃집 운영</span>
+        </div>
+      </div>
+    </section><section id="about">
+  <div class="container">
+    <div class="section-head">
+      <span class="section-label">ABOUT SAMSAWOL</span>
+      <h2 class="section-title">고기의 기본을 더 오래 기억되게 만드는 브랜드</h2>
+      <p class="section-desc">
+        삼사월은 보여주기 위한 과한 장식보다, 실제로 다시 방문하고 싶어지는 식사 경험에 집중합니다.
+        고기 본연의 맛, 깔끔한 상차림, 편안한 공간감, 브랜드다운 운영 흐름을 균형 있게 설계하는 것이 삼사월의 방향입니다.
+      </p>
+    </div>
+
+    <div class="grid-2">
+      <div class="card about-photo"></div>
+      <div class="card about-text">
+        <h3>삼사월 브랜드 철학</h3>
+        <p>
+          한 끼 식사가 단순히 배를 채우는 경험에서 끝나지 않도록, 맛과 분위기, 서비스의 밀도를 함께 다듬습니다.
+          친구와의 저녁, 가족 외식, 직장 회식, 소규모 모임까지 자연스럽게 어울리는 공간이 되는 것이 삼사월의 핵심 목표입니다.
+        </p>
+        <div class="stats">
+          <div class="stat-item">
+            <strong>Brand</strong>
+            <span>기억되는 고깃집 이미지</span>
+          </div>
+          <div class="stat-item">
+            <strong>Menu</strong>
+            <span>기본에 강한 대표 메뉴 구성</span>
+          </div>
+          <div class="stat-item">
+            <strong>Space</strong>
+            <span>누구와 와도 편안한 공간감</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="features">
+  <div class="container">
+    <div class="section-head">
+      <span class="section-label">WHY SAMSAWOL</span>
+      <h2 class="section-title">삼사월이 오래 기억되는 이유</h2>
+      <p class="section-desc">
+        삼사월은 고기만 판매하는 매장이 아니라, 방문 전 기대와 식사 후 만족이 자연스럽게 이어지는 브랜드 흐름을 중요하게 생각합니다.
+      </p>
+    </div>
+
+    <div class="grid-4">
+      <article class="card feature-card">
+        <span class="feature-no">POINT 01</span>
+        <h3>고기 중심의 만족</h3>
+        <p>첫인상을 넘어 실제로 한 점 먹었을 때 느껴지는 맛의 만족감에 집중합니다.</p>
+      </article>
+      <article class="card feature-card">
+        <span class="feature-no">POINT 02</span>
+        <h3>정돈된 상차림</h3>
+        <p>복잡하지 않지만 부족하지 않은 상차림으로 식사 흐름을 편안하게 만듭니다.</p>
+      </article>
+      <article class="card feature-card">
+        <span class="feature-no">POINT 03</span>
+        <h3>머무르기 좋은 분위기</h3>
+        <p>회식, 외식, 지인 모임까지 자연스럽게 어울릴 수 있는 공간감을 지향합니다.</p>
+      </article>
+      <article class="card feature-card">
+        <span class="feature-no">POINT 04</span>
+        <h3>브랜드 확장성</h3>
+        <p>프랜차이즈 고깃집으로서 매장마다 일관된 인상과 운영 완성도를 이어갈 수 있게 설계합니다.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="menu">
+  <div class="container">
+    <div class="section-head">
+      <span class="section-label">SIGNATURE MENU</span>
+      <h2 class="section-title">대표 메뉴</h2>
+      <p class="section-desc">
+        아래 메뉴명과 가격은 깃허브에 올릴 홈페이지용 예시 최종본입니다. 실제 운영 시 매장 정책에 맞춰 문구와 가격만 수정하면 바로 사용할 수 있습니다.
+      </p>
+    </div>
+
+    <div class="grid-3">
+      <article class="card menu-card">
+        <div class="menu-thumb" style="background-image:url('https://images.unsplash.com/photo-1600891964092-4316c288032e?auto=format&fit=crop&w=1400&q=80');"></div>
+        <div class="menu-body">
+          <span class="menu-tag">대표 인기 메뉴</span>
+          <h3>삼사월 삼겹살</h3>
+          <p>겉은 바삭하고 속은 촉촉하게 즐길 수 있는 가장 기본이 되는 메뉴로, 삼사월의 첫인상을 만드는 핵심 구성입니다.</p>
+          <div class="menu-price">₩15,000 ~</div>
+        </div>
+      </article>
+
+      <article class="card menu-card">
+        <div class="menu-thumb" style="background-image:url('https://images.unsplash.com/photo-1529193591184-b1d58069ecdd?auto=format&fit=crop&w=1400&q=80');"></div>
+        <div class="menu-body">
+          <span class="menu-tag">풍부한 육즙</span>
+          <h3>삼사월 목살</h3>
+          <p>탄탄한 식감과 육즙의 균형이 살아있는 메뉴로, 삼사월의 든든한 만족감을 느끼기 좋은 선택입니다.</p>
+          <div class="menu-price">₩16,000 ~</div>
+        </div>
+      </article>
+
+      <article class="card menu-card">
+        <div class="menu-thumb" style="background-image:url('https://images.unsplash.com/photo-1558030006-450675393462?auto=format&fit=crop&w=1400&q=80');"></div>
+        <div class="menu-body">
+          <span class="menu-tag">식사 마무리</span>
+          <h3>된장찌개 & 식사류</h3>
+          <p>고기와 함께 식사의 완성도를 높여주는 식사 메뉴 구성으로, 방문 만족도를 안정적으로 마무리합니다.</p>
+          <div class="menu-price">₩8,000 ~</div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="stores">
+  <div class="container">
+    <div class="section-head">
+      <span class="section-label">STORE INFO</span>
+      <h2 class="section-title">매장 안내</h2>
+      <p class="section-desc">
+        아래는 홈페이지 하비럴 마케팅 예시 매장 정보입니다. 실제 오픈 지역과 연락처에 맞춰 주소와 전화번호만 바꾸면 바로 사용할 수 있습니다.
+      </p>
+    </div>
+
+    <div class="grid-3">
+      <article class="card store-card">
+        <div>
+          <h3>삼사월 용암 본점</h3>
+          <p>도심 속에서도 편안하게 고기를 즐길 수 있도록 구성한 삼사월 대표 매장입니다.</p>
+          <div class="store-meta">
+            <span>주소 · 청주시 상당구 예시로 123</span>
+            <span>운영시간 · 11:30 - 23:00</span>
+            <span>문의전화 · 02-0000-0000</span>
+          </div>
+        </div>
+        <a href="#contact" class="store-link">매장 문의하기 →</a>
+      </article>
+
+      <article class="card store-card">
+        <div>
+          <h3>삼사월 수원점</h3>
+          <p>가족 외식과 주말 식사 수요에 잘 어울리는 삼사월 지역 매장 예시입니다.</p>
+          <div class="store-meta">
+            <span>주소 · 경기 수원시 예시로 45</span>
+            <span>운영시간 · 12:00 - 22:30</span>
+            <span>문의전화 · 031-000-0000</span>
+          </div>
+        </div>
+        <a href="#contact" class="store-link">매장 문의하기 →</a>
+      </article>
+
+      <article class="card store-card">
+        <div>
+          <h3>삼사월 부산점</h3>
+          <p>지역 고객에게 삼사월의 브랜드 인상을 안정적으로 전달하는 매장 예시입니다.</p>
+          <div class="store-meta">
+            <span>주소 · 부산 해운대구 예시로 88</span>
+            <span>운영시간 · 11:00 - 23:00</span>
+            <span>문의전화 · 051-000-0000</span>
+          </div>
+        </div>
+        <a href="#contact" class="store-link">매장 문의하기 →</a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="franchise">
+  <div class="container">
+    <div class="section-head">
+      <span class="section-label">FRANCHISE</span>
+      <h2 class="section-title">창업·가맹 문의</h2>
+      <p class="section-desc">
+        삼사월 브랜드 운영에 관심 있는 예비 점주를 위한 영역입니다. 실제 사용 시 상담 전화, 카카오톡 채널, 신청 폼 링크를 연결하면 됩니다.
+      </p>
+    </div>
+
+    <div class="split-section">
+      <div class="card franchise-box">
+        <h3>삼사월 가맹 상담 안내</h3>
+        <p>
+          삼사월은 브랜드 이미지와 매장 운영 완성도를 함께 고려하는 프랜차이즈 고깃집 방향을 제안합니다.
+          아래 항목은 홈페이지용 기본 안내 문구로, 실제 창업 페이지에서도 그대로 확장해 사용할 수 있습니다.
+        </p>
+        <ul>
+          <li>브랜드 소개 및 가맹 방향 안내</li>
+          <li>상권 및 매장 운영 형태 상담</li>
+          <li>매장 구성과 메뉴 운영 기본 안내</li>
+          <li>오픈 절차 및 상담 접수 연결</li>
+        </ul>
+      </div>
+
+      <div class="card info-card" id="contact">
+        <h3>문의 정보</h3>
+        <div class="info-line">
+          <strong>고객 문의</strong>
+          <p>전화 · 02-0000-0000</p>
+          <p>이메일 · hello@samsawol.com</p>
+        </div>
+        <div class="info-line">
+          <strong>가맹 상담</strong>
+          <p>전화 · 02-1111-2222</p>
+          <p>이메일 · franchise@samsawol.com</p>
+        </div>
+        <div class="info-line">
+          <strong>운영시간</strong>
+          <p>매일 11:00 - 23:00</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="banner">
+      <h3>삼사월은 맛으로 기억되고, 분위기로 다시 찾게 되는 고깃집을 지향합니다.</h3>
+      <p>
+        지금 이 홈페이지는 깃허브에 바로 올릴 수 있는 단일 HTML 최종본 구조입니다.
+        실제 오픈 시에는 로고 이미지, 실매장 사진, 네이버 지도 링크, 카카오톡 문의 버튼만 추가하면 더 완성도 있게 확장할 수 있습니다.
+      </p>
+      <a href="#home" class="btn btn-primary">맨 위로 이동</a>
+    </div>
+  </div>
+</section>
+
+  </main>  <footer>
+    <div class="container footer-inner">
+      <div>
+        <div class="footer-brand">삼사월</div>
+        <div>프랜차이즈 고깃집 공식 홈페이지 하비럴 마케팅 </div>
+      </div>
+      <div>
+        <div>© 2026 SAMSAWOL. All rights reserved.</div>
+        <div>좋은 고기와 편안한 공간, 삼사월</div>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
