@@ -4,12 +4,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 
-<title>삼사월 | 청주 동남지구 와규 다이닝</title>
+<title>삼사월 | 청주 동남지구 와규 브랜드</title>
 
-<meta name="description" content="청주 동남지구 삼사월. 편안한 공간과 안정된 맛으로 기억에 남는 식사를 제공합니다.">
+<meta name="description" content="청주 동남지구 삼사월. 와규 중심 메뉴와 편안한 분위기로 방문 경험이 자연스럽게 이어지는 고깃집입니다. 매장 방문 및 창업 문의 가능합니다.">
+<meta name="keywords" content="삼사월, 청주 삼사월, 동남지구 고기집, 청주 와규, 청주 맛집, 고깃집 창업, 프랜차이즈 창업">
 <meta name="theme-color" content="#0a0a0a">
 
 <meta property="og:title" content="삼사월">
+<meta property="og:description" content="분위기로 머물고 기억으로 이어지는 공간">
 <meta property="og:image" content="og-samsawol.jpg">
 
 <style>
@@ -19,29 +21,18 @@
 --text:#f7f1e8;
 --muted:#c9beaf;
 --point:#d4a164;
+--white:#fff;
 }
 
-*{
-box-sizing:border-box;
--webkit-tap-highlight-color:transparent;
-}
-
+*{box-sizing:border-box}
 body{
 margin:0;
 font-family:-apple-system,BlinkMacSystemFont,"Noto Sans KR",Arial;
 background:var(--bg);
 color:var(--text);
-line-height:1.6;
 }
 
-/* 공통 */
-.container{
-max-width:1200px;
-margin:auto;
-padding:0 20px;
-}
-
-/* HEADER */
+/* ===== HEADER ===== */
 header{
 position:fixed;
 top:0;
@@ -51,11 +42,13 @@ backdrop-filter:blur(12px);
 z-index:1000;
 }
 
-.header-inner{
+.header{
+max-width:1200px;
+margin:auto;
+padding:18px 20px;
 display:flex;
 justify-content:space-between;
 align-items:center;
-padding:18px 0;
 }
 
 nav{
@@ -69,7 +62,7 @@ font-size:14px;
 text-decoration:none;
 }
 
-/* HERO */
+/* ===== HERO ===== */
 .hero{
 height:100vh;
 display:flex;
@@ -78,70 +71,83 @@ position:relative;
 overflow:hidden;
 
 background:
-linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.85)),
+linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.9)),
 url('hero-bg.jpg') center/cover no-repeat;
 
-animation:heroBreath 10s ease-in-out infinite alternate;
+animation:breath 8s ease-in-out infinite alternate;
 }
 
-@keyframes heroBreath{
+@keyframes breath{
 0%{background-size:100%;background-position:center;}
-100%{background-size:110%;background-position:center 60%;}
+100%{background-size:115%;background-position:center 65%;}
 }
 
+/* 밝기 변화 */
 .hero::before{
 content:"";
 position:absolute;
 inset:0;
-background:radial-gradient(circle at 30% 40%, rgba(255,255,255,0.06), transparent 50%);
-animation:lightMove 8s infinite alternate;
+background:rgba(255,255,255,0.05);
+animation:lightFade 5s infinite alternate;
+}
+
+@keyframes lightFade{
+0%{opacity:0.05}
+100%{opacity:0.3}
+}
+
+/* 움직이는 빛 */
+.hero::after{
+content:"";
+position:absolute;
+inset:0;
+background:radial-gradient(circle at 30% 40%, rgba(255,255,255,0.15), transparent 50%);
+animation:lightMove 6s infinite alternate;
 }
 
 @keyframes lightMove{
 0%{transform:translateY(0)}
-100%{transform:translateY(-20px)}
+100%{transform:translateY(-40px)}
 }
 
 .hero-content{
 position:relative;
 z-index:2;
-margin-top:60px;
+max-width:900px;
+margin:auto;
+padding:20px;
 }
 
 .hero h1{
-font-size:clamp(42px,8vw,72px);
+font-size:clamp(40px,7vw,80px);
 margin:0;
 }
 
 .hero p{
 margin-top:20px;
-font-size:clamp(15px,3vw,20px);
 color:#ddd;
+line-height:1.6;
 }
 
-/* 버튼 */
 .btn{
 display:inline-block;
-padding:14px 24px;
+margin-top:20px;
+padding:14px 28px;
 background:var(--point);
 color:#000;
 border-radius:10px;
 font-weight:bold;
-margin-top:20px;
 text-decoration:none;
 }
 
-/* SECTION */
+/* ===== SECTION ===== */
 section{
-padding:100px 0;
+padding:100px 20px;
+max-width:1200px;
+margin:auto;
 }
 
-h2{
-font-size:clamp(26px,5vw,40px);
-margin-bottom:20px;
-}
-
-/* GRID 반응형 핵심 */
+/* ===== GRID ===== */
 .grid{
 display:grid;
 grid-template-columns:repeat(4,1fr);
@@ -150,13 +156,8 @@ gap:20px;
 
 .card{
 background:var(--card);
-border-radius:14px;
+border-radius:12px;
 overflow:hidden;
-transition:0.3s;
-}
-
-.card:hover{
-transform:translateY(-5px);
 }
 
 .card img{
@@ -166,23 +167,30 @@ object-fit:cover;
 }
 
 .card div{
-padding:18px;
+padding:16px;
 }
 
 .price{
 color:var(--point);
-font-size:20px;
 font-weight:bold;
 }
 
-/* INFO */
-.info{
-background:#141414;
-padding:25px;
-border-radius:12px;
+/* ===== MOOD ===== */
+.mood{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:20px;
 }
 
-/* FORM */
+/* ===== CTA ===== */
+.cta{
+background:#111;
+padding:40px;
+border-radius:12px;
+text-align:center;
+}
+
+/* ===== CONTACT ===== */
 input,textarea{
 width:100%;
 padding:12px;
@@ -190,66 +198,37 @@ margin:8px 0;
 background:#111;
 border:1px solid #333;
 color:#fff;
-border-radius:6px;
 }
 
-/* 스크롤 */
-.fade{
-opacity:0;
-transform:translateY(40px);
-transition:0.8s;
+/* ===== FLOAT ===== */
+.float{
+position:fixed;
+bottom:20px;
+right:20px;
+display:flex;
+flex-direction:column;
+gap:10px;
 }
 
-.fade.show{
-opacity:1;
-transform:none;
+.float a{
+background:#d4a164;
+padding:12px;
+border-radius:50px;
+color:#000;
+font-weight:bold;
+text-decoration:none;
 }
 
-/* 모바일 대응 */
-@media (max-width:1024px){
-.grid{
-grid-template-columns:repeat(2,1fr);
-}
-}
-
-@media (max-width:600px){
-
-header{
-padding:0 10px;
+/* ===== RESPONSIVE ===== */
+@media(max-width:1024px){
+.grid{grid-template-columns:repeat(2,1fr)}
+.mood{grid-template-columns:1fr}
 }
 
-nav{
-display:none;
-}
-
-.hero{
-height:90vh;
-}
-
-.hero-content{
-text-align:center;
-}
-
-.grid{
-grid-template-columns:1fr;
-}
-
-section{
-padding:70px 0;
-}
-
-.btn{
-width:100%;
-text-align:center;
-}
-
-}
-
-/* iOS 대응 */
-@supports (-webkit-touch-callout: none){
-.hero{
-background-attachment:scroll;
-}
+@media(max-width:600px){
+.grid{grid-template-columns:1fr}
+nav{display:none}
+.hero{height:90vh}
 }
 
 </style>
@@ -258,12 +237,11 @@ background-attachment:scroll;
 <body>
 
 <header>
-<div class="container header-inner">
+<div class="header">
 <div>삼사월</div>
 <nav>
-<a href="#store">매장</a>
 <a href="#menu">메뉴</a>
-<a href="#brand">이야기</a>
+<a href="#mood">공간</a>
 <a href="#contact">문의</a>
 </nav>
 </div>
@@ -271,141 +249,80 @@ background-attachment:scroll;
 
 <!-- HERO -->
 <section class="hero">
-<div class="container hero-content">
-<h1>삼사월</h1>
+<div class="hero-content">
+<h1>분위기로 머물고<br>기억으로 이어지는 공간</h1>
 <p>
-분위기로 선택되고,<br>
-기억으로 이어지는 식사<br><br>
-편안한 공간과 안정된 맛을 바탕으로
-자연스럽게 머무를 수 있도록 준비했습니다.
+편안한 분위기와 안정된 메뉴 구성을 바탕으로  
+방문이 자연스럽게 이어지는 고깃집입니다.
 </p>
 <a href="#contact" class="btn">문의하기</a>
 </div>
 </section>
 
-<!-- STORE -->
-<section id="store" class="fade">
-<div class="container">
-<h2>매장 안내</h2>
-
-<div class="info">
-<p><strong>주소</strong><br>충북 청주시 상당구 중고개로125번길 11 포엠타워 2층</p>
-<p><strong>전화</strong><br>0507-1398-3445</p>
-<p><strong>위치</strong><br>용암동 주민센터 정류장 도보 3분</p>
-<p><strong>주차</strong><br>건물 지하주차장 이용 가능</p>
-</div>
-
-</div>
-</section>
-
 <!-- MENU -->
-<section id="menu" class="fade">
-<div class="container">
+<section id="menu">
 <h2>대표 메뉴</h2>
 
 <div class="grid">
-
 <div class="card">
 <img src="menu-special.jpg">
-<div>
-<h3>삼사월 스페셜</h3>
-<p>여러 부위를 함께 즐길 수 있는 구성</p>
-<div class="price">₩71,000</div>
-</div>
+<div><h3>삼사월 스페셜</h3><p>대표 구성</p><div class="price">₩71,000</div></div>
 </div>
 
 <div class="card">
 <img src="menu-galbisal.jpg">
-<div>
-<h3>갈비살</h3>
-<p>풍부한 육즙과 안정된 맛</p>
-<div class="price">₩19,000</div>
-</div>
+<div><h3>갈비살</h3><p>육즙 풍부</p><div class="price">₩19,000</div></div>
 </div>
 
 <div class="card">
 <img src="menu-buchaesal.jpg">
-<div>
-<h3>부채살</h3>
-<p>부드러운 식감</p>
-<div class="price">₩24,000</div>
-</div>
+<div><h3>부채살</h3><p>부드러운 식감</p><div class="price">₩24,000</div></div>
 </div>
 
 <div class="card">
 <img src="menu-doenjang.jpg">
-<div>
-<h3>된장술밥</h3>
-<p>식사 마무리에 적합</p>
-<div class="price">₩6,900</div>
-</div>
-</div>
-
+<div><h3>된장술밥</h3><p>마무리</p><div class="price">₩6,900</div></div>
 </div>
 </div>
 </section>
 
-<!-- BRAND -->
-<section id="brand" class="fade">
-<div class="container">
-<h2>삼사월</h2>
-<p>
-편안하게 머무를 수 있는 공간과
-안정적인 식사를 제공하는 데 집중하고 있습니다.
-방문하는 시간 자체가 자연스럽게 이어질 수 있도록 준비했습니다.
-</p>
+<!-- MOOD -->
+<section id="mood">
+<h2>공간</h2>
+
+<div class="mood">
+<div class="card"><img src="rep.jpg"><div>편안한 분위기</div></div>
+<div class="card"><img src="rep.jpg"><div>모임 가능</div></div>
+<div class="card"><img src="rep.jpg"><div>데이트 공간</div></div>
+</div>
+</section>
+
+<!-- CTA -->
+<section>
+<div class="cta">
+<h2>방문 및 창업 문의</h2>
+<p>편하게 문의 주시면 안내드립니다.</p>
+<a href="#contact" class="btn">문의하기</a>
 </div>
 </section>
 
 <!-- CONTACT -->
-<section id="contact" class="fade">
-<div class="container">
+<section id="contact">
 <h2>문의</h2>
 
 <form>
 <input placeholder="성함" required>
 <input placeholder="전화번호" required>
 <textarea placeholder="문의 내용"></textarea>
-
-<button type="button" onclick="toggleAgree()" class="btn">약관 확인</button>
-
-<div id="agreeBox" style="display:none">
-<label><input type="checkbox" id="agree"> 동의</label>
-</div>
-
-<button onclick="submitForm()" class="btn">접수하기</button>
+<button class="btn">접수하기</button>
 </form>
-
-</div>
 </section>
 
-<footer>
-<p>© 삼사월</p>
-<p>제작 (주)하비럴</p>
-</footer>
-
-<script>
-window.addEventListener('scroll',()=>{
-document.querySelectorAll('.fade').forEach(el=>{
-if(el.getBoundingClientRect().top < window.innerHeight-80){
-el.classList.add('show')
-}
-})
-})
-
-function toggleAgree(){
-let box=document.getElementById('agreeBox')
-box.style.display = box.style.display==='block'?'none':'block'
-}
-
-function submitForm(){
-if(!document.getElementById('agree').checked){
-alert('동의 필요')
-}else{
-alert('접수 완료')
-}
-}
-</script>
+<!-- FLOAT -->
+<div class="float">
+<a href="tel:050713983445">전화</a>
+<a href="#">카카오</a>
+</div>
 
 </body>
 </html>
