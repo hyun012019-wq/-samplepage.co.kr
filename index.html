@@ -1,1 +1,1190 @@
+<!DOCTYPE html><html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>삼사월 | 청주 동남지구 와규 고깃집 · 프랜차이즈 창업</title>
+  <meta name="description" content="청주 동남지구 삼사월. 와규 중심 메뉴와 분위기 있는 공간, 그리고 프랜차이즈 확장을 위한 브랜드 구조를 담은 공식 홈페이지입니다. 본점 안내, 대표 메뉴, 브랜드 소개, 가맹 문의를 한 번에 확인하세요." />
+  <meta name="keywords" content="삼사월, 청주 삼사월, 청주 동남지구 삼사월, 동남지구 고기집, 청주 와규 맛집, 청주 소고기 맛집, 와규 고깃집, 프랜차이즈 창업, 고깃집 창업, 삼사월 창업, 청주 데이트 고기집, 청주 분위기 좋은 고기집, 동남지구 소고기, 동남지구 와규, 청주 회식 맛집" />
+  <meta name="robots" content="index,follow" />
+  <meta name="theme-color" content="#0b0b0b" />  <meta property="og:type" content="website" />
+  <meta property="og:title" content="삼사월 | 청주 동남지구 와규 고깃집 · 프랜차이즈 창업" />
+  <meta property="og:description" content="청주 동남지구에서 시작된 삼사월. 분위기와 맛으로 기억되는 와규 고깃집 브랜드." />
+  <meta property="og:image" content="rep.jpg" />
+  <meta property="og:locale" content="ko_KR" />  <!-- 실제 도메인으로 바꾸세요 -->  <link rel="canonical" href="https://samplepage.co.kr/" />  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Restaurant",
+        "name": "삼사월",
+        "image": ["hero-bg.jpg", "rep.jpg", "logo.png"],
+        "telephone": "0507-1398-3445",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "충북 청주시 상당구 중고개로125번길 11 2층 202호",
+          "addressLocality": "청주시 상당구",
+          "addressRegion": "충청북도",
+          "addressCountry": "KR"
+        },
+        "servesCuisine": ["와규", "소고기", "고깃집"],
+        "priceRange": "₩₩",
+        "openingHoursSpecification": [
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
+            "opens": "17:00",
+            "closes": "24:00"
+          }
+        ]
+      },
+      {
+        "@type": "Organization",
+        "name": "삼사월",
+        "url": "https://samplepage.co.kr/",
+        "logo": "logo.png",
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "contactType": "customer service",
+          "telephone": "0507-1398-3445"
+        }
+      }
+    ]
+  }
+  </script>  <style>
+    :root {
+      --bg: #0b0b0b;
+      --bg-soft: #131313;
+      --bg-soft-2: #181818;
+      --card: rgba(255,255,255,0.05);
+      --line: rgba(255,255,255,0.08);
+      --text: #f7f1e8;
+      --muted: #cec2b4;
+      --point: #d7a263;
+      --point-2: #f0c58e;
+      --white: #ffffff;
+      --dark: #16120d;
+      --shadow: 0 20px 60px rgba(0,0,0,0.30);
+      --radius-xl: 30px;
+      --radius-lg: 22px;
+      --radius-md: 16px;
+      --transition: 0.28s ease;
+      --container: min(1240px, calc(100% - 40px));
+    }
 
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: "Pretendard", "Noto Sans KR", Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      word-break: keep-all;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background: radial-gradient(circle at 15% 20%, rgba(215,162,99,0.10), transparent 28%),
+                  radial-gradient(circle at 80% 10%, rgba(255,255,255,0.04), transparent 20%);
+      z-index: 0;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+    .container { width: var(--container); margin: 0 auto; position: relative; z-index: 2; }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 1200;
+      background: rgba(8,8,8,0.78);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .header-inner {
+      min-height: 78px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 30px;
+      font-weight: 900;
+      letter-spacing: -0.06em;
+      color: var(--white);
+    }
+
+    .brand img {
+      width: 46px;
+      height: 46px;
+      object-fit: contain;
+      border-radius: 12px;
+      background: rgba(255,255,255,0.04);
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      color: #ddd3c6;
+      font-size: 15px;
+      font-weight: 600;
+    }
+
+    nav a {
+      position: relative;
+      transition: var(--transition);
+    }
+
+    nav a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -8px;
+      width: 0;
+      height: 2px;
+      background: var(--point);
+      transition: var(--transition);
+    }
+
+    nav a:hover { color: var(--white); }
+    nav a:hover::after { width: 100%; }
+
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      background:
+        linear-gradient(180deg, rgba(8,8,8,0.34), rgba(8,8,8,0.90)),
+        linear-gradient(90deg, rgba(0,0,0,0.68), rgba(0,0,0,0.12)),
+        url('hero-bg.jpg') center/cover no-repeat;
+      animation: heroBreath 14s ease-in-out infinite alternate;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: -5%;
+      background: radial-gradient(circle at 20% 20%, rgba(215,162,99,0.20), transparent 30%);
+      animation: floatGlow 9s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      left: -10%;
+      bottom: -15%;
+      width: 500px;
+      height: 500px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,255,255,0.05), transparent 60%);
+      filter: blur(10px);
+      animation: drift 13s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 820px;
+      padding: 120px 0 96px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 16px;
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 999px;
+      background: rgba(255,255,255,0.05);
+      color: #f2d1a4;
+      font-size: 13px;
+      font-weight: 800;
+      margin-bottom: 24px;
+    }
+
+    .hero h1 {
+      margin: 0 0 18px;
+      font-size: clamp(44px, 7vw, 86px);
+      line-height: 1.04;
+      letter-spacing: -0.06em;
+    }
+
+    .hero p {
+      margin: 0 0 32px;
+      font-size: 19px;
+      color: #e5dccf;
+      max-width: 700px;
+    }
+
+    .hero-actions,
+    .cta-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    .hero-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 26px;
+    }
+
+    .hero-badges span {
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.08);
+      font-size: 14px;
+      color: #ddd3c6;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 56px;
+      padding: 0 24px;
+      border-radius: 16px;
+      font-weight: 800;
+      transition: var(--transition);
+      border: 1px solid transparent;
+      cursor: pointer;
+      appearance: none;
+    }
+
+    .btn:hover { transform: translateY(-2px); }
+
+    .btn-primary {
+      background: var(--point);
+      color: var(--dark);
+      box-shadow: 0 14px 40px rgba(215,162,99,0.18);
+    }
+
+    .btn-secondary {
+      color: var(--white);
+      border-color: rgba(255,255,255,0.14);
+      background: rgba(255,255,255,0.05);
+    }
+
+    .btn-kakao {
+      background: #FEE500;
+      color: #191919;
+    }
+
+    section { padding: 110px 0; position: relative; z-index: 2; }
+
+    .section-head { margin-bottom: 46px; }
+    .section-label {
+      display: inline-block;
+      margin-bottom: 14px;
+      color: var(--point);
+      font-size: 14px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+    }
+
+    .section-title {
+      margin: 0 0 14px;
+      font-size: clamp(32px, 5vw, 52px);
+      line-height: 1.14;
+      letter-spacing: -0.05em;
+    }
+
+    .section-desc {
+      margin: 0;
+      max-width: 800px;
+      color: var(--muted);
+      font-size: 17px;
+    }
+
+    .grid-2, .grid-3, .grid-4 { display: grid; gap: 24px; }
+    .grid-2 { grid-template-columns: repeat(2, minmax(0,1fr)); }
+    .grid-3 { grid-template-columns: repeat(3, minmax(0,1fr)); }
+    .grid-4 { grid-template-columns: repeat(4, minmax(0,1fr)); }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      transition: transform .35s ease, border-color .35s ease, box-shadow .35s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(215,162,99,0.20);
+      box-shadow: 0 24px 70px rgba(0,0,0,0.34);
+    }
+
+    .scroll-reveal {
+      opacity: 0;
+      transform: translateY(54px) scale(0.98);
+      transition: opacity .9s ease, transform .9s ease;
+      will-change: transform, opacity;
+    }
+
+    .scroll-reveal.is-visible {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+
+    .trust-wrap {
+      display: grid;
+      grid-template-columns: 1.12fr 0.88fr;
+      gap: 24px;
+      align-items: stretch;
+    }
+
+    .photo-box {
+      min-height: 520px;
+      background:
+        linear-gradient(rgba(0,0,0,0.18), rgba(0,0,0,0.18)),
+        url('rep.jpg') center/cover no-repeat;
+    }
+
+    .info-box,
+    .feature-card,
+    .franchise-card,
+    .faq-card,
+    .contact-card,
+    .form-card,
+    .stats-card {
+      padding: 32px;
+    }
+
+    .info-box h3,
+    .feature-card h3,
+    .menu-body h3,
+    .franchise-card h3,
+    .faq-card h3,
+    .contact-card h3,
+    .form-card h3,
+    .stats-card h3,
+    .landing-box h3 {
+      margin: 0 0 14px;
+      font-size: 26px;
+      line-height: 1.25;
+      letter-spacing: -0.04em;
+    }
+
+    .info-box p,
+    .feature-card p,
+    .menu-body p,
+    .franchise-card p,
+    .faq-card p,
+    .contact-card p,
+    .form-card p,
+    .stats-card p,
+    .landing-box p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 16px;
+    }
+
+    .meta-list,
+    .contact-lines,
+    .stats-list {
+      margin-top: 22px;
+      display: grid;
+      gap: 12px;
+    }
+
+    .meta-item,
+    .contact-line,
+    .stats-item {
+      padding: 16px 18px;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.06);
+      color: #e5dccf;
+      font-size: 15px;
+    }
+
+    .feature-no {
+      display: inline-flex;
+      margin-bottom: 12px;
+      color: var(--point);
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+    }
+
+    .menu-card {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .menu-thumb {
+      height: 250px;
+      background: center/cover no-repeat;
+      transform: scale(1.02);
+      transition: transform .6s ease;
+    }
+
+    .menu-card:hover .menu-thumb { transform: scale(1.08); }
+
+    .menu-body {
+      padding: 26px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      flex: 1;
+    }
+
+    .menu-tag {
+      display: inline-flex;
+      align-self: flex-start;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(215,162,99,0.14);
+      color: #f2c489;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .menu-price {
+      margin-top: auto;
+      padding-top: 12px;
+      font-size: 24px;
+      font-weight: 900;
+      color: var(--point-2);
+      letter-spacing: -0.03em;
+    }
+
+    .brand-story {
+      padding: 38px;
+      background:
+        linear-gradient(135deg, rgba(215,162,99,0.14), rgba(255,255,255,0.03)),
+        #121212;
+      border-radius: 30px;
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .brand-story p {
+      max-width: 940px;
+      font-size: 18px;
+    }
+
+    .franchise-grid,
+    .faq-grid,
+    .stats-grid {
+      display: grid;
+      gap: 24px;
+    }
+
+    .franchise-grid { grid-template-columns: repeat(3,minmax(0,1fr)); }
+    .faq-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
+    .stats-grid { grid-template-columns: repeat(3,minmax(0,1fr)); }
+
+    .landing-box {
+      padding: 40px;
+      border-radius: 30px;
+      background:
+        linear-gradient(135deg, rgba(215,162,99,0.16), rgba(255,255,255,0.04)),
+        #131313;
+      border: 1px solid rgba(255,255,255,0.08);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .landing-box::after {
+      content: "";
+      position: absolute;
+      right: -60px;
+      top: -60px;
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,255,255,0.10), transparent 60%);
+      pointer-events: none;
+    }
+
+    .contact-layout {
+      display: grid;
+      grid-template-columns: 0.95fr 1.05fr;
+      gap: 24px;
+      align-items: start;
+    }
+
+    form { display: grid; gap: 14px; }
+
+    .form-row-2,
+    .form-row-3,
+    .form-row-4 {
+      display: grid;
+      gap: 12px;
+    }
+
+    .form-row-2 { grid-template-columns: repeat(2, minmax(0,1fr)); }
+    .form-row-3 { grid-template-columns: repeat(3, minmax(0,1fr)); }
+    .form-row-4 { grid-template-columns: repeat(4, minmax(0,1fr)); }
+
+    .field-label {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 14px;
+      color: #efe5d8;
+      font-weight: 700;
+    }
+
+    .field-label .req { color: #ff6b6b; }
+
+    input, textarea, select {
+      width: 100%;
+      min-height: 54px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.10);
+      background: rgba(255,255,255,0.05);
+      color: var(--white);
+      padding: 14px 16px;
+      font: inherit;
+      outline: none;
+      transition: var(--transition);
+    }
+
+    textarea {
+      min-height: 200px;
+      resize: vertical;
+    }
+
+    input:focus, textarea:focus, select:focus {
+      border-color: rgba(215,162,99,0.55);
+      box-shadow: 0 0 0 4px rgba(215,162,99,0.10);
+    }
+
+    input::placeholder, textarea::placeholder { color: #bfb2a3; }
+
+    .radio-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .chip-radio {
+      position: relative;
+    }
+
+    .chip-radio input {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .chip-radio span {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 46px;
+      padding: 0 16px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.10);
+      background: rgba(255,255,255,0.05);
+      color: #e8decf;
+      font-size: 14px;
+      font-weight: 600;
+      transition: var(--transition);
+      cursor: pointer;
+    }
+
+    .chip-radio input:checked + span {
+      background: rgba(215,162,99,0.18);
+      border-color: rgba(215,162,99,0.45);
+      color: #ffd8a6;
+    }
+
+    .agreement-wrap {
+      margin-top: 6px;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,0.08);
+      overflow: hidden;
+      background: rgba(255,255,255,0.03);
+    }
+
+    .agreement-toggle {
+      width: 100%;
+      min-height: 58px;
+      padding: 0 18px;
+      border: 0;
+      background: transparent;
+      color: var(--white);
+      font: inherit;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+    }
+
+    .agreement-toggle span:last-child {
+      transition: transform .25s ease;
+    }
+
+    .agreement-wrap.open .agreement-toggle span:last-child {
+      transform: rotate(180deg);
+    }
+
+    .agreement-content {
+      display: none;
+      padding: 0 18px 18px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .agreement-wrap.open .agreement-content { display: block; }
+
+    .agreement-box {
+      margin-top: 12px;
+      padding: 16px;
+      border-radius: 14px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.06);
+      max-height: 190px;
+      overflow: auto;
+    }
+
+    .agreement-check {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 12px;
+      color: #efe5d8;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .agreement-check input {
+      width: 18px;
+      min-height: 18px;
+      height: 18px;
+      margin: 0;
+      padding: 0;
+      accent-color: var(--point);
+    }
+
+    .submit-note {
+      color: #cdbfae;
+      font-size: 13px;
+      margin-top: -2px;
+    }
+
+    .floating-cta {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 1250;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .floating-cta a {
+      min-width: 162px;
+      min-height: 54px;
+      padding: 0 18px;
+      border-radius: 999px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.26);
+      border: 1px solid rgba(255,255,255,0.08);
+      transition: var(--transition);
+    }
+
+    .floating-cta a:hover { transform: translateY(-2px); }
+    .float-call { background: var(--point); color: #15120d; }
+    .float-map { background: #1f1f1f; color: #fff; }
+
+    footer {
+      padding: 38px 0 54px;
+      border-top: 1px solid var(--line);
+      background: #090909;
+      position: relative;
+      z-index: 2;
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      gap: 24px;
+      flex-wrap: wrap;
+      color: #c7bcae;
+      font-size: 14px;
+    }
+
+    .footer-brand {
+      font-weight: 800;
+      color: var(--white);
+    }
+
+    @keyframes heroBreath {
+      0% { background-size: 100%; }
+      100% { background-size: 108%; }
+    }
+
+    @keyframes floatGlow {
+      0%, 100% { transform: translateY(0px) scale(1); }
+      50% { transform: translateY(-12px) scale(1.05); }
+    }
+
+    @keyframes drift {
+      0%,100% { transform: translate3d(0,0,0); }
+      50% { transform: translate3d(20px,-18px,0); }
+    }
+
+    @media (max-width: 1100px) {
+      .grid-4,
+      .franchise-grid,
+      .stats-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
+      .trust-wrap,
+      .contact-layout,
+      .faq-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 900px) {
+      nav { display: none; }
+      .grid-2,
+      .grid-3,
+      .grid-4,
+      .franchise-grid,
+      .faq-grid,
+      .stats-grid,
+      .form-row-2,
+      .form-row-3,
+      .form-row-4 { grid-template-columns: 1fr; }
+      .hero { min-height: 88vh; }
+      .hero-content { padding: 98px 0 76px; }
+      section { padding: 84px 0; }
+      .photo-box { min-height: 320px; }
+      .floating-cta { left: 12px; right: 12px; bottom: 12px; }
+      .floating-cta a { min-width: unset; }
+      .hero h1 { font-size: clamp(38px, 12vw, 64px); }
+    }
+  </style></head>
+<body>  <header>
+    <div class="container header-inner">
+      <a href="#home" class="brand" aria-label="삼사월 메인으로 이동">
+        <img src="logo.png" alt="삼사월 로고" />
+        <span>삼사월</span>
+      </a>
+      <nav aria-label="주요 메뉴">
+        <a href="#store">본점 소개</a>
+        <a href="#menu">대표 메뉴</a>
+        <a href="#brand">브랜드</a>
+        <a href="#experience">체험 랜딩</a>
+        <a href="#franchise">가맹 안내</a>
+        <a href="#contact">문의</a>
+      </nav>
+    </div>
+  </header>  <main>
+    <section class="hero" id="home">
+      <div class="container hero-content">
+        <span class="eyebrow">청주 동남지구 와규 브랜드 · SAMSAWOL</span>
+        <h1>분위기로 기억되고,<br>맛으로 다시 찾게 되는 곳</h1>
+        <p>
+          삼사월은 청주 동남지구에서 시작된 와규 중심 고깃집입니다.
+          본점의 실제 무드와 메뉴 완성도를 바탕으로, 앞으로 프랜차이즈로 확장 가능한 브랜드형 홈페이지 구조를 담았습니다.
+        </p>
+        <div class="hero-actions">
+          <a href="#franchise-form" class="btn btn-primary">가맹 문의하기</a>
+          <a href="tel:0507-1398-3445" class="btn btn-secondary">전화 바로 연결</a>
+          <a target="_blank" rel="noopener" href="https://map.naver.com/p/search/%EC%82%BC%EC%82%AC%EC%9B%94%20%EC%B2%AD%EC%A3%BC%20%EB%8F%99%EB%82%A8%EC%A7%80%EA%B5%AC" class="btn btn-secondary">네이버 지도</a>
+        </div>
+        <div class="hero-badges">
+          <span>와규 중심 메뉴</span>
+          <span>데이트 · 모임 · 회식형 공간</span>
+          <span>프랜차이즈 확장형 브랜드 구조</span>
+        </div>
+      </div>
+    </section><section id="store" class="scroll-reveal">
+  <div class="container">
+    <div class="section-head">
+      <span class="section-label">FLAGSHIP STORE</span>
+      <h2 class="section-title">청주 동남지구 본점에서 시작된 삼사월</h2>
+      <p class="section-desc">
+        프랜차이즈는 말이 아니라 본점의 경험에서 시작됩니다. 삼사월은 좋은 고기와 공간 분위기, 그리고 재방문하고 싶게 만드는 무드를 함께 설계한 브랜드입니다.
+      </p>
+    </div>
+
+    <div class="trust-wrap">
+      <div class="card photo-box"></div>
+      <div class="card info-box">
+        <h3>본점 정보</h3>
+        <p>
+          삼사월은 동네형 고깃집이 아니라, 와규 중심의 인상과 분위기 있는 공간감으로 기억되는 브랜드를 지향합니다.
+          본점의 경험이 좋기 때문에 브랜드 확장성도 함께 설득될 수 있습니다.
+        </p>
+        <div class="meta-list">
+          <div class="meta-item"><strong>주소</strong><br />충북 청주시 상당구 중고개로125번길 11 2층 202호</div>
+          <div class="meta-item"><strong>전화</strong><br />0507-1398-3445</div>
+          <div class="meta-item"><strong>운영시간</strong><br />매일 17:00 - 24:00</div>
+          <div class="meta-item"><strong>무드</strong><br />와규 · 와인 · 데이트 · 모임 · 회식</div>
+        </div>
+        <div class="hero-actions" style="margin-top:22px;">
+          <a class="btn btn-primary" target="_blank" rel="noopener" href="https://map.naver.com/p/search/%EC%82%BC%EC%82%AC%EC%9B%94%20%EC%B2%AD%EC%A3%BC%20%EB%8F%99%EB%82%A8%EC%A7%80%EA%B5%AC">네이버 지도 보기</a>
+          <a class="btn btn-secondary" href="tel:0507-1398-3445">매장 전화 연결</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="stats" class="scroll-reveal">
+  <div class="container">
+    <div class="section-head">
+      <span class="section-label">WHY SAMSAWOL</span>
+      <h2 class="section-title">삼사월이 브랜드로 확장될 수 있는 이유</h2>
+      <p class="section-desc">
+        이름만 복제해서는 프랜차이즈가 되지 않습니다. 삼사월은 본점에서 이미 좋아할 이유가 분명한 구조를 만들고 있습니다.
+      </p>
+    </div>
+    <div class="stats-grid">
+      <article class="card stats-card">
+        <h3>와규 중심 차별화</h3>
+        <p>일반적인 삼겹살 중심 이미지가 아니라, 와규 중심의 인상으로 브랜드 포지션을 분명하게 만듭니다.</p>
+      </article>
+      <article class="card stats-card">
+        <h3>분위기형 고깃집</h3>
+        <p>시끄러운 대중형보다는 분위기와 식사 경험을 함께 기억하게 만드는 방향으로 운영됩니다.</p>
+      </article>
+      <article class="card stats-card">
+        <h3>브랜드 복제 가능성</h3>
+        <p>메뉴 구성, 공간 무드, 고객층 방향이 선명해 다른 지역에서도 같은 기대를 만들기 쉽습니다.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="menu" class="scroll-reveal">
+  <div class="container">
+    <div class="section-head">
+      <span class="section-label">SIGNATURE MENU</span>
+      <h2 class="section-title">실제 삼사월 무드를 반영한 대표 메뉴</h2>
+      <p class="section-desc">
+        메뉴는 브랜드의 첫 설득입니다. 삼사월은 일반적인 저가형 고깃집 메뉴가 아니라, 와규 중심의 프리미엄 인상과 식사 마무리까지 이어지는 경험형 구성이 핵심입니다.
+      </p>
+    </div>
+
+    <div class="grid-4">
+      <article class="card menu-card">
+        <div class="menu-thumb" style="background-image:url('hero-bg.jpg');"></div>
+        <div class="menu-body">
+          <span class="menu-tag">시그니처 세트</span>
+          <h3>삼사월 스페셜</h3>
+          <p>대표 구성으로 브랜드 인상을 가장 강하게 남기는 중심 메뉴. 처음 보는 고객에게도 삼사월의 방향성을 전달하기 좋습니다.</p>
+          <div class="menu-price">₩71,000</div>
+        </div>
+      </article>
+      <article class="card menu-card">
+        <div class="menu-thumb" style="background-image:url('rep.jpg');"></div>
+        <div class="menu-body">
+          <span class="menu-tag">와규 인기 메뉴</span>
+          <h3>갈비살</h3>
+          <p>풍부한 육즙과 깊은 풍미를 느낄 수 있는 대표 선택지. 첫 방문 고객 만족도를 높여주는 핵심 메뉴입니다.</p>
+          <div class="menu-price">₩19,000</div>
+        </div>
+      </article>
+      <article class="card menu-card">
+        <div class="menu-thumb" style="background-image:url('hero-bg.jpg');"></div>
+        <div class="menu-body">
+          <span class="menu-tag">부드러운 식감</span>
+          <h3>부채살</h3>
+          <p>와규 특유의 부드러운 식감과 결감이 살아 있는 메뉴. 데이트와 모임 수요에 잘 어울리는 만족감이 있습니다.</p>
+          <div class="menu-price">₩24,000</div>
+        </div>
+      </article>
+      <article class="card menu-card">
+        <div class="menu-thumb" style="background-image:url('rep.jpg');"></div>
+        <div class="menu-body">
+          <span class="menu-tag">식사 마무리</span>
+          <h3>와규 된장술밥</h3>
+          <p>단순 후식이 아니라 식사의 마지막 인상을 완성하는 시그니처 식사 메뉴. 브랜드의 기억을 오래 남깁니다.</p>
+          <div class="menu-price">₩6,900</div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="brand" class="scroll-reveal">
+  <div class="container">
+    <div class="section-head">
+      <span class="section-label">BRAND STORY</span>
+      <h2 class="section-title">삼사월은 왜 프랜차이즈 브랜드로 설득력이 있는가</h2>
+      <p class="section-desc">
+        홈페이지는 매장 소개에서 끝나면 안 됩니다. 본점의 분위기, 메뉴의 인상, 고객층의 방향, 그리고 확장 가능성까지 함께 전달해야 사장이 봐도 ‘우리 매장 사이트답다’고 느낍니다.
+      </p>
+    </div>
+
+    <div class="brand-story card">
+      <p>
+        삼사월의 핵심은 세 가지입니다. 첫째, 와규 중심 메뉴로 일반적인 고깃집과 다른 인상을 만듭니다. 둘째, 와인과 어울리는 분위기 있는 공간감으로 데이트, 모임, 회식까지 동시에 소화합니다. 셋째, 본점에서 느끼는 감도와 메뉴 경험을 다른 지역에서도 반복될 수 있게 브랜드 언어로 정리할 수 있습니다. 그래서 삼사월 홈페이지는 단순 소개가 아니라, 본점 신뢰와 프랜차이즈 확장을 함께 담는 구조여야 합니다.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section id="experience" class="scroll-reveal">
+  <div class="container">
+    <div class="section-head">
+      <span class="section-label">EXPERIENCE LANDING</span>
+      <h2 class="section-title">체험안 발송에도 바로 쓸 수 있는 유입 랜딩 구조</h2>
+      <p class="section-desc">
+        링크를 받은 사람이 바로 이해하고, “한 번 가보고 싶다” 또는 “가맹 상담을 받아보고 싶다”로 넘어가게 만드는 전환 구간입니다.
+      </p>
+    </div>
+
+    <div class="landing-box card">
+      <h3>분위기로 기억되고, 맛으로 다시 찾게 되는 삼사월</h3>
+      <p>
+        청주 동남지구에서 시작된 삼사월은 와규 중심 메뉴와 감도 있는 공간으로 고객 만족을 쌓아가는 브랜드입니다.
+        본점에서 이미 검증된 분위기와 메뉴 완성도를 기반으로, 앞으로 더 넓은 지역으로 확장 가능한 브랜드 구조를 갖춰가고 있습니다.
+      </p>
+      <div class="cta-actions">
+        <a href="tel:0507-1398-3445" class="btn btn-primary">전화로 바로 문의</a>
+        <a href="#franchise-form" class="btn btn-secondary">가맹 문의 남기기</a>
+        <a target="_blank" rel="noopener" href="https://map.naver.com/p/search/%EC%82%BC%EC%82%AC%EC%9B%94%20%EC%B2%AD%EC%A3%BC%20%EB%8F%99%EB%82%A8%EC%A7%80%EA%B5%AC" class="btn btn-secondary">본점 위치 보기</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="franchise" class="scroll-reveal">
+  <div class="container">
+    <div class="section-head">
+      <span class="section-label">FRANCHISE</span>
+      <h2 class="section-title">가맹 문의가 실제로 들어오게 설계한 안내 구조</h2>
+      <p class="section-desc">
+        예비 점주는 예쁜 사이트보다 이 브랜드가 왜 되는지, 내가 어떻게 시작하는지를 궁금해합니다. 그래서 삼사월 가맹 페이지는 설명형이 아니라 전환형으로 설계했습니다.
+      </p>
+    </div>
+
+    <div class="franchise-grid">
+      <article class="card franchise-card">
+        <h3>01. 브랜드 이해</h3>
+        <p>삼사월의 콘셉트, 고객층, 메뉴 방향, 공간 무드를 통해 브랜드 포지션을 명확히 확인합니다.</p>
+      </article>
+      <article class="card franchise-card">
+        <h3>02. 입지·운영 상담</h3>
+        <p>상권 특성과 매장 규모, 운영 방식, 타깃 고객 흐름을 기준으로 상담이 이어질 수 있도록 구조를 잡습니다.</p>
+      </article>
+      <article class="card franchise-card">
+        <h3>03. 창업 연결</h3>
+        <p>문의 이후 상담, 조건 검토, 브랜드 적합성 확인을 거쳐 실제 창업 전환으로 이어지는 흐름을 설계합니다.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="scroll-reveal">
+  <div class="container">
+    <div class="section-head">
+      <span class="section-label">CONTACT</span>
+      <h2 class="section-title">매장 문의와 가맹 문의를 모두 담은 최종 구간</h2>
+      <p class="section-desc">
+        실제 사이트 운영 기준으로, 본점 문의와 창업 문의가 자연스럽게 연결되는 방식으로 구성했습니다.
+      </p>
+    </div>
+
+    <div class="contact-layout">
+      <article class="card contact-card">
+        <h3>매장 / 브랜드 문의</h3>
+        <p>삼사월 본점 방문 문의와 브랜드 문의를 하나의 구조에서 받을 수 있도록 설계했습니다.</p>
+        <div class="contact-lines">
+          <div class="contact-line"><strong>대표 문의전화</strong><br />0507-1398-3445</div>
+          <div class="contact-line"><strong>주소</strong><br />충북 청주시 상당구 중고개로125번길 11 2층 202호</div>
+          <div class="contact-line"><strong>운영시간</strong><br />매일 17:00 - 24:00</div>
+          <div class="contact-line"><strong>네이버 지도</strong><br />동남지구 삼사월 위치 검색 바로 연결</div>
+        </div>
+        <div class="hero-actions" style="margin-top:22px;">
+          <a href="tel:0507-1398-3445" class="btn btn-primary">전화 문의</a>
+          <a target="_blank" rel="noopener" href="https://map.naver.com/p/search/%EC%82%BC%EC%82%AC%EC%9B%94%20%EC%B2%AD%EC%A3%BC%20%EB%8F%99%EB%82%A8%EC%A7%80%EA%B5%AC" class="btn btn-secondary">네이버 지도</a>
+          <a href="#" class="btn btn-kakao">카카오톡 문의</a>
+        </div>
+        <div class="submit-note" style="margin-top:16px;">카카오 버튼은 실제 채널 링크가 있으면 href만 교체하면 바로 사용 가능합니다.</div>
+      </article>
+
+      <article class="card form-card" id="franchise-form">
+        <h3>가맹 문의 등록</h3>
+        <p>실제 상담 리드를 받을 수 있게, 예시 화면 구조를 반영한 입력폼으로 구성했습니다.</p>
+
+        <form id="franchiseInquiryForm">
+          <div>
+            <label class="field-label" for="name">성함 <span class="req">*</span></label>
+            <input id="name" name="name" type="text" placeholder="성함을 입력해 주세요" required />
+          </div>
+
+          <div>
+            <label class="field-label">전화번호 <span class="req">*</span></label>
+            <div class="form-row-3">
+              <input type="tel" name="phone1" inputmode="numeric" maxlength="3" placeholder="010" required />
+              <input type="tel" name="phone2" inputmode="numeric" maxlength="4" placeholder="1234" required />
+              <input type="tel" name="phone3" inputmode="numeric" maxlength="4" placeholder="5678" required />
+            </div>
+          </div>
+
+          <div>
+            <label class="field-label" for="email">이메일</label>
+            <input id="email" name="email" type="email" placeholder="이메일을 입력해 주세요" />
+          </div>
+
+          <div>
+            <label class="field-label">창업희망지역 <span class="req">*</span></label>
+            <div class="form-row-2">
+              <select name="regionSido" required>
+                <option value="">시/도 선택</option>
+                <option>서울</option>
+                <option>경기</option>
+                <option>인천</option>
+                <option>충북</option>
+                <option>충남</option>
+                <option>대전</option>
+                <option>세종</option>
+                <option>부산</option>
+                <option>대구</option>
+                <option>울산</option>
+                <option>광주</option>
+                <option>전북</option>
+                <option>전남</option>
+                <option>경북</option>
+                <option>경남</option>
+                <option>강원</option>
+                <option>제주</option>
+              </select>
+              <select name="regionSigungu" required>
+                <option value="">구/군 선택</option>
+                <option>상세 지역 직접 상담</option>
+                <option>중심 상권</option>
+                <option>주거 밀집 지역</option>
+                <option>복합상권</option>
+              </select>
+            </div>
+          </div>
+
+          <div>
+            <label class="field-label">창업희망비</label>
+            <div class="radio-group">
+              <label class="chip-radio"><input type="radio" name="budget" value="3천만원~" /><span>3천만원~</span></label>
+              <label class="chip-radio"><input type="radio" name="budget" value="5천만원~" /><span>5천만원~</span></label>
+              <label class="chip-radio"><input type="radio" name="budget" value="1억원~" /><span>1억원~</span></label>
+              <label class="chip-radio"><input type="radio" name="budget" value="2억이상~" /><span>2억이상~</span></label>
+            </div>
+          </div>
+
+          <div>
+            <label class="field-label">연령대</label>
+            <div class="radio-group">
+              <label class="chip-radio"><input type="radio" name="age" value="20대" /><span>20대</span></label>
+              <label class="chip-radio"><input type="radio" name="age" value="30대" /><span>30대</span></label>
+              <label class="chip-radio"><input type="radio" name="age" value="40대" /><span>40대</span></label>
+              <label class="chip-radio"><input type="radio" name="age" value="50대이상" /><span>50대이상</span></label>
+            </div>
+          </div>
+
+          <div>
+            <label class="field-label" for="content">내용</label>
+            <textarea id="content" name="content" placeholder="문의 내용을 입력해 주세요"></textarea>
+          </div>
+
+          <div class="agreement-wrap" id="agreementWrap">
+            <button type="button" class="agreement-toggle" id="agreementToggle">
+              <span>개인정보 처리방침 펼쳐보기</span>
+              <span>⌄</span>
+            </button>
+            <div class="agreement-content">
+              <div class="agreement-box">
+                개인정보수집 범위 : 이름, 연락처, 이메일, 창업희망지역 등 문의 접수에 필요한 정보<br /><br />
+                개인정보수집 및 이용목적 : 온라인 문의 및 상담 자료 확인, 상담 진행, 결과 회신<br /><br />
+                개인정보보관 및 보유기간 : 개인정보 수집 및 이용에 대한 목적이 달성되면 지체 없이 파기하며, 내부 운영 기준상 최대 1년을 넘기지 않습니다.<br /><br />
+                제출된 정보는 상담 목적 외 다른 용도로 사용하지 않습니다.
+              </div>
+              <label class="agreement-check">
+                <input type="checkbox" id="privacyAgree" />
+                <span>개인정보 처리방침을 확인했으며, 이에 동의합니다.</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="submit-note">현재 코드는 프론트엔드 완료본입니다. 실제 접수 저장은 구글폼, 이메일, 서버, 노션 등과 연결하면 됩니다.</div>
+          <button type="submit" class="btn btn-primary">등록하기</button>
+        </form>
+      </article>
+    </div>
+  </div>
+</section>
+
+  </main>  <div class="floating-cta">
+    <a href="tel:0507-1398-3445" class="float-call">전화 문의</a>
+    <a target="_blank" rel="noopener" href="https://map.naver.com/p/search/%EC%82%BC%EC%82%AC%EC%9B%94%20%EC%B2%AD%EC%A3%BC%20%EB%8F%99%EB%82%A8%EC%A7%80%EA%B5%AC" class="float-map">네이버 지도</a>
+  </div>  <footer>
+    <div class="container footer-inner">
+      <div>
+        <div class="footer-brand">삼사월</div>
+        <div>청주 동남지구 와규 고깃집 · 프랜차이즈 홈페이지</div>
+      </div>
+      <div>
+        <div>© 2026 SAMSAWOL. All rights reserved.</div>
+        <div>제작 : (주)하비럴</div>
+      </div>
+    </div>
+  </footer>  <script>
+    const revealElements = document.querySelectorAll('.scroll-reveal');
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+        }
+      });
+    }, { threshold: 0.15 });
+
+    revealElements.forEach((el) => revealObserver.observe(el));
+
+    const agreementWrap = document.getElementById('agreementWrap');
+    const agreementToggle = document.getElementById('agreementToggle');
+    const privacyAgree = document.getElementById('privacyAgree');
+    const inquiryForm = document.getElementById('franchiseInquiryForm');
+
+    agreementToggle.addEventListener('click', () => {
+      agreementWrap.classList.toggle('open');
+    });
+
+    inquiryForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      if (!agreementWrap.classList.contains('open')) {
+        alert('개인정보 처리방침을 먼저 펼쳐서 확인해 주세요.');
+        agreementWrap.classList.add('open');
+        return;
+      }
+      if (!privacyAgree.checked) {
+        alert('개인정보 처리방침 동의 후 접수할 수 있습니다.');
+        return;
+      }
+      alert('문의가 등록되었습니다. 실제 운영 시 이 부분을 구글폼, 이메일, 서버 등과 연결해 주세요.');
+    });
+
+    const phoneInputs = document.querySelectorAll('input[type="tel"]');
+    phoneInputs.forEach((input) => {
+      input.addEventListener('input', () => {
+        input.value = input.value.replace(/[^0-9]/g, '');
+      });
+    });
+  </script></body>
+</html>
