@@ -2,109 +2,258 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>브랜드 분석 리포트 | 무료 진단</title>
-<meta name="description" content="내 블로그와 사이트 상태를 간단하게 확인하고 개선 방향을 확인해보세요.">
-<meta name="keywords" content="블로그 분석, 사이트 분석, 검색 유입, 마케팅 진단, 무료 리포트">
+<title>Toolware Search Lab | 블로그·사이트 분석기</title>
+<meta name="description" content="블로그 주소, 원고, 키워드를 입력하면 글자 수, 키워드 반영, 제목, 문장, CTA, 태그를 점검하고 콘텐츠 초안을 생성합니다.">
+<meta name="keywords" content="블로그분석,키워드분석,콘텐츠작성,네이버블로그,상위노출,검색유입,마케팅진단,하비럴,HVIRAL">
 <meta name="robots" content="index,follow">
+<meta name="theme-color" content="#7c3aed">
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:-apple-system,BlinkMacSystemFont,"Noto Sans KR",sans-serif;background:#0f172a;color:#fff}
-.wrap{max-width:480px;margin:0 auto;padding:20px}
-h1{font-size:28px;margin-bottom:10px}
-p{color:#cbd5e1;margin-bottom:20px}
-.input{width:100%;padding:14px;border-radius:12px;border:none;margin-bottom:10px}
-.btn{width:100%;padding:14px;border-radius:12px;border:none;font-weight:700;background:linear-gradient(90deg,#2563eb,#7c3aed);color:#fff}
-.card{background:#1e293b;padding:20px;border-radius:16px;margin-top:20px}
-.score{font-size:40px;font-weight:900;color:#22c55e}
-.bad{color:#ef4444}
-.mid{color:#facc15}
-.good{color:#22c55e}
-.cta{margin-top:20px;padding:16px;border-radius:12px;background:#fff;color:#000;text-align:center;font-weight:900}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR",system-ui,sans-serif;
+  background:
+    radial-gradient(circle at 10% 0%,rgba(37,99,235,.22),transparent 28%),
+    radial-gradient(circle at 90% 4%,rgba(236,72,153,.20),transparent 28%),
+    linear-gradient(180deg,#020617,#0f172a);
+  color:#fff;
+  line-height:1.65;
+}
+.wrap{max-width:980px;margin:0 auto;padding:36px 18px 80px}
+.hero{text-align:center;padding:44px 0}
+.badge{display:inline-block;padding:8px 14px;border-radius:999px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.13);color:#cbd5e1;font-weight:900;font-size:13px;margin-bottom:16px}
+h1{font-size:clamp(38px,7vw,72px);line-height:1.05;letter-spacing:-.07em;margin-bottom:16px}
+h1 span{background:linear-gradient(90deg,#2563eb,#7c3aed,#ec4899,#f97316,#22c55e);-webkit-background-clip:text;color:transparent}
+.hero p{max-width:720px;margin:0 auto;color:#cbd5e1}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.card{background:rgba(255,255,255,.075);border:1px solid rgba(255,255,255,.13);border-radius:28px;padding:22px;margin-bottom:18px;box-shadow:0 24px 70px rgba(0,0,0,.24)}
+.card h2{font-size:24px;margin-bottom:12px;letter-spacing:-.03em}
+.card p{color:#cbd5e1}
+.input,.textarea{width:100%;border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.08);color:#fff;padding:14px;border-radius:16px;margin-bottom:10px;outline:none}
+.textarea{min-height:220px;resize:vertical}
+.input::placeholder,.textarea::placeholder{color:#94a3b8}
+.btn{width:100%;padding:15px 18px;border:0;border-radius:18px;font-weight:950;color:#fff;background:linear-gradient(90deg,#2563eb,#7c3aed,#ec4899);cursor:pointer;box-shadow:0 15px 38px rgba(124,58,237,.28)}
+.btn.dark{background:#111827;box-shadow:none}
+.row{display:flex;gap:10px}
+.row .btn{flex:1}
+.scorebox{text-align:center;padding:24px;border-radius:24px;background:#020617;border:1px solid rgba(255,255,255,.12)}
+.score{font-size:64px;font-weight:950;letter-spacing:-.06em}
+.good{color:#22c55e}.mid{color:#facc15}.bad{color:#fb7185}
+.bar{height:12px;background:rgba(255,255,255,.12);border-radius:999px;overflow:hidden;margin:14px 0}
+.bar span{display:block;height:100%;width:0%;background:linear-gradient(90deg,#fb7185,#facc15,#22c55e);transition:.5s}
+.item{padding:14px;border-radius:18px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);margin-bottom:10px}
+.item b{display:block;margin-bottom:4px}
+.tag{display:inline-block;margin:4px;padding:7px 10px;border-radius:999px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);font-size:13px}
+.output{white-space:pre-wrap;background:#020617;border:1px solid rgba(255,255,255,.12);border-radius:20px;padding:18px;color:#e5e7eb}
+.fixed{position:fixed;right:18px;bottom:18px;padding:15px 20px;border-radius:999px;background:linear-gradient(90deg,#2563eb,#7c3aed,#ec4899);font-weight:950;color:#fff;text-decoration:none;box-shadow:0 18px 50px rgba(0,0,0,.35)}
+.notice{font-size:13px;color:#fde68a;margin-top:8px}
+@media(max-width:820px){.grid{grid-template-columns:1fr}.row{flex-direction:column}}
 </style>
 </head>
 
 <body>
-
 <div class="wrap">
 
-<h1>무료 분석 리포트</h1>
-<p>블로그 또는 사이트 주소를 입력하면 현재 상태와 개선 방향을 확인할 수 있습니다.</p>
+<section class="hero">
+  <div class="badge">Toolware Search Lab</div>
+  <h1>블로그 상태를 보고<br><span>글까지 바로 만듭니다</span></h1>
+  <p>주소, 키워드, 원고를 입력하면 글자 수·키워드 반영·제목·문장·CTA를 점검하고 네이버용 초안을 생성합니다.</p>
+</section>
 
-<input id="inputUrl" class="input" placeholder="블로그 주소 또는 사이트 입력">
-<button class="btn" onclick="analyze()">분석하기</button>
+<div class="grid">
+  <div class="card">
+    <h2>입력</h2>
+    <input id="brand" class="input" placeholder="브랜드명 예: 하비럴">
+    <input id="keyword" class="input" placeholder="목표 키워드 예: 하비럴 마케팅">
+    <input id="url" class="input" placeholder="블로그/사이트 주소 선택 입력">
+    <textarea id="content" class="textarea" placeholder="분석할 원고를 붙여넣으세요. 주소만으로 안 될 때는 원고 입력이 가장 정확합니다."></textarea>
+    <div class="row">
+      <button class="btn" onclick="analyze()">분석하기</button>
+      <button class="btn dark" onclick="generatePost()">글 생성</button>
+    </div>
+    <p class="notice">※ 네이버의 내부 점수를 표시하는 것이 아니라, 공개적으로 확인 가능한 작성 품질 신호를 계산합니다.</p>
+  </div>
 
-<div id="result"></div>
+  <div class="card">
+    <h2>종합 결과</h2>
+    <div class="scorebox">
+      <div id="score" class="score mid">0</div>
+      <div id="grade">대기 중</div>
+      <div class="bar"><span id="bar"></span></div>
+      <p id="summary">입력 후 분석 버튼을 누르세요.</p>
+    </div>
+  </div>
+</div>
+
+<div class="grid">
+  <div class="card">
+    <h2>상세 점검</h2>
+    <div id="detail"></div>
+  </div>
+
+  <div class="card">
+    <h2>개선 제안</h2>
+    <div id="advice"></div>
+  </div>
+</div>
+
+<div class="card">
+  <h2>추천 제목</h2>
+  <div id="titles"></div>
+</div>
+
+<div class="card">
+  <h2>자동 생성 초안</h2>
+  <div id="draft" class="output">글 생성 버튼을 누르면 초안이 표시됩니다.</div>
+</div>
+
+<div class="card">
+  <h2>추천 태그</h2>
+  <div id="tags"></div>
+</div>
 
 </div>
 
+<a class="fixed" href="https://open.kakao.com/o/sdxcyB4h" target="_blank">상담 연결</a>
+
 <script>
-function randomScore(min,max){
-  return Math.floor(Math.random()*(max-min)+min)
+function getVal(id){return document.getElementById(id).value.trim()}
+function countKeyword(text,kw){
+  if(!kw) return 0;
+  return (text.match(new RegExp(kw.replace(/[.*+?^${}()|[\]\\]/g,"\\$&"),"g"))||[]).length;
+}
+function sentenceCount(text){
+  return text.split(/[.!?。！？\n]/).filter(x=>x.trim().length>8).length;
+}
+function wordCountKo(text){
+  return text.replace(/\s+/g,"").length;
+}
+function hasCTA(text){
+  return /(문의|상담|신청|확인|예약|클릭|바로|무료|진단|연결)/.test(text);
+}
+function hasLink(text){
+  return /(https?:\/\/|www\.|\.co\.kr|\.com|\.kr)/.test(text);
+}
+function clamp(n,min,max){return Math.max(min,Math.min(max,n))}
+function scoreClass(score){
+  if(score>=75)return "good";
+  if(score>=55)return "mid";
+  return "bad";
+}
+function levelText(score){
+  if(score>=75)return "좋음";
+  if(score>=55)return "보통";
+  return "개선 필요";
 }
 
 function analyze(){
-  const url = document.getElementById("inputUrl").value
-  if(!url){
-    alert("주소를 입력하세요")
-    return
+  const brand=getVal("brand")||"브랜드";
+  const kw=getVal("keyword")||brand;
+  const url=getVal("url");
+  const text=getVal("content");
+
+  if(!kw && !text && !url){
+    alert("키워드 또는 원고를 입력하세요.");
+    return;
   }
 
-  const activity = randomScore(40,95)
-  const content = randomScore(30,90)
-  const keyword = randomScore(20,85)
+  const len=wordCountKo(text);
+  const kwCount=countKeyword(text,kw);
+  const sCount=sentenceCount(text);
+  const titleScore=kw.length>=2 ? 80 : 50;
+  const lengthScore=clamp(Math.floor(len/12),20,100);
+  const keywordScore=clamp(kwCount*18,20,100);
+  const sentenceScore=clamp(sCount*10,20,100);
+  const ctaScore=hasCTA(text)?90:35;
+  const linkScore=(hasLink(text)||url)?80:45;
 
-  const total = Math.floor((activity + content + keyword)/3)
+  const total=Math.floor(
+    lengthScore*.24+
+    keywordScore*.24+
+    sentenceScore*.18+
+    ctaScore*.18+
+    linkScore*.10+
+    titleScore*.06
+  );
 
-  let levelClass = "bad"
-  let levelText = "낮음"
+  const cls=scoreClass(total);
+  const scoreEl=document.getElementById("score");
+  scoreEl.className="score "+cls;
+  scoreEl.innerText=total;
+  document.getElementById("grade").innerText="현재 상태: "+levelText(total);
+  document.getElementById("bar").style.width=total+"%";
 
-  if(total > 70){ levelClass="good"; levelText="좋음"}
-  else if(total > 50){ levelClass="mid"; levelText="보통"}
+  document.getElementById("summary").innerText =
+    total>=75 ? "발행 가능한 수준입니다. 다만 제목과 첫 문단을 더 날카롭게 다듬으면 좋습니다."
+    : total>=55 ? "기본은 갖췄지만 검색어 반영, 글 길이, 행동 유도 문구 보강이 필요합니다."
+    : "현재 원고는 검색 유입용으로 약합니다. 제목, 본문량, 반복 문맥, 상담 유도까지 다시 잡는 것이 좋습니다.";
 
-  const issues = []
-  if(activity < 60) issues.push("최근 글 발행 주기가 불규칙합니다")
-  if(content < 60) issues.push("콘텐츠 길이와 정보 밀도가 부족합니다")
-  if(keyword < 60) issues.push("검색어 반영이 부족합니다")
+  document.getElementById("detail").innerHTML = `
+    <div class="item"><b>글자 수</b>${len}자 · 점수 ${lengthScore}</div>
+    <div class="item"><b>목표 키워드 반복</b>${kwCount}회 · 점수 ${keywordScore}</div>
+    <div class="item"><b>문장 수</b>${sCount}개 · 점수 ${sentenceScore}</div>
+    <div class="item"><b>행동 유도 문구</b>${hasCTA(text)?"있음":"부족"} · 점수 ${ctaScore}</div>
+    <div class="item"><b>주소/연결 흔적</b>${hasLink(text)||url?"있음":"부족"} · 점수 ${linkScore}</div>
+  `;
 
-  const resultHTML = `
-  <div class="card">
-    <h2>종합 점수</h2>
-    <div class="score ${levelClass}">${total}점</div>
-    <p>현재 상태: ${levelText}</p>
-  </div>
+  const adv=[];
+  if(len<900) adv.push("본문을 900~1400자 정도로 늘리세요.");
+  if(kwCount<3) adv.push("목표 키워드를 제목, 첫 문단, 중간, 마지막에 자연스럽게 배치하세요.");
+  if(!hasCTA(text)) adv.push("마지막 문단에 상담·확인·문의 문구를 넣으세요.");
+  if(sCount<8) adv.push("짧은 문장 여러 개보다 정보가 담긴 문장을 8개 이상 넣으세요.");
+  if(!hasLink(text)&&!url) adv.push("공식 사이트나 상담 경로를 한 번 이상 연결하세요.");
+  if(adv.length===0) adv.push("현재 원고는 발행 가능성이 있습니다. 제목만 더 강하게 다듬으세요.");
 
-  <div class="card">
-    <h3>상세 항목</h3>
-    <p>활동 점수: ${activity}</p>
-    <p>콘텐츠 점수: ${content}</p>
-    <p>검색 반영 점수: ${keyword}</p>
-  </div>
+  document.getElementById("advice").innerHTML=adv.map(x=>`<div class="item">${x}</div>`).join("");
 
-  <div class="card">
-    <h3>문제 포인트</h3>
-    ${issues.map(i=>"<p>• "+i+"</p>").join("")}
-  </div>
-
-  <div class="card">
-    <h3>개선 방향</h3>
-    <p>• 일정한 글 발행 유지</p>
-    <p>• 정보 중심 콘텐츠 작성</p>
-    <p>• 검색어 자연 삽입</p>
-  </div>
-
-  <div class="cta" onclick="goConsult()">
-    👉 무료 상담으로 바로 개선하기
-  </div>
-  `
-
-  document.getElementById("result").innerHTML = resultHTML
+  makeTitles(brand,kw);
+  makeTags(brand,kw);
 }
 
-function goConsult(){
-  window.open("https://hviral.co.kr","_blank")
+function makeTitles(brand,kw){
+  const arr=[
+    `${kw}, 사업자가 먼저 확인해야 할 부분`,
+    `${brand} 기준으로 보는 ${kw} 점검 방법`,
+    `${kw}가 잘 안 되는 이유와 개선 방향`,
+    `검색 유입이 약할 때 ${kw}부터 다시 봐야 하는 이유`,
+    `${kw}를 시작하기 전 꼭 확인할 체크리스트`,
+    `${brand}가 보는 온라인 노출 개선 포인트`
+  ];
+  document.getElementById("titles").innerHTML=arr.map(x=>`<div class="item">${x}</div>`).join("");
+}
+
+function makeTags(brand,kw){
+  const base=[
+    brand,kw,"블로그분석","검색유입","온라인마케팅","콘텐츠작성","상위노출","네이버블로그",
+    "브랜드관리","사이트분석","키워드분석","마케팅진단","홈페이지분석","블로그마케팅",
+    "소상공인마케팅","전문직마케팅","병원마케팅","학원마케팅","광고분석","콘텐츠마케팅"
+  ].filter(Boolean);
+  document.getElementById("tags").innerHTML=base.map(x=>`<span class="tag">#${x.replace(/\s+/g,"")}</span>`).join("");
+}
+
+function generatePost(){
+  const brand=getVal("brand")||"하비럴";
+  const kw=getVal("keyword")||"온라인 마케팅";
+  const url=getVal("url")||"https://hviral.co.kr";
+
+  const draft =
+`${kw}를 고민하는 사업자라면 먼저 현재 온라인 화면이 고객에게 어떻게 보이는지 확인해야 합니다.
+
+많은 사업장이 글을 쓰고 광고를 진행하지만, 정작 고객이 어떤 이유로 문의까지 이동하는지는 놓치는 경우가 많습니다. 단순히 노출이 많다고 해서 상담이 늘어나는 것은 아닙니다. 중요한 것은 고객이 처음 보는 문장, 화면에서 이해하는 정보, 마지막에 누를 수 있는 연결 버튼까지 자연스럽게 이어지는가입니다.
+
+${brand}는 이 부분을 먼저 점검합니다. 제목에 어떤 단어가 들어갔는지, 본문이 충분한 정보를 담고 있는지, 같은 표현이 반복만 되고 있는지, 실제 문의로 넘어갈 문장이 있는지 확인합니다. 특히 ${kw}는 단기간에 끝나는 작업이 아니라, 검색되는 문장과 고객이 납득하는 설명이 함께 맞아야 효과가 쌓입니다.
+
+현재 블로그나 사이트에서 방문은 있는데 문의가 적다면 글의 양보다 흐름을 다시 봐야 합니다. 첫 문단에서 문제를 짚고, 중간에서 판단 기준을 보여주고, 마지막에서 상담이나 확인 행동으로 이어지게 만드는 것이 중요합니다.
+
+내 글이나 사이트가 고객에게 어떻게 보이는지 확인하고 싶다면 아래 경로에서 점검을 받아볼 수 있습니다.
+
+${url}`;
+
+  document.getElementById("draft").innerText=draft;
+  document.getElementById("content").value=draft;
+  analyze();
 }
 </script>
 
