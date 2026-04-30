@@ -5,880 +5,468 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <title>Toolware | 리워드 미션앱</title>
-<meta name="description" content="Toolware는 광고를 단순히 보는 앱이 아니라 마케팅 흐름을 체험하고 포인트를 적립하는 리워드 미션앱입니다.">
-<meta name="keywords" content="Toolware,툴웨어,리워드앱,미션앱,광고체험,포인트앱,랭킹앱,하비럴,HVIRAL">
+<meta name="description" content="Toolware는 미션을 완료하고 포인트, 하트, 랭킹, 출석 보상을 쌓는 리워드형 체험 앱입니다.">
+<meta name="keywords" content="Toolware,툴웨어,리워드앱,포인트앱,미션앱,광고체험,출석체크,랭킹앱">
 <meta name="theme-color" content="#7c3aed">
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{
-  font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR",system-ui,sans-serif;
-  background:#070b18;
-  color:#fff;
-  line-height:1.55;
-  overflow-x:hidden;
-  padding-bottom:92px;
-}
-button,input{font-family:inherit}
+body{font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR",system-ui,sans-serif;background:#070b18;color:#fff;line-height:1.55;overflow-x:hidden;padding-bottom:88px}
+button,input,select{font-family:inherit}
 button{cursor:pointer;border:0}
 a{text-decoration:none;color:inherit}
-
-.app{
-  max-width:520px;
-  margin:0 auto;
-  min-height:100vh;
-  background:
-    radial-gradient(circle at 10% 0%,rgba(37,99,235,.28),transparent 28%),
-    radial-gradient(circle at 90% 5%,rgba(236,72,153,.24),transparent 28%),
-    linear-gradient(180deg,#0b1020,#070b18 45%,#020617);
-  position:relative;
-}
-
-.topbar{
-  position:sticky;
-  top:0;
-  z-index:50;
-  height:72px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:0 18px;
-  background:rgba(7,11,24,.86);
-  backdrop-filter:blur(16px);
-  border-bottom:1px solid rgba(255,255,255,.08);
-}
-.logo{
-  font-size:24px;
-  font-weight:950;
-  letter-spacing:.14em;
-  background:linear-gradient(90deg,#2563eb,#7c3aed,#ec4899,#f97316,#22c55e);
-  -webkit-background-clip:text;
-  color:transparent;
-}
-.logo-sub{
-  font-size:10px;
-  letter-spacing:.12em;
-  color:#94a3b8;
-  font-weight:900;
-}
-.logout{
-  background:#fff;
-  color:#111827;
-  padding:10px 14px;
-  border-radius:999px;
-  font-weight:950;
-}
-
+.app{max-width:520px;margin:0 auto;min-height:100vh;background:radial-gradient(circle at 10% 0%,rgba(37,99,235,.26),transparent 28%),radial-gradient(circle at 90% 5%,rgba(236,72,153,.23),transparent 28%),linear-gradient(180deg,#0b1020,#070b18 45%,#020617)}
+.topbar{position:sticky;top:0;z-index:50;height:72px;display:flex;align-items:center;justify-content:space-between;padding:0 18px;background:rgba(7,11,24,.88);backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,.08)}
+.logo{font-size:24px;font-weight:950;letter-spacing:.12em;background:linear-gradient(90deg,#2563eb,#7c3aed,#ec4899,#f97316,#22c55e);-webkit-background-clip:text;color:transparent}
+.logo-sub{font-size:10px;letter-spacing:.12em;color:#94a3b8;font-weight:900}
+.logout{background:#fff;color:#111827;padding:10px 14px;border-radius:999px;font-weight:950}
 .screen{display:none;padding:22px 18px 30px}
 .screen.active{display:block}
-
-.hero{
-  padding:34px 0 24px;
-  text-align:center;
-}
-.badge{
-  display:inline-flex;
-  gap:8px;
-  align-items:center;
-  padding:8px 13px;
-  border-radius:999px;
-  background:rgba(255,255,255,.08);
-  border:1px solid rgba(255,255,255,.14);
-  color:#cbd5e1;
-  font-size:13px;
-  font-weight:950;
-  margin-bottom:18px;
-}
-.dot{
-  width:9px;height:9px;border-radius:99px;
-  background:#22c55e;
-  box-shadow:0 0 0 5px rgba(34,197,94,.14);
-}
-.hero h1{
-  font-size:42px;
-  line-height:1.06;
-  letter-spacing:-.06em;
-  margin-bottom:16px;
-}
-.hero h1 span{
-  background:linear-gradient(90deg,#2563eb,#7c3aed,#ec4899,#f97316,#22c55e);
-  -webkit-background-clip:text;
-  color:transparent;
-}
-.hero p{
-  color:#cbd5e1;
-  font-size:15px;
-  margin-bottom:22px;
-}
-.btn{
-  width:100%;
-  padding:15px 18px;
-  border-radius:18px;
-  font-size:16px;
-  font-weight:950;
-  background:linear-gradient(90deg,#2563eb,#7c3aed,#ec4899);
-  color:#fff;
-  box-shadow:0 14px 34px rgba(124,58,237,.28);
-}
+.hero{padding:30px 0 22px;text-align:center}
+.badge{display:inline-flex;gap:8px;align-items:center;padding:8px 13px;border-radius:999px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);color:#cbd5e1;font-size:13px;font-weight:950;margin-bottom:18px}
+.dot{width:9px;height:9px;border-radius:99px;background:#22c55e;box-shadow:0 0 0 5px rgba(34,197,94,.14)}
+.hero h1{font-size:40px;line-height:1.06;letter-spacing:-.06em;margin-bottom:14px}
+.hero h1 span{background:linear-gradient(90deg,#2563eb,#7c3aed,#ec4899,#f97316,#22c55e);-webkit-background-clip:text;color:transparent}
+.hero p{color:#cbd5e1;font-size:15px;margin-bottom:18px}
+.card{background:rgba(255,255,255,.075);border:1px solid rgba(255,255,255,.12);border-radius:28px;padding:20px;margin-bottom:16px;box-shadow:0 18px 55px rgba(0,0,0,.22)}
+.card h2{font-size:23px;letter-spacing:-.03em;margin-bottom:12px}
+.card p{color:#cbd5e1;font-size:14px}
+.input,.select{width:100%;padding:15px;border-radius:17px;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.08);color:#fff;margin-bottom:10px;outline:none}
+.input::placeholder{color:#94a3b8}
+.btn{width:100%;padding:15px 18px;border-radius:18px;font-size:16px;font-weight:950;background:linear-gradient(90deg,#2563eb,#7c3aed,#ec4899);color:#fff;box-shadow:0 14px 34px rgba(124,58,237,.28)}
 .btn.dark{background:#111827;box-shadow:none}
 .btn.green{background:linear-gradient(90deg,#22c55e,#06b6d4)}
+.btn.orange{background:linear-gradient(90deg,#f97316,#ec4899)}
 .btn:disabled{opacity:.45;cursor:not-allowed}
-
-.card{
-  background:rgba(255,255,255,.075);
-  border:1px solid rgba(255,255,255,.12);
-  border-radius:28px;
-  padding:20px;
-  margin-bottom:16px;
-  box-shadow:0 18px 55px rgba(0,0,0,.22);
-}
-.card h2{
-  font-size:23px;
-  letter-spacing:-.03em;
-  margin-bottom:12px;
-}
-.card p{color:#cbd5e1;font-size:14px}
-.input{
-  width:100%;
-  padding:15px;
-  border-radius:17px;
-  border:1px solid rgba(255,255,255,.15);
-  background:rgba(255,255,255,.08);
-  color:#fff;
-  margin-bottom:10px;
-  outline:none;
-}
-.input::placeholder{color:#94a3b8}
-
 .row{display:flex;gap:10px}
 .row .btn{flex:1}
-
-.stats{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:10px;
-  margin:15px 0;
-}
-.stat{
-  background:rgba(255,255,255,.08);
-  border:1px solid rgba(255,255,255,.1);
-  border-radius:20px;
-  padding:14px 8px;
-  text-align:center;
-}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:15px 0}
+.stat{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:14px 8px;text-align:center}
 .stat b{display:block;font-size:23px}
 .stat span{font-size:12px;color:#cbd5e1;font-weight:800}
-
-.mission-card{
-  background:rgba(255,255,255,.08);
-  border:1px solid rgba(255,255,255,.12);
-  border-radius:24px;
-  padding:18px;
-  margin-bottom:12px;
-  transition:.2s;
-}
+.mission-card{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:24px;padding:18px;margin-bottom:12px;transition:.2s}
 .mission-card:hover{transform:translateY(-2px);background:rgba(124,58,237,.18)}
-.mission-top{
-  display:flex;
-  justify-content:space-between;
-  gap:12px;
-  margin-bottom:8px;
-}
+.mission-top{display:flex;justify-content:space-between;gap:12px;margin-bottom:8px}
 .mission-title{font-size:18px;font-weight:950}
-.reward{
-  white-space:nowrap;
-  color:#facc15;
-  font-weight:950;
-}
+.reward{white-space:nowrap;color:#facc15;font-weight:950}
 .mission-desc{color:#cbd5e1;font-size:14px;margin-bottom:14px}
-.mission-meta{
-  display:flex;
-  gap:8px;
-  flex-wrap:wrap;
-  margin-bottom:14px;
-}
-.chip{
-  font-size:12px;
-  color:#cbd5e1;
-  border:1px solid rgba(255,255,255,.13);
-  background:rgba(255,255,255,.06);
-  padding:6px 9px;
-  border-radius:999px;
-}
-
-.progress-wrap{
-  height:12px;
-  background:rgba(255,255,255,.12);
-  border-radius:999px;
-  overflow:hidden;
-  margin:14px 0;
-}
-.progress{
-  height:100%;
-  width:0%;
-  background:linear-gradient(90deg,#2563eb,#7c3aed,#ec4899,#22c55e);
-  transition:.3s;
-}
-
-.detail-ad{
-  height:220px;
-  border-radius:24px;
-  background:
-    radial-gradient(circle at 20% 20%,rgba(37,99,235,.65),transparent 32%),
-    radial-gradient(circle at 80% 20%,rgba(236,72,153,.55),transparent 32%),
-    linear-gradient(135deg,#172554,#581c87,#831843);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
-  padding:24px;
-  font-size:25px;
-  font-weight:950;
-  margin-bottom:16px;
-}
-.timer{
-  font-size:42px;
-  font-weight:950;
-  text-align:center;
-  margin:8px 0 4px;
-}
-.notice{
-  color:#fde68a;
-  font-size:13px;
-  margin-top:10px;
-}
+.mission-meta{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.chip{font-size:12px;color:#cbd5e1;border:1px solid rgba(255,255,255,.13);background:rgba(255,255,255,.06);padding:6px 9px;border-radius:999px}
+.progress-wrap{height:12px;background:rgba(255,255,255,.12);border-radius:999px;overflow:hidden;margin:14px 0}
+.progress{height:100%;width:0%;background:linear-gradient(90deg,#2563eb,#7c3aed,#ec4899,#22c55e);transition:.3s}
+.detail-ad{height:220px;border-radius:24px;background:radial-gradient(circle at 20% 20%,rgba(37,99,235,.65),transparent 32%),radial-gradient(circle at 80% 20%,rgba(236,72,153,.55),transparent 32%),linear-gradient(135deg,#172554,#581c87,#831843);display:flex;align-items:center;justify-content:center;text-align:center;padding:24px;font-size:25px;font-weight:950;margin-bottom:16px}
+.timer{font-size:42px;font-weight:950;text-align:center;margin:8px 0 4px}
+.notice{color:#fde68a;font-size:13px;margin-top:10px}
 .ok{color:#86efac}
 .warn{color:#fca5a5}
-
-.leader{
-  width:100%;
-  border-collapse:collapse;
-}
-.leader th,.leader td{
-  padding:12px 6px;
-  border-bottom:1px solid rgba(255,255,255,.1);
-  text-align:left;
-  font-size:14px;
-}
-.rank-num{
-  font-weight:950;
-  color:#facc15;
-}
-
-.bottom-tabs{
-  position:fixed;
-  left:50%;
-  transform:translateX(-50%);
-  bottom:0;
-  max-width:520px;
-  width:100%;
-  height:76px;
-  background:rgba(2,6,23,.94);
-  backdrop-filter:blur(16px);
-  border-top:1px solid rgba(255,255,255,.1);
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  z-index:100;
-}
-.tab{
-  background:transparent;
-  color:#94a3b8;
-  font-size:12px;
-  font-weight:900;
-}
-.tab b{
-  display:block;
-  font-size:22px;
-  margin-bottom:2px;
-}
+.leader{width:100%;border-collapse:collapse}
+.leader th,.leader td{padding:12px 6px;border-bottom:1px solid rgba(255,255,255,.1);text-align:left;font-size:14px}
+.rank-num{font-weight:950;color:#facc15}
+.bottom-tabs{position:fixed;left:50%;transform:translateX(-50%);bottom:0;max-width:520px;width:100%;height:76px;background:rgba(2,6,23,.94);backdrop-filter:blur(16px);border-top:1px solid rgba(255,255,255,.1);display:grid;grid-template-columns:repeat(5,1fr);z-index:100}
+.tab{background:transparent;color:#94a3b8;font-size:11px;font-weight:900}
+.tab b{display:block;font-size:21px;margin-bottom:2px}
 .tab.active{color:#fff}
-
-.live{
-  position:fixed;
-  left:50%;
-  transform:translateX(-50%);
-  bottom:86px;
-  max-width:480px;
-  width:calc(100% - 36px);
-  background:#fff;
-  color:#0f172a;
-  padding:13px 15px;
-  border-radius:18px;
-  box-shadow:0 18px 50px rgba(0,0,0,.28);
-  font-size:13px;
-  z-index:90;
-}
+.live{position:fixed;left:50%;transform:translateX(-50%);bottom:86px;max-width:480px;width:calc(100% - 36px);background:#fff;color:#0f172a;padding:13px 15px;border-radius:18px;box-shadow:0 18px 50px rgba(0,0,0,.28);font-size:13px;z-index:90}
 .live strong{display:block;color:#0f172a}
 .live b{color:#7c3aed}
-
 .hidden{display:none!important}
-
-.admin-list{
-  font-size:13px;
-  color:#cbd5e1;
-  border-top:1px solid rgba(255,255,255,.1);
-  padding-top:12px;
-  margin-top:12px;
-}
+.list-item{padding:13px;border-radius:16px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);margin-bottom:8px;font-size:14px}
+.shop-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.shop-item{padding:16px;border-radius:18px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);text-align:center}
+.shop-item b{display:block;font-size:22px;margin-bottom:6px}
+.admin-box{border-color:rgba(249,115,22,.4)}
 </style>
 </head>
 
 <body>
 
 <div class="app">
-  <header class="topbar">
-    <div>
-      <div class="logo">TOOLWARE</div>
-      <div class="logo-sub">REWARD MISSION APP</div>
+<header class="topbar">
+  <div>
+    <div class="logo">TOOLWARE</div>
+    <div class="logo-sub">REWARD MISSION APP</div>
+  </div>
+  <button class="logout" onclick="logout()">로그아웃</button>
+</header>
+
+<main>
+<section id="authScreen" class="screen active">
+  <div class="hero">
+    <div class="badge"><span class="dot"></span> 바로 사용 가능 로컬 버전</div>
+    <h1>미션하고<br><span>포인트 쌓는 앱</span></h1>
+    <p>회원가입 없이도 데모 계정으로 바로 시작할 수 있습니다.</p>
+  </div>
+  <div class="card">
+    <h2>시작하기</h2>
+    <input id="email" class="input" placeholder="이메일 또는 닉네임">
+    <input id="refCode" class="input" placeholder="초대코드가 있으면 입력">
+    <div class="row">
+      <button class="btn" onclick="login()">시작</button>
+      <button class="btn dark" onclick="demoLogin()">데모</button>
     </div>
-    <button class="logout" onclick="logout()">로그아웃</button>
-  </header>
+    <p class="notice">※ 이 버전은 Supabase 없이 브라우저에 저장됩니다. 실제 운영 전에는 서버 DB 연결이 필요합니다.</p>
+  </div>
+</section>
 
-  <main>
-    <section id="authScreen" class="screen active">
-      <div class="hero">
-        <div class="badge"><span class="dot"></span> 광고체험 · 포인트 · 랭킹</div>
-        <h1>광고를 보는 앱이 아니라<br><span>미션으로 돈이 되는 앱</span></h1>
-        <p>미션을 완료하고 포인트를 쌓으세요. 랭킹에 오르고, 기준 포인트 이상이면 출금 신청이 가능합니다.</p>
-      </div>
+<section id="homeScreen" class="screen">
+  <div class="hero">
+    <div class="badge"><span class="dot"></span> 오늘의 리워드</div>
+    <h1>오늘 미션하고<br><span>보상 받기</span></h1>
+  </div>
+  <div class="card">
+    <h2>내 상태</h2>
+    <div class="stats">
+      <div class="stat"><b id="pointsView">0</b><span>포인트</span></div>
+      <div class="stat"><b id="heartsView">0</b><span>하트</span></div>
+      <div class="stat"><b id="levelView">1</b><span>레벨</span></div>
+    </div>
+    <div class="progress-wrap"><div class="progress" id="levelProgress"></div></div>
+    <p id="profileView">사용자 정보</p>
+  </div>
+  <div class="card">
+    <h2>빠른 보상</h2>
+    <div class="row">
+      <button class="btn green" onclick="dailyCheck()">출석체크</button>
+      <button class="btn orange" onclick="dailyBonus()">데일리 보너스</button>
+    </div>
+    <p class="notice" id="dailyNotice">출석과 데일리 보너스는 하루 1회 가능합니다.</p>
+  </div>
+  <div class="card">
+    <h2>추천 미션</h2>
+    <div id="homeMissionList"></div>
+  </div>
+</section>
 
-      <div class="card">
-        <h2>로그인 / 회원가입</h2>
-        <input id="email" class="input" placeholder="이메일">
-        <input id="password" type="password" class="input" placeholder="비밀번호">
-        <input id="refCode" class="input" placeholder="초대코드가 있으면 입력">
-        <div class="row">
-          <button class="btn" onclick="signUp()">회원가입</button>
-          <button class="btn dark" onclick="login()">로그인</button>
-        </div>
-        <p class="notice">※ 실제 운영 전 약관, 개인정보처리방침, 리워드 지급 기준이 필요합니다.</p>
-      </div>
-    </section>
+<section id="missionScreen" class="screen">
+  <div class="card">
+    <h2>미션 리스트</h2>
+    <select id="missionFilter" class="select" onchange="renderMissions()">
+      <option value="all">전체</option>
+      <option value="웹사이트">웹사이트</option>
+      <option value="상담">상담</option>
+      <option value="브랜드">브랜드</option>
+      <option value="광고">광고</option>
+    </select>
+  </div>
+  <div id="missionList"></div>
+</section>
 
-    <section id="homeScreen" class="screen">
-      <div class="hero">
-        <div class="badge"><span class="dot"></span> 오늘의 리워드</div>
-        <h1>오늘 미션을 완료하고<br><span>포인트를 적립하세요</span></h1>
-      </div>
+<section id="detailScreen" class="screen">
+  <div class="card">
+    <div class="detail-ad" id="detailTitle">미션</div>
+    <h2 id="detailMissionTitle">미션 제목</h2>
+    <p id="detailDesc">미션 설명</p>
+    <div class="mission-meta">
+      <span class="chip" id="detailReward">+0P</span>
+      <span class="chip" id="detailTime">0초</span>
+      <span class="chip" id="detailCategory">카테고리</span>
+    </div>
+    <div class="timer" id="timerView">0</div>
+    <p style="text-align:center;color:#cbd5e1">초 이상 확인해야 완료됩니다.</p>
+    <div class="progress-wrap"><div class="progress" id="timerProgress"></div></div>
+    <button class="btn" onclick="openMissionUrl()">미션 페이지 열기</button>
+    <button class="btn green" id="completeMissionBtn" onclick="completeMission()" disabled style="margin-top:10px">미션 완료하고 포인트 받기</button>
+    <button class="btn dark" onclick="showScreen('missionScreen')" style="margin-top:10px">목록으로</button>
+  </div>
+</section>
 
-      <div class="card">
-        <h2>내 상태</h2>
-        <div class="stats">
-          <div class="stat"><b id="pointsView">0</b><span>포인트</span></div>
-          <div class="stat"><b id="heartsView">0</b><span>하트</span></div>
-          <div class="stat"><b id="rankView">-</b><span>랭킹</span></div>
-        </div>
-        <p id="profileView">로그인 정보를 불러오는 중입니다.</p>
-      </div>
+<section id="rankScreen" class="screen">
+  <div class="card">
+    <h2>랭킹 TOP 20</h2>
+    <table class="leader">
+      <thead><tr><th>순위</th><th>유저</th><th>포인트</th></tr></thead>
+      <tbody id="leaderBody"></tbody>
+    </table>
+  </div>
+</section>
 
-      <div class="card">
-        <h2>추천 미션</h2>
-        <div id="homeMissionList"></div>
-      </div>
-    </section>
+<section id="shopScreen" class="screen">
+  <div class="card">
+    <h2>하트 충전소</h2>
+    <p>포인트로 하트를 충전할 수 있습니다.</p>
+    <div class="shop-grid">
+      <div class="shop-item"><b>💜 1개</b><p>100P</p><button class="btn" onclick="buyHeart(1,100)">구매</button></div>
+      <div class="shop-item"><b>💜 5개</b><p>400P</p><button class="btn" onclick="buyHeart(5,400)">구매</button></div>
+    </div>
+  </div>
+  <div class="card">
+    <h2>레벨 보상</h2>
+    <button class="btn green" onclick="claimLevelReward()">레벨 보상 받기</button>
+    <p class="notice">레벨이 오를 때마다 1회 보상을 받을 수 있습니다.</p>
+  </div>
+</section>
 
-    <section id="missionScreen" class="screen">
-      <div class="card">
-        <h2>미션 리스트</h2>
-        <p>미션을 열고 일정 시간 이상 확인하면 리워드가 지급됩니다.</p>
-      </div>
-      <div id="missionList"></div>
-    </section>
-
-    <section id="detailScreen" class="screen">
-      <div class="card">
-        <div class="detail-ad" id="detailTitle">미션</div>
-        <h2 id="detailMissionTitle">미션 제목</h2>
-        <p id="detailDesc">미션 설명</p>
-        <div class="mission-meta">
-          <span class="chip" id="detailReward">+0P</span>
-          <span class="chip" id="detailTime">0초</span>
-          <span class="chip" id="detailAdvertiser">광고주</span>
-        </div>
-
-        <div class="timer" id="timerView">0</div>
-        <p style="text-align:center;color:#cbd5e1">초 이상 확인해야 완료됩니다.</p>
-
-        <div class="progress-wrap">
-          <div class="progress" id="timerProgress"></div>
-        </div>
-
-        <button class="btn" id="openMissionBtn" onclick="openMissionUrl()">미션 페이지 열기</button>
-        <button class="btn green" id="completeMissionBtn" onclick="completeMission()" disabled style="margin-top:10px">미션 완료하고 포인트 받기</button>
-        <button class="btn dark" onclick="showScreen('missionScreen')" style="margin-top:10px">목록으로 돌아가기</button>
-
-        <p class="notice">광고 클릭 보상이 아니라 자체 체험 미션 완료 기준입니다.</p>
-      </div>
-    </section>
-
-    <section id="rankScreen" class="screen">
-      <div class="card">
-        <h2>랭킹 TOP 20</h2>
-        <table class="leader">
-          <thead><tr><th>순위</th><th>유저</th><th>포인트</th></tr></thead>
-          <tbody id="leaderBody"></tbody>
-        </table>
-      </div>
-    </section>
-
-    <section id="myScreen" class="screen">
-      <div class="card">
-        <h2>내 정보</h2>
-        <div class="stats">
-          <div class="stat"><b id="myPoints">0</b><span>포인트</span></div>
-          <div class="stat"><b id="myHearts">0</b><span>하트</span></div>
-          <div class="stat"><b id="myLevel">1</b><span>레벨</span></div>
-        </div>
-        <input id="myReferral" class="input" readonly>
-        <button class="btn" onclick="copyReferral()">초대코드 복사</button>
-      </div>
-
-      <div class="card">
-        <h2>출금 신청</h2>
-        <input id="withdrawAmount" type="number" class="input" placeholder="출금 신청 포인트">
-        <input id="withdrawMemo" class="input" placeholder="입금 정보 / 메모">
-        <button class="btn" onclick="requestWithdraw()">출금 신청하기</button>
-        <p class="notice">최소 1000P 이상 신청 가능. 실제 지급은 관리자 검수 후 처리.</p>
-      </div>
-
-      <div id="adminBox" class="card hidden">
-        <h2>관리자 요약</h2>
-        <p>광고주 비용 - 유저 리워드 = 운영 수익 구조</p>
-        <div class="admin-list" id="adminSummary">불러오는 중...</div>
-      </div>
-    </section>
-  </main>
-
-  <div class="live" id="liveBox">
-    <strong>Toolware 준비됨</strong>
-    로그인 후 미션을 완료하면 포인트가 적립됩니다.<br>
-    <b>리워드 시스템 작동</b>
+<section id="myScreen" class="screen">
+  <div class="card">
+    <h2>내 정보</h2>
+    <div class="stats">
+      <div class="stat"><b id="myPoints">0</b><span>포인트</span></div>
+      <div class="stat"><b id="myHearts">0</b><span>하트</span></div>
+      <div class="stat"><b id="myRank">-</b><span>랭킹</span></div>
+    </div>
+    <input id="myReferral" class="input" readonly>
+    <button class="btn" onclick="copyReferral()">초대코드 복사</button>
   </div>
 
-  <nav class="bottom-tabs" id="bottomTabs">
-    <button class="tab active" onclick="showScreen('homeScreen',this)"><b>🏠</b>홈</button>
-    <button class="tab" onclick="showScreen('missionScreen',this)"><b>🎯</b>미션</button>
-    <button class="tab" onclick="showScreen('rankScreen',this)"><b>🏆</b>랭킹</button>
-    <button class="tab" onclick="showScreen('myScreen',this)"><b>👤</b>내정보</button>
-  </nav>
+  <div class="card">
+    <h2>출금 신청</h2>
+    <input id="withdrawAmount" type="number" class="input" placeholder="출금 신청 포인트">
+    <input id="withdrawMemo" class="input" placeholder="입금 정보 / 메모">
+    <button class="btn" onclick="requestWithdraw()">출금 신청하기</button>
+    <p class="notice">데모 버전에서는 출금 신청 내역만 저장됩니다.</p>
+  </div>
+
+  <div class="card">
+    <h2>출금 내역</h2>
+    <div id="withdrawList"></div>
+  </div>
+
+  <div class="card">
+    <h2>공지 / 이용안내</h2>
+    <div class="list-item">미션은 하트 1개를 사용합니다.</div>
+    <div class="list-item">동일 미션은 하루 1회만 완료 가능합니다.</div>
+    <div class="list-item">출금은 운영자 검수 후 처리됩니다.</div>
+    <div class="list-item">부정 사용 시 포인트가 무효 처리될 수 있습니다.</div>
+  </div>
+
+  <div class="card admin-box">
+    <h2>관리자 데모</h2>
+    <input id="newMissionTitle" class="input" placeholder="미션명">
+    <input id="newMissionReward" type="number" class="input" placeholder="보상 포인트">
+    <button class="btn orange" onclick="addMission()">미션 추가</button>
+  </div>
+</section>
+</main>
+
+<div class="live" id="liveBox">
+  <strong>Toolware 준비됨</strong>
+  미션을 완료하면 포인트가 적립됩니다.<br>
+  <b>바로 사용 가능</b>
+</div>
+
+<nav class="bottom-tabs">
+  <button class="tab active" onclick="showScreen('homeScreen',this)"><b>🏠</b>홈</button>
+  <button class="tab" onclick="showScreen('missionScreen',this)"><b>🎯</b>미션</button>
+  <button class="tab" onclick="showScreen('rankScreen',this)"><b>🏆</b>랭킹</button>
+  <button class="tab" onclick="showScreen('shopScreen',this)"><b>💜</b>충전</button>
+  <button class="tab" onclick="showScreen('myScreen',this)"><b>👤</b>내정보</button>
+</nav>
 </div>
 
 <script>
-const SUPABASE_URL = "YOUR_SUPABASE_URL";
-const SUPABASE_ANON_KEY = "YOUR_SUPABASE_ANON_KEY";
-const ADMIN_EMAIL = "ADMIN_EMAIL";
+const defaultMissions=[
+  {id:1,title:"하비럴 포트폴리오 확인",desc:"웹사이트 구조를 확인하고 포인트를 받으세요.",url:"https://hviralportfolio.co.kr",reward:80,time:10,category:"웹사이트"},
+  {id:2,title:"상담 동선 확인",desc:"카카오 상담 흐름을 확인하는 미션입니다.",url:"https://open.kakao.com/o/sdxcyB4h",reward:100,time:12,category:"상담"},
+  {id:3,title:"브랜드 페이지 체험",desc:"브랜드 화면을 확인하고 구조를 분석하세요.",url:"https://hviral.co.kr",reward:60,time:8,category:"브랜드"},
+  {id:4,title:"광고 흐름 확인",desc:"광고 이후 고객 이동 흐름을 확인합니다.",url:"https://hviral.co.kr",reward:70,time:9,category:"광고"},
+  {id:5,title:"홈페이지 버튼 확인",desc:"CTA 버튼 위치와 상담 연결 구조를 확인합니다.",url:"https://hviralportfolio.co.kr",reward:90,time:10,category:"웹사이트"},
+  {id:6,title:"콘텐츠 구조 확인",desc:"콘텐츠가 고객 이해를 돕는지 확인합니다.",url:"https://hviral.co.kr",reward:50,time:7,category:"브랜드"},
+  {id:7,title:"랜딩페이지 체류 미션",desc:"페이지를 15초 이상 확인하세요.",url:"https://hviralportfolio.co.kr",reward:120,time:15,category:"웹사이트"},
+  {id:8,title:"문의 흐름 테스트",desc:"문의로 이어지는 경로를 확인합니다.",url:"https://open.kakao.com/o/sdxcyB4h",reward:110,time:10,category:"상담"},
+  {id:9,title:"검색 유입 구조 보기",desc:"검색 후 도착하는 페이지 구조를 확인합니다.",url:"https://hviral.co.kr",reward:75,time:9,category:"광고"},
+  {id:10,title:"브랜드 신뢰도 체크",desc:"첫 화면에서 신뢰 요소를 확인하세요.",url:"https://hviralportfolio.co.kr",reward:65,time:8,category:"브랜드"}
+];
 
-const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+let user=null, missions=[], selectedMission=null, timer=null, elapsed=0;
 
-let currentUser=null;
-let profile=null;
-let missions=[];
-let selectedMission=null;
-let timer=null;
-let elapsed=0;
-let visitorIP="unknown";
-
-async function getIP(){
-  try{
-    const r=await fetch("https://api.ipify.org?format=json");
-    const d=await r.json();
-    visitorIP=d.ip;
-  }catch(e){visitorIP="unknown"}
+function load(){
+  missions=JSON.parse(localStorage.getItem("tw_missions")||"null")||defaultMissions;
+  user=JSON.parse(localStorage.getItem("tw_user")||"null");
+  if(user){enterApp()}
 }
-getIP();
-
+function save(){
+  localStorage.setItem("tw_user",JSON.stringify(user));
+  localStorage.setItem("tw_missions",JSON.stringify(missions));
+}
+function today(){return new Date().toISOString().slice(0,10)}
+function makeRef(){return "TW"+Math.random().toString(36).slice(2,8).toUpperCase()}
+function login(){
+  const email=document.getElementById("email").value.trim()||"user";
+  const ref=document.getElementById("refCode").value.trim();
+  user=JSON.parse(localStorage.getItem("tw_user")||"null")||{
+    email,points:0,hearts:5,level:1,ref:makeRef(),referredBy:ref,done:{},withdraws:[],daily:"",bonus:"",claimedLevel:0
+  };
+  user.email=email;
+  save();enterApp();
+}
+function demoLogin(){
+  document.getElementById("email").value="demo@toolware.local";
+  login();
+}
+function logout(){
+  document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));
+  document.getElementById("authScreen").classList.add("active");
+  updateLive("로그아웃 화면","다시 시작할 수 있습니다.");
+}
+function enterApp(){
+  document.getElementById("authScreen").classList.remove("active");
+  document.getElementById("homeScreen").classList.add("active");
+  updateAll();
+  renderMissions();
+  renderHomeMissions();
+  renderRank();
+  updateLive("시작 완료","오늘의 미션을 확인하세요.");
+}
 function showScreen(id,btn){
   document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));
   document.getElementById(id).classList.add("active");
-
   document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"));
-  if(btn) btn.classList.add("active");
-
-  if(id==="rankScreen") loadLeaderboard();
-  if(id==="missionScreen") renderMissions();
-  if(id==="myScreen") refreshProfile();
+  if(btn)btn.classList.add("active");
+  updateAll();
+  if(id==="missionScreen")renderMissions();
+  if(id==="rankScreen")renderRank();
 }
-
-function updateLive(title,desc){
-  document.getElementById("liveBox").innerHTML=`<strong>${title}</strong>${desc}<br><b>Toolware 리워드 시스템</b>`;
+function updateAll(){
+  if(!user)return;
+  user.level=Math.floor(user.points/500)+1;
+  ["pointsView","myPoints"].forEach(id=>document.getElementById(id).innerText=user.points);
+  ["heartsView","myHearts"].forEach(id=>document.getElementById(id).innerText=user.hearts);
+  document.getElementById("levelView").innerText=user.level;
+  document.getElementById("myRank").innerText=getRank();
+  document.getElementById("profileView").innerText=user.email+" · 초대코드 "+user.ref;
+  document.getElementById("myReferral").value=user.ref;
+  document.getElementById("levelProgress").style.width=((user.points%500)/500*100)+"%";
+  renderWithdraws();
+  save();
 }
-
-function makeReferral(){
-  return "TW" + Math.random().toString(36).slice(2,8).toUpperCase();
-}
-
-async function signUp(){
-  const email=document.getElementById("email").value.trim();
-  const password=document.getElementById("password").value.trim();
-
-  const {error}=await sb.auth.signUp({email,password});
-  if(error){alert(error.message);return}
-  alert("회원가입 완료. 이메일 인증 설정이 켜져 있으면 인증 후 로그인하세요.");
-}
-
-async function login(){
-  const email=document.getElementById("email").value.trim();
-  const password=document.getElementById("password").value.trim();
-
-  const {data,error}=await sb.auth.signInWithPassword({email,password});
-  if(error){alert(error.message);return}
-
-  currentUser=data.user;
-  await ensureProfile();
-  await initApp();
-}
-
-async function logout(){
-  await sb.auth.signOut();
-  location.reload();
-}
-
-async function ensureProfile(){
-  const {data}=await sb.from("profiles").select("*").eq("id",currentUser.id).maybeSingle();
-  if(data) return;
-
-  await sb.from("profiles").insert({
-    id:currentUser.id,
-    email:currentUser.email,
-    nickname:currentUser.email.split("@")[0],
-    referral_code:makeReferral(),
-    referred_by:document.getElementById("refCode").value.trim() || null,
-    points:0,
-    hearts:5,
-    level:1,
-    is_admin:currentUser.email===ADMIN_EMAIL
-  });
-}
-
-async function initApp(){
-  document.getElementById("authScreen").classList.remove("active");
-  document.getElementById("homeScreen").classList.add("active");
-
-  await refreshProfile();
-  await loadMissions();
-  await loadLeaderboard();
-
-  updateLive("로그인 완료","오늘의 미션을 확인하세요.");
-}
-
-async function refreshProfile(){
-  const {data,error}=await sb.from("profiles").select("*").eq("id",currentUser.id).single();
-  if(error){alert(error.message);return}
-
-  profile=data;
-
-  if(profile.is_blocked){
-    alert("차단된 계정입니다.");
-    await logout();
-    return;
-  }
-
-  document.getElementById("pointsView").innerText=profile.points||0;
-  document.getElementById("heartsView").innerText=profile.hearts||0;
-  document.getElementById("myPoints").innerText=profile.points||0;
-  document.getElementById("myHearts").innerText=profile.hearts||0;
-  document.getElementById("myLevel").innerText=profile.level||1;
-  document.getElementById("myReferral").value=profile.referral_code||"";
-  document.getElementById("profileView").innerHTML=`${maskEmail(profile.email)} · 레벨 ${profile.level}`;
-
-  if(profile.is_admin){
-    document.getElementById("adminBox").classList.remove("hidden");
-    await loadAdminSummary();
-  }
-
-  const {data:rankData}=await sb.from("profiles").select("id,points").order("points",{ascending:false});
-  const rank=rankData ? rankData.findIndex(x=>x.id===currentUser.id)+1 : "-";
-  document.getElementById("rankView").innerText=rank||"-";
-}
-
-async function loadMissions(){
-  const {data,error}=await sb.from("missions").select("*").eq("is_active",true).order("id",{ascending:false});
-  if(error){console.log(error);return}
-  missions=data||[];
-  renderMissions();
-  renderHomeMissions();
-}
-
 function renderHomeMissions(){
-  const box=document.getElementById("homeMissionList");
-  box.innerHTML="";
-  missions.slice(0,2).forEach(m=>{
-    box.appendChild(missionElement(m));
-  });
+  const box=document.getElementById("homeMissionList");box.innerHTML="";
+  missions.slice(0,2).forEach(m=>box.appendChild(missionEl(m)));
 }
-
 function renderMissions(){
-  const box=document.getElementById("missionList");
-  box.innerHTML="";
-  missions.forEach(m=>{
-    box.appendChild(missionElement(m));
-  });
+  const filter=document.getElementById("missionFilter")?.value||"all";
+  const box=document.getElementById("missionList");box.innerHTML="";
+  missions.filter(m=>filter==="all"||m.category===filter).forEach(m=>box.appendChild(missionEl(m)));
 }
-
-function missionElement(m){
+function missionEl(m){
+  const done=user&&user.done&&user.done[today()+"_"+m.id];
   const div=document.createElement("div");
   div.className="mission-card";
   div.innerHTML=`
-    <div class="mission-top">
-      <div class="mission-title">${m.title}</div>
-      <div class="reward">+${m.reward_points}P</div>
-    </div>
-    <div class="mission-desc">${m.description}</div>
-    <div class="mission-meta">
-      <span class="chip">${m.category}</span>
-      <span class="chip">${m.required_seconds}초</span>
-      <span class="chip">${m.advertiser}</span>
-    </div>
-    <button class="btn" onclick="openMissionDetail(${m.id})">미션 시작</button>
-  `;
+    <div class="mission-top"><div class="mission-title">${m.title}</div><div class="reward">+${m.reward}P</div></div>
+    <div class="mission-desc">${m.desc}</div>
+    <div class="mission-meta"><span class="chip">${m.category}</span><span class="chip">${m.time}초</span><span class="chip">${done?"오늘 완료":"진행 가능"}</span></div>
+    <button class="btn ${done?"dark":""}" onclick="openMissionDetail(${m.id})" ${done?"disabled":""}>${done?"완료됨":"미션 시작"}</button>`;
   return div;
 }
-
 function openMissionDetail(id){
   selectedMission=missions.find(m=>m.id===id);
-  if(!selectedMission) return;
-
-  clearInterval(timer);
-  elapsed=0;
-
-  document.getElementById("detailTitle").innerText=selectedMission.advertiser;
+  if(!selectedMission)return;
+  clearInterval(timer);elapsed=0;
+  document.getElementById("detailTitle").innerText=selectedMission.category;
   document.getElementById("detailMissionTitle").innerText=selectedMission.title;
-  document.getElementById("detailDesc").innerText=selectedMission.description;
-  document.getElementById("detailReward").innerText="+"+selectedMission.reward_points+"P";
-  document.getElementById("detailTime").innerText=selectedMission.required_seconds+"초";
-  document.getElementById("detailAdvertiser").innerText=selectedMission.advertiser;
-  document.getElementById("timerView").innerText="0";
+  document.getElementById("detailDesc").innerText=selectedMission.desc;
+  document.getElementById("detailReward").innerText="+"+selectedMission.reward+"P";
+  document.getElementById("detailTime").innerText=selectedMission.time+"초";
+  document.getElementById("detailCategory").innerText=selectedMission.category;
+  document.getElementById("timerView").innerText=0;
   document.getElementById("timerProgress").style.width="0%";
   document.getElementById("completeMissionBtn").disabled=true;
-
   showScreen("detailScreen");
-  updateLive("미션 상세 진입","미션 페이지를 열고 체류시간을 채우세요.");
 }
-
 function openMissionUrl(){
-  if(!selectedMission) return;
-  window.open(selectedMission.mission_url,"_blank");
-
-  clearInterval(timer);
-  elapsed=0;
-
+  if(!selectedMission)return;
+  window.open(selectedMission.url,"_blank");
+  clearInterval(timer);elapsed=0;
   timer=setInterval(()=>{
     elapsed++;
     document.getElementById("timerView").innerText=elapsed;
-    const pct=Math.min(100,elapsed/selectedMission.required_seconds*100);
-    document.getElementById("timerProgress").style.width=pct+"%";
-
-    if(elapsed>=selectedMission.required_seconds){
+    document.getElementById("timerProgress").style.width=Math.min(100,elapsed/selectedMission.time*100)+"%";
+    if(elapsed>=selectedMission.time){
       clearInterval(timer);
       document.getElementById("completeMissionBtn").disabled=false;
       updateLive("미션 완료 가능","포인트 받기 버튼이 열렸습니다.");
     }
   },1000);
 }
-
-async function alreadyCompletedToday(missionId){
-  const today=new Date().toISOString().slice(0,10);
-  const {data}=await sb.from("mission_completions")
-    .select("*")
-    .eq("user_id",currentUser.id)
-    .eq("mission_id",missionId)
-    .gte("created_at",today+"T00:00:00")
-    .maybeSingle();
-
-  return !!data;
-}
-
-async function completeMission(){
-  if(!selectedMission) return;
-
-  const done=await alreadyCompletedToday(selectedMission.id);
-  if(done){
-    alert("오늘 이미 완료한 미션입니다.");
-    return;
-  }
-
-  if((profile.hearts||0)<=0){
-    alert("하트가 부족합니다. 내일 다시 시도하세요.");
-    return;
-  }
-
-  const newPoints=(profile.points||0)+selectedMission.reward_points;
-  const newHearts=(profile.hearts||0)-1;
-  const newLevel=Math.floor(newPoints/500)+1;
-
-  const {error:updateError}=await sb.from("profiles").update({
-    points:newPoints,
-    hearts:newHearts,
-    level:newLevel
-  }).eq("id",currentUser.id);
-
-  if(updateError){alert(updateError.message);return}
-
-  await sb.from("mission_completions").insert({
-    user_id:currentUser.id,
-    mission_id:selectedMission.id,
-    ip:visitorIP,
-    reward_points:selectedMission.reward_points
-  });
-
-  await sb.from("point_logs").insert({
-    user_id:currentUser.id,
-    type:"mission_complete",
-    points:selectedMission.reward_points,
-    meta:{
-      mission_id:selectedMission.id,
-      advertiser_cost:selectedMission.advertiser_cost,
-      operator_profit:selectedMission.advertiser_cost-selectedMission.reward_points
-    }
-  });
-
-  await referralRewardOnce();
-
-  alert("미션 완료! 포인트가 적립되었습니다.");
-  await refreshProfile();
-  await loadLeaderboard();
-
+function completeMission(){
+  if(!user||!selectedMission)return;
+  const key=today()+"_"+selectedMission.id;
+  if(user.done[key]){alert("오늘 이미 완료한 미션입니다.");return}
+  if(user.hearts<=0){alert("하트가 부족합니다.");return}
+  user.done[key]=true;
+  user.hearts--;
+  user.points+=selectedMission.reward;
+  save();updateAll();
+  alert("미션 완료! "+selectedMission.reward+"P 적립");
+  renderMissions();renderHomeMissions();renderRank();
   showScreen("homeScreen");
-  updateLive("리워드 적립 완료",`${selectedMission.reward_points}P가 지급되었습니다.`);
 }
-
-async function referralRewardOnce(){
-  if(!profile.referred_by) return;
-
-  const {data:exists}=await sb.from("point_logs")
-    .select("*")
-    .eq("user_id",currentUser.id)
-    .eq("type","referral_checked")
-    .maybeSingle();
-
-  if(exists) return;
-
-  const {data:owner}=await sb.from("profiles")
-    .select("*")
-    .eq("referral_code",profile.referred_by)
-    .maybeSingle();
-
-  if(!owner) return;
-
-  const bonus=100;
-
-  await sb.from("profiles").update({
-    points:(owner.points||0)+bonus
-  }).eq("id",owner.id);
-
-  await sb.from("point_logs").insert({
-    user_id:owner.id,
-    type:"referral_bonus",
-    points:bonus,
-    meta:{from:profile.email}
-  });
-
-  await sb.from("point_logs").insert({
-    user_id:currentUser.id,
-    type:"referral_checked",
-    points:0,
-    meta:{to:owner.email}
-  });
+function dailyCheck(){
+  if(user.daily===today()){alert("오늘 이미 출석했습니다.");return}
+  user.daily=today();user.points+=30;user.hearts+=1;
+  save();updateAll();alert("출석 완료! +30P, 하트 +1");
 }
-
-async function loadLeaderboard(){
-  const {data,error}=await sb.from("profiles").select("email,points").order("points",{ascending:false}).limit(20);
-  if(error){console.log(error);return}
-
-  const body=document.getElementById("leaderBody");
-  body.innerHTML="";
-  data.forEach((u,i)=>{
-    const tr=document.createElement("tr");
-    tr.innerHTML=`<td class="rank-num">${i+1}</td><td>${maskEmail(u.email)}</td><td>${u.points||0}P</td>`;
-    body.appendChild(tr);
-  });
+function dailyBonus(){
+  if(user.bonus===today()){alert("오늘 이미 보너스를 받았습니다.");return}
+  user.bonus=today();user.points+=50;
+  save();updateAll();alert("데일리 보너스 +50P");
 }
-
-async function requestWithdraw(){
+function buyHeart(n,cost){
+  if(user.points<cost){alert("포인트가 부족합니다.");return}
+  user.points-=cost;user.hearts+=n;
+  save();updateAll();alert("하트 "+n+"개 충전 완료");
+}
+function claimLevelReward(){
+  if(user.claimedLevel>=user.level){alert("받을 레벨 보상이 없습니다.");return}
+  const reward=user.level*50;
+  user.claimedLevel=user.level;user.points+=reward;user.hearts+=1;
+  save();updateAll();alert("레벨 보상 "+reward+"P + 하트 1개");
+}
+function requestWithdraw(){
   const amount=Number(document.getElementById("withdrawAmount").value);
   const memo=document.getElementById("withdrawMemo").value.trim();
-
-  if(!amount || amount<1000){
-    alert("1000P 이상부터 출금 신청 가능합니다.");
-    return;
-  }
-
-  if(amount>(profile.points||0)){
-    alert("보유 포인트보다 많이 신청할 수 없습니다.");
-    return;
-  }
-
-  const {error}=await sb.from("withdrawals").insert({
-    user_id:currentUser.id,
-    amount,
-    status:"pending",
-    memo
-  });
-
-  if(error){alert(error.message);return}
-  alert("출금 신청이 접수되었습니다.");
-  updateLive("출금 신청 완료","관리자 검수 후 처리됩니다.");
+  if(!amount||amount<1000){alert("1000P 이상부터 신청 가능합니다.");return}
+  if(amount>user.points){alert("보유 포인트보다 많이 신청할 수 없습니다.");return}
+  user.withdraws.unshift({amount,memo,status:"검수중",date:new Date().toLocaleString()});
+  save();renderWithdraws();alert("출금 신청 완료");
 }
-
+function renderWithdraws(){
+  const box=document.getElementById("withdrawList");if(!box||!user)return;
+  box.innerHTML="";
+  if(!user.withdraws.length){box.innerHTML='<div class="list-item">출금 신청 내역이 없습니다.</div>';return}
+  user.withdraws.forEach(w=>box.innerHTML+=`<div class="list-item">${w.amount}P · ${w.status}<br>${w.date}<br>${w.memo||""}</div>`);
+}
 function copyReferral(){
-  const input=document.getElementById("myReferral");
-  input.select();
-  document.execCommand("copy");
-  updateLive("초대코드 복사 완료","초대받은 사용자의 첫 미션 완료 시 보상이 지급됩니다.");
+  const input=document.getElementById("myReferral");input.select();document.execCommand("copy");
+  updateLive("초대코드 복사 완료","공유 후 가입하면 추천 보상 구조로 확장 가능합니다.");
 }
-
-async function loadAdminSummary(){
-  const {data:logs}=await sb.from("point_logs").select("*").eq("type","mission_complete");
-
-  let totalCost=0;
-  let totalReward=0;
-
-  if(logs){
-    logs.forEach(l=>{
-      totalReward+=l.points||0;
-      totalCost+=l.meta && l.meta.advertiser_cost ? Number(l.meta.advertiser_cost) : 0;
-    });
-  }
-
-  const profit=totalCost-totalReward;
-
-  document.getElementById("adminSummary").innerHTML=`
-    총 광고주 비용: ${totalCost}P<br>
-    총 유저 리워드: ${totalReward}P<br>
-    예상 운영 수익: ${profit}P
-  `;
+function addMission(){
+  const title=document.getElementById("newMissionTitle").value.trim();
+  const reward=Number(document.getElementById("newMissionReward").value)||50;
+  if(!title){alert("미션명을 입력하세요.");return}
+  missions.unshift({id:Date.now(),title,desc:"관리자가 추가한 새 미션입니다.",url:"https://hviral.co.kr",reward,time:10,category:"브랜드"});
+  save();renderMissions();alert("미션 추가 완료");
 }
-
-function maskEmail(email){
-  if(!email) return "사용자";
-  const parts=email.split("@");
-  return parts[0].slice(0,2)+"***@"+parts[1];
+function renderRank(){
+  const body=document.getElementById("leaderBody");body.innerHTML="";
+  const dummy=[
+    {email:user?.email||"me",points:user?.points||0},
+    {email:"alpha@toolware.app",points:920},
+    {email:"flow@toolware.app",points:760},
+    {email:"mission@toolware.app",points:610},
+    {email:"reward@toolware.app",points:430}
+  ].sort((a,b)=>b.points-a.points);
+  dummy.forEach((u,i)=>body.innerHTML+=`<tr><td class="rank-num">${i+1}</td><td>${mask(u.email)}</td><td>${u.points}P</td></tr>`);
 }
-
-async function checkSession(){
-  const {data}=await sb.auth.getSession();
-  if(data.session){
-    currentUser=data.session.user;
-    await ensureProfile();
-    await initApp();
-  }
+function getRank(){
+  const arr=[user?.points||0,920,760,610,430].sort((a,b)=>b-a);
+  return arr.indexOf(user?.points||0)+1;
 }
-
+function mask(email){
+  if(!email.includes("@"))return email;
+  const p=email.split("@");return p[0].slice(0,2)+"***@"+p[1];
+}
+function updateLive(t,d){
+  document.getElementById("liveBox").innerHTML=`<strong>${t}</strong>${d}<br><b>Toolware 작동 중</b>`;
+}
 setInterval(()=>{
-  if(!currentUser) return;
-  const msgs=[
-    ["오늘 미션 가능","완료하면 포인트가 적립됩니다."],
-    ["랭킹 반영 중","포인트가 오르면 순위가 올라갑니다."],
-    ["출금 신청 가능","기준 포인트 이상이면 신청 가능합니다."],
-    ["초대 보상 가능","초대코드를 공유해보세요."]
-  ];
-  const m=msgs[Math.floor(Math.random()*msgs.length)];
-  updateLive(m[0],m[1]);
-},9000);
-
-checkSession();
+  if(!user)return;
+  const m=[["오늘 미션 가능","완료하면 포인트가 적립됩니다."],["하트 확인","하트가 있어야 미션을 진행할 수 있습니다."],["랭킹 반영 중","포인트가 오르면 순위가 올라갑니다."],["출금 신청 가능","1000P 이상부터 신청 가능합니다."]];
+  const x=m[Math.floor(Math.random()*m.length)];
+  updateLive(x[0],x[1]);
+},8000);
+load();
 </script>
 
 </body>
