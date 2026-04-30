@@ -3,23 +3,24 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>ToolMall | 사업주 입점 플랫폼</title>
-<meta name="description" content="사업주가 입점하고 상품과 서비스를 등록하는 입점형 플랫폼">
-<meta name="theme-color" content="#2563eb">
+<title>TOOLMALL | 사업주 입점 플랫폼</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:-apple-system,BlinkMacSystemFont,"Noto Sans KR",sans-serif;background:#f8fafc;color:#0f172a;padding-bottom:80px}
+body{font-family:-apple-system,BlinkMacSystemFont,"Noto Sans KR",sans-serif;background:#f8fafc;color:#0f172a;padding-bottom:82px}
 button,input,select,textarea{font-family:inherit}
 button{border:0;cursor:pointer}
 a{text-decoration:none;color:inherit}
 header{position:sticky;top:0;z-index:99;background:#fff;border-bottom:1px solid #e2e8f0}
-.nav{max-width:1180px;margin:0 auto;height:68px;padding:0 16px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.nav{max-width:1180px;margin:0 auto;min-height:68px;padding:10px 16px;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
 .logo{font-size:25px;font-weight:950;background:linear-gradient(90deg,#2563eb,#7c3aed,#ec4899);-webkit-background-clip:text;color:transparent}
 .search{flex:1;max-width:520px;display:flex;gap:8px}
 .search input{width:100%;padding:12px 14px;border:2px solid #2563eb;border-radius:14px}
 .btn{padding:12px 16px;border-radius:14px;background:#2563eb;color:#fff;font-weight:900}
 .btn.dark{background:#0f172a}
 .btn.gray{background:#e2e8f0;color:#0f172a}
+.btn.green{background:#16a34a}
+.btn.red{background:#dc2626}
+.btn.orange{background:#f97316}
 .wrap{max-width:1180px;margin:0 auto;padding:20px 16px}
 .hero{padding:44px 20px;border-radius:30px;background:linear-gradient(135deg,#172554,#581c87,#831843);color:#fff;margin:20px 0}
 .hero h1{font-size:clamp(34px,6vw,64px);line-height:1.05;letter-spacing:-.06em;margin-bottom:14px}
@@ -29,9 +30,11 @@ header{position:sticky;top:0;z-index:99;background:#fff;border-bottom:1px solid 
 .tab.active{background:#2563eb;color:#fff}
 .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
 .card{background:#fff;border:1px solid #e2e8f0;border-radius:22px;overflow:hidden;box-shadow:0 12px 30px rgba(15,23,42,.06)}
-.thumb{height:160px;background:linear-gradient(135deg,#dbeafe,#fce7f3,#dcfce7);display:flex;align-items:center;justify-content:center;font-size:42px}
+.thumb{height:160px;background:linear-gradient(135deg,#dbeafe,#fce7f3,#dcfce7);display:flex;align-items:center;justify-content:center;font-size:42px;position:relative}
+.ad-ribbon{position:absolute;top:10px;left:10px;background:#f97316;color:#fff;padding:5px 9px;border-radius:999px;font-size:12px;font-weight:900}
 .body{padding:16px}
 .badge{display:inline-block;padding:5px 9px;border-radius:999px;background:#eff6ff;color:#2563eb;font-size:12px;font-weight:900;margin-bottom:8px}
+.status{display:inline-block;padding:5px 9px;border-radius:999px;background:#f1f5f9;color:#334155;font-size:12px;font-weight:900;margin-left:4px}
 .title{font-size:17px;font-weight:950;margin-bottom:6px}
 .desc{font-size:13px;color:#64748b;min-height:42px}
 .price{font-size:21px;font-weight:950;margin:12px 0;color:#0f172a}
@@ -43,17 +46,22 @@ header{position:sticky;top:0;z-index:99;background:#fff;border-bottom:1px solid 
 .input,.select,.textarea{width:100%;padding:13px;border:1px solid #cbd5e1;border-radius:14px;margin-bottom:10px}
 .textarea{min-height:90px;resize:vertical}
 .hidden{display:none!important}
-.bottom{position:fixed;left:50%;transform:translateX(-50%);bottom:0;width:100%;max-width:1180px;background:#fff;border-top:1px solid #e2e8f0;display:grid;grid-template-columns:repeat(5,1fr);z-index:100}
-.bottom button{padding:10px 4px;background:#fff;color:#64748b;font-weight:900}
+.bottom{position:fixed;left:50%;transform:translateX(-50%);bottom:0;width:100%;max-width:1180px;background:#fff;border-top:1px solid #e2e8f0;display:grid;grid-template-columns:repeat(6,1fr);z-index:100}
+.bottom button{padding:10px 4px;background:#fff;color:#64748b;font-weight:900;font-size:12px}
 .bottom b{display:block;font-size:22px}
 .bottom button.active{color:#2563eb}
 .table{width:100%;border-collapse:collapse}
-.table th,.table td{padding:12px;border-bottom:1px solid #e2e8f0;text-align:left;font-size:14px}
+.table th,.table td{padding:12px;border-bottom:1px solid #e2e8f0;text-align:left;font-size:14px;vertical-align:top}
 .modal{position:fixed;inset:0;background:rgba(0,0,0,.55);display:none;align-items:center;justify-content:center;z-index:999;padding:18px}
 .modal.show{display:flex}
-.modal-box{background:#fff;border-radius:24px;max-width:520px;width:100%;padding:22px}
+.modal-box{background:#fff;border-radius:24px;max-width:560px;width:100%;padding:22px}
 .notice{font-size:13px;color:#f97316;margin-top:8px}
-@media(max-width:900px){.grid{grid-template-columns:repeat(2,1fr)}.form-grid{grid-template-columns:1fr}.search{max-width:none}.nav{flex-wrap:wrap;height:auto;padding:12px 16px}.thumb{height:130px}}
+.login-box{max-width:520px;margin:20px auto}
+.stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.stat{padding:18px;border-radius:20px;background:#f8fafc;border:1px solid #e2e8f0;text-align:center}
+.stat b{display:block;font-size:26px}
+.review{padding:12px;border-radius:16px;background:#f8fafc;border:1px solid #e2e8f0;margin-top:8px}
+@media(max-width:900px){.grid{grid-template-columns:repeat(2,1fr)}.form-grid,.stat-grid{grid-template-columns:1fr 1fr}.search{max-width:none}.thumb{height:130px}.bottom{grid-template-columns:repeat(6,1fr)}.bottom button{font-size:10px}}
 </style>
 </head>
 <body>
@@ -65,16 +73,39 @@ header{position:sticky;top:0;z-index:99;background:#fff;border-bottom:1px solid 
       <input id="searchInput" placeholder="상품, 서비스, 업체 검색">
       <button class="btn" onclick="renderProducts()">검색</button>
     </div>
-    <button class="btn dark" onclick="showScreen('seller')">입점하기</button>
+    <button class="btn dark" onclick="showScreen('login')">로그인</button>
   </div>
 </header>
 
 <div class="wrap">
 
-<section id="home" class="screen">
+<section id="login" class="screen">
+  <div class="hero">
+    <h1>사업주 입점형<br>플랫폼 데모</h1>
+    <p>고객, 사업자, 관리자로 로그인해서 상품 등록, 승인, 주문, 정산, 리뷰, 광고노출까지 확인할 수 있습니다.</p>
+  </div>
+  <div class="panel login-box">
+    <h2>로그인</h2>
+    <input id="loginName" class="input" placeholder="닉네임 또는 이메일">
+    <select id="loginRole" class="select">
+      <option value="customer">고객</option>
+      <option value="seller">사업자</option>
+      <option value="admin">관리자</option>
+    </select>
+    <button class="btn" onclick="login()">시작하기</button>
+    <p class="notice">데모는 브라우저 저장 방식입니다. 실제 운영은 DB, PG, 서버 검증이 필요합니다.</p>
+  </div>
+</section>
+
+<section id="home" class="screen hidden">
   <div class="hero">
     <h1>사업주가 직접 입점하고<br>고객이 바로 찾는 플랫폼</h1>
-    <p>상품, 서비스, 상담형 상품까지 등록 가능한 입점형 마켓 MVP입니다.</p>
+    <p>상품, 서비스, 상담형 상품까지 등록 가능한 입점형 마켓 최종 데모입니다.</p>
+  </div>
+
+  <div class="panel">
+    <h2>현재 로그인</h2>
+    <p id="userInfo">-</p>
   </div>
 
   <div class="tabs" id="categoryTabs">
@@ -100,7 +131,7 @@ header{position:sticky;top:0;z-index:99;background:#fff;border-bottom:1px solid 
     </div>
     <textarea id="storeIntro" class="textarea" placeholder="업체 소개"></textarea>
     <button class="btn" onclick="registerStore()">입점 신청하기</button>
-    <p class="notice">데모 버전에서는 브라우저에 저장됩니다. 실제 운영 시 DB/사업자 검수/정산 시스템이 필요합니다.</p>
+    <p class="notice">관리자 승인 후 상품이 정상 노출됩니다.</p>
   </div>
 
   <div class="panel">
@@ -119,13 +150,34 @@ header{position:sticky;top:0;z-index:99;background:#fff;border-bottom:1px solid 
     </div>
     <textarea id="pDesc" class="textarea" placeholder="상품 설명"></textarea>
     <button class="btn" onclick="addProduct()">상품 등록하기</button>
+    <p class="notice">상품 등록 후 관리자 승인 전까지는 고객 화면에 노출되지 않습니다.</p>
+  </div>
+
+  <div class="panel">
+    <h2>상단 노출 광고 신청</h2>
+    <select id="adProductSelect" class="select"></select>
+    <select id="adPlan" class="select">
+      <option value="30000">상단 노출 3일권 / 30,000원</option>
+      <option value="70000">상단 노출 7일권 / 70,000원</option>
+      <option value="150000">상단 노출 15일권 / 150,000원</option>
+    </select>
+    <button class="btn orange" onclick="applyAd()">광고 신청하기</button>
+    <p class="notice">관리자 승인 후 해당 상품이 상단 우선 노출됩니다.</p>
   </div>
 
   <div class="panel">
     <h2>내 등록 상품</h2>
     <table class="table">
-      <thead><tr><th>상품</th><th>가격</th><th>상태</th></tr></thead>
+      <thead><tr><th>상품</th><th>가격</th><th>상태</th><th>광고</th></tr></thead>
       <tbody id="myProductTable"></tbody>
+    </table>
+  </div>
+
+  <div class="panel">
+    <h2>사업자 주문 관리</h2>
+    <table class="table">
+      <thead><tr><th>상품</th><th>고객</th><th>상태</th><th>변경</th></tr></thead>
+      <tbody id="sellerOrderTable"></tbody>
     </table>
   </div>
 </section>
@@ -134,39 +186,74 @@ header{position:sticky;top:0;z-index:99;background:#fff;border-bottom:1px solid 
   <div class="panel">
     <h2>장바구니</h2>
     <div id="cartList"></div>
-    <button class="btn" onclick="checkout()">문의/주문 요청하기</button>
+    <button class="btn" onclick="checkout()">결제하기</button>
+    <p class="notice">데모 결제입니다. 실제 결제는 PG 연동과 서버 검증이 필요합니다.</p>
   </div>
 </section>
 
 <section id="orders" class="screen hidden">
   <div class="panel">
-    <h2>문의 / 주문 요청 내역</h2>
+    <h2>주문 내역</h2>
     <table class="table">
-      <thead><tr><th>상품</th><th>금액</th><th>상태</th></tr></thead>
+      <thead><tr><th>상품</th><th>금액</th><th>상태</th><th>리뷰</th></tr></thead>
       <tbody id="orderTable"></tbody>
+    </table>
+  </div>
+</section>
+
+<section id="settlement" class="screen hidden">
+  <div class="panel">
+    <h2>정산 현황</h2>
+    <div class="stat-grid">
+      <div class="stat"><b id="totalSales">0</b>총매출</div>
+      <div class="stat"><b id="platformFee">0</b>수수료</div>
+      <div class="stat"><b id="sellerPay">0</b>정산액</div>
+      <div class="stat"><b id="adRevenue">0</b>광고수익</div>
+    </div>
+    <p class="notice">기본 수수료는 10%로 계산됩니다.</p>
+  </div>
+
+  <div class="panel">
+    <h2>정산 상세</h2>
+    <table class="table">
+      <thead><tr><th>주문</th><th>매출</th><th>수수료</th><th>정산액</th><th>상태</th></tr></thead>
+      <tbody id="settlementTable"></tbody>
     </table>
   </div>
 </section>
 
 <section id="admin" class="screen hidden">
   <div class="panel">
-    <h2>관리자 데모</h2>
-    <p>입점 업체, 상품, 주문 요청을 확인하는 관리자 화면입니다.</p>
+    <h2>관리자 대시보드</h2>
+    <div class="stat-grid">
+      <div class="stat"><b id="adminStores">0</b>입점업체</div>
+      <div class="stat"><b id="adminProducts">0</b>상품</div>
+      <div class="stat"><b id="adminOrders">0</b>주문</div>
+      <div class="stat"><b id="adminAds">0</b>광고신청</div>
+    </div>
   </div>
 
   <div class="panel">
-    <h2>입점 업체</h2>
+    <h2>입점 승인</h2>
     <table class="table">
-      <thead><tr><th>상호</th><th>담당자</th><th>연락처</th></tr></thead>
+      <thead><tr><th>상호</th><th>담당자</th><th>상태</th><th>처리</th></tr></thead>
       <tbody id="adminStoreTable"></tbody>
     </table>
   </div>
 
   <div class="panel">
-    <h2>전체 상품</h2>
+    <h2>상품 승인</h2>
     <table class="table">
-      <thead><tr><th>상품</th><th>업체</th><th>가격</th></tr></thead>
+      <thead><tr><th>상품</th><th>업체</th><th>상태</th><th>처리</th></tr></thead>
       <tbody id="adminProductTable"></tbody>
+    </table>
+  </div>
+
+  <div class="panel">
+    <h2>광고 승인</h2>
+    <table class="table">
+      <thead><tr><th>상품</th><th>광고비</th><th>상태</th><th>처리</th></tr></thead>
+      <tbody id="adminAdTable"></tbody>
     </table>
   </div>
 </section>
@@ -179,11 +266,28 @@ header{position:sticky;top:0;z-index:99;background:#fff;border-bottom:1px solid 
     <p id="modalDesc"></p>
     <div class="price" id="modalPrice"></div>
     <p class="store" id="modalStore"></p>
-    <div class="actions">
+    <div id="modalReviews"></div>
+    <div class="actions" style="margin-top:14px">
       <button class="btn" onclick="addToCartFromModal()">장바구니</button>
-      <button class="btn dark" onclick="directInquiry()">바로 문의</button>
+      <button class="btn dark" onclick="directPay()">바로결제</button>
     </div>
     <button class="btn gray" style="margin-top:10px;width:100%" onclick="closeModal()">닫기</button>
+  </div>
+</div>
+
+<div class="modal" id="reviewModal">
+  <div class="modal-box">
+    <h2>리뷰 작성</h2>
+    <select id="reviewRating" class="select">
+      <option value="5">★★★★★ 5점</option>
+      <option value="4">★★★★ 4점</option>
+      <option value="3">★★★ 3점</option>
+      <option value="2">★★ 2점</option>
+      <option value="1">★ 1점</option>
+    </select>
+    <textarea id="reviewText" class="textarea" placeholder="리뷰 내용을 입력하세요"></textarea>
+    <button class="btn" onclick="submitReview()">리뷰 등록</button>
+    <button class="btn gray" style="margin-top:10px;width:100%" onclick="closeReview()">닫기</button>
   </div>
 </div>
 
@@ -191,21 +295,20 @@ header{position:sticky;top:0;z-index:99;background:#fff;border-bottom:1px solid 
   <button class="active" onclick="showScreen('home',this)"><b>🏠</b>홈</button>
   <button onclick="showScreen('seller',this)"><b>🏢</b>입점</button>
   <button onclick="showScreen('cart',this)"><b>🛒</b>장바구니</button>
-  <button onclick="showScreen('orders',this)"><b>📦</b>요청</button>
+  <button onclick="showScreen('orders',this)"><b>📦</b>주문</button>
+  <button onclick="showScreen('settlement',this)"><b>💰</b>정산</button>
   <button onclick="showScreen('admin',this)"><b>⚙️</b>관리</button>
 </nav>
 
 <script>
+const FEE_RATE=0.1;
 const baseProducts=[
-{id:1,title:"소상공인 홈페이지 제작",price:390000,category:"홈페이지",icon:"💻",store:"HVIRAL",desc:"회사 소개, 문의 동선, 검색 노출까지 고려한 홈페이지 제작 상품입니다."},
-{id:2,title:"블로그 마케팅 패키지",price:250000,category:"마케팅",icon:"📝",store:"HVIRAL",desc:"검색 유입을 위한 블로그 콘텐츠 기획과 발행 패키지입니다."},
-{id:3,title:"예약 앱 MVP 제작",price:890000,category:"앱/시스템",icon:"📱",store:"Toolware Lab",desc:"예약, 문의, 고객관리 기능을 포함한 간단한 앱 MVP 제작 상품입니다."},
-{id:4,title:"상세페이지 디자인",price:180000,category:"디자인",icon:"🎨",store:"Design Partner",desc:"상품 판매에 필요한 상세페이지 디자인 제작 서비스입니다."},
-{id:5,title:"마케팅 진단 컨설팅",price:120000,category:"교육/컨설팅",icon:"📊",store:"HVIRAL",desc:"현재 온라인 채널을 점검하고 개선 방향을 제안합니다."}
+{id:1,title:"소상공인 홈페이지 제작",price:390000,category:"홈페이지",icon:"💻",store:"HVIRAL",storeOwner:"system",desc:"회사 소개, 문의 동선, 검색 노출까지 고려한 홈페이지 제작 상품입니다.",status:"approved",adApproved:true,adPaid:70000},
+{id:2,title:"블로그 마케팅 패키지",price:250000,category:"마케팅",icon:"📝",store:"HVIRAL",storeOwner:"system",desc:"검색 유입을 위한 블로그 콘텐츠 기획과 발행 패키지입니다.",status:"approved",adApproved:false,adPaid:0},
+{id:3,title:"예약 앱 MVP 제작",price:890000,category:"앱/시스템",icon:"📱",store:"Toolware Lab",storeOwner:"system",desc:"예약, 문의, 고객관리 기능을 포함한 앱 MVP 제작 상품입니다.",status:"approved",adApproved:true,adPaid:30000}
 ];
 
-let currentCategory="전체";
-let selectedProduct=null;
+let currentCategory="전체", selectedProduct=null, selectedReviewOrder=null, currentUser=null;
 
 function get(key,def){return JSON.parse(localStorage.getItem(key)||JSON.stringify(def))}
 function set(key,val){localStorage.setItem(key,JSON.stringify(val))}
@@ -213,73 +316,93 @@ function products(){return get("tm_products",baseProducts)}
 function stores(){return get("tm_stores",[])}
 function cart(){return get("tm_cart",[])}
 function orders(){return get("tm_orders",[])}
+function reviews(){return get("tm_reviews",[])}
+function ads(){return get("tm_ads",[])}
 
 function init(){
   if(!localStorage.getItem("tm_products")) set("tm_products",baseProducts);
-  renderProducts();renderCart();renderOrders();renderAdmin();renderMyProducts();
+  currentUser=get("tm_user",null);
+  if(currentUser){document.getElementById("login").classList.add("hidden");document.getElementById("home").classList.remove("hidden")}
+  renderAll();
 }
-
+function login(){
+  const name=document.getElementById("loginName").value||"guest";
+  const role=document.getElementById("loginRole").value;
+  currentUser={name,role};
+  set("tm_user",currentUser);
+  showScreen("home");
+  renderAll();
+}
 function showScreen(id,btn){
   document.querySelectorAll(".screen").forEach(s=>s.classList.add("hidden"));
   document.getElementById(id).classList.remove("hidden");
   document.querySelectorAll(".bottom button").forEach(b=>b.classList.remove("active"));
   if(btn)btn.classList.add("active");
-  renderProducts();renderCart();renderOrders();renderAdmin();renderMyProducts();
+  renderAll();
 }
-
+function renderAll(){
+  renderProducts();renderCart();renderOrders();renderAdmin();renderMyProducts();renderSellerOrders();renderSettlement();renderUserInfo();renderAdProductSelect();
+}
+function renderUserInfo(){
+  const el=document.getElementById("userInfo");
+  if(el) el.innerText=currentUser?`${currentUser.name} / ${currentUser.role}`:"로그인 전";
+}
 function setCategory(cat,btn){
   currentCategory=cat;
   document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"));
   btn.classList.add("active");
   renderProducts();
 }
-
-function renderProducts(){
+function visibleProducts(){
   const q=document.getElementById("searchInput").value.trim().toLowerCase();
-  const grid=document.getElementById("productGrid");
-  grid.innerHTML="";
-  products()
+  return products()
+    .filter(p=>p.status==="approved")
     .filter(p=>currentCategory==="전체"||p.category===currentCategory)
     .filter(p=>!q||p.title.toLowerCase().includes(q)||p.store.toLowerCase().includes(q)||p.desc.toLowerCase().includes(q))
-    .forEach(p=>{
-      const div=document.createElement("div");
-      div.className="card";
-      div.innerHTML=`
-        <div class="thumb">${p.icon||"📦"}</div>
-        <div class="body">
-          <span class="badge">${p.category}</span>
-          <div class="title">${p.title}</div>
-          <div class="desc">${p.desc}</div>
-          <div class="price">${Number(p.price).toLocaleString()}원</div>
-          <div class="store">${p.store}</div>
-          <div class="actions">
-            <button class="btn" onclick="openProduct(${p.id})">상세</button>
-            <button class="btn dark" onclick="addToCart(${p.id})">담기</button>
-          </div>
-        </div>`;
-      grid.appendChild(div);
-    });
+    .sort((a,b)=>(b.adApproved?1:0)-(a.adApproved?1:0));
 }
-
+function renderProducts(){
+  const grid=document.getElementById("productGrid"); if(!grid)return;
+  grid.innerHTML="";
+  visibleProducts().forEach(p=>{
+    const div=document.createElement("div");
+    div.className="card";
+    div.innerHTML=`
+      <div class="thumb">${p.adApproved?'<span class="ad-ribbon">상단광고</span>':''}${p.icon||"📦"}</div>
+      <div class="body">
+        <span class="badge">${p.category}</span>
+        <div class="title">${p.title}</div>
+        <div class="desc">${p.desc}</div>
+        <div class="price">${Number(p.price).toLocaleString()}원</div>
+        <div class="store">${p.store} · 리뷰 ${productReviews(p.id).length}개</div>
+        <div class="actions">
+          <button class="btn" onclick="openProduct(${p.id})">상세</button>
+          <button class="btn dark" onclick="addToCart(${p.id})">담기</button>
+        </div>
+      </div>`;
+    grid.appendChild(div);
+  });
+}
 function openProduct(id){
   selectedProduct=products().find(p=>p.id===id);
   document.getElementById("modalTitle").innerText=selectedProduct.title;
   document.getElementById("modalDesc").innerText=selectedProduct.desc;
   document.getElementById("modalPrice").innerText=Number(selectedProduct.price).toLocaleString()+"원";
   document.getElementById("modalStore").innerText=selectedProduct.store;
+  const r=productReviews(selectedProduct.id);
+  document.getElementById("modalReviews").innerHTML=r.length?`<h3 style="margin-top:14px">리뷰</h3>`+r.map(x=>`<div class="review">${"★".repeat(x.rating)}<br>${x.text}<br><small>${x.user}</small></div>`).join(""):`<p class="notice">아직 리뷰가 없습니다.</p>`;
   document.getElementById("modal").classList.add("show");
 }
 function closeModal(){document.getElementById("modal").classList.remove("show")}
+function productReviews(pid){return reviews().filter(r=>r.productId===pid)}
 function addToCartFromModal(){addToCart(selectedProduct.id);closeModal()}
-function directInquiry(){addOrder(selectedProduct);closeModal();alert("문의 요청이 접수되었습니다.")}
-
+function directPay(){addOrder(selectedProduct);closeModal();alert("데모 결제가 완료되었습니다.")}
 function addToCart(id){
   const p=products().find(x=>x.id===id);
-  const c=cart();c.push(p);set("tm_cart",c);
-  renderCart();alert("장바구니에 담았습니다.");
+  const c=cart();c.push(p);set("tm_cart",c);renderCart();alert("장바구니에 담았습니다.");
 }
 function renderCart(){
-  const list=document.getElementById("cartList");
+  const list=document.getElementById("cartList"); if(!list)return;
   const c=cart();
   if(!c.length){list.innerHTML="<p>장바구니가 비어 있습니다.</p>";return}
   list.innerHTML=c.map((p,i)=>`
@@ -294,36 +417,63 @@ function checkout(){
   if(!c.length){alert("장바구니가 비어 있습니다.");return}
   c.forEach(addOrder);
   set("tm_cart",[]);
-  renderCart();renderOrders();
-  alert("문의/주문 요청이 접수되었습니다.");
+  renderAll();
+  alert("데모 결제가 완료되었습니다.");
 }
 function addOrder(p){
+  const fee=Math.floor(p.price*FEE_RATE);
+  const sellerAmount=p.price-fee;
   const o=orders();
-  o.unshift({title:p.title,price:p.price,store:p.store,status:"접수",date:new Date().toLocaleString()});
+  o.unshift({
+    id:Date.now()+Math.random(),
+    productId:p.id,
+    title:p.title,
+    price:p.price,
+    store:p.store,
+    storeOwner:p.storeOwner,
+    customer:currentUser?currentUser.name:"guest",
+    status:"결제완료",
+    fee,
+    sellerAmount,
+    settlementStatus:"정산대기",
+    date:new Date().toLocaleString()
+  });
   set("tm_orders",o);
 }
 function renderOrders(){
-  const body=document.getElementById("orderTable");
-  body.innerHTML=orders().map(o=>`<tr><td>${o.title}<br><small>${o.store}</small></td><td>${Number(o.price).toLocaleString()}원</td><td>${o.status}</td></tr>`).join("")||"<tr><td colspan='3'>요청 내역이 없습니다.</td></tr>";
+  const body=document.getElementById("orderTable"); if(!body)return;
+  const filtered=orders().filter(o=>!currentUser||currentUser.role!=="customer"||o.customer===currentUser.name);
+  body.innerHTML=filtered.map(o=>`
+    <tr>
+      <td>${o.title}<br><small>${o.store}</small></td>
+      <td>${Number(o.price).toLocaleString()}원</td>
+      <td>${o.status}</td>
+      <td>${o.status==="완료"?`<button class="btn gray" onclick="openReview('${o.id}')">리뷰</button>`:"완료 후 가능"}</td>
+    </tr>`).join("")||"<tr><td colspan='4'>주문 내역이 없습니다.</td></tr>";
 }
-
 function registerStore(){
   const s={
+    id:Date.now(),
     name:document.getElementById("storeName").value||"무명 업체",
-    owner:document.getElementById("ownerName").value||"-",
+    owner:currentUser?currentUser.name:"seller",
+    manager:document.getElementById("ownerName").value||"-",
     phone:document.getElementById("storePhone").value||"-",
     category:document.getElementById("storeCategory").value||"-",
-    intro:document.getElementById("storeIntro").value||""
+    intro:document.getElementById("storeIntro").value||"",
+    status:"pending"
   };
   const arr=stores();arr.unshift(s);set("tm_stores",arr);
-  alert("입점 신청이 저장되었습니다.");
-  renderAdmin();
+  alert("입점 신청이 접수되었습니다. 관리자 승인 후 사용 가능합니다.");
+  renderAll();
 }
-
+function myStore(){
+  return stores().find(s=>currentUser&&s.owner===currentUser.name&&s.status==="approved");
+}
 function addProduct(){
   const title=document.getElementById("pTitle").value;
   if(!title){alert("상품명을 입력하세요.");return}
-  const storeArr=stores();
+  const store=myStore();
+  if(!store){alert("승인된 입점 업체가 없습니다. 먼저 입점 승인 후 상품 등록이 가능합니다.");return}
   const p={
     id:Date.now(),
     title,
@@ -331,24 +481,109 @@ function addProduct(){
     category:document.getElementById("pCategory").value,
     icon:document.getElementById("pIcon").value||"📦",
     desc:document.getElementById("pDesc").value||"등록된 상품 설명입니다.",
-    store:storeArr[0]?.name||"입점 사업주"
+    store:store.name,
+    storeOwner:currentUser.name,
+    status:"pending",
+    adApproved:false,
+    adPaid:0
   };
   const arr=products();arr.unshift(p);set("tm_products",arr);
-  alert("상품이 등록되었습니다.");
-  renderProducts();renderMyProducts();renderAdmin();
+  alert("상품이 등록되었습니다. 관리자 승인 후 노출됩니다.");
+  renderAll();
 }
-
 function renderMyProducts(){
-  const body=document.getElementById("myProductTable");
-  if(!body)return;
-  const mine=products().filter(p=>p.store==="입점 사업주"||stores().some(s=>s.name===p.store));
-  body.innerHTML=mine.map(p=>`<tr><td>${p.title}</td><td>${Number(p.price).toLocaleString()}원</td><td>노출중</td></tr>`).join("")||"<tr><td colspan='3'>등록 상품이 없습니다.</td></tr>";
+  const body=document.getElementById("myProductTable"); if(!body)return;
+  const mine=products().filter(p=>currentUser&&p.storeOwner===currentUser.name);
+  body.innerHTML=mine.map(p=>`<tr><td>${p.title}</td><td>${Number(p.price).toLocaleString()}원</td><td>${p.status}</td><td>${p.adApproved?"상단노출":"일반"}</td></tr>`).join("")||"<tr><td colspan='4'>등록 상품이 없습니다.</td></tr>";
 }
-
+function renderAdProductSelect(){
+  const sel=document.getElementById("adProductSelect"); if(!sel)return;
+  const mine=products().filter(p=>currentUser&&p.storeOwner===currentUser.name&&p.status==="approved");
+  sel.innerHTML=mine.map(p=>`<option value="${p.id}">${p.title}</option>`).join("");
+}
+function applyAd(){
+  const pid=Number(document.getElementById("adProductSelect").value);
+  const price=Number(document.getElementById("adPlan").value);
+  if(!pid){alert("승인된 상품이 없습니다.");return}
+  const p=products().find(x=>x.id===pid);
+  const a=ads();a.unshift({id:Date.now(),productId:pid,title:p.title,price,status:"pending",seller:currentUser.name,date:new Date().toLocaleString()});
+  set("tm_ads",a);
+  alert("광고 신청이 접수되었습니다.");
+  renderAll();
+}
+function renderSellerOrders(){
+  const body=document.getElementById("sellerOrderTable"); if(!body)return;
+  const mine=orders().filter(o=>currentUser&&o.storeOwner===currentUser.name);
+  body.innerHTML=mine.map(o=>`
+    <tr>
+      <td>${o.title}<br><small>${o.date}</small></td>
+      <td>${o.customer}</td>
+      <td>${o.status}</td>
+      <td>
+        <button class="btn gray" onclick="sellerSetOrder('${o.id}','진행중')">진행</button>
+        <button class="btn green" onclick="sellerSetOrder('${o.id}','완료')">완료</button>
+      </td>
+    </tr>`).join("")||"<tr><td colspan='4'>주문이 없습니다.</td></tr>";
+}
+function sellerSetOrder(id,status){
+  const arr=orders(); const o=arr.find(x=>String(x.id)===String(id)); if(!o)return;
+  o.status=status;
+  if(status==="완료") o.settlementStatus="정산가능";
+  set("tm_orders",arr); renderAll();
+}
+function renderSettlement(){
+  const orderArr=orders();
+  const scope=currentUser&&currentUser.role==="seller"?orderArr.filter(o=>o.storeOwner===currentUser.name):orderArr;
+  const total=scope.reduce((s,o)=>s+o.price,0);
+  const fee=scope.reduce((s,o)=>s+o.fee,0);
+  const pay=scope.reduce((s,o)=>s+o.sellerAmount,0);
+  const adRev=ads().filter(a=>a.status==="approved").reduce((s,a)=>s+a.price,0);
+  document.getElementById("totalSales").innerText=total.toLocaleString();
+  document.getElementById("platformFee").innerText=fee.toLocaleString();
+  document.getElementById("sellerPay").innerText=pay.toLocaleString();
+  document.getElementById("adRevenue").innerText=adRev.toLocaleString();
+  document.getElementById("settlementTable").innerHTML=scope.map(o=>`<tr><td>${o.title}</td><td>${o.price.toLocaleString()}</td><td>${o.fee.toLocaleString()}</td><td>${o.sellerAmount.toLocaleString()}</td><td>${o.settlementStatus}</td></tr>`).join("")||"<tr><td colspan='5'>정산 내역이 없습니다.</td></tr>";
+}
 function renderAdmin(){
-  document.getElementById("adminStoreTable").innerHTML=stores().map(s=>`<tr><td>${s.name}</td><td>${s.owner}</td><td>${s.phone}</td></tr>`).join("")||"<tr><td colspan='3'>입점 업체 없음</td></tr>";
-  document.getElementById("adminProductTable").innerHTML=products().map(p=>`<tr><td>${p.title}</td><td>${p.store}</td><td>${Number(p.price).toLocaleString()}원</td></tr>`).join("");
+  document.getElementById("adminStores").innerText=stores().length;
+  document.getElementById("adminProducts").innerText=products().length;
+  document.getElementById("adminOrders").innerText=orders().length;
+  document.getElementById("adminAds").innerText=ads().length;
+  document.getElementById("adminStoreTable").innerHTML=stores().map(s=>`
+    <tr><td>${s.name}</td><td>${s.manager}</td><td>${s.status}</td><td><button class="btn green" onclick="adminStore(${s.id},'approved')">승인</button> <button class="btn red" onclick="adminStore(${s.id},'rejected')">거절</button></td></tr>`).join("")||"<tr><td colspan='4'>입점 신청 없음</td></tr>";
+  document.getElementById("adminProductTable").innerHTML=products().map(p=>`
+    <tr><td>${p.title}</td><td>${p.store}</td><td>${p.status}</td><td><button class="btn green" onclick="adminProduct(${p.id},'approved')">승인</button> <button class="btn red" onclick="adminProduct(${p.id},'rejected')">거절</button></td></tr>`).join("");
+  document.getElementById("adminAdTable").innerHTML=ads().map(a=>`
+    <tr><td>${a.title}</td><td>${a.price.toLocaleString()}원</td><td>${a.status}</td><td><button class="btn green" onclick="adminAd(${a.id},'approved')">승인</button> <button class="btn red" onclick="adminAd(${a.id},'rejected')">거절</button></td></tr>`).join("")||"<tr><td colspan='4'>광고 신청 없음</td></tr>";
 }
+function adminStore(id,status){
+  const arr=stores(); const s=arr.find(x=>x.id===id); s.status=status; set("tm_stores",arr); renderAll();
+}
+function adminProduct(id,status){
+  const arr=products(); const p=arr.find(x=>x.id===id); p.status=status; set("tm_products",arr); renderAll();
+}
+function adminAd(id,status){
+  const adArr=ads(); const a=adArr.find(x=>x.id===id); a.status=status; set("tm_ads",adArr);
+  if(status==="approved"){
+    const arr=products(); const p=arr.find(x=>x.id===a.productId);
+    if(p){p.adApproved=true;p.adPaid=(p.adPaid||0)+a.price;set("tm_products",arr)}
+  }
+  renderAll();
+}
+function openReview(id){
+  selectedReviewOrder=orders().find(o=>String(o.id)===String(id));
+  document.getElementById("reviewModal").classList.add("show");
+}
+function closeReview(){document.getElementById("reviewModal").classList.remove("show")}
+function submitReview(){
+  const rating=Number(document.getElementById("reviewRating").value);
+  const text=document.getElementById("reviewText").value||"좋았습니다.";
+  const arr=reviews();
+  arr.unshift({id:Date.now(),productId:selectedReviewOrder.productId,user:selectedReviewOrder.customer,rating,text,date:new Date().toLocaleString()});
+  set("tm_reviews",arr);
+  closeReview(); renderAll(); alert("리뷰가 등록되었습니다.");
+}
+function closeModal(){document.getElementById("modal").classList.remove("show")}
 init();
 </script>
 
