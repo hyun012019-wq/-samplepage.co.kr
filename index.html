@@ -1,3 +1,169 @@
-하비럴 주식회사
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>청년보도</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:Arial,'Noto Sans KR',sans-serif;color:#111;background:#f5f5f5}a{text-decoration:none;color:inherit}
+header{background:#fff;border-bottom:1px solid #ddd;position:sticky;top:0;z-index:10}
+.top{max-width:1100px;margin:auto;display:flex;justify-content:space-between;align-items:center;padding:14px}
+.logo{font-size:30px;font-weight:900;letter-spacing:-2px}.logo span{color:#c00}
+.nav{background:#111;color:#fff}.nav .inner{max-width:1100px;margin:auto;display:flex;gap:18px;overflow:auto;padding:10px 14px;font-size:14px}
+.wrap{max-width:1100px;margin:18px auto;display:grid;grid-template-columns:2fr 1fr;gap:18px;padding:0 14px}
+.box{background:#fff;border:1px solid #ddd;padding:16px}.main-title{font-size:26px;font-weight:900;line-height:1.25;margin:0 0 10px}
+.badge{display:inline-block;background:#c00;color:#fff;font-size:12px;padding:4px 7px;margin-bottom:8px}.meta{font-size:12px;color:#777;margin:8px 0}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.card{background:#fff;border:1px solid #ddd;padding:12px}.thumb{height:120px;background:#ddd;margin-bottom:10px;display:flex;align-items:center;justify-content:center;color:#777;font-weight:bold}
+.card h3{font-size:16px;margin:0 0 8px;line-height:1.35}.side h2,.section h2{font-size:18px;border-bottom:2px solid #111;padding-bottom:8px}
+.list li{border-bottom:1px solid #eee;padding:9px 0;font-size:14px;cursor:pointer}.section{max-width:1100px;margin:18px auto;padding:0 14px}
+footer{background:#222;color:#ccc;margin-top:30px;padding:25px 14px;font-size:13px}.foot{max-width:1100px;margin:auto;line-height:1.8}
+button,input,select,textarea{font-family:inherit}button{cursor:pointer;border:0;background:#111;color:#fff;padding:9px 12px}input,select,textarea{width:100%;padding:10px;border:1px solid #ccc;margin:6px 0}textarea{height:260px}
+.admin{display:none;max-width:900px;margin:18px auto;background:#fff;border:1px solid #ddd;padding:18px}
+.article{max-width:850px;margin:18px auto;background:#fff;border:1px solid #ddd;padding:24px}.article h1{font-size:30px;line-height:1.25}.article .body{font-size:17px;line-height:1.9;white-space:pre-wrap}
+@media(max-width:800px){.wrap{grid-template-columns:1fr}.grid{grid-template-columns:1fr}.logo{font-size:25px}.main-title{font-size:22px}}
+</style>
+</head>
+<body>
 
-웹에이전시 커스터마이징
+<header>
+  <div class="top">
+    <div class="logo" onclick="home()">청년<span>보도</span></div>
+    <div>
+      <button onclick="home()">홈</button>
+      <button onclick="openAdmin()">관리자</button>
+    </div>
+  </div>
+  <div class="nav"><div class="inner" id="nav"></div></div>
+</header>
+
+<main id="app"></main>
+
+<div class="admin" id="admin">
+  <h2>청년보도 백오피스</h2>
+  <input id="pw" placeholder="관리자 비밀번호">
+  <button onclick="login()">로그인</button>
+  <div id="editor" style="display:none">
+    <hr>
+    <input id="title" placeholder="기사 제목">
+    <select id="cat"></select>
+    <input id="reporter" placeholder="기자명" value="청년보도 편집부">
+    <textarea id="content" placeholder="기사 본문"></textarea>
+    <button onclick="saveArticle()">기사 발행</button>
+    <button onclick="resetAll()">초기 기사 복구</button>
+  </div>
+</div>
+
+<footer>
+  <div class="foot">
+    <b>청년보도</b><br>
+    발행인: 청년보도 편집국 | 편집인: 청년보도 편집부<br>
+    주소: 서울특별시 | 이메일: contact@example.com<br>
+    ※ 본 사이트는 테스트용 언론형 콘텐츠 사이트 샘플입니다.
+  </div>
+</footer>
+
+<script>
+const cats=["전체","청년창업","마케팅","소상공인","트렌드","인터뷰","리포트","보도자료"];
+
+const seed=[
+{title:"청년 창업 현장, 온라인 유입보다 전환 관리 중요해져",cat:"청년창업",reporter:"청년보도 편집부",date:"2026.05.01",content:"최근 청년 창업 시장에서는 단순한 온라인 노출보다 실제 문의와 방문으로 이어지는 흐름 관리가 중요해지고 있다.\n\n업계에서는 초기 창업자가 광고비를 집행하더라도 결과를 체감하지 못하는 사례가 늘고 있다고 보고 있다.\n\n특히 홈페이지, 블로그, 플레이스, SNS 등 여러 채널이 따로 움직일 경우 고객이 중간에서 이탈하는 문제가 발생한다.\n\n이에 따라 창업 초기부터 고객이 어떤 경로로 들어오고 어떤 단계에서 결정을 내리는지 확인하는 과정이 필요하다는 의견이 나온다."},
+{title:"소상공인 마케팅, 단기 노출보다 누적 콘텐츠 필요",cat:"마케팅",reporter:"청년보도 편집부",date:"2026.04.29",content:"소상공인 마케팅에서 단기 이벤트성 노출보다 꾸준히 쌓이는 콘텐츠의 중요성이 커지고 있다.\n\n검색 환경이 바뀌면서 단순 키워드 반복만으로는 안정적인 유입을 만들기 어려워졌기 때문이다.\n\n전문가들은 업종, 지역, 고객 질문을 기준으로 콘텐츠를 누적해야 검색 결과에서 신뢰를 얻을 수 있다고 설명한다."},
+{title:"지역 업체들, 블로그와 홈페이지 연결 강화 움직임",cat:"소상공인",reporter:"청년보도 편집부",date:"2026.04.26",content:"최근 지역 기반 업체들이 블로그와 홈페이지를 함께 운영하는 사례가 늘고 있다.\n\n블로그는 유입 창구로, 홈페이지는 신뢰 확인 공간으로 활용하는 방식이다.\n\n이러한 운영은 고객이 검색 후 바로 이탈하지 않고 업체 정보를 추가로 확인하게 만드는 데 도움이 된다."},
+{title:"바이럴 기획, 단순 확산보다 읽히는 순서가 관건",cat:"트렌드",reporter:"청년보도 편집부",date:"2026.04.23",content:"바이럴 콘텐츠는 단순히 많이 퍼지는 것보다 처음 본 사람이 어떤 순서로 이해하느냐가 중요하다.\n\n같은 내용이라도 제목, 첫 문장, 중간 흐름에 따라 반응이 달라진다.\n\n최근에는 단발성 홍보보다 자연스럽게 다음 행동으로 이어지는 글 구성이 주목받고 있다."},
+{title:"청년 브랜드, 검색 결과 관리가 초기 신뢰 좌우",cat:"리포트",reporter:"청년보도 편집부",date:"2026.04.20",content:"청년 창업 브랜드의 경우 검색 결과 첫 화면이 신뢰 형성에 큰 영향을 주고 있다.\n\n검색했을 때 공식 사이트, 블로그, 최신 콘텐츠가 함께 보이면 브랜드가 실제로 운영되고 있다는 인상을 줄 수 있다.\n\n반대로 정보가 부족하거나 관련 없는 결과가 섞이면 신뢰 형성이 늦어질 수 있다."}
+];
+
+function getArticles(){
+  let data=localStorage.getItem("youth_news_articles");
+  if(!data){localStorage.setItem("youth_news_articles",JSON.stringify(seed));return seed}
+  return JSON.parse(data);
+}
+function setArticles(a){localStorage.setItem("youth_news_articles",JSON.stringify(a))}
+function nav(){
+  document.getElementById("nav").innerHTML=cats.map(c=>`<span onclick="category('${c}')">${c}</span>`).join("");
+  document.getElementById("cat").innerHTML=cats.filter(c=>c!="전체").map(c=>`<option>${c}</option>`).join("");
+}
+function home(){
+  document.getElementById("admin").style.display="none";
+  const a=getArticles().sort((x,y)=>y.date.localeCompare(x.date));
+  const main=a[0];
+  document.getElementById("app").innerHTML=`
+  <div class="wrap">
+    <section>
+      <div class="box" onclick="viewArticle(0)">
+        <span class="badge">주요뉴스</span>
+        <h1 class="main-title">${main.title}</h1>
+        <div class="meta">${main.cat} | ${main.reporter} | ${main.date}</div>
+        <p>${main.content.slice(0,120)}...</p>
+      </div>
+      <div class="grid" style="margin-top:14px">
+        ${a.slice(1,5).map((v,i)=>card(v,i+1)).join("")}
+      </div>
+    </section>
+    <aside class="side box">
+      <h2>실시간 주요뉴스</h2>
+      <ol class="list">${a.slice(0,8).map((v,i)=>`<li onclick="viewArticle(${i})">${v.title}</li>`).join("")}</ol>
+    </aside>
+  </div>
+  <div class="section">
+    <h2>최신 기사</h2>
+    <div class="grid">${a.map((v,i)=>card(v,i)).join("")}</div>
+  </div>`;
+}
+function card(v,i){
+ return `<div class="card" onclick="viewArticle(${i})">
+  <div class="thumb">${v.cat}</div>
+  <h3>${v.title}</h3>
+  <div class="meta">${v.reporter} | ${v.date}</div>
+  <p>${v.content.slice(0,70)}...</p>
+ </div>`;
+}
+function category(c){
+ const a=getArticles().filter(v=>c=="전체"||v.cat==c);
+ document.getElementById("admin").style.display="none";
+ document.getElementById("app").innerHTML=`<div class="section"><h2>${c}</h2><div class="grid">${a.map((v,i)=>card(v,getArticles().indexOf(v))).join("")}</div></div>`;
+}
+function viewArticle(i){
+ const a=getArticles().sort((x,y)=>y.date.localeCompare(x.date));
+ const v=a[i];
+ document.getElementById("admin").style.display="none";
+ document.getElementById("app").innerHTML=`
+ <article class="article">
+  <span class="badge">${v.cat}</span>
+  <h1>${v.title}</h1>
+  <div class="meta">${v.reporter} | 입력 ${v.date}</div>
+  <div class="body">${v.content}</div>
+ </article>`;
+}
+function openAdmin(){
+ document.getElementById("app").innerHTML="";
+ document.getElementById("admin").style.display="block";
+}
+function login(){
+ if(document.getElementById("pw").value==="1234") document.getElementById("editor").style.display="block";
+ else alert("비밀번호가 틀립니다");
+}
+function saveArticle(){
+ const a=getArticles();
+ const today=new Date();
+ const date=`${today.getFullYear()}.${String(today.getMonth()+1).padStart(2,"0")}.${String(today.getDate()).padStart(2,"0")}`;
+ a.unshift({
+  title:document.getElementById("title").value,
+  cat:document.getElementById("cat").value,
+  reporter:document.getElementById("reporter").value,
+  date,
+  content:document.getElementById("content").value
+ });
+ setArticles(a);
+ alert("기사 발행 완료");
+ home();
+}
+function resetAll(){
+ localStorage.removeItem("youth_news_articles");
+ alert("초기 기사 복구 완료");
+ home();
+}
+nav();home();
+</script>
+</body>
+</html>
