@@ -2,52 +2,78 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<title>HVIRAL TAX ERP</title>
+<title>HVIRAL TAX ERP PRO</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <style>
 *{box-sizing:border-box}
 body{margin:0;font-family:Arial,'Noto Sans KR',sans-serif;background:#f3f5f8;color:#1f2937}
-header{background:#0f172a;color:#fff;padding:18px 28px}
-header h1{margin:0;font-size:22px}
-header p{margin:6px 0 0;color:#cbd5e1;font-size:13px}
-.layout{display:flex;min-height:calc(100vh - 75px)}
-nav{width:230px;background:#1e293b;padding:18px}
+header{background:#0f172a;color:#fff;padding:16px 20px;display:flex;justify-content:space-between;align-items:center}
+header h1{margin:0;font-size:20px}
+header p{margin:4px 0 0;color:#cbd5e1;font-size:12px}
+.menuBtn{display:none;background:#2563eb;color:#fff;border:0;border-radius:8px;padding:10px 12px}
+.layout{display:flex;min-height:calc(100vh - 72px)}
+nav{width:235px;background:#1e293b;padding:18px;transition:.2s}
 nav button{width:100%;display:block;margin-bottom:9px;padding:12px;border:0;border-radius:8px;background:#334155;color:#fff;text-align:left;cursor:pointer}
 nav button.active,nav button:hover{background:#2563eb}
-main{flex:1;padding:24px}
+main{flex:1;padding:22px;overflow:auto}
 section{display:none}
 section.active{display:block}
 .card{background:#fff;border-radius:14px;padding:18px;margin-bottom:18px;box-shadow:0 2px 10px rgba(0,0,0,.06)}
 .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
 .stat{background:#fff;border-radius:14px;padding:18px;box-shadow:0 2px 10px rgba(0,0,0,.06)}
-.stat b{font-size:26px;display:block;margin-top:8px}
+.stat b{font-size:25px;display:block;margin-top:8px}
 .row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-input,select,textarea{width:100%;padding:10px;border:1px solid #d1d5db;border-radius:8px;margin:6px 0 12px}
+.row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
+input,select,textarea{width:100%;padding:10px;border:1px solid #d1d5db;border-radius:8px;margin:6px 0 12px;background:#fff}
 label{font-size:13px;font-weight:bold;color:#374151}
-button.action{padding:10px 14px;border:0;border-radius:8px;background:#2563eb;color:#fff;cursor:pointer}
+button.action{padding:10px 14px;border:0;border-radius:8px;background:#2563eb;color:#fff;cursor:pointer;margin:2px}
 button.gray{background:#64748b}
 button.red{background:#dc2626}
 button.green{background:#059669}
-table{width:100%;border-collapse:collapse;background:#fff}
+button.dark{background:#111827}
+.tableWrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;background:#fff;min-width:760px}
 th,td{padding:11px;border-bottom:1px solid #e5e7eb;text-align:left;font-size:14px}
 th{background:#f8fafc}
-.badge{padding:4px 8px;border-radius:20px;font-size:12px;background:#e5e7eb}
+.badge{padding:4px 8px;border-radius:20px;font-size:12px;background:#e5e7eb;display:inline-block}
 .done{background:#dcfce7;color:#166534}
 .ing{background:#dbeafe;color:#1d4ed8}
 .warn{background:#fee2e2;color:#991b1b}
-pre{white-space:pre-wrap;background:#111827;color:#e5e7eb;padding:15px;border-radius:10px}
+.prebox{white-space:pre-wrap;background:#111827;color:#e5e7eb;padding:15px;border-radius:10px;min-height:120px}
 .small{font-size:12px;color:#64748b}
+.detail{background:#f8fafc;border:1px solid #e5e7eb;border-radius:10px;padding:12px;margin-top:10px}
+@media(max-width:900px){
+  header{position:sticky;top:0;z-index:10}
+  .menuBtn{display:block}
+  .layout{display:block}
+  nav{display:none;width:100%;position:sticky;top:72px;z-index:9}
+  nav.open{display:block}
+  main{padding:14px}
+  .grid{grid-template-columns:1fr 1fr}
+  .row,.row3{grid-template-columns:1fr}
+  header h1{font-size:17px}
+  header p{display:none}
+  .card{padding:14px}
+}
+@media(max-width:520px){
+  .grid{grid-template-columns:1fr}
+}
 </style>
 </head>
+
 <body>
 
 <header>
-  <h1>HVIRAL TAX ERP</h1>
-  <p>세무사 사무소 전용 고객관리 · 신고관리 · 자료요청 · 수임료 · 일정 · 권한 시스템</p>
+  <div>
+    <h1>HVIRAL TAX ERP PRO</h1>
+    <p>세무사 사무소 전용 고객 · 신고 · 자료 · 수임료 · 일정 · 권한 · 리포트 관리 시스템</p>
+  </div>
+  <button class="menuBtn" onclick="toggleMenu()">메뉴</button>
 </header>
 
 <div class="layout">
-<nav>
+<nav id="sideNav">
   <button class="active" onclick="show('dashboard',this)">대시보드</button>
   <button onclick="show('clientForm',this)">고객 등록</button>
   <button onclick="show('clients',this);renderClients()">고객 목록</button>
@@ -55,8 +81,11 @@ pre{white-space:pre-wrap;background:#111827;color:#e5e7eb;padding:15px;border-ra
   <button onclick="show('docs',this);renderDocs()">자료 요청</button>
   <button onclick="show('schedule',this);renderSchedule()">세무 일정</button>
   <button onclick="show('fees',this);renderFees()">수임료/미수금</button>
+  <button onclick="show('messages',this);renderMessageSelect()">안내문 생성</button>
+  <button onclick="show('reports',this);renderReports()">리포트</button>
   <button onclick="show('users',this);renderUsers()">직원/권한</button>
   <button onclick="show('logs',this);renderLogs()">작업 로그</button>
+  <button onclick="show('backup',this)">백업/관리</button>
 </nav>
 
 <main>
@@ -71,10 +100,12 @@ pre{white-space:pre-wrap;background:#111827;color:#e5e7eb;padding:15px;border-ra
 
   <div class="card">
     <h3>이번 달 주요 업무</h3>
-    <table>
-      <thead><tr><th>고객</th><th>구분</th><th>상태</th><th>담당자</th></tr></thead>
-      <tbody id="dashRows"></tbody>
-    </table>
+    <div class="tableWrap">
+      <table>
+        <thead><tr><th>고객</th><th>구분</th><th>상태</th><th>마감일</th><th>담당자</th></tr></thead>
+        <tbody id="dashRows"></tbody>
+      </table>
+    </div>
   </div>
 </section>
 
@@ -93,6 +124,11 @@ pre{white-space:pre-wrap;background:#111827;color:#e5e7eb;padding:15px;border-ra
     </div>
 
     <div class="row">
+      <div><label>이메일</label><input id="email"></div>
+      <div><label>주소</label><input id="address"></div>
+    </div>
+
+    <div class="row">
       <div>
         <label>구분</label>
         <select id="type">
@@ -102,29 +138,31 @@ pre{white-space:pre-wrap;background:#111827;color:#e5e7eb;padding:15px;border-ra
           <option>기타</option>
         </select>
       </div>
-      <div>
-        <label>업종</label>
-        <input id="industry" placeholder="예: 음식점, 병의원, 쇼핑몰">
-      </div>
+      <div><label>업종</label><input id="industry" placeholder="예: 음식점, 병의원, 쇼핑몰"></div>
     </div>
 
     <div class="row">
-      <div>
-        <label>담당자</label>
-        <select id="manager"></select>
-      </div>
+      <div><label>담당자</label><select id="manager"></select></div>
       <div>
         <label>수임 상태</label>
         <select id="status">
           <option>유지</option>
+          <option>상담중</option>
           <option>휴면</option>
           <option>해지</option>
-          <option>상담중</option>
         </select>
       </div>
     </div>
 
-    <label>메모</label>
+    <div class="row">
+      <div><label>수임 시작일</label><input id="contractDate" type="date"></div>
+      <div>
+        <label>기장 여부</label>
+        <select id="bookkeeping"><option>기장</option><option>신고대리</option><option>미정</option></select>
+      </div>
+    </div>
+
+    <label>상담/특이사항 메모</label>
     <textarea id="memo" rows="4"></textarea>
 
     <button class="action green" onclick="addClient()">고객 저장</button>
@@ -134,13 +172,16 @@ pre{white-space:pre-wrap;background:#111827;color:#e5e7eb;padding:15px;border-ra
 <section id="clients">
   <div class="card">
     <h2>고객 목록</h2>
-    <input id="clientSearch" placeholder="고객명 / 사업자번호 / 업종 검색" oninput="renderClients()">
-    <table>
-      <thead>
-        <tr><th>ID</th><th>고객</th><th>대표</th><th>구분</th><th>업종</th><th>담당</th><th>상태</th><th>관리</th></tr>
-      </thead>
-      <tbody id="clientRows"></tbody>
-    </table>
+    <input id="clientSearch" placeholder="고객명 / 사업자번호 / 업종 / 담당자 검색" oninput="renderClients()">
+    <div class="tableWrap">
+      <table>
+        <thead>
+          <tr><th>ID</th><th>고객</th><th>대표</th><th>구분</th><th>업종</th><th>담당</th><th>상태</th><th>관리</th></tr>
+        </thead>
+        <tbody id="clientRows"></tbody>
+      </table>
+    </div>
+    <div id="clientDetail"></div>
   </div>
 </section>
 
@@ -148,7 +189,7 @@ pre{white-space:pre-wrap;background:#111827;color:#e5e7eb;padding:15px;border-ra
   <div class="card">
     <h2>신고 관리</h2>
     <select id="taxClient"></select>
-    <div class="row">
+    <div class="row3">
       <div>
         <label>신고 구분</label>
         <select id="taxType">
@@ -160,6 +201,7 @@ pre{white-space:pre-wrap;background:#111827;color:#e5e7eb;padding:15px;border-ra
           <option>종합소득세</option>
           <option>법인세</option>
           <option>4대보험</option>
+          <option>지방세/기타</option>
         </select>
       </div>
       <div>
@@ -171,71 +213,127 @@ pre{white-space:pre-wrap;background:#111827;color:#e5e7eb;padding:15px;border-ra
           <option>검토중</option>
           <option>신고완료</option>
           <option>납부안내</option>
+          <option>종결</option>
         </select>
       </div>
+      <div><label>마감일</label><input id="taxDue" type="date"></div>
     </div>
+    <label>신고 메모</label>
+    <textarea id="taxMemo" rows="3"></textarea>
     <button class="action" onclick="addTax()">신고 상태 저장</button>
   </div>
 
   <div class="card">
-    <table>
-      <thead><tr><th>고객</th><th>신고구분</th><th>상태</th><th>담당</th><th>관리</th></tr></thead>
-      <tbody id="taxRows"></tbody>
-    </table>
+    <div class="tableWrap">
+      <table>
+        <thead><tr><th>고객</th><th>신고구분</th><th>상태</th><th>마감일</th><th>담당</th><th>관리</th></tr></thead>
+        <tbody id="taxRows"></tbody>
+      </table>
+    </div>
   </div>
 </section>
 
 <section id="docs">
   <div class="card">
     <h2>자료 요청 관리</h2>
-    <select id="docClient"></select>
+    <select id="docClient" onchange="loadDocForm()"></select>
     <div class="row">
-      <div><label>매출자료</label><select id="salesDoc"><option>미제출</option><option>제출</option></select></div>
-      <div><label>매입자료</label><select id="purchaseDoc"><option>미제출</option><option>제출</option></select></div>
-      <div><label>카드내역</label><select id="cardDoc"><option>미제출</option><option>제출</option></select></div>
-      <div><label>계좌내역</label><select id="bankDoc"><option>미제출</option><option>제출</option></select></div>
+      <div><label>매출자료</label><select id="salesDoc"><option>미제출</option><option>요청완료</option><option>제출</option><option>보완필요</option></select></div>
+      <div><label>매입자료</label><select id="purchaseDoc"><option>미제출</option><option>요청완료</option><option>제출</option><option>보완필요</option></select></div>
+      <div><label>카드내역</label><select id="cardDoc"><option>미제출</option><option>요청완료</option><option>제출</option><option>보완필요</option></select></div>
+      <div><label>계좌내역</label><select id="bankDoc"><option>미제출</option><option>요청완료</option><option>제출</option><option>보완필요</option></select></div>
+      <div><label>급여자료</label><select id="payrollDoc"><option>미제출</option><option>요청완료</option><option>제출</option><option>보완필요</option></select></div>
+      <div><label>세금계산서</label><select id="invoiceDoc"><option>미제출</option><option>요청완료</option><option>제출</option><option>보완필요</option></select></div>
     </div>
     <button class="action green" onclick="saveDocs()">자료 상태 저장</button>
     <button class="action gray" onclick="generateDocMessage()">자료요청 문구 생성</button>
-    <pre id="docMessage"></pre>
+    <div class="prebox" id="docMessage"></div>
   </div>
 
   <div class="card">
-    <table>
-      <thead><tr><th>고객</th><th>매출</th><th>매입</th><th>카드</th><th>계좌</th></tr></thead>
-      <tbody id="docRows"></tbody>
-    </table>
+    <div class="tableWrap">
+      <table>
+        <thead><tr><th>고객</th><th>매출</th><th>매입</th><th>카드</th><th>계좌</th><th>급여</th><th>세금계산서</th></tr></thead>
+        <tbody id="docRows"></tbody>
+      </table>
+    </div>
   </div>
 </section>
 
 <section id="schedule">
   <div class="card">
     <h2>세무 일정</h2>
-    <table>
-      <thead><tr><th>일정</th><th>업무</th><th>대상</th><th>상태</th></tr></thead>
-      <tbody id="scheduleRows"></tbody>
-    </table>
+    <div class="tableWrap">
+      <table>
+        <thead><tr><th>일정</th><th>업무</th><th>대상</th><th>상태</th></tr></thead>
+        <tbody id="scheduleRows"></tbody>
+      </table>
+    </div>
   </div>
 </section>
 
 <section id="fees">
   <div class="card">
     <h2>수임료 / 미수금 관리</h2>
-    <select id="feeClient"></select>
+    <select id="feeClient" onchange="loadFeeForm()"></select>
     <div class="row">
       <div><label>월 기장료</label><input id="monthlyFee" type="number" value="0"></div>
       <div><label>신고 수수료</label><input id="reportFee" type="number" value="0"></div>
       <div><label>컨설팅 비용</label><input id="consultFee" type="number" value="0"></div>
+      <div><label>기타 비용</label><input id="etcFee" type="number" value="0"></div>
       <div><label>입금액</label><input id="paidFee" type="number" value="0"></div>
+      <div>
+        <label>결제상태</label>
+        <select id="paymentStatus"><option>미수</option><option>일부입금</option><option>완납</option></select>
+      </div>
     </div>
     <button class="action green" onclick="saveFee()">수임료 저장</button>
   </div>
 
   <div class="card">
-    <table>
-      <thead><tr><th>고객</th><th>총 청구</th><th>입금</th><th>미수금</th></tr></thead>
-      <tbody id="feeRows"></tbody>
-    </table>
+    <div class="tableWrap">
+      <table>
+        <thead><tr><th>고객</th><th>월기장</th><th>신고</th><th>컨설팅</th><th>기타</th><th>총 청구</th><th>입금</th><th>미수금</th></tr></thead>
+        <tbody id="feeRows"></tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section id="messages">
+  <div class="card">
+    <h2>고객 안내문 생성</h2>
+    <select id="msgClient"></select>
+    <select id="msgType">
+      <option>자료 요청 안내</option>
+      <option>신고 완료 안내</option>
+      <option>납부 안내</option>
+      <option>미수금 안내</option>
+      <option>상담 일정 안내</option>
+    </select>
+    <button class="action" onclick="generateMessage()">안내문 생성</button>
+    <div class="prebox" id="msgOutput"></div>
+  </div>
+</section>
+
+<section id="reports">
+  <div class="card">
+    <h2>운영 리포트</h2>
+    <div class="grid">
+      <div class="stat">유지 고객 <b id="rActive">0</b></div>
+      <div class="stat">해지/휴면 <b id="rInactive">0</b></div>
+      <div class="stat">신고완료 <b id="rDoneTax">0</b></div>
+      <div class="stat">총 청구액 <b id="rTotalBill">0원</b></div>
+    </div>
+  </div>
+  <div class="card">
+    <h3>담당자별 고객 수</h3>
+    <div class="tableWrap">
+      <table>
+        <thead><tr><th>담당자</th><th>고객 수</th><th>진행 신고</th></tr></thead>
+        <tbody id="managerReport"></tbody>
+      </table>
+    </div>
   </div>
 </section>
 
@@ -258,20 +356,34 @@ pre{white-space:pre-wrap;background:#111827;color:#e5e7eb;padding:15px;border-ra
   </div>
 
   <div class="card">
-    <table>
-      <thead><tr><th>직원명</th><th>권한</th><th>관리</th></tr></thead>
-      <tbody id="userRows"></tbody>
-    </table>
+    <div class="tableWrap">
+      <table>
+        <thead><tr><th>직원명</th><th>권한</th><th>관리</th></tr></thead>
+        <tbody id="userRows"></tbody>
+      </table>
+    </div>
   </div>
 </section>
 
 <section id="logs">
   <div class="card">
     <h2>작업 로그</h2>
-    <table>
-      <thead><tr><th>시간</th><th>작업</th><th>내용</th></tr></thead>
-      <tbody id="logRows"></tbody>
-    </table>
+    <div class="tableWrap">
+      <table>
+        <thead><tr><th>시간</th><th>작업</th><th>내용</th></tr></thead>
+        <tbody id="logRows"></tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section id="backup">
+  <div class="card">
+    <h2>백업 / 관리</h2>
+    <button class="action dark" onclick="exportData()">데이터 백업 다운로드</button>
+    <button class="action red" onclick="resetData()">전체 데이터 초기화</button>
+    <p class="small">현재 데모는 브라우저 localStorage 저장 방식입니다. 실제 납품형은 서버 DB, 로그인, 파일 저장소, 백업 서버가 필요합니다.</p>
+    <div class="prebox" id="backupText"></div>
   </div>
 </section>
 
@@ -279,36 +391,43 @@ pre{white-space:pre-wrap;background:#111827;color:#e5e7eb;padding:15px;border-ra
 </div>
 
 <script>
-let users = JSON.parse(localStorage.getItem('tax_users') || '[{"name":"이재현","role":"ADMIN"},{"name":"직원A","role":"STAFF"}]');
-let clients = JSON.parse(localStorage.getItem('tax_clients') || '[]');
-let taxes = JSON.parse(localStorage.getItem('tax_reports') || '[]');
-let logs = JSON.parse(localStorage.getItem('tax_logs') || '[]');
+let users = JSON.parse(localStorage.getItem('tax_users_pro') || '[{"name":"이재현","role":"ADMIN"},{"name":"직원A","role":"STAFF"}]');
+let clients = JSON.parse(localStorage.getItem('tax_clients_pro') || '[]');
+let taxes = JSON.parse(localStorage.getItem('tax_reports_pro') || '[]');
+let logs = JSON.parse(localStorage.getItem('tax_logs_pro') || '[]');
+
+function toggleMenu(){document.getElementById('sideNav').classList.toggle('open')}
+function closeMenuMobile(){if(window.innerWidth<=900)document.getElementById('sideNav').classList.remove('open')}
 
 function save(){
-  localStorage.setItem('tax_users',JSON.stringify(users));
-  localStorage.setItem('tax_clients',JSON.stringify(clients));
-  localStorage.setItem('tax_reports',JSON.stringify(taxes));
-  localStorage.setItem('tax_logs',JSON.stringify(logs));
+  localStorage.setItem('tax_users_pro',JSON.stringify(users));
+  localStorage.setItem('tax_clients_pro',JSON.stringify(clients));
+  localStorage.setItem('tax_reports_pro',JSON.stringify(taxes));
+  localStorage.setItem('tax_logs_pro',JSON.stringify(logs));
   renderDashboard();
   renderSelects();
 }
 
 function log(action, detail){
   logs.unshift({time:new Date().toLocaleString(), action, detail});
-  save();
+  localStorage.setItem('tax_logs_pro',JSON.stringify(logs));
 }
 
 function money(n){return Number(n||0).toLocaleString()+"원"}
+function val(id){return document.getElementById(id).value}
 
 function show(id,btn){
   document.querySelectorAll('section').forEach(s=>s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
   document.querySelectorAll('nav button').forEach(b=>b.classList.remove('active'));
   btn.classList.add('active');
+  closeMenuMobile();
 }
 
 function badge(v){
-  let cls = v.includes('완료') || v==='제출' || v==='유지' ? 'done' : v.includes('미') || v==='해지' ? 'warn' : 'ing';
+  v = String(v||'');
+  let cls = v.includes('완료') || v==='제출' || v==='유지' || v==='완납' ? 'done' :
+            v.includes('미') || v==='해지' || v==='보완필요' ? 'warn' : 'ing';
   return `<span class="badge ${cls}">${v}</span>`;
 }
 
@@ -316,7 +435,7 @@ function renderSelects(){
   const manager = document.getElementById('manager');
   if(manager) manager.innerHTML = users.map(u=>`<option>${u.name}</option>`).join('');
 
-  ['taxClient','docClient','feeClient'].forEach(id=>{
+  ['taxClient','docClient','feeClient','msgClient'].forEach(id=>{
     const el = document.getElementById(id);
     if(el) el.innerHTML = clients.map(c=>`<option value="${c.id}">${c.name}</option>`).join('');
   });
@@ -329,13 +448,18 @@ function addClient(){
     ceo: val('ceo'),
     bizNo: val('bizNo'),
     phone: val('phone'),
+    email: val('email'),
+    address: val('address'),
     type: val('type'),
     industry: val('industry'),
     manager: val('manager'),
     status: val('status'),
+    contractDate: val('contractDate'),
+    bookkeeping: val('bookkeeping'),
     memo: val('memo'),
-    docs:{sales:'미제출',purchase:'미제출',card:'미제출',bank:'미제출'},
-    fee:{monthly:0,report:0,consult:0,paid:0}
+    docs:{sales:'미제출',purchase:'미제출',card:'미제출',bank:'미제출',payroll:'미제출',invoice:'미제출'},
+    fee:{monthly:0,report:0,consult:0,etc:0,paid:0,status:'미수'},
+    notes:[]
   };
   if(!c.name){alert('고객명을 입력하세요');return}
   clients.push(c);
@@ -344,8 +468,6 @@ function addClient(){
   alert('저장되었습니다.');
 }
 
-function val(id){return document.getElementById(id).value}
-
 function renderClients(){
   const q = (document.getElementById('clientSearch')?.value || '').toLowerCase();
   const rows = document.getElementById('clientRows');
@@ -353,11 +475,41 @@ function renderClients(){
   clients.filter(c=>JSON.stringify(c).toLowerCase().includes(q)).forEach(c=>{
     rows.innerHTML += `
     <tr>
-      <td>${c.id}</td><td>${c.name}</td><td>${c.ceo}</td><td>${c.type}</td>
-      <td>${c.industry}</td><td>${c.manager}</td><td>${badge(c.status)}</td>
-      <td><button class="action red" onclick="deleteClient(${c.id})">삭제</button></td>
+      <td>${c.id}</td><td>${c.name}</td><td>${c.ceo||'-'}</td><td>${c.type}</td>
+      <td>${c.industry||'-'}</td><td>${c.manager}</td><td>${badge(c.status)}</td>
+      <td>
+        <button class="action gray" onclick="viewClient(${c.id})">상세</button>
+        <button class="action red" onclick="deleteClient(${c.id})">삭제</button>
+      </td>
     </tr>`;
   });
+}
+
+function viewClient(id){
+  const c = clients.find(x=>x.id===id);
+  const detail = document.getElementById('clientDetail');
+  detail.innerHTML = `
+  <div class="detail">
+    <h3>${c.name} 상세</h3>
+    <p><b>대표:</b> ${c.ceo||'-'} / <b>사업자번호:</b> ${c.bizNo||'-'} / <b>연락처:</b> ${c.phone||'-'}</p>
+    <p><b>주소:</b> ${c.address||'-'} / <b>기장:</b> ${c.bookkeeping||'-'} / <b>수임일:</b> ${c.contractDate||'-'}</p>
+    <p><b>메모:</b> ${c.memo||'-'}</p>
+    <textarea id="note_${id}" rows="3" placeholder="상담 이력 추가"></textarea>
+    <button class="action" onclick="addNote(${id})">상담 이력 저장</button>
+    <h4>상담 이력</h4>
+    ${(c.notes||[]).map(n=>`<p class="small">- ${n.time} / ${n.text}</p>`).join('') || '<p class="small">이력 없음</p>'}
+  </div>`;
+}
+
+function addNote(id){
+  const c = clients.find(x=>x.id===id);
+  const text = document.getElementById(`note_${id}`).value;
+  if(!text)return;
+  c.notes = c.notes || [];
+  c.notes.unshift({time:new Date().toLocaleString(), text});
+  log('상담 이력 추가', `${c.name} / ${text}`);
+  save();
+  viewClient(id);
 }
 
 function deleteClient(id){
@@ -379,7 +531,9 @@ function addTax(){
     clientName:c.name,
     manager:c.manager,
     type:val('taxType'),
-    status:val('taxStatus')
+    status:val('taxStatus'),
+    due:val('taxDue'),
+    memo:val('taxMemo')
   });
   log('신고 저장', `${c.name} / ${val('taxType')} / ${val('taxStatus')}`);
   save(); renderTax();
@@ -392,7 +546,7 @@ function renderTax(){
   taxes.forEach(t=>{
     rows.innerHTML += `
     <tr>
-      <td>${t.clientName}</td><td>${t.type}</td><td>${badge(t.status)}</td><td>${t.manager}</td>
+      <td>${t.clientName}</td><td>${t.type}</td><td>${badge(t.status)}</td><td>${t.due||'-'}</td><td>${t.manager}</td>
       <td><button class="action gray" onclick="changeTax(${t.id})">상태변경</button></td>
     </tr>`;
   });
@@ -400,48 +554,56 @@ function renderTax(){
 
 function changeTax(id){
   const t = taxes.find(x=>x.id===id);
-  const next = prompt('상태 입력: 대기/자료요청/자료수령/검토중/신고완료/납부안내', t.status);
+  const next = prompt('상태 입력: 대기/자료요청/자료수령/검토중/신고완료/납부안내/종결', t.status);
   if(next){t.status=next;log('신고 상태 변경', `${t.clientName} → ${next}`);save();renderTax();}
 }
 
+function loadDocForm(){
+  const c = clients.find(x=>x.id==val('docClient'));
+  if(!c)return;
+  document.getElementById('salesDoc').value = c.docs.sales;
+  document.getElementById('purchaseDoc').value = c.docs.purchase;
+  document.getElementById('cardDoc').value = c.docs.card;
+  document.getElementById('bankDoc').value = c.docs.bank;
+  document.getElementById('payrollDoc').value = c.docs.payroll;
+  document.getElementById('invoiceDoc').value = c.docs.invoice;
+}
+
 function renderDocs(){
-  renderSelects();
+  renderSelects(); loadDocForm();
   const rows = document.getElementById('docRows');
   rows.innerHTML = '';
   clients.forEach(c=>{
-    rows.innerHTML += `<tr><td>${c.name}</td><td>${badge(c.docs.sales)}</td><td>${badge(c.docs.purchase)}</td><td>${badge(c.docs.card)}</td><td>${badge(c.docs.bank)}</td></tr>`;
+    rows.innerHTML += `<tr><td>${c.name}</td><td>${badge(c.docs.sales)}</td><td>${badge(c.docs.purchase)}</td><td>${badge(c.docs.card)}</td><td>${badge(c.docs.bank)}</td><td>${badge(c.docs.payroll)}</td><td>${badge(c.docs.invoice)}</td></tr>`;
   });
 }
 
 function saveDocs(){
-  const id = Number(val('docClient'));
-  const c = clients.find(x=>x.id===id);
+  const c = clients.find(x=>x.id==val('docClient'));
+  if(!c)return;
   c.docs = {
-    sales:val('salesDoc'),
-    purchase:val('purchaseDoc'),
-    card:val('cardDoc'),
-    bank:val('bankDoc')
+    sales:val('salesDoc'), purchase:val('purchaseDoc'), card:val('cardDoc'),
+    bank:val('bankDoc'), payroll:val('payrollDoc'), invoice:val('invoiceDoc')
   };
   log('자료 상태 저장', `${c.name}`);
   save(); renderDocs();
 }
 
-function generateDocMessage(){
-  const id = Number(val('docClient'));
-  const c = clients.find(x=>x.id===id);
-  if(!c)return;
-  const need = [];
-  if(c.docs.sales==='미제출') need.push('매출자료');
-  if(c.docs.purchase==='미제출') need.push('매입자료');
-  if(c.docs.card==='미제출') need.push('카드내역');
-  if(c.docs.bank==='미제출') need.push('계좌내역');
+function missingDocs(c){
+  const map = {sales:'매출자료',purchase:'매입자료',card:'카드내역',bank:'계좌내역',payroll:'급여자료',invoice:'세금계산서'};
+  return Object.keys(map).filter(k=>c.docs[k]!=='제출').map(k=>map[k]);
+}
 
+function generateDocMessage(){
+  const c = clients.find(x=>x.id==val('docClient'));
+  if(!c)return;
+  const need = missingDocs(c);
   document.getElementById('docMessage').innerText =
 `안녕하세요. ${c.name} 세무자료 요청 안내드립니다.
 
-이번 신고 진행을 위해 아래 자료 제출이 필요합니다.
+신고 진행을 위해 아래 자료 확인이 필요합니다.
 
-${need.length ? need.map((x,i)=>`${i+1}. ${x}`).join('\n') : '현재 미제출 자료가 없습니다.'}
+${need.length ? need.map((x,i)=>`${i+1}. ${x}`).join('\n') : '현재 추가 요청 자료가 없습니다.'}
 
 자료 확인 후 전달 부탁드립니다.
 감사합니다.`;
@@ -452,6 +614,7 @@ function renderSchedule(){
   const base = [
     ['매월 10일','원천세 신고','급여 지급 사업장','정기'],
     ['매월 25일','부가세 신고/납부','부가세 대상자','정기'],
+    ['1월/7월','부가세 확정신고','개인/법인 사업자','정기'],
     ['5월','종합소득세','개인사업자/프리랜서','연간'],
     ['3월','법인세','법인사업자','연간'],
     ['분기별','4대보험 정산','직원 보유 사업장','정기']
@@ -459,29 +622,86 @@ function renderSchedule(){
   rows.innerHTML = base.map(x=>`<tr><td>${x[0]}</td><td>${x[1]}</td><td>${x[2]}</td><td>${badge(x[3])}</td></tr>`).join('');
 }
 
+function loadFeeForm(){
+  const c = clients.find(x=>x.id==val('feeClient'));
+  if(!c)return;
+  const f = c.fee || {};
+  monthlyFee.value = f.monthly || 0;
+  reportFee.value = f.report || 0;
+  consultFee.value = f.consult || 0;
+  etcFee.value = f.etc || 0;
+  paidFee.value = f.paid || 0;
+  paymentStatus.value = f.status || '미수';
+}
+
 function renderFees(){
-  renderSelects();
+  renderSelects(); loadFeeForm();
   const rows = document.getElementById('feeRows');
   rows.innerHTML = '';
   clients.forEach(c=>{
     const f = c.fee || {};
-    const total = Number(f.monthly||0)+Number(f.report||0)+Number(f.consult||0);
+    const total = Number(f.monthly||0)+Number(f.report||0)+Number(f.consult||0)+Number(f.etc||0);
     const paid = Number(f.paid||0);
-    rows.innerHTML += `<tr><td>${c.name}</td><td>${money(total)}</td><td>${money(paid)}</td><td>${money(Math.max(total-paid,0))}</td></tr>`;
+    rows.innerHTML += `<tr><td>${c.name}</td><td>${money(f.monthly)}</td><td>${money(f.report)}</td><td>${money(f.consult)}</td><td>${money(f.etc)}</td><td>${money(total)}</td><td>${money(paid)}</td><td>${badge(money(Math.max(total-paid,0)))}</td></tr>`;
   });
 }
 
 function saveFee(){
-  const id = Number(val('feeClient'));
-  const c = clients.find(x=>x.id===id);
+  const c = clients.find(x=>x.id==val('feeClient'));
+  if(!c)return;
   c.fee = {
-    monthly:Number(val('monthlyFee')),
-    report:Number(val('reportFee')),
-    consult:Number(val('consultFee')),
-    paid:Number(val('paidFee'))
+    monthly:Number(val('monthlyFee')), report:Number(val('reportFee')),
+    consult:Number(val('consultFee')), etc:Number(val('etcFee')),
+    paid:Number(val('paidFee')), status:val('paymentStatus')
   };
   log('수임료 저장', `${c.name}`);
   save(); renderFees();
+}
+
+function renderMessageSelect(){renderSelects();}
+
+function generateMessage(){
+  const c = clients.find(x=>x.id==val('msgClient'));
+  if(!c)return;
+  const type = val('msgType');
+  const f = c.fee || {};
+  const total = Number(f.monthly||0)+Number(f.report||0)+Number(f.consult||0)+Number(f.etc||0);
+  const unpaid = Math.max(total-Number(f.paid||0),0);
+  let text = '';
+
+  if(type==='자료 요청 안내') text = `안녕하세요. ${c.name} 세무자료 요청드립니다.\n\n신고 진행을 위해 매출자료, 매입자료, 카드내역, 계좌내역 확인 부탁드립니다.\n감사합니다.`;
+  if(type==='신고 완료 안내') text = `안녕하세요. ${c.name} 신고 업무가 완료되었습니다.\n\n납부 또는 환급 관련 안내는 별도 전달드리겠습니다.\n감사합니다.`;
+  if(type==='납부 안내') text = `안녕하세요. ${c.name} 세금 납부 안내드립니다.\n\n납부기한 내 확인 부탁드리며, 문의사항은 담당자에게 연락 부탁드립니다.`;
+  if(type==='미수금 안내') text = `안녕하세요. ${c.name} 수임료 미수금 안내드립니다.\n\n현재 미수금: ${money(unpaid)}\n확인 후 입금 부탁드립니다.`;
+  if(type==='상담 일정 안내') text = `안녕하세요. ${c.name} 상담 일정 안내드립니다.\n\n가능하신 시간 회신 부탁드립니다.\n감사합니다.`;
+
+  document.getElementById('msgOutput').innerText = text;
+  log('안내문 생성', `${c.name} / ${type}`);
+}
+
+function renderReports(){
+  const active = clients.filter(c=>c.status==='유지').length;
+  const inactive = clients.filter(c=>c.status==='휴면'||c.status==='해지').length;
+  const doneTax = taxes.filter(t=>t.status.includes('완료')||t.status==='종결').length;
+
+  let totalBill = 0;
+  clients.forEach(c=>{
+    const f=c.fee||{};
+    totalBill += Number(f.monthly||0)+Number(f.report||0)+Number(f.consult||0)+Number(f.etc||0);
+  });
+
+  rActive.innerText = active;
+  rInactive.innerText = inactive;
+  rDoneTax.innerText = doneTax;
+  rTotalBill.innerText = money(totalBill);
+
+  const rows = document.getElementById('managerReport');
+  rows.innerHTML = '';
+  users.forEach(u=>{
+    const count = clients.filter(c=>c.manager===u.name).length;
+    const taxCount = taxes.filter(t=>t.manager===u.name && !t.status.includes('완료')).length;
+    rows.innerHTML += `<tr><td>${u.name}</td><td>${count}</td><td>${taxCount}</td></tr>`;
+  });
 }
 
 function addUser(){
@@ -514,29 +734,47 @@ function renderLogs(){
 }
 
 function renderDashboard(){
-  document.getElementById('statClients').innerText = clients.length;
-  document.getElementById('statTax').innerText = taxes.filter(t=>!t.status.includes('완료')).length;
+  statClients.innerText = clients.length;
+  statTax.innerText = taxes.filter(t=>!t.status.includes('완료') && t.status!=='종결').length;
 
   let missing = 0;
-  clients.forEach(c=>{
-    Object.values(c.docs||{}).forEach(v=>{if(v==='미제출')missing++});
-  });
-  document.getElementById('statDocs').innerText = missing;
+  clients.forEach(c=>Object.values(c.docs||{}).forEach(v=>{if(v!=='제출')missing++}));
+  statDocs.innerText = missing;
 
   let unpaid = 0;
   clients.forEach(c=>{
-    const f = c.fee||{};
-    const total = Number(f.monthly||0)+Number(f.report||0)+Number(f.consult||0);
+    const f=c.fee||{};
+    const total=Number(f.monthly||0)+Number(f.report||0)+Number(f.consult||0)+Number(f.etc||0);
     unpaid += Math.max(total-Number(f.paid||0),0);
   });
-  document.getElementById('statUnpaid').innerText = money(unpaid);
+  statUnpaid.innerText = money(unpaid);
 
-  const dash = document.getElementById('dashRows');
-  dash.innerHTML = taxes.slice(0,6).map(t=>`<tr><td>${t.clientName}</td><td>${t.type}</td><td>${badge(t.status)}</td><td>${t.manager}</td></tr>`).join('');
+  dashRows.innerHTML = taxes.slice(0,6).map(t=>`<tr><td>${t.clientName}</td><td>${t.type}</td><td>${badge(t.status)}</td><td>${t.due||'-'}</td><td>${t.manager}</td></tr>`).join('');
+}
+
+function exportData(){
+  const data = {users,clients,taxes,logs,exportedAt:new Date().toISOString()};
+  const text = JSON.stringify(data,null,2);
+  backupText.innerText = text;
+  const blob = new Blob([text],{type:'application/json'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'hviral-tax-erp-backup.json';
+  a.click();
+}
+
+function resetData(){
+  if(!confirm('전체 데이터를 초기화하시겠습니까?'))return;
+  localStorage.removeItem('tax_users_pro');
+  localStorage.removeItem('tax_clients_pro');
+  localStorage.removeItem('tax_reports_pro');
+  localStorage.removeItem('tax_logs_pro');
+  location.reload();
 }
 
 renderSelects();
 renderDashboard();
 </script>
+
 </body>
 </html>
