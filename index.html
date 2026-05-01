@@ -1,667 +1,182 @@
-from flask import Flask, request, redirect, url_for, session, render_template_string, abort
-import sqlite3, datetime, random
-from functools import wraps
-from werkzeug.security import generate_password_hash, check_password_hash
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>청년보도</title>
 
-APP_NAME = "청년보도"
-DB_PATH = "cheongnyeon_bodo.db"
-SECRET_KEY = "change-this-secret-key"
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:'Noto Sans KR',sans-serif;background:#f4f4f4}
+a{text-decoration:none;color:inherit}
 
-app = Flask(__name__)
-app.secret_key = SECRET_KEY
+header{background:#fff;border-bottom:1px solid #ddd}
+.top{max-width:1200px;margin:auto;display:flex;justify-content:space-between;padding:14px}
+.logo{font-size:32px;font-weight:900}.logo span{color:#c00}
 
-CATEGORIES = ["뉴스", "청년창업", "마케팅", "소상공인", "바이럴", "홈페이지", "인터뷰", "리포트", "보도자료", "협찬/광고"]
-REPORTERS = ["김민준", "이서연", "박지훈", "최유진", "정하늘", "오세훈", "문지아", "강도윤"]
+.nav{background:#111;color:#fff}
+.nav div{max-width:1200px;margin:auto;display:flex;gap:18px;padding:10px;overflow:auto}
 
-BASE_CSS = """
-*{box-sizing:border-box}body{margin:0;background:#f4f4f4;color:#111;font-family:Arial,'Noto Sans KR',sans-serif}a{text-decoration:none;color:inherit}
-header{background:#fff;border-bottom:1px solid #ddd;position:sticky;top:0;z-index:10}.top{max-width:1180px;margin:auto;padding:14px;display:flex;justify-content:space-between;align-items:center}
-.logo{font-size:32px;font-weight:900;letter-spacing:-2px}.logo span{color:#b40000}.nav{background:#111;color:#fff}.navin{max-width:1180px;margin:auto;display:flex;gap:18px;overflow:auto;padding:10px 14px;font-size:14px}
-button,.btn{display:inline-block;background:#111;color:#fff;border:0;padding:9px 12px;cursor:pointer}input,select,textarea{width:100%;padding:10px;border:1px solid #ccc;margin:6px 0}textarea{min-height:300px}
-.wrap{max-width:1180px;margin:18px auto;padding:0 14px}.grid{display:grid;grid-template-columns:2fr 1fr;gap:18px}.box,.card,.article,.admin{background:#fff;border:1px solid #ddd}.box{padding:18px}.main-title{font-size:31px;line-height:1.25;margin:0 0 10px;font-weight:900}.meta{font-size:12px;color:#777;margin:8px 0;line-height:1.7}
-.badge{display:inline-block;background:#b40000;color:#fff;font-size:12px;padding:4px 7px;margin:0 6px 6px 0}.ad{background:#555}.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.card{padding:13px;cursor:pointer}.thumb{height:110px;background:#e5e5e5;margin-bottom:10px;display:flex;align-items:center;justify-content:center;color:#777;font-weight:bold}.card h3{font-size:16px;margin:0 0 8px;line-height:1.35}
-.side h2,.section h2{border-bottom:2px solid #111;padding-bottom:8px;font-size:18px}.list li{border-bottom:1px solid #eee;padding:9px 0;font-size:14px}.article{max-width:900px;margin:18px auto;padding:28px}.article h1{font-size:34px;line-height:1.25;margin:10px 0}.body{font-size:17px;line-height:1.9;white-space:pre-wrap}.breadcrumb{font-size:13px;color:#777;margin-bottom:10px}
-.notice{background:#fafafa;border:1px solid #ddd;color:#555;padding:12px;font-size:13px;margin-top:18px}.admin{max-width:1000px;margin:18px auto;padding:18px}.table{width:100%;border-collapse:collapse;background:#fff}.table th,.table td{border:1px solid #ddd;padding:9px;font-size:13px;text-align:left}.pages{text-align:center;margin:20px}.pages a{display:inline-block;background:#555;color:#fff;padding:7px 10px;margin:3px}
-footer{background:#222;color:#ccc;margin-top:30px;padding:26px 14px;font-size:13px}.foot{max-width:1180px;margin:auto;line-height:1.8}
-@media(max-width:850px){.grid{grid-template-columns:1fr}.cards{grid-template-columns:1fr}.logo{font-size:26px}.main-title{font-size:23px}.article h1{font-size:25px}}
-"""
+.wrap{max-width:1200px;margin:auto;padding:14px}
 
-LAYOUT = """
-<!doctype html><html lang="ko"><head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>{{ title or app_name }}</title><style>{{ css }}</style></head><body>
+.main{display:grid;grid-template-columns:2fr 1fr;gap:20px}
+
+.box{background:#fff;border:1px solid #ddd;padding:18px}
+
+.main-img{width:100%;height:260px;object-fit:cover;margin-bottom:10px}
+
+.title{font-size:28px;font-weight:900;margin-bottom:10px}
+.meta{font-size:12px;color:#777}
+
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:20px}
+
+.card{background:#fff;border:1px solid #ddd}
+.card img{width:100%;height:150px;object-fit:cover}
+.card-body{padding:10px}
+.card h3{font-size:16px;margin:0 0 6px}
+
+.side li{padding:8px 0;border-bottom:1px solid #eee}
+
+.section{margin-top:30px}
+
+.badge{background:#c00;color:#fff;font-size:11px;padding:3px 6px;margin-right:6px}
+
+footer{background:#222;color:#ccc;padding:20px;margin-top:40px;font-size:13px}
+
+@media(max-width:800px){
+.main{grid-template-columns:1fr}
+.grid{grid-template-columns:1fr}
+}
+</style>
+
+</head>
+
+<body>
+
 <header>
-  <div class="top">
-    <a class="logo" href="/">청년<span>보도</span></a>
-    <div>
-      {% if session.get('user_id') %}
-        <a class="btn" href="/admin">백오피스</a>
-        <a class="btn" href="/logout">로그아웃</a>
-      {% else %}
-        <a class="btn" href="/login">기자 로그인</a>
-      {% endif %}
-    </div>
-  </div>
-  <div class="nav"><div class="navin">
-    <a href="/">전체</a>
-    {% for c in categories %}<a href="/category/{{ c }}">{{ c }}</a>{% endfor %}
-  </div></div>
+<div class="top">
+  <div class="logo">청년<span>보도</span></div>
+  <div>로그인</div>
+</div>
+
+<div class="nav">
+<div>
+<span>뉴스</span>
+<span>청년창업</span>
+<span>마케팅</span>
+<span>소상공인</span>
+<span>바이럴</span>
+<span>인터뷰</span>
+<span>리포트</span>
+<span>보도자료</span>
+<span>협찬/광고</span>
+</div>
+</div>
 </header>
-{{ body|safe }}
-<footer><div class="foot">
-  <b>청년보도</b><br>
-  발행인: 청년보도 편집국 | 편집인: 청년보도 편집부<br>
-  주소: 서울특별시 | 이메일: contact@youthbodo.kr<br>
-  ※ 본 사이트는 온라인 보도형 콘텐츠 사이트 예시입니다. 실제 인터넷신문으로 운영할 경우 관련 등록요건, 표시의무, 편집책임자 정보, 등록번호 등을 별도 확인·표기해야 합니다.<br>
-  ※ 협찬/광고성 콘텐츠는 기사 상단 및 하단에 별도 표시됩니다.
-</div></footer></body></html>
-"""
 
-def db():
-    conn = sqlite3.connect(DB_PATH)
-    conn.row_factory = sqlite3.Row
-    return conn
+<div class="wrap">
+
+<div class="main">
+
+<!-- 메인 기사 -->
+<div class="box">
+<img src="https://picsum.photos/800/400" class="main-img">
+
+<div class="badge">주요뉴스</div>
+<div class="title">청년 창업 시장, 마케팅 흐름 변화 본격화</div>
+
+<div class="meta">
+김민준 기자 | 입력 2026.05.02 14:22 | 수정 2026.05.02 14:40 | 기사번호 202605021422001
+</div>
+
+<p>
+최근 청년 창업 시장에서 마케팅 방식이 빠르게 변화하고 있다.
+단순 노출 중심 전략에서 벗어나 흐름 중심 전략이 중요해지는 분위기다.
+</p>
+</div>
+
+<!-- 사이드 -->
+<div class="box">
+<h3>실시간 주요뉴스</h3>
+<ul class="side">
+<li>청년 창업 흐름 변화 본격화</li>
+<li>소상공인 마케팅 전략 변화</li>
+<li>바이럴 콘텐츠 방향 변화</li>
+<li>홈페이지 전환 구조 중요성 증가</li>
+<li>검색 결과 신뢰 영향 확대</li>
+</ul>
+</div>
+
+</div>
+
+<!-- 카드 기사 -->
+<div class="grid">
+
+<div class="card">
+<img src="https://picsum.photos/300/200">
+<div class="card-body">
+<h3>소상공인 마케팅, 누적 콘텐츠 중요성 증가</h3>
+<div class="meta">이서연 기자 | 2026.05.01</div>
+</div>
+</div>
+
+<div class="card">
+<img src="https://picsum.photos/301/200">
+<div class="card-body">
+<h3>바이럴 기획, 읽히는 구조 중요</h3>
+<div class="meta">박지훈 기자 | 2026.04.30</div>
+</div>
+</div>
+
+<div class="card">
+<img src="https://picsum.photos/302/200">
+<div class="card-body">
+<h3>홈페이지 제작, 전환 구조 핵심</h3>
+<div class="meta">최유진 기자 | 2026.04.29</div>
+</div>
+</div>
+
+</div>
+
+<!-- 최신 기사 -->
+<div class="section">
+<h2>최신 기사</h2>
+
+<div class="grid">
+
+<div class="card">
+<img src="https://picsum.photos/303/200">
+<div class="card-body">
+<h3>검색 결과 관리, 브랜드 신뢰 영향</h3>
+<div class="meta">정하늘 기자</div>
+</div>
+</div>
+
+<div class="card">
+<img src="https://picsum.photos/304/200">
+<div class="card-body">
+<h3>청년 브랜드 콘텐츠 전략 변화</h3>
+<div class="meta">오세훈 기자</div>
+</div>
+</div>
+
+<div class="card">
+<img src="https://picsum.photos/305/200">
+<div class="card-body">
+<h3>마케팅 실행 이후 관리 중요</h3>
+<div class="meta">문지아 기자</div>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<footer>
+청년보도 | 발행인: 청년보도 편집부<br>
+※ 일부 콘텐츠에는 광고성 내용이 포함될 수 있습니다.
+</footer>
 
-def now():
-    return datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-
-def article_no():
-    return datetime.datetime.now().strftime("%Y%m%d%H%M%S") + str(random.randint(100,999))
-
-def init_db():
-    conn = db()
-    cur = conn.cursor()
-    cur.executescript("""
-    CREATE TABLE IF NOT EXISTS users(
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      username TEXT UNIQUE,
-      password_hash TEXT,
-      name TEXT,
-      role TEXT
-    );
-    CREATE TABLE IF NOT EXISTS articles(
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      article_no TEXT UNIQUE,
-      title TEXT,
-      subtitle TEXT,
-      category TEXT,
-      content TEXT,
-      reporter_name TEXT,
-      status TEXT,
-      is_ad INTEGER DEFAULT 0,
-      source_note TEXT,
-      created_at TEXT,
-      updated_at TEXT,
-      published_at TEXT,
-      approved_by TEXT
-    );
-    CREATE TABLE IF NOT EXISTS revision_logs(
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      article_id INTEGER,
-      user_name TEXT,
-      action TEXT,
-      memo TEXT,
-      created_at TEXT
-    );
-    """)
-    conn.commit()
-
-    if cur.execute("SELECT COUNT(*) FROM users").fetchone()[0] == 0:
-        users = [
-            ("admin", "1234", "관리자", "admin"),
-            ("editor", "1234", "편집국장", "editor"),
-            ("reporter", "1234", "김민준", "reporter"),
-        ]
-        for u,p,n,r in users:
-            cur.execute(
-                "INSERT INTO users(username,password_hash,name,role) VALUES(?,?,?,?)",
-                (u, generate_password_hash(p), n, r)
-            )
-        conn.commit()
-
-    if cur.execute("SELECT COUNT(*) FROM articles").fetchone()[0] == 0:
-        seed_articles(cur)
-        conn.commit()
-    conn.close()
-
-def seed_articles(cur):
-    titles = [
-        "청년 창업 현장, 초기 유입보다 신뢰 관리 중요",
-        "소상공인 마케팅, 단기 노출보다 누적 콘텐츠 주목",
-        "지역 업체들, 블로그와 홈페이지 연결 강화",
-        "바이럴 기획, 단순 확산보다 읽히는 순서가 관건",
-        "브랜드 검색 결과, 초기 신뢰 형성에 영향",
-        "홈페이지 제작 시장, 보기 좋은 디자인보다 전환 흐름 중요",
-        "온라인 콘텐츠 운영, 꾸준한 발행 리듬이 핵심",
-        "마케팅 실행 현장, 고객 반응 기록 중요성 커져",
-        "청년 사업자들, 검색 노출 관리에 관심 증가",
-        "소규모 브랜드, 공식 채널 정비 필요성 부각",
-        "바이럴 콘텐츠, 제목과 첫 문장의 역할 커져",
-        "지역 기반 업체, 플레이스와 블로그 병행 운영",
-        "초기 브랜드, 검색 첫 화면 관리가 과제로",
-        "마케팅 비용 부담 속 효율 점검 움직임",
-        "콘텐츠 기획, 단순 홍보보다 정보형 글 선호",
-        "청년 창업자, 홈페이지와 블로그 동시 구축 늘어",
-        "소상공인 홍보 방식, 후기와 기록 중심으로 변화",
-        "온라인 유입 경쟁 심화, 차별화된 메시지 필요",
-        "브랜드 콘텐츠, 반복 노출보다 일관성 중요",
-        "마케팅 현장, 실행 이후 관리 체계 요구 증가"
-    ]
-
-    for i in range(1,101):
-        category = CATEGORIES[i % len(CATEGORIES)]
-        is_ad = 1 if category == "협찬/광고" or i % 13 == 0 else 0
-        reporter = REPORTERS[i % len(REPORTERS)]
-        month = 3 if i > 70 else 4 if i > 35 else 5
-        day = (i % 28) + 1
-        created = f"2026-{month:02d}-{day:02d} {9+(i%10):02d}:{10+(i%40):02d}:00"
-        updated = f"2026-{month:02d}-{day:02d} {10+(i%9):02d}:{15+(i%35):02d}:00"
-        title = titles[i % len(titles)] + f" ({i})"
-        subtitle = "청년·창업·마케팅 현장의 변화를 짚는 청년보도 리포트"
-
-        content = f"""{title}
-
-최근 청년 창업과 소상공인 시장에서는 단순한 홍보보다 실제 고객이 정보를 확인하고 움직이는 과정이 중요해지고 있다.
-
-업계에서는 온라인 노출이 늘어도 문의와 방문으로 이어지지 않는 사례가 반복되고 있다는 의견이 나온다. 이에 따라 사업자들은 블로그, 홈페이지, 플레이스, SNS 등 여러 접점을 따로 보는 것이 아니라 하나의 흐름으로 점검하려는 움직임을 보이고 있다.
-
-특히 브랜드명을 검색했을 때 관련 정보가 정리되어 있는지, 최근 콘텐츠가 유지되고 있는지, 신뢰할 수 있는 공식 채널이 연결되어 있는지는 초기 판단에 영향을 주는 요소로 꼽힌다.
-
-한 현장 관계자는 “예전에는 노출 자체가 중요했다면 최근에는 검색 이후 사용자가 어떤 정보를 확인하고 어떤 판단을 하게 되는지가 중요해졌다”고 말했다.
-
-청년보도는 앞으로 청년 창업, 지역 사업자, 마케팅 실행, 바이럴 콘텐츠, 홈페이지 운영 등 현장에서 확인되는 변화를 지속적으로 보도할 예정이다."""
-
-        source_note = "본 콘텐츠는 취재 및 공개 자료를 바탕으로 작성되었습니다."
-        if is_ad:
-            source_note = "본 콘텐츠는 협찬 또는 광고성 내용을 포함할 수 있으며, 관련 표시 기준에 따라 구분 표기됩니다."
-
-        cur.execute("""
-        INSERT INTO articles(
-          article_no,title,subtitle,category,content,reporter_name,status,
-          is_ad,source_note,created_at,updated_at,published_at,approved_by
-        )
-        VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)
-        """, (
-            article_no(), title, subtitle, category, content, reporter,
-            "published", is_ad, source_note, created, updated, created, "편집국장"
-        ))
-
-def render(body, title=None):
-    return render_template_string(
-        LAYOUT,
-        body=body,
-        title=title,
-        app_name=APP_NAME,
-        css=BASE_CSS,
-        categories=CATEGORIES
-    )
-
-def current_user():
-    if not session.get("user_id"):
-        return None
-    conn = db()
-    u = conn.execute("SELECT * FROM users WHERE id=?", (session["user_id"],)).fetchone()
-    conn.close()
-    return u
-
-def login_required(fn):
-    @wraps(fn)
-    def wrapper(*args, **kwargs):
-        if not session.get("user_id"):
-            return redirect(url_for("login"))
-        return fn(*args, **kwargs)
-    return wrapper
-
-def editor_required(fn):
-    @wraps(fn)
-    def wrapper(*args, **kwargs):
-        u = current_user()
-        if not u or u["role"] not in ("admin", "editor"):
-            abort(403)
-        return fn(*args, **kwargs)
-    return wrapper
-
-@app.route("/")
-def index():
-    conn = db()
-    articles = conn.execute(
-        "SELECT * FROM articles WHERE status='published' ORDER BY published_at DESC LIMIT 30"
-    ).fetchall()
-    main = articles[0] if articles else None
-
-    body = render_template_string("""
-    <div class="wrap">
-      <div class="grid">
-        <section>
-          {% if main %}
-          <div class="box" onclick="location.href='/article/{{ main.id }}'">
-            {% if main.is_ad %}<span class="badge ad">협찬/광고</span>{% endif %}
-            <span class="badge">주요뉴스</span>
-            <h1 class="main-title">{{ main.title }}</h1>
-            <div class="meta">
-              {{ main.category }} | {{ main.reporter_name }} 기자 |
-              입력 {{ main.published_at }} | 기사번호 {{ main.article_no }}
-            </div>
-            <p>{{ main.content[:160] }}...</p>
-          </div>
-          {% endif %}
-
-          <div class="cards" style="margin-top:14px">
-            {% for a in articles[1:7] %}
-            <div class="card" onclick="location.href='/article/{{ a.id }}'">
-              <div class="thumb">{{ a.category }}</div>
-              {% if a.is_ad %}<span class="badge ad">광고</span>{% endif %}
-              <h3>{{ a.title }}</h3>
-              <div class="meta">{{ a.reporter_name }} 기자 | {{ a.published_at[:10] }}</div>
-            </div>
-            {% endfor %}
-          </div>
-        </section>
-
-        <aside class="side box">
-          <h2>실시간 주요뉴스</h2>
-          <ol class="list">
-            {% for a in articles[:10] %}
-            <li><a href="/article/{{ a.id }}">{{ a.title }}</a></li>
-            {% endfor %}
-          </ol>
-        </aside>
-      </div>
-    </div>
-
-    <div class="wrap section">
-      <h2>최신 기사</h2>
-      <div class="cards">
-      {% for a in articles[7:] %}
-        <div class="card" onclick="location.href='/article/{{ a.id }}'">
-          <div class="thumb">{{ a.category }}</div>
-          {% if a.is_ad %}<span class="badge ad">광고</span>{% endif %}
-          <h3>{{ a.title }}</h3>
-          <div class="meta">{{ a.category }} | {{ a.reporter_name }} 기자 | {{ a.published_at[:10] }}</div>
-        </div>
-      {% endfor %}
-      </div>
-    </div>
-    """, articles=articles, main=main)
-
-    conn.close()
-    return render(body)
-
-@app.route("/category/<cat>")
-def category(cat):
-    page = int(request.args.get("page", 1))
-    per = 12
-    offset = (page - 1) * per
-
-    conn = db()
-    total = conn.execute(
-        "SELECT COUNT(*) FROM articles WHERE status='published' AND category=?",
-        (cat,)
-    ).fetchone()[0]
-
-    articles = conn.execute(
-        "SELECT * FROM articles WHERE status='published' AND category=? ORDER BY published_at DESC LIMIT ? OFFSET ?",
-        (cat, per, offset)
-    ).fetchall()
-
-    pages = (total + per - 1) // per
-
-    body = render_template_string("""
-    <div class="wrap section">
-      <h2>{{ cat }}</h2>
-      <div class="cards">
-      {% for a in articles %}
-        <div class="card" onclick="location.href='/article/{{ a.id }}'">
-          <div class="thumb">{{ a.category }}</div>
-          {% if a.is_ad %}<span class="badge ad">광고</span>{% endif %}
-          <h3>{{ a.title }}</h3>
-          <div class="meta">{{ a.reporter_name }} 기자 | 입력 {{ a.published_at }}</div>
-        </div>
-      {% endfor %}
-      </div>
-
-      <div class="pages">
-        {% for p in range(1, pages + 1) %}
-        <a href="/category/{{ cat }}?page={{ p }}">{{ p }}</a>
-        {% endfor %}
-      </div>
-    </div>
-    """, cat=cat, articles=articles, pages=pages)
-
-    conn.close()
-    return render(body, cat)
-
-@app.route("/article/<int:article_id>")
-def article(article_id):
-    conn = db()
-    a = conn.execute(
-        "SELECT * FROM articles WHERE id=? AND status='published'",
-        (article_id,)
-    ).fetchone()
-
-    logs = conn.execute(
-        "SELECT * FROM revision_logs WHERE article_id=? ORDER BY created_at DESC",
-        (article_id,)
-    ).fetchall()
-
-    conn.close()
-
-    if not a:
-        abort(404)
-
-    body = render_template_string("""
-    <article class="article">
-      <div class="breadcrumb">홈 &gt; {{ a.category }} &gt; 기사</div>
-
-      {% if a.is_ad %}<span class="badge ad">협찬/광고</span>{% endif %}
-      <span class="badge">{{ a.category }}</span>
-
-      <h1>{{ a.title }}</h1>
-      <p><b>{{ a.subtitle }}</b></p>
-
-      <div class="meta">
-        {{ a.reporter_name }} 기자 | 입력 {{ a.published_at }} | 수정 {{ a.updated_at }}<br>
-        기사번호 {{ a.article_no }} | 승인 {{ a.approved_by or '-' }}
-      </div>
-
-      <div class="body">{{ a.content }}</div>
-
-      <div class="notice">{{ a.source_note }}</div>
-
-      {% if a.is_ad %}
-      <div class="notice">※ 본 기사는 협찬 또는 광고성 내용을 포함하고 있습니다.</div>
-      {% endif %}
-
-      {% if logs %}
-      <div class="notice">
-        <b>수정·관리 이력</b><br>
-        {% for l in logs %}
-        {{ l.created_at }} | {{ l.user_name }} | {{ l.action }} | {{ l.memo }}<br>
-        {% endfor %}
-      </div>
-      {% endif %}
-    </article>
-    """, a=a, logs=logs)
-
-    return render(body, a["title"])
-
-@app.route("/login", methods=["GET", "POST"])
-def login():
-    if request.method == "POST":
-        conn = db()
-        u = conn.execute(
-            "SELECT * FROM users WHERE username=?",
-            (request.form["username"],)
-        ).fetchone()
-        conn.close()
-
-        if u and check_password_hash(u["password_hash"], request.form["password"]):
-            session["user_id"] = u["id"]
-            return redirect(url_for("admin"))
-
-    body = """
-    <div class="admin" style="display:block">
-      <h2>기자·편집자 로그인</h2>
-      <form method="post">
-        <input name="username" placeholder="아이디">
-        <input name="password" placeholder="비밀번호" type="password">
-        <button>로그인</button>
-      </form>
-      <p class="meta">admin / 1234, editor / 1234, reporter / 1234</p>
-    </div>
-    """
-    return render(body, "로그인")
-
-@app.route("/logout")
-def logout():
-    session.clear()
-    return redirect(url_for("index"))
-
-@app.route("/admin")
-@login_required
-def admin():
-    u = current_user()
-    conn = db()
-
-    if u["role"] in ("admin", "editor"):
-        articles = conn.execute(
-            "SELECT * FROM articles ORDER BY created_at DESC LIMIT 100"
-        ).fetchall()
-    else:
-        articles = conn.execute(
-            "SELECT * FROM articles WHERE reporter_name=? ORDER BY created_at DESC",
-            (u["name"],)
-        ).fetchall()
-
-    conn.close()
-
-    body = render_template_string("""
-    <div class="admin" style="display:block">
-      <h2>청년보도 백오피스</h2>
-      <p>{{ u.name }} / 권한: {{ u.role }}</p>
-
-      <a class="btn" href="/admin/write">기사 작성</a>
-
-      <table class="table" style="margin-top:14px">
-        <tr>
-          <th>번호</th>
-          <th>상태</th>
-          <th>구분</th>
-          <th>제목</th>
-          <th>기자</th>
-          <th>입력</th>
-          <th>관리</th>
-        </tr>
-
-        {% for a in articles %}
-        <tr>
-          <td>{{ a.article_no }}</td>
-          <td>{{ a.status }}</td>
-          <td>{{ "광고" if a.is_ad else "일반" }}</td>
-          <td>{{ a.title }}</td>
-          <td>{{ a.reporter_name }}</td>
-          <td>{{ a.created_at }}</td>
-          <td>
-            <a href="/admin/edit/{{ a.id }}">수정</a>
-            {% if u.role in ['admin','editor'] and a.status != 'published' %}
-            | <a href="/admin/approve/{{ a.id }}">승인발행</a>
-            {% endif %}
-          </td>
-        </tr>
-        {% endfor %}
-      </table>
-    </div>
-    """, u=u, articles=articles)
-
-    return render(body, "백오피스")
-
-@app.route("/admin/write", methods=["GET", "POST"])
-@login_required
-def write():
-    u = current_user()
-
-    if request.method == "POST":
-        status = "pending" if u["role"] == "reporter" else request.form.get("status", "published")
-        published_at = now() if status == "published" else None
-        approved_by = u["name"] if status == "published" else None
-
-        conn = db()
-        cur = conn.cursor()
-
-        cur.execute("""
-        INSERT INTO articles(
-          article_no,title,subtitle,category,content,reporter_name,status,
-          is_ad,source_note,created_at,updated_at,published_at,approved_by
-        )
-        VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)
-        """, (
-            article_no(),
-            request.form["title"],
-            request.form["subtitle"],
-            request.form["category"],
-            request.form["content"],
-            request.form["reporter_name"] or u["name"],
-            status,
-            1 if request.form.get("is_ad") else 0,
-            request.form["source_note"],
-            now(),
-            now(),
-            published_at,
-            approved_by
-        ))
-
-        aid = cur.lastrowid
-
-        cur.execute(
-            "INSERT INTO revision_logs(article_id,user_name,action,memo,created_at) VALUES(?,?,?,?,?)",
-            (aid, u["name"], "작성", f"상태: {status}", now())
-        )
-
-        conn.commit()
-        conn.close()
-
-        return redirect(url_for("admin"))
-
-    body = render_template_string("""
-    <div class="admin" style="display:block">
-      <h2>기사 작성</h2>
-
-      <form method="post">
-        <input name="title" placeholder="기사 제목">
-        <input name="subtitle" placeholder="부제목">
-
-        <select name="category">
-          {% for c in categories %}
-          <option>{{ c }}</option>
-          {% endfor %}
-        </select>
-
-        <input name="reporter_name" placeholder="기자명" value="{{ u.name }}">
-
-        <label>
-          <input type="checkbox" name="is_ad" style="width:auto">
-          협찬/광고 기사
-        </label>
-
-        <textarea name="content" placeholder="본문"></textarea>
-
-        <textarea name="source_note" style="min-height:80px">본 콘텐츠는 취재 및 공개 자료를 바탕으로 작성되었습니다.</textarea>
-
-        {% if u.role in ['admin','editor'] %}
-        <select name="status">
-          <option value="published">즉시 발행</option>
-          <option value="pending">승인대기</option>
-          <option value="draft">임시저장</option>
-        </select>
-        {% endif %}
-
-        <button>저장</button>
-      </form>
-    </div>
-    """, categories=CATEGORIES, u=u)
-
-    return render(body, "기사 작성")
-
-@app.route("/admin/edit/<int:article_id>", methods=["GET", "POST"])
-@login_required
-def edit(article_id):
-    u = current_user()
-    conn = db()
-
-    a = conn.execute(
-        "SELECT * FROM articles WHERE id=?",
-        (article_id,)
-    ).fetchone()
-
-    if not a:
-        abort(404)
-
-    if u["role"] == "reporter" and a["reporter_name"] != u["name"]:
-        abort(403)
-
-    if request.method == "POST":
-        conn.execute("""
-        UPDATE articles
-        SET title=?, subtitle=?, category=?, content=?, reporter_name=?,
-            is_ad=?, source_note=?, updated_at=?
-        WHERE id=?
-        """, (
-            request.form["title"],
-            request.form["subtitle"],
-            request.form["category"],
-            request.form["content"],
-            request.form["reporter_name"],
-            1 if request.form.get("is_ad") else 0,
-            request.form["source_note"],
-            now(),
-            article_id
-        ))
-
-        conn.execute(
-            "INSERT INTO revision_logs(article_id,user_name,action,memo,created_at) VALUES(?,?,?,?,?)",
-            (article_id, u["name"], "수정", request.form.get("memo", "본문/메타 수정"), now())
-        )
-
-        conn.commit()
-        conn.close()
-
-        return redirect(url_for("admin"))
-
-    conn.close()
-
-    body = render_template_string("""
-    <div class="admin" style="display:block">
-      <h2>기사 수정</h2>
-
-      <form method="post">
-        <input name="title" value="{{ a.title }}">
-        <input name="subtitle" value="{{ a.subtitle }}">
-
-        <select name="category">
-          {% for c in categories %}
-          <option {% if c==a.category %}selected{% endif %}>{{ c }}</option>
-          {% endfor %}
-        </select>
-
-        <input name="reporter_name" value="{{ a.reporter_name }}">
-
-        <label>
-          <input type="checkbox" name="is_ad" style="width:auto" {% if a.is_ad %}checked{% endif %}>
-          협찬/광고 기사
-        </label>
-
-        <textarea name="content">{{ a.content }}</textarea>
-        <textarea name="source_note" style="min-height:80px">{{ a.source_note }}</textarea>
-        <input name="memo" placeholder="수정 사유">
-
-        <button>수정 저장</button>
-      </form>
-    </div>
-    """, a=a, categories=CATEGORIES)
-
-    return render(body, "기사 수정")
-
-@app.route("/admin/approve/<int:article_id>")
-@editor_required
-def approve(article_id):
-    u = current_user()
-    conn = db()
-
-    conn.execute(
-        "UPDATE articles SET status='published', published_at=?, updated_at=?, approved_by=? WHERE id=?",
-        (now(), now(), u["name"], article_id)
-    )
-
-    conn.execute(
-        "INSERT INTO revision_logs(article_id,user_name,action,memo,created_at) VALUES(?,?,?,?,?)",
-        (article_id, u["name"], "승인발행", "편집자 승인 후 발행", now())
-    )
-
-    conn.commit()
-    conn.close()
-
-    return redirect(url_for("admin"))
-
-if __name__ == "__main__":
-    init_db()
-    app.run(debug=True, port=5000)
+</body>
+</html>
