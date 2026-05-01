@@ -2,181 +2,271 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>청년보도</title>
 
 <style>
-*{box-sizing:border-box}body{margin:0;font-family:'Noto Sans KR',sans-serif;background:#f4f4f4}
-a{text-decoration:none;color:inherit}
+*{box-sizing:border-box}body{margin:0;font-family:'Noto Sans KR',Arial,sans-serif;background:#f4f4f4;color:#111}
+a{text-decoration:none;color:inherit}button{cursor:pointer;border:0;background:#111;color:#fff;padding:9px 12px}
+input,select,textarea{width:100%;padding:10px;border:1px solid #ccc;margin:6px 0}textarea{min-height:260px}
 
 header{background:#fff;border-bottom:1px solid #ddd}
-.top{max-width:1200px;margin:auto;display:flex;justify-content:space-between;padding:14px}
-.logo{font-size:32px;font-weight:900}.logo span{color:#c00}
+.top{max-width:1180px;margin:auto;display:flex;justify-content:space-between;align-items:center;padding:14px}
+.logo{font-size:32px;font-weight:900;letter-spacing:-2px;cursor:pointer}.logo span{color:#c40000}
+.nav{background:#111;color:#fff}.navin{max-width:1180px;margin:auto;display:flex;gap:16px;overflow:auto;padding:10px 14px;font-size:14px}
 
-.nav{background:#111;color:#fff}
-.nav div{max-width:1200px;margin:auto;display:flex;gap:18px;padding:10px;overflow:auto}
+.wrap{max-width:1180px;margin:18px auto;padding:0 14px}
+.main{display:grid;grid-template-columns:2fr 1fr;gap:18px}
+.box,.card,.article,.admin{background:#fff;border:1px solid #ddd}
+.box{padding:18px}
+.main-img{width:100%;height:280px;object-fit:cover;margin-bottom:10px}
+.title{font-size:30px;font-weight:900;line-height:1.25;margin:0 0 10px}
+.meta{font-size:12px;color:#777;margin:8px 0;line-height:1.6}
+.badge{display:inline-block;background:#c40000;color:#fff;font-size:12px;padding:4px 7px;margin-right:6px}
+.ad{background:#555}
 
-.wrap{max-width:1200px;margin:auto;padding:14px}
-
-.main{display:grid;grid-template-columns:2fr 1fr;gap:20px}
-
-.box{background:#fff;border:1px solid #ddd;padding:18px}
-
-.main-img{width:100%;height:260px;object-fit:cover;margin-bottom:10px}
-
-.title{font-size:28px;font-weight:900;margin-bottom:10px}
-.meta{font-size:12px;color:#777}
-
-.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:20px}
-
-.card{background:#fff;border:1px solid #ddd}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:16px}
 .card img{width:100%;height:150px;object-fit:cover}
-.card-body{padding:10px}
-.card h3{font-size:16px;margin:0 0 6px}
+.card .card-body{padding:10px}
+.card h3{font-size:16px;margin:0 0 6px;line-height:1.35}
+.side li{padding:8px 0;border-bottom:1px solid #eee;font-size:14px}
 
-.side li{padding:8px 0;border-bottom:1px solid #eee}
+.section{margin-top:26px}
+.pages{text-align:center;margin:18px}.pages button{margin:3px;background:#555}
 
-.section{margin-top:30px}
+.article{max-width:900px;margin:18px auto;padding:26px}
+.article h1{font-size:32px;line-height:1.25;margin:10px 0}
+.breadcrumb{font-size:13px;color:#777;margin-bottom:10px}
+.body{font-size:17px;line-height:1.9;white-space:pre-wrap}
+.notice{background:#fafafa;border:1px solid #ddd;color:#555;padding:12px;margin-top:18px;font-size:13px}
 
-.badge{background:#c00;color:#fff;font-size:11px;padding:3px 6px;margin-right:6px}
+.admin{display:none;max-width:900px;margin:18px auto;padding:18px}
 
-footer{background:#222;color:#ccc;padding:20px;margin-top:40px;font-size:13px}
+footer{background:#222;color:#ccc;margin-top:30px;padding:22px 14px;font-size:13px}
+.foot{max-width:1180px;margin:auto;line-height:1.7}
 
-@media(max-width:800px){
-.main{grid-template-columns:1fr}
-.grid{grid-template-columns:1fr}
+@media(max-width:850px){
+  .main{grid-template-columns:1fr}
+  .grid{grid-template-columns:1fr}
+  .logo{font-size:26px}
+  .title{font-size:24px}
 }
 </style>
-
 </head>
-
 <body>
 
 <header>
-<div class="top">
-  <div class="logo">청년<span>보도</span></div>
-  <div>로그인</div>
-</div>
-
-<div class="nav">
-<div>
-<span>뉴스</span>
-<span>청년창업</span>
-<span>마케팅</span>
-<span>소상공인</span>
-<span>바이럴</span>
-<span>인터뷰</span>
-<span>리포트</span>
-<span>보도자료</span>
-<span>협찬/광고</span>
-</div>
-</div>
+  <div class="top">
+    <div class="logo" onclick="goHome()">청년<span>보도</span></div>
+    <div>
+      <button onclick="goHome()">홈</button>
+      <button onclick="openAdmin()">관리자</button>
+    </div>
+  </div>
+  <div class="nav"><div class="navin" id="nav"></div></div>
 </header>
 
-<div class="wrap">
+<div id="app"></div>
 
-<div class="main">
-
-<!-- 메인 기사 -->
-<div class="box">
-<img src="https://picsum.photos/800/400" class="main-img">
-
-<div class="badge">주요뉴스</div>
-<div class="title">청년 창업 시장, 마케팅 흐름 변화 본격화</div>
-
-<div class="meta">
-김민준 기자 | 입력 2026.05.02 14:22 | 수정 2026.05.02 14:40 | 기사번호 202605021422001
-</div>
-
-<p>
-최근 청년 창업 시장에서 마케팅 방식이 빠르게 변화하고 있다.
-단순 노출 중심 전략에서 벗어나 흐름 중심 전략이 중요해지는 분위기다.
-</p>
-</div>
-
-<!-- 사이드 -->
-<div class="box">
-<h3>실시간 주요뉴스</h3>
-<ul class="side">
-<li>청년 창업 흐름 변화 본격화</li>
-<li>소상공인 마케팅 전략 변화</li>
-<li>바이럴 콘텐츠 방향 변화</li>
-<li>홈페이지 전환 구조 중요성 증가</li>
-<li>검색 결과 신뢰 영향 확대</li>
-</ul>
-</div>
-
-</div>
-
-<!-- 카드 기사 -->
-<div class="grid">
-
-<div class="card">
-<img src="https://picsum.photos/300/200">
-<div class="card-body">
-<h3>소상공인 마케팅, 누적 콘텐츠 중요성 증가</h3>
-<div class="meta">이서연 기자 | 2026.05.01</div>
-</div>
-</div>
-
-<div class="card">
-<img src="https://picsum.photos/301/200">
-<div class="card-body">
-<h3>바이럴 기획, 읽히는 구조 중요</h3>
-<div class="meta">박지훈 기자 | 2026.04.30</div>
-</div>
-</div>
-
-<div class="card">
-<img src="https://picsum.photos/302/200">
-<div class="card-body">
-<h3>홈페이지 제작, 전환 구조 핵심</h3>
-<div class="meta">최유진 기자 | 2026.04.29</div>
-</div>
-</div>
-
-</div>
-
-<!-- 최신 기사 -->
-<div class="section">
-<h2>최신 기사</h2>
-
-<div class="grid">
-
-<div class="card">
-<img src="https://picsum.photos/303/200">
-<div class="card-body">
-<h3>검색 결과 관리, 브랜드 신뢰 영향</h3>
-<div class="meta">정하늘 기자</div>
-</div>
-</div>
-
-<div class="card">
-<img src="https://picsum.photos/304/200">
-<div class="card-body">
-<h3>청년 브랜드 콘텐츠 전략 변화</h3>
-<div class="meta">오세훈 기자</div>
-</div>
-</div>
-
-<div class="card">
-<img src="https://picsum.photos/305/200">
-<div class="card-body">
-<h3>마케팅 실행 이후 관리 중요</h3>
-<div class="meta">문지아 기자</div>
-</div>
-</div>
-
-</div>
-
-</div>
-
+<div class="admin" id="admin">
+  <h2>청년보도 백오피스</h2>
+  <input id="pw" placeholder="비밀번호">
+  <button onclick="login()">로그인</button>
+  <div id="editor" style="display:none">
+    <hr>
+    <input id="title" placeholder="기사 제목">
+    <select id="cat"></select>
+    <input id="reporter" placeholder="기자명" value="김민준">
+    <select id="type">
+      <option>일반</option>
+      <option>협찬/광고</option>
+    </select>
+    <input id="img" placeholder="대표 이미지 URL (없으면 자동)">
+    <textarea id="content" placeholder="본문 (600자 이상 권장)"></textarea>
+    <button onclick="saveArticle()">기사 발행</button>
+    <button onclick="resetAll()">초기 100개 복구</button>
+  </div>
 </div>
 
 <footer>
-청년보도 | 발행인: 청년보도 편집부<br>
-※ 일부 콘텐츠에는 광고성 내용이 포함될 수 있습니다.
+  <div class="foot">
+    <b>청년보도</b><br>
+    발행인: 청년보도 편집부 | 주소: 서울특별시 | contact@youthbodo.kr<br>
+    ※ 본 사이트는 콘텐츠 기반 정보 제공 사이트이며 일부 콘텐츠에는 광고성 내용이 포함될 수 있습니다.<br>
+    ※ 협찬/광고 콘텐츠는 별도 표시됩니다.
+  </div>
 </footer>
+
+<script>
+const cats=["전체","뉴스","청년창업","마케팅","소상공인","바이럴","홈페이지","인터뷰","리포트","보도자료","협찬/광고"];
+const reporters=["김민준","이서연","박지훈","최유진","정하늘","오세훈","문지아","강도윤"];
+
+function longBody(title){
+return `${title}
+
+최근 청년 창업과 소상공인 시장에서는 단순 노출 중심의 접근 방식에서 벗어나, 실제 고객의 행동 흐름을 고려한 전략이 중요해지고 있는 것으로 나타났다.
+
+과거에는 검색 결과에 노출되는 것 자체가 핵심 요소로 작용했다면, 현재는 노출 이후 고객이 어떤 정보를 확인하고 어떤 판단을 내리는지까지 영향을 미치는 구조로 변화하고 있다. 특히 블로그, 홈페이지, SNS, 플레이스 등 다양한 채널이 동시에 운영되는 환경에서는 각 채널 간의 연결성이 중요한 요소로 작용하고 있다.
+
+현장에서는 단순한 광고성 문구보다 실제 사례, 과정, 경험을 기반으로 한 콘텐츠가 더 높은 반응을 이끌어내는 경향이 확인되고 있다. 이는 소비자들이 정보의 신뢰도를 중요하게 판단하는 흐름과 맞물려 있으며, 동일한 내용을 반복적으로 노출하는 방식보다는 자연스럽게 이어지는 흐름을 만드는 것이 핵심이라는 분석이 나온다.
+
+또한 브랜드명을 검색했을 때 다양한 채널에서 일관된 정보가 확인되는 경우, 초기 신뢰 형성에 긍정적인 영향을 미치는 것으로 나타났다. 반대로 정보가 단절되어 있거나 오래된 콘텐츠만 존재하는 경우에는 이탈률이 높아지는 경향이 있다.
+
+전문가들은 “이제는 단순히 많이 보이는 것이 아니라, 어떻게 이어지고 어떻게 이해되는지가 중요한 시점”이라며 “콘텐츠의 흐름과 연결 구조를 함께 설계해야 한다”고 설명했다.
+
+청년보도는 앞으로 청년 창업, 마케팅 실행, 소상공인 운영, 온라인 콘텐츠 전략 등 현장에서 확인되는 다양한 변화를 지속적으로 분석하고 전달할 예정이다.`;
+}
+
+function seed(){
+ let arr=[];
+ for(let i=1;i<=100;i++){
+  let cat=cats[1+(i%(cats.length-1))];
+  let type=(cat==="협찬/광고"||i%13===0)?"협찬/광고":"일반";
+  let reporter=reporters[i%reporters.length];
+  let month=i>70?3:i>35?4:5;
+  let day=String((i%28)+1).padStart(2,"0");
+  let hh=String(9+(i%10)).padStart(2,"0");
+  let mm=String(10+(i%40)).padStart(2,"0");
+  let date=`2026.${String(month).padStart(2,"0")}.${day}`;
+  let datetime=`${date} ${hh}:${mm}`;
+  let article_no=`2026${String(month).padStart(2,"0")}${day}${hh}${mm}${String(100+i)}`;
+  let title=`${cat} 현장 변화, 흐름 중심 전략 주목 (${i})`;
+  let img=`https://picsum.photos/seed/youth${i}/800/400`;
+  arr.push({title,cat,type,reporter,date,datetime,article_no,content:longBody(title),img});
+ }
+ return arr;
+}
+
+function getData(){
+ let d=localStorage.getItem("youth_news_full");
+ if(!d){localStorage.setItem("youth_news_full",JSON.stringify(seed()));return seed()}
+ return JSON.parse(d);
+}
+function setData(a){localStorage.setItem("youth_news_full",JSON.stringify(a))}
+
+function nav(){
+ document.getElementById("nav").innerHTML=cats.map(c=>`<span onclick="list('${c}',1)">${c}</span>`).join("");
+ document.getElementById("cat").innerHTML=cats.filter(c=>c!="전체").map(c=>`<option>${c}</option>`).join("");
+}
+
+function goHome(){
+ document.getElementById("admin").style.display="none";
+ const a=sorted();
+ const main=a[0];
+ document.getElementById("app").innerHTML=`
+ <div class="wrap">
+   <div class="main">
+     <div class="box" onclick="viewArticle(0)">
+       <img src="${main.img}" class="main-img">
+       ${main.type==="협찬/광고"?'<span class="badge ad">협찬/광고</span>':''}
+       <span class="badge">주요뉴스</span>
+       <div class="title">${main.title}</div>
+       <div class="meta">${main.reporter} 기자 | 입력 ${main.datetime} | 수정 ${main.datetime} | 기사번호 ${main.article_no}</div>
+       <p>${main.content.slice(0,160)}...</p>
+     </div>
+     <div class="box">
+       <h3>실시간 주요뉴스</h3>
+       <ul class="side">
+         ${a.slice(0,8).map((v,i)=>`<li onclick="viewArticle(${i})">${v.title}</li>`).join("")}
+       </ul>
+     </div>
+   </div>
+
+   <div class="grid">
+     ${a.slice(1,10).map((v,i)=>card(v,i+1)).join("")}
+   </div>
+
+   <div class="section">
+     <h2>최신 기사</h2>
+     <div class="grid">
+       ${a.slice(10,22).map((v,i)=>card(v,i+10)).join("")}
+     </div>
+   </div>
+ </div>`;
+}
+
+function sorted(){return getData().sort((x,y)=>y.datetime.localeCompare(x.datetime))}
+
+function card(v,i){
+ return `<div class="card" onclick="viewArticle(${i})">
+   <img src="${v.img}">
+   <div class="card-body">
+     ${v.type==="협찬/광고"?'<span class="badge ad">광고</span>':''}
+     <h3>${v.title}</h3>
+     <div class="meta">${v.reporter} 기자 | ${v.date}</div>
+   </div>
+ </div>`;
+}
+
+function list(c,page=1){
+ document.getElementById("admin").style.display="none";
+ const all=sorted().filter(v=>c==="전체"||v.cat===c);
+ const per=12, start=(page-1)*per, arr=all.slice(start,start+per);
+ const total=Math.ceil(all.length/per);
+ document.getElementById("app").innerHTML=`
+ <div class="wrap">
+   <h2>${c}</h2>
+   <div class="grid">
+     ${arr.map(v=>card(v,sorted().indexOf(v))).join("")}
+   </div>
+   <div class="pages">
+     ${Array.from({length:total},(_,i)=>`<button onclick="list('${c}',${i+1})">${i+1}</button>`).join("")}
+   </div>
+ </div>`;
+}
+
+function viewArticle(i){
+ const v=sorted()[i];
+ document.getElementById("admin").style.display="none";
+ document.getElementById("app").innerHTML=`
+ <article class="article">
+   <div class="breadcrumb">홈 > ${v.cat} > 기사</div>
+   ${v.type==="협찬/광고"?'<span class="badge ad">협찬/광고</span>':''}
+   <span class="badge">${v.cat}</span>
+   <h1>${v.title}</h1>
+   <div class="meta">${v.reporter} 기자 | 입력 ${v.datetime} | 수정 ${v.datetime}<br>기사번호 ${v.article_no}</div>
+   <img src="${v.img}" class="main-img">
+   <div class="body">${v.content}</div>
+   <div class="notice">
+     ※ 본 콘텐츠는 취재 및 공개 자료를 바탕으로 작성되었습니다.<br>
+     ${v.type==="협찬/광고"?"※ 본 기사는 협찬/광고성 내용을 포함합니다.":""}
+   </div>
+ </article>`;
+}
+
+function openAdmin(){
+ document.getElementById("app").innerHTML="";
+ document.getElementById("admin").style.display="block";
+}
+function login(){
+ if(document.getElementById("pw").value==="1234")document.getElementById("editor").style.display="block";
+ else alert("비밀번호 오류");
+}
+function saveArticle(){
+ const a=getData();
+ const d=new Date();
+ const date=`${d.getFullYear()}.${String(d.getMonth()+1).padStart(2,"0")}.${String(d.getDate()).padStart(2,"0")}`;
+ const hh=String(d.getHours()).padStart(2,"0"), mm=String(d.getMinutes()).padStart(2,"0");
+ const datetime=`${date} ${hh}:${mm}`;
+ const article_no=`${d.getFullYear()}${String(d.getMonth()+1).padStart(2,"0")}${String(d.getDate()).padStart(2,"0")}${hh}${mm}${Math.floor(Math.random()*900+100)}`;
+
+ const t=title.value||"제목 없음";
+ const c=cat.value;
+ const r=reporter.value||"기자";
+ const type=typeSel.value;
+ const imgUrl=img.value||`https://picsum.photos/seed/new${Date.now()}/800/400`;
+ const contentText=content.value&&content.value.length>=200?content.value:longBody(t);
+
+ a.unshift({title:t,cat:c,type,reporter:r,date,datetime,article_no,content:contentText,img:imgUrl});
+ setData(a);
+ alert("기사 발행 완료");
+ goHome();
+}
+function resetAll(){localStorage.removeItem("youth_news_full");alert("초기 100개 복구");goHome()}
+
+const typeSel=document.getElementById("type");
+nav();goHome();
+</script>
 
 </body>
 </html>
