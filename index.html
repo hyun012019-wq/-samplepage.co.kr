@@ -2,160 +2,232 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<title>HVIRAL ERP CRM SYSTEM</title>
+<title>HVIRAL FINAL FULL SYSTEM</title>
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <style>
-*{box-sizing:border-box}body{margin:0;font-family:Arial,"Noto Sans KR",sans-serif;background:#f4f6fb;color:#111827}
-header{background:#020617;color:white;padding:18px 26px}header h1{margin:0;font-size:22px}header p{margin:6px 0 0;color:#cbd5e1;font-size:13px}
-.layout{display:flex;min-height:calc(100vh - 78px)}nav{width:245px;background:#111827;padding:18px;position:sticky;top:0;height:calc(100vh - 78px)}
-nav button{width:100%;margin-bottom:8px;padding:12px;border:0;border-radius:10px;background:#1f2937;color:#fff;text-align:left;cursor:pointer}
-nav button.active,nav button:hover{background:#2563eb}
-main{flex:1;padding:24px}.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.card,.stat{background:#fff;border-radius:16px;padding:18px;box-shadow:0 4px 14px rgba(0,0,0,.06);margin-bottom:18px}
-.stat b{display:block;font-size:28px;margin-top:8px}.row{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
-input,select,textarea{width:100%;padding:10px;border:1px solid #d1d5db;border-radius:8px;margin:6px 0 12px}
-label{font-size:13px;font-weight:700;color:#374151}button.action{padding:9px 13px;border:0;border-radius:8px;background:#2563eb;color:white;cursor:pointer}
-button.red{background:#dc2626}button.green{background:#059669}button.gray{background:#64748b}
-table{width:100%;border-collapse:collapse}th,td{padding:10px;border-bottom:1px solid #e5e7eb;text-align:left;font-size:13px}th{background:#f8fafc}
-section{display:none}section.active{display:block}.badge{padding:4px 8px;border-radius:999px;font-size:12px;background:#e5e7eb}.done{background:#dcfce7;color:#166534}.ing{background:#dbeafe;color:#1d4ed8}.warn{background:#fee2e2;color:#991b1b}
-.notice{background:#fffbeb;border:1px solid #f59e0b;color:#92400e;padding:12px;border-radius:12px;font-size:13px;margin-bottom:14px}
-@media(max-width:900px){.layout{display:block}nav{width:100%;height:auto;position:relative}.grid,.row{grid-template-columns:1fr}main{padding:14px}}
+body{margin:0;font-family:Arial;background:#f4f6fb}
+header{background:#020617;color:#fff;padding:16px}
+nav{display:flex;flex-wrap:wrap;background:#111827}
+nav button{flex:1;padding:10px;border:0;color:#fff;background:#1f2937}
+nav button:hover{background:#2563eb}
+section{display:none;padding:18px}
+.active{display:block}
+input,select{width:100%;padding:7px;margin-bottom:6px}
+button{padding:7px;background:#2563eb;color:#fff;border:0;margin:3px}
+table{width:100%;background:#fff;border-collapse:collapse;margin-top:6px}
+td,th{padding:6px;border-bottom:1px solid #ddd}
 </style>
 </head>
 <body>
-<header>
-<h1>HVIRAL ERP / CRM CONTROL SYSTEM</h1>
-<p>고객 CRM · Request ID · 대표 토큰 · 계약/입금 · 실행 유닛 · PO · 도메인/DNS/GitHub 통합관리</p>
-</header>
 
-<div class="layout">
+<header><h2>HVIRAL FULL ERP SYSTEM</h2></header>
+
 <nav>
-<button class="active" onclick="show('dashboard',this)">대시보드</button>
-<button onclick="show('crm',this);renderCRM()">고객 CRM</button>
-<button onclick="show('request',this);renderRequest()">Request 관리</button>
-<button onclick="show('token',this);renderToken()">대표 토큰</button>
-<button onclick="show('contract',this);renderContract()">계약/입금</button>
-<button onclick="show('unit',this);renderUnit()">실행 유닛</button>
-<button onclick="show('po',this);renderPO()">프로젝트 오피스</button>
-<button onclick="show('domain',this);renderDomain()">도메인/DNS/GitHub</button>
-<button onclick="show('logs',this);renderLogs()">작업 로그</button>
-<button onclick="show('guide',this)">사용안내</button>
+<button onclick="show('lead')">동의자</button>
+<button onclick="show('call')">콜팀</button>
+<button onclick="show('crm')">CRM</button>
+<button onclick="show('request')">Request</button>
+<button onclick="show('token')">토큰</button>
+<button onclick="show('contract')">계약</button>
+<button onclick="show('unit')">실행</button>
+<button onclick="show('po')">PO</button>
+<button onclick="show('usb')">USB</button>
+<button onclick="show('domain')">도메인</button>
+<button onclick="show('log')">로그</button>
 </nav>
 
-<main>
-<section id="dashboard" class="active">
-<div class="grid">
-<div class="stat">고객 수<b id="sClients">0</b></div>
-<div class="stat">요청 수<b id="sReq">0</b></div>
-<div class="stat">승인 토큰<b id="sToken">0</b></div>
-<div class="stat">미수금<b id="sUnpaid">0원</b></div>
-</div>
-<div class="card"><h2>오늘의 핵심 흐름</h2><table><thead><tr><th>구분</th><th>고객</th><th>상태</th><th>담당</th></tr></thead><tbody id="dashRows"></tbody></table></div>
+<!-- 동의자 -->
+<section id="lead" class="active">
+<h3>동의자</h3>
+<input id="lName" placeholder="이름">
+<input id="lPhone" placeholder="연락처">
+<select id="lAgree"><option>대기</option><option>동의</option></select>
+<button onclick="addLead()">등록</button>
+<table id="leadTable"></table>
 </section>
 
+<!-- 콜팀 -->
+<section id="call">
+<h3>콜팀</h3>
+<select id="callLead"></select>
+<select id="callStatus">
+<option>미콜</option><option>관심</option><option>동의</option><option>거절</option>
+</select>
+<button onclick="saveCall()">저장</button>
+<table id="callTable"></table>
+</section>
+
+<!-- CRM -->
 <section id="crm">
-<div class="card"><h2>고객 등록</h2>
-<div class="row"><div><label>고객명/상호</label><input id="cName"></div><div><label>대표자</label><input id="cCeo"></div></div>
-<div class="row"><div><label>연락처</label><input id="cPhone"></div><div><label>업종</label><input id="cBiz" placeholder="예: 타이어, 병원, 펫샵"></div></div>
-<div class="row"><div><label>유입경로</label><select id="cSource"><option>인바운드</option><option>아웃바운드</option><option>소개</option><option>블로그</option><option>기타</option></select></div><div><label>상태</label><select id="cStatus"><option>상담중</option><option>제안중</option><option>계약완료</option><option>보류</option><option>종료</option></select></div></div>
-<label>메모</label><textarea id="cMemo"></textarea><button class="action green" onclick="addCRM()">고객 저장</button></div>
-<div class="card"><h2>고객 목록</h2><input id="crmSearch" oninput="renderCRM()" placeholder="검색"><table><thead><tr><th>ID</th><th>고객</th><th>대표</th><th>업종</th><th>유입</th><th>상태</th><th>관리</th></tr></thead><tbody id="crmRows"></tbody></table></div>
+<h3>CRM</h3>
+<input id="cName" placeholder="고객명">
+<button onclick="addCRM()">등록</button>
+<table id="crmTable"></table>
 </section>
 
+<!-- Request -->
 <section id="request">
-<div class="card"><h2>Request ID 생성</h2>
-<div class="row"><div><label>고객 선택</label><select id="rClient"></select></div><div><label>파이프라인</label><select id="rPipe"><option>IN-Request</option><option>OUT-Request</option></select></div></div>
-<div class="row"><div><label>요청유형</label><select id="rType"><option>홈페이지</option><option>블로그</option><option>광고</option><option>제안서</option><option>ERP/CRM</option><option>기타</option></select></div><div><label>우선순위</label><select id="rPriority"><option>보통</option><option>긴급</option><option>낮음</option></select></div></div>
-<label>요청내용</label><textarea id="rMemo"></textarea><button class="action green" onclick="addRequest()">Request 저장</button></div>
-<div class="card"><h2>Request 목록</h2><table><thead><tr><th>Request ID</th><th>고객</th><th>파이프라인</th><th>유형</th><th>상태</th><th>관리</th></tr></thead><tbody id="requestRows"></tbody></table></div>
+<h3>Request</h3>
+<select id="rType">
+<option>OUT</option>
+<option>IN</option>
+</select>
+<select id="rTarget"></select>
+<button onclick="addRequest()">생성</button>
+<table id="reqTable"></table>
 </section>
 
+<!-- 토큰 -->
 <section id="token">
-<div class="card"><h2>대표 토큰 승인</h2>
-<div class="row"><div><label>Request 선택</label><select id="tRequest"></select></div><div><label>승인상태</label><select id="tStatus"><option>승인대기</option><option>승인완료</option><option>반려</option></select></div></div>
-<label>대표 판단 메모</label><textarea id="tMemo"></textarea><button class="action green" onclick="addToken()">토큰 저장</button></div>
-<div class="card"><h2>토큰 목록</h2><table><thead><tr><th>Token ID</th><th>Request ID</th><th>고객</th><th>상태</th><th>메모</th></tr></thead><tbody id="tokenRows"></tbody></table></div>
+<h3>토큰</h3>
+<select id="tReq"></select>
+<select id="tStatus"><option>대기</option><option>승인</option><option>반려</option></select>
+<button onclick="addToken()">저장</button>
+<table id="tokenTable"></table>
 </section>
 
+<!-- 계약 -->
 <section id="contract">
-<div class="card"><h2>계약/입금 등록</h2>
-<div class="row"><div><label>고객 선택</label><select id="kClient"></select></div><div><label>계약금액</label><input id="kAmount" type="number"></div></div>
-<div class="row"><div><label>입금액</label><input id="kPaid" type="number"></div><div><label>계약상태</label><select id="kStatus"><option>계약대기</option><option>계약완료</option><option>입금확인</option><option>실행승인</option></select></div></div>
-<button class="action green" onclick="addContract()">계약 저장</button></div>
-<div class="card"><h2>계약 목록</h2><table><thead><tr><th>고객</th><th>계약금</th><th>입금</th><th>미수</th><th>상태</th></tr></thead><tbody id="contractRows"></tbody></table></div>
+<h3>계약</h3>
+<select id="kReq"></select>
+<input id="kMoney" placeholder="금액">
+<input id="kPaid" placeholder="입금">
+<select id="kAudit"><option>대기</option><option>확인</option></select>
+<button onclick="addContract()">저장</button>
+<table id="contractTable"></table>
 </section>
 
+<!-- 실행 -->
 <section id="unit">
-<div class="card"><h2>실행 유닛 생성</h2>
-<div class="row"><div><label>고객 선택</label><select id="uClient"></select></div><div><label>유닛유형</label><select id="uType"><option>고객 유닛</option><option>상품 유닛</option><option>프로젝트 유닛</option></select></div></div>
-<div class="row"><div><label>담당팀</label><select id="uTeam"><option>디자인팀</option><option>마케팅팀</option><option>Web/App 개발팀</option><option>현장 프로듀서팀</option><option>PO</option></select></div><div><label>진행상태</label><select id="uStatus"><option>대기</option><option>작업시작</option><option>진행중</option><option>완료</option><option>반려</option></select></div></div>
-<button class="action green" onclick="addUnit()">유닛 저장</button></div>
-<div class="card"><h2>실행 유닛 목록</h2><table><thead><tr><th>Unit ID</th><th>고객</th><th>유형</th><th>팀</th><th>상태</th></tr></thead><tbody id="unitRows"></tbody></table></div>
+<h3>실행 (차단 구조)</h3>
+<select id="uReq"></select>
+<button onclick="addUnit()">실행</button>
+<table id="unitTable"></table>
 </section>
 
+<!-- PO -->
 <section id="po">
-<div class="card"><h2>프로젝트 오피스 적재</h2>
-<div class="row"><div><label>고객 선택</label><select id="pClient"></select></div><div><label>보관위치</label><input id="pLoc" placeholder="예: PO-A-01 / USB-03"></div></div>
-<div class="row"><div><label>자료유형</label><select id="pType"><option>원본</option><option>시안</option><option>납품본</option><option>계약문서</option><option>작업기록</option></select></div><div><label>상태</label><select id="pStatus"><option>적재대기</option><option>적재완료</option><option>회수</option><option>출고</option></select></div></div>
-<button class="action green" onclick="addPO()">PO 저장</button></div>
-<div class="card"><h2>PO 목록</h2><table><thead><tr><th>PO ID</th><th>고객</th><th>유형</th><th>위치</th><th>상태</th></tr></thead><tbody id="poRows"></tbody></table></div>
+<h3>PO</h3>
+<select id="pUnit"></select>
+<input id="pLoc" placeholder="보관위치">
+<button onclick="addPO()">저장</button>
+<table id="poTable"></table>
 </section>
 
+<!-- USB -->
+<section id="usb">
+<h3>USB</h3>
+<input id="usbId" placeholder="USB ID">
+<select id="usbStatus"><option>대기</option><option>사용중</option></select>
+<button onclick="addUSB()">저장</button>
+<table id="usbTable"></table>
+</section>
+
+<!-- 도메인 -->
 <section id="domain">
-<div class="card"><h2>도메인/DNS/GitHub 관리</h2>
-<div class="row"><div><label>고객 선택</label><select id="dClient"></select></div><div><label>도메인</label><input id="dDomain" placeholder="example.co.kr"></div></div>
-<div class="row"><div><label>도메인업체</label><select id="dVendor"><option>가비아</option><option>카페24</option><option>후이즈</option><option>기타</option></select></div><div><label>소유자</label><select id="dOwner"><option>고객 명의</option><option>회사 관리</option><option>확인필요</option></select></div></div>
-<div class="row"><div><label>GitHub Repo</label><input id="dRepo"></div><div><label>DNS 상태</label><select id="dStatus"><option>대기</option><option>DNS 설정중</option><option>연결완료</option><option>SSL 확인</option><option>오류</option></select></div></div>
-<button class="action green" onclick="addDomain()">도메인 저장</button></div>
-<div class="card"><h2>도메인 목록</h2><table><thead><tr><th>고객</th><th>도메인</th><th>업체</th><th>소유</th><th>Repo</th><th>상태</th></tr></thead><tbody id="domainRows"></tbody></table></div>
+<h3>도메인</h3>
+<input id="dName" placeholder="도메인">
+<button onclick="addDomain()">저장</button>
+<table id="domainTable"></table>
 </section>
 
-<section id="logs">
-<div class="card"><h2>작업 로그</h2><table><thead><tr><th>시간</th><th>작업</th><th>내용</th></tr></thead><tbody id="logRows"></tbody></table></div>
+<!-- 로그 -->
+<section id="log">
+<h3>로그</h3>
+<table id="logTable"></table>
 </section>
-
-<section id="guide">
-<div class="notice">※ 이 버전은 GitHub Pages에 바로 올릴 수 있는 단일파일 ERP/CRM입니다. 데이터는 브라우저 localStorage에 저장됩니다.</div>
-<div class="card"><h2>운영 기준</h2>
-<p>1. 고객 등록 → Request ID 생성 → 대표 토큰 승인 → 계약/입금 → 실행 유닛 → PO 적재 → 도메인/DNS/GitHub 연결 순서로 사용합니다.</p>
-<p>2. 도메인은 고객 명의가 원칙이며, 회사는 DNS·GitHub 연결만 관리합니다.</p>
-<p>3. 토큰 승인 전 본사 실행팀 작업 금지.</p>
-<p>4. 모든 작업은 로그에 자동 기록됩니다.</p>
-</div>
-</section>
-</main>
-</div>
 
 <script>
-const KEY="HVIRAL_ERP_V1";
-let db=JSON.parse(localStorage.getItem(KEY)||'{"clients":[],"requests":[],"tokens":[],"contracts":[],"units":[],"po":[],"domains":[],"logs":[]}');
-function save(){localStorage.setItem(KEY,JSON.stringify(db));renderSelects();renderDash()}
-function now(){return new Date().toLocaleString()}
-function money(n){return Number(n||0).toLocaleString()+"원"}
-function id(prefix){return prefix+"-"+new Date().getFullYear()+"-"+String(Date.now()).slice(-6)}
-function log(a,d){db.logs.unshift({time:now(),action:a,detail:d});save()}
-function badge(v){let c=(v||"").includes("완료")||(v||"").includes("확인")?"done":(v||"").includes("반려")||(v||"").includes("오류")?"warn":"ing";return `<span class="badge ${c}">${v}</span>`}
-function val(x){return document.getElementById(x).value}
-function show(id,btn){document.querySelectorAll("section").forEach(s=>s.classList.remove("active"));document.getElementById(id).classList.add("active");document.querySelectorAll("nav button").forEach(b=>b.classList.remove("active"));btn.classList.add("active")}
-function opts(list){return list.map(c=>`<option value="${c.id}">${c.name}</option>`).join("")}
-function renderSelects(){["rClient","kClient","uClient","pClient","dClient"].forEach(x=>{let e=document.getElementById(x);if(e)e.innerHTML=opts(db.clients)});let tr=document.getElementById("tRequest");if(tr)tr.innerHTML=db.requests.map(r=>`<option value="${r.id}">${r.requestId} / ${r.client}</option>`).join("")}
-function addCRM(){let c={id:Date.now(),name:val("cName"),ceo:val("cCeo"),phone:val("cPhone"),biz:val("cBiz"),source:val("cSource"),status:val("cStatus"),memo:val("cMemo")};if(!c.name)return alert("고객명 입력");db.clients.push(c);log("고객등록",c.name);renderCRM()}
-function renderCRM(){let q=(document.getElementById("crmSearch")?.value||"").toLowerCase();let rows=document.getElementById("crmRows");rows.innerHTML=db.clients.filter(c=>JSON.stringify(c).toLowerCase().includes(q)).map(c=>`<tr><td>${c.id}</td><td>${c.name}</td><td>${c.ceo}</td><td>${c.biz}</td><td>${c.source}</td><td>${badge(c.status)}</td><td><button class="action red" onclick="del('clients',${c.id});renderCRM()">삭제</button></td></tr>`).join("")}
-function addRequest(){let c=db.clients.find(x=>x.id==val("rClient"));if(!c)return alert("고객 필요");let r={id:Date.now(),requestId:id(val("rPipe")==="IN-Request"?"IN":"OUT"),client:c.name,clientId:c.id,pipe:val("rPipe"),type:val("rType"),priority:val("rPriority"),memo:val("rMemo"),status:"요청등록"};db.requests.push(r);log("Request 생성",r.requestId+" / "+c.name);renderRequest()}
-function renderRequest(){let rows=document.getElementById("requestRows");rows.innerHTML=db.requests.map(r=>`<tr><td>${r.requestId}</td><td>${r.client}</td><td>${r.pipe}</td><td>${r.type}</td><td>${badge(r.status)}</td><td><button class="action gray" onclick="r.status='처리중';log('Request 상태변경',r.requestId);renderRequest()">처리중</button></td></tr>`).join("");save()}
-function addToken(){let r=db.requests.find(x=>x.id==val("tRequest"));if(!r)return alert("Request 필요");let t={id:Date.now(),tokenId:id("TK"),requestId:r.requestId,client:r.client,status:val("tStatus"),memo:val("tMemo")};db.tokens.push(t);r.status=t.status==="승인완료"?"토큰승인":"토큰검토";log("대표토큰",t.tokenId+" / "+t.status);renderToken()}
-function renderToken(){document.getElementById("tokenRows").innerHTML=db.tokens.map(t=>`<tr><td>${t.tokenId}</td><td>${t.requestId}</td><td>${t.client}</td><td>${badge(t.status)}</td><td>${t.memo}</td></tr>`).join("");save()}
-function addContract(){let c=db.clients.find(x=>x.id==val("kClient"));if(!c)return alert("고객 필요");let k={id:Date.now(),client:c.name,amount:+val("kAmount"),paid:+val("kPaid"),status:val("kStatus")};db.contracts.push(k);log("계약등록",c.name+" / "+money(k.amount));renderContract()}
-function renderContract(){document.getElementById("contractRows").innerHTML=db.contracts.map(k=>`<tr><td>${k.client}</td><td>${money(k.amount)}</td><td>${money(k.paid)}</td><td>${money(Math.max(k.amount-k.paid,0))}</td><td>${badge(k.status)}</td></tr>`).join("");save()}
-function addUnit(){let c=db.clients.find(x=>x.id==val("uClient"));if(!c)return alert("고객 필요");let u={id:Date.now(),unitId:id("UNIT"),client:c.name,type:val("uType"),team:val("uTeam"),status:val("uStatus")};db.units.push(u);log("실행유닛",u.unitId+" / "+c.name);renderUnit()}
-function renderUnit(){document.getElementById("unitRows").innerHTML=db.units.map(u=>`<tr><td>${u.unitId}</td><td>${u.client}</td><td>${u.type}</td><td>${u.team}</td><td>${badge(u.status)}</td></tr>`).join("");save()}
-function addPO(){let c=db.clients.find(x=>x.id==val("pClient"));if(!c)return alert("고객 필요");let p={id:Date.now(),poId:id("PO"),client:c.name,type:val("pType"),loc:val("pLoc"),status:val("pStatus")};db.po.push(p);log("PO 적재",p.poId+" / "+c.name);renderPO()}
-function renderPO(){document.getElementById("poRows").innerHTML=db.po.map(p=>`<tr><td>${p.poId}</td><td>${p.client}</td><td>${p.type}</td><td>${p.loc}</td><td>${badge(p.status)}</td></tr>`).join("");save()}
-function addDomain(){let c=db.clients.find(x=>x.id==val("dClient"));if(!c)return alert("고객 필요");let d={id:Date.now(),client:c.name,domain:val("dDomain"),vendor:val("dVendor"),owner:val("dOwner"),repo:val("dRepo"),status:val("dStatus")};db.domains.push(d);log("도메인등록",d.domain);renderDomain()}
-function renderDomain(){document.getElementById("domainRows").innerHTML=db.domains.map(d=>`<tr><td>${d.client}</td><td>${d.domain}</td><td>${d.vendor}</td><td>${d.owner}</td><td>${d.repo}</td><td>${badge(d.status)}</td></tr>`).join("");save()}
-function renderLogs(){document.getElementById("logRows").innerHTML=db.logs.map(l=>`<tr><td>${l.time}</td><td>${l.action}</td><td>${l.detail}</td></tr>`).join("")}
-function renderDash(){document.getElementById("sClients").innerText=db.clients.length;document.getElementById("sReq").innerText=db.requests.length;document.getElementById("sToken").innerText=db.tokens.filter(t=>t.status==="승인완료").length;let unpaid=db.contracts.reduce((a,k)=>a+Math.max((k.amount||0)-(k.paid||0),0),0);document.getElementById("sUnpaid").innerText=money(unpaid);document.getElementById("dashRows").innerHTML=db.requests.slice(0,7).map(r=>`<tr><td>${r.pipe}</td><td>${r.client}</td><td>${badge(r.status)}</td><td>승인통제/PO</td></tr>`).join("")}
-function del(table,idv){db[table]=db[table].filter(x=>x.id!==idv);log("삭제",table+" / "+idv);save()}
-renderSelects();renderDash();
+let db=JSON.parse(localStorage.getItem("hv_full_final")||'{"lead":[],"call":[],"crm":[],"req":[],"token":[],"contract":[],"unit":[],"po":[],"usb":[],"domain":[],"log":[]}')
+
+function save(){localStorage.setItem("hv_full_final",JSON.stringify(db));render()}
+function log(t){db.log.unshift({time:new Date().toLocaleTimeString(),t});save()}
+
+function show(id){
+document.querySelectorAll("section").forEach(s=>s.classList.remove("active"))
+document.getElementById(id).classList.add("active")
+}
+
+function addLead(){db.lead.push({id:Date.now(),name:lName.value,agree:lAgree.value});log("동의자");save()}
+
+function saveCall(){
+let l=db.lead.find(x=>x.id==callLead.value)
+l.call=callStatus.value
+if(callStatus.value=="동의") l.agree="동의"
+log("콜");save()
+}
+
+function addCRM(){db.crm.push({id:Date.now(),name:cName.value});log("CRM");save()}
+
+function addRequest(){
+let target
+if(rType.value=="OUT"){
+target=db.lead.find(x=>x.id==rTarget.value)
+if(!target||target.agree!="동의") return alert("동의자만")
+}else{
+target=db.crm.find(x=>x.id==rTarget.value)
+}
+db.req.push({id:Date.now(),name:target.name})
+log("Request");save()
+}
+
+function addToken(){
+let r=db.req.find(x=>x.id==tReq.value)
+db.token.push({id:Date.now(),req:r.id,status:tStatus.value})
+log("토큰");save()
+}
+
+function addContract(){
+let r=db.req.find(x=>x.id==kReq.value)
+db.contract.push({id:Date.now(),req:r.id,paid:kPaid.value,audit:kAudit.value})
+log("계약");save()
+}
+
+function canExec(id){
+let t=db.token.find(x=>x.req==id && x.status=="승인")
+let c=db.contract.find(x=>x.req==id && x.paid>0 && x.audit=="확인")
+return t&&c
+}
+
+function addUnit(){
+let r=db.req.find(x=>x.id==uReq.value)
+if(!canExec(r.id)) return alert("차단됨")
+db.unit.push({id:Date.now(),req:r.id})
+log("실행");save()
+}
+
+function addPO(){
+let u=db.unit.find(x=>x.id==pUnit.value)
+db.po.push({id:Date.now(),unit:u.id,loc:pLoc.value})
+log("PO");save()
+}
+
+function addUSB(){db.usb.push({id:usbId.value,status:usbStatus.value});log("USB");save()}
+function addDomain(){db.domain.push({id:dName.value});log("도메인");save()}
+
+function render(){
+leadTable.innerHTML=db.lead.map(l=>`<tr><td>${l.name}</td><td>${l.agree}</td></tr>`).join("")
+callTable.innerHTML=db.lead.map(l=>`<tr><td>${l.name}</td><td>${l.call||""}</td></tr>`).join("")
+crmTable.innerHTML=db.crm.map(c=>`<tr><td>${c.name}</td></tr>`).join("")
+reqTable.innerHTML=db.req.map(r=>`<tr><td>${r.name}</td></tr>`).join("")
+tokenTable.innerHTML=db.token.map(t=>`<tr><td>${t.req}</td><td>${t.status}</td></tr>`).join("")
+contractTable.innerHTML=db.contract.map(c=>`<tr><td>${c.req}</td><td>${c.paid}</td><td>${c.audit}</td></tr>`).join("")
+unitTable.innerHTML=db.unit.map(u=>`<tr><td>${u.req}</td></tr>`).join("")
+poTable.innerHTML=db.po.map(p=>`<tr><td>${p.unit}</td><td>${p.loc}</td></tr>`).join("")
+usbTable.innerHTML=db.usb.map(u=>`<tr><td>${u.id}</td><td>${u.status}</td></tr>`).join("")
+domainTable.innerHTML=db.domain.map(d=>`<tr><td>${d.id}</td></tr>`).join("")
+logTable.innerHTML=db.log.map(l=>`<tr><td>${l.time}</td><td>${l.t}</td></tr>`).join("")
+
+rTarget.innerHTML=(rType.value=="OUT"?db.lead:db.crm).map(x=>`<option value=${x.id}>${x.name}</option>`)
+tReq.innerHTML=db.req.map(r=>`<option value=${r.id}>${r.name}</option>`)
+kReq.innerHTML=tReq.innerHTML
+uReq.innerHTML=db.req.filter(r=>canExec(r.id)).map(r=>`<option value=${r.id}>${r.name}</option>`)
+pUnit.innerHTML=db.unit.map(u=>`<option value=${u.id}>${u.req}</option>`)
+callLead.innerHTML=db.lead.map(l=>`<option value=${l.id}>${l.name}</option>`)
+}
+
+render()
 </script>
+
 </body>
 </html>
