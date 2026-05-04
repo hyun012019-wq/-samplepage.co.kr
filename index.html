@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>HVIRAL FULL SYSTEM</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+body{margin:0;font-family:Arial;background:#f3f6fb}
+header{background:#020617;color:#fff;padding:15px}
+nav{display:flex;flex-wrap:wrap;background:#111827}
+nav button{flex:1;padding:10px;border:0;background:#1f2937;color:#fff}
+nav button:hover{background:#2563eb}
+section{display:none;padding:18px}
+.active{display:block}
+input,select{width:100%;padding:6px;margin-bottom:6px}
+button{padding:6px;background:#2563eb;color:#fff;border:0;margin:3px}
+table{width:100%;background:#fff;border-collapse:collapse}
+td,th{padding:6px;border-bottom:1px solid #ddd}
+.hide{display:none}
+</style>
+</head>
+<body>
+
+<header><h2>HVIRAL ERP (INDEX ONLY)</h2></header>
+
+<div id="login">
+<h3>로그인</h3>
+<input id="id" placeholder="ID">
+<input id="pw" type="password" placeholder="PW">
+<button onclick="login()">로그인</button>
+</div>
+
+<div id="app" class="hide">
+
+<nav>
+<button onclick="show('lead')">동의자</button>
+<button onclick="show('request')">Request</button>
+<button onclick="show('token')">토큰</button>
+<button onclick="show('contract')">계약</button>
+<button onclick="show('exec')">실행</button>
+<button onclick="show('log')">로그</button>
+</nav>
+
+<section id="lead" class="active">
+<h3>동의자</h3>
+<input id="lName" placeholder="이름">
+<select id="lAgree"><option>대기</option><option>동의</option></select>
+<button onclick="addLead()">등록</button>
+<table id="leadTable"></table>
+</section>
+
+<section id="request">
+<h3>Request</h3>
+<select id="rLead"></select>
+<button onclick="addRequest()">생성</button>
+<table id="reqTable"></table>
+</section>
+
+<section id="token">
+<h3>토큰</h3>
+<select id="tReq"></select>
+<select id="tStatus"><option>대기</option><option>승인</option><option>반려</option></select>
+<button onclick="addToken()">저장</button>
+<table id="tokenTable"></table>
+</section>
+
+<section id="contract">
+<h3>계약</h3>
+<select id="cReq"></select>
+<input id="cPaid" placeholder="입금">
+<select id="cAudit"><option>대기</option><option>확인</option></select>
+<button onclick="addContract()">저장</button>
+<table id="contractTable"></table>
+</section>
+
+<section id="exec">
+<h3>실행 (차단)</h3>
+<select id="eReq"></select>
+<button onclick="addExec()">실행</button>
+<table id="execTable"></table>
+</section>
+
+<section id="log">
+<h3>로그</h3>
+<table id="logTable"></table>
+</section>
+
+</div>
+
+<script>
+const users={
+admin:{pw:"1234",role:"admin"},
+staff:{pw:"1111",role:"staff"}
+}
+
+let user=null
+
+function login(){
+let u=users[id.value]
+if(!u||u.pw!=pw.value) return alert("로그인 실패")
+user={id:id.value,role:u.role}
+loginDiv.style.display="none"
+app.classList.remove("hide")
+}
+
+let db=JSON.parse(localStorage.getItem("hv_index")||'{"lead":[],"req":[],"token":[],"contract":[],"exec":[],"log":[]}')
+
+function save(){localStorage.setItem("hv_index",JSON.stringify(db));render()}
+function log(t){db.log.unshift({time:new Date().toLocaleTimeString(),t});save()}
+
+function show(id){
+document.querySelectorAll("section").forEach(s=>s.classList.remove("active"))
+document.getElementById(id).classList.add("active")
+}
+
+function addLead(){
+if(user.role!="admin") return alert("권한없음")
+db.lead.push({id:Date.now(),name:lName.value,agree:lAgree.value})
+log("동의자");save()
+}
+
+function addRequest(){
+let l=db.lead.find(x=>x.id==rLead.value)
+if(!l||l.agree!="동의") return alert("동의자만 가능")
+db.req.push({id:Date.now(),name:l.name})
+log("Request");save()
+}
+
+function addToken(){
+if(user.role!="admin") return alert("대표만 가능")
+let r=db.req.find(x=>x.id==tReq.value)
+db.token.push({id:Date.now(),req:r.id,status:tStatus.value})
+log("토큰");save()
+}
+
+function addContract(){
+let r=db.req.find(x=>x.id==cReq.value)
+db.contract.push({id:Date.now(),req:r.id,paid:cPaid.value,audit:cAudit.value})
+log("계약");save()
+}
+
+function canExec(id){
+let t=db.token.find(x=>x.req==id && x.status=="승인")
+let c=db.contract.find(x=>x.req==id && x.paid>0 && x.audit=="확인")
+return t&&c
+}
+
+function addExec(){
+let r=db.req.find(x=>x.id==eReq.value)
+if(!canExec(r.id)) return alert("차단됨")
+db.exec.push({id:Date.now(),req:r.id})
+log("실행");save()
+}
+
+function render(){
+leadTable.innerHTML=db.lead.map(l=>`<tr><td>${l.name}</td><td>${l.agree}</td></tr>`).join("")
+reqTable.innerHTML=db.req.map(r=>`<tr><td>${r.name}</td></tr>`).join("")
+tokenTable.innerHTML=db.token.map(t=>`<tr><td>${t.req}</td><td>${t.status}</td></tr>`).join("")
+contractTable.innerHTML=db.contract.map(c=>`<tr><td>${c.req}</td><td>${c.paid}</td><td>${c.audit}</td></tr>`).join("")
+execTable.innerHTML=db.exec.map(e=>`<tr><td>${e.req}</td></tr>`).join("")
+logTable.innerHTML=db.log.map(l=>`<tr><td>${l.time}</td><td>${l.t}</td></tr>`).join("")
+
+rLead.innerHTML=db.lead.map(l=>`<option value=${l.id}>${l.name}</option>`)
+tReq.innerHTML=db.req.map(r=>`<option value=${r.id}>${r.name}</option>`)
+cReq.innerHTML=tReq.innerHTML
+eReq.innerHTML=db.req.filter(r=>canExec(r.id)).map(r=>`<option value=${r.id}>${r.name}</option>`)
+}
+
+render()
+</script>
+
+</body>
+</html>
