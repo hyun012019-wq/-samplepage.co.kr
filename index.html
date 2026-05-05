@@ -1,383 +1,136 @@
 <!doctype html>
 <html lang="ko">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>HVIRAL ERP·CRM BACKOFFICE</title>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>HVIRAL ERP · CRM Backoffice</title>
 <style>
-*{box-sizing:border-box}
-body{margin:0;background:#0b1020;color:#e9eefc;font-family:Arial,'Noto Sans KR',sans-serif}
-header{padding:18px 24px;background:#111936;border-bottom:1px solid #27345f;display:flex;justify-content:space-between;align-items:center}
-h1{margin:0;font-size:20px}
-.badge{padding:6px 10px;border-radius:999px;background:#26386d;font-size:12px}
-.wrap{display:grid;grid-template-columns:260px 1fr;min-height:calc(100vh - 65px)}
-nav{background:#0f1730;border-right:1px solid #27345f;padding:14px}
-nav button{width:100%;margin:5px 0;padding:12px;border:0;border-radius:10px;background:#18244a;color:#dfe7ff;text-align:left;cursor:pointer}
-nav button.active{background:#3b62ff;color:white}
-main{padding:18px;overflow:auto}
-.card{background:#111936;border:1px solid #27345f;border-radius:16px;padding:16px;margin-bottom:16px}
-.grid{display:grid;grid-template-columns:repeat(4,minmax(160px,1fr));gap:10px}
-input,select,textarea{width:100%;padding:10px;border-radius:8px;border:1px solid #33406c;background:#0b1020;color:#fff}
-textarea{min-height:70px}
-label{font-size:12px;color:#aab6df}
-button.primary{background:#3b62ff;color:#fff;border:0;border-radius:10px;padding:11px 14px;cursor:pointer}
-button.danger{background:#a83232;color:#fff;border:0;border-radius:10px;padding:9px 12px}
-table{width:100%;border-collapse:collapse;font-size:13px}
-th,td{border-bottom:1px solid #27345f;padding:9px;text-align:left;vertical-align:top}
-th{background:#18244a;color:#fff;position:sticky;top:0}
-.status{padding:4px 8px;border-radius:999px;background:#25345f;display:inline-block;font-size:12px}
-.ok{background:#185c37}.warn{background:#725a16}.bad{background:#6e2323}
-.small{font-size:12px;color:#aab6df;line-height:1.6}
-.flow{display:flex;gap:8px;flex-wrap:wrap}
-.flow span{padding:8px 10px;background:#17234a;border:1px solid #33406c;border-radius:12px}
-hr{border:0;border-top:1px solid #27345f;margin:16px 0}
+*{box-sizing:border-box}body{margin:0;background:#080b14;color:#eef3ff;font-family:Arial,'Noto Sans KR',sans-serif}
+button,input,select,textarea{font-family:inherit}header{height:64px;background:#111a33;border-bottom:1px solid #26345f;display:flex;align-items:center;justify-content:space-between;padding:0 22px}
+h1{font-size:18px;margin:0}.app{display:grid;grid-template-columns:260px 1fr;min-height:calc(100vh - 64px)}
+nav{background:#0d1429;border-right:1px solid #26345f;padding:14px;overflow:auto}nav button{width:100%;padding:11px;margin:4px 0;border:0;border-radius:10px;background:#172244;color:#dfe7ff;text-align:left;cursor:pointer}nav button.on{background:#4267ff;color:#fff}
+main{padding:18px;overflow:auto}.card{background:#111a33;border:1px solid #26345f;border-radius:16px;padding:16px;margin-bottom:14px}.grid{display:grid;grid-template-columns:repeat(4,minmax(150px,1fr));gap:10px}
+input,select,textarea{width:100%;padding:10px;border-radius:8px;border:1px solid #33446f;background:#090d1a;color:#fff}textarea{min-height:72px}
+label{font-size:12px;color:#aebbe3}.primary{background:#4267ff;color:white;border:0;border-radius:10px;padding:10px 14px;cursor:pointer}.danger{background:#a83232;color:white;border:0;border-radius:10px;padding:10px 14px;cursor:pointer}
+table{width:100%;border-collapse:collapse;font-size:13px}th,td{padding:9px;border-bottom:1px solid #26345f;text-align:left;vertical-align:top}th{background:#182449;position:sticky;top:0}
+.badge{display:inline-block;padding:4px 8px;border-radius:999px;background:#263b7a;font-size:12px}.ok{background:#145b37}.warn{background:#755a12}.bad{background:#702323}.muted{color:#aebbe3;font-size:12px;line-height:1.6}.flow{display:flex;gap:8px;flex-wrap:wrap}.flow span{background:#172244;border:1px solid #33446f;border-radius:999px;padding:8px 10px}
+.login{max-width:460px;margin:70px auto}.role{font-size:12px;color:#aebbe3}
 </style>
 </head>
 <body>
-<header>
-  <h1>HVIRAL ERP·CRM BACKOFFICE — BOUND → HQ 통합 운영 프로토타입</h1>
-  <span class="badge">INDEX 단일파일 / localStorage / 테스트용</span>
-</header>
-
-<div class="wrap">
-<nav id="nav"></nav>
-<main id="app"></main>
-</div>
+<div id="root"></div>
 
 <script>
-const $ = s => document.querySelector(s);
-const uid = p => `${p}-${new Date().getFullYear()}-${String(Date.now()).slice(-6)}`;
-const today = () => new Date().toISOString().slice(0,16).replace('T',' ');
-const storeKey = "HVIRAL_ERP_CRM_V1";
-
-const initial = {
-  boundDB: [],
-  call: [],
-  consent: [],
-  token: [],
-  sales: [],
-  hqManager: [],
-  contract: [],
-  executive: [],
-  execution: [],
-  po: [],
-  inbound: [],
-  planning: [],
-  logs: []
+const KEY="HVIRAL_ERP_COMPANY_GRADE_UI_V1";
+const now=()=>new Date().toISOString().slice(0,16).replace("T"," ");
+const gen=p=>`${p}-${new Date().getFullYear()}-${String(Date.now()).slice(-6)}`;
+const roles={
+  CEO:"대표",VP:"부대표",EXEC:"전무이사",HQ:"본부장",BOUND:"바운드 운영지원",CALL:"콜팀",
+  SALES:"마케팅영업",SUPPORT:"경영지원",AUDIT:"감사",EXEC_TEAM:"실행팀",PO:"프로젝트오피스",ADMIN:"관리자"
 };
-
-let db = JSON.parse(localStorage.getItem(storeKey) || "null") || initial;
-const save = () => localStorage.setItem(storeKey, JSON.stringify(db));
-const log = (type, msg, ref="") => { db.logs.unshift({time:today(),type,msg,ref}); save(); };
-
-const modules = [
-  ["dash","대시보드"],
-  ["boundDB","BOUND 운영지원 DB"],
-  ["call","콜팀"],
-  ["consent","동의자 작업요청"],
-  ["token","대표 토큰·승인"],
-  ["execution","실행팀 통합"],
-  ["po","프로젝트오피스 PO"],
-  ["sales","마케팅·영업"],
-  ["hqManager","사업본부 본부장"],
-  ["contract","부대표·경영지원·감사"],
-  ["executive","전무이사 실행통제"],
-  ["inbound","인바운드 접수처"],
-  ["planning","기획조정팀"],
-  ["logs","로그"]
-];
-
-let current = "dash";
-
-function renderNav(){
-  $("#nav").innerHTML = modules.map(([id,name]) =>
-    `<button class="${current===id?'active':''}" onclick="go('${id}')">${name}</button>`
-  ).join("");
+const can={
+  dashboard:["ADMIN","CEO","VP","EXEC","HQ","BOUND","CALL","SALES","SUPPORT","AUDIT","EXEC_TEAM","PO"],
+  outbound:["ADMIN","CEO","BOUND"],
+  call:["ADMIN","CEO","CALL","BOUND"],
+  consent:["ADMIN","CEO","BOUND"],
+  token:["ADMIN","CEO"],
+  inbound:["ADMIN","CEO","SALES","HQ"],
+  planning:["ADMIN","CEO","HQ"],
+  sales:["ADMIN","CEO","SALES"],
+  hq:["ADMIN","CEO","HQ"],
+  contract:["ADMIN","CEO","VP","SUPPORT","AUDIT"],
+  executive:["ADMIN","CEO","EXEC"],
+  execution:["ADMIN","CEO","EXEC_TEAM","EXEC"],
+  po:["ADMIN","CEO","PO"],
+  logs:["ADMIN","CEO"]
+};
+let state=JSON.parse(localStorage.getItem(KEY)||"null")||{
+ user:null,view:"dashboard",
+ outbound:[],call:[],consent:[],token:[],inbound:[],planning:[],sales:[],hq:[],contract:[],executive:[],execution:[],po:[],logs:[]
+};
+const save=()=>localStorage.setItem(KEY,JSON.stringify(state));
+const log=(type,msg,ref="")=>{state.logs.unshift({time:now(),user:state.user?.name||"",role:roles[state.user?.role]||"",type,msg,ref});save();}
+const allowed=v=>state.user&&can[v]?.includes(state.user.role);
+const html=x=>document.getElementById("root").innerHTML=x;
+const val=id=>document.getElementById(id)?.value||"";
+const tag=v=>`<span class="badge ${["승인","Y","가능","완료","사용중","PO적재","출고완료","계약완료","검증완료"].includes(v)?"ok":["대기","보류","검토중","진행중","출고대기"].includes(v)?"warn":["반려","차단","N","불가","거절","이슈"].includes(v)?"bad":""}">${v||""}</span>`;
+const table=(rows,cols)=>`<table><thead><tr>${cols.map(c=>`<th>${c[1]}</th>`).join("")}</tr></thead><tbody>${rows.map(r=>`<tr>${cols.map(c=>`<td>${tag(r[c[0]])}</td>`).join("")}</tr>`).join("")}</tbody></table>`;
+const add=(k,o,msg)=>{state[k].unshift(o);log("CREATE",msg,o.requestId||o.inRequestId||o.tokenId||o.unitId);save();render();}
+function login(){
+ html(`<div class="login card"><h2>HVIRAL ERP 로그인</h2><p class="muted">테스트용 권한 로그인입니다. 실제 운영 시 서버 인증으로 교체.</p>
+ <label>이름</label><input id="name" value="이재현"/>
+ <label>권한</label><select id="role">${Object.entries(roles).map(([k,v])=>`<option value="${k}">${v}</option>`)}</select><br><br>
+ <button class="primary" onclick="state.user={name:val('name'),role:val('role')};log('LOGIN','로그인');save();render()">로그인</button></div>`);
 }
-function go(id){current=id;renderNav();render();}
-
-function table(rows, cols){
-  return `<table><thead><tr>${cols.map(c=>`<th>${c[1]}</th>`).join("")}</tr></thead>
-  <tbody>${rows.map(r=>`<tr>${cols.map(c=>`<td>${format(r[c[0]])}</td>`).join("")}</tr>`).join("")}</tbody></table>`;
+function layout(content){
+ const menu=[["dashboard","대시보드"],["outbound","BOUND DB"],["call","콜팀"],["consent","동의자"],["token","대표 토큰"],["inbound","인바운드 접수"],["planning","기획조정"],["sales","마케팅영업"],["hq","사업본부"],["contract","부대표·경영지원·감사"],["executive","전무이사"],["execution","실행팀"],["po","PO"],["logs","로그"]];
+ html(`<header><h1>HVIRAL ERP·CRM BACKOFFICE</h1><div><span class="role">${state.user.name} · ${roles[state.user.role]}</span> <button class="danger" onclick="state.user=null;save();render()">로그아웃</button></div></header>
+ <div class="app"><nav>${menu.filter(m=>allowed(m[0])).map(m=>`<button class="${state.view===m[0]?'on':''}" onclick="state.view='${m[0]}';save();render()">${m[1]}</button>`).join("")}</nav><main>${content}</main></div>`);
 }
-function format(v){
-  if(v===undefined||v===null) return "";
-  if(["승인","가능","Y","완료","사용중","출고완료","PO적재"].includes(v)) return `<span class="status ok">${v}</span>`;
-  if(["대기","보류","검토중","진행중","출고대기"].includes(v)) return `<span class="status warn">${v}</span>`;
-  if(["반려","불가","N","차단","거절"].includes(v)) return `<span class="status bad">${v}</span>`;
-  return String(v);
+function dashboard(){
+ layout(`<div class="card"><h2>전체 흐름</h2><div class="flow">
+ <span>BOUND DB</span><span>콜팀</span><span>동의자</span><span>대표 토큰</span><span>시안 실행</span><span>PO</span><span>영업</span><span>본부장</span><span>부대표</span><span>경영지원/감사</span><span>전무</span><span>진행 실행</span><span>PO</span>
+ </div><hr><div class="flow"><span>인바운드 접수</span><span>기획조정</span><span>영업</span><span>본부장</span><span>부대표</span><span>전무</span><span>실행팀</span><span>PO</span></div></div>
+ <div class="grid">${["outbound","call","consent","token","inbound","planning","sales","hq","contract","executive","execution","po"].map(k=>`<div class="card"><b>${k}</b><h2>${state[k].length}</h2></div>`).join("")}</div>`);
 }
-function addRow(key,obj,msg){
-  db[key].unshift(obj); log("CREATE",msg,obj.requestId||obj.inRequestId||obj.tokenId||obj.unitId); save(); render();
+function outbound(){
+ layout(`<div class="card"><h2>BOUND 운영지원 DB</h2><div class="grid"><input id="biz" placeholder="업체명"><input id="ind" placeholder="업종"><input id="phone" placeholder="연락처"><input id="memo" placeholder="메모"></div><br><button class="primary" onclick="add('outbound',{requestId:gen('OUT'),biz:val('biz'),industry:val('ind'),phone:val('phone'),status:'미연락',block:'N',memo:val('memo')},'아웃바운드 DB 등록')">등록</button></div>
+ <div class="card">${table(state.outbound,[["requestId","Request ID"],["biz","업체"],["industry","업종"],["phone","연락처"],["status","콜상태"],["block","차단"],["memo","메모"]])}</div>`);
 }
-function updateRow(key,i,patch,msg){
-  db[key][i] = {...db[key][i],...patch}; log("UPDATE",msg,db[key][i].requestId||db[key][i].inRequestId||""); save(); render();
-}
-
-function dash(){
-  const c = k => db[k].length;
-  return `
-  <div class="card">
-    <h2>전체 구조 흐름</h2>
-    <div class="flow">
-      <span>BOUND DB</span><span>콜팀</span><span>동의자</span><span>대표 토큰</span>
-      <span>실행팀 1차 시안</span><span>PO</span><span>영업</span>
-      <span>본부장</span><span>부대표/경영지원/감사</span><span>전무</span>
-      <span>실행팀 2차 진행</span><span>PO</span>
-    </div>
-    <hr/>
-    <div class="flow">
-      <span>인바운드 접수처</span><span>기획조정</span><span>영업</span><span>본부장</span><span>부대표</span><span>전무</span><span>실행팀</span><span>PO</span>
-    </div>
-  </div>
-  <div class="grid">
-    ${modules.filter(m=>m[0]!=="dash").map(([id,name])=>`<div class="card"><b>${name}</b><h2>${c(id)||0}</h2></div>`).join("")}
-  </div>
-  <div class="card small">
-    <b>핵심 원칙</b><br>
-    Request ID / IN-Request ID는 원본 추적축이다. 새로 만들지 않는다.<br>
-    유닛ID = 고객·상품 작업 단위. 토큰ID = 실행 허가증.<br>
-    시안과 진행은 같은 건이어도 행을 분리한다. 덮어쓰기 금지.<br>
-    PO는 원본 보관소다. 기존 행 수정 금지, 새 행 추가 원칙.
-  </div>`;
-}
-
-function boundDB(){
-  return `
-  <div class="card"><h2>BOUND 운영지원 DB</h2>
-  <div class="grid">
-    <input id="biz" placeholder="업체명">
-    <input id="industry" placeholder="업종">
-    <input id="phone" placeholder="연락처">
-    <input id="memo" placeholder="메모">
-  </div><br>
-  <button class="primary" onclick="addBound()">타깃 등록</button>
-  </div>
-  <div class="card">${table(db.boundDB,[["requestId","Request ID"],["biz","업체명"],["industry","업종"],["phone","연락처"],["status","콜상태"],["blocked","차단"],["memo","메모"]])}</div>`;
-}
-function addBound(){
-  const requestId = uid("OUT");
-  addRow("boundDB",{requestId,biz:$("#biz").value,industry:$("#industry").value,phone:$("#phone").value,status:"미연락",blocked:"N",memo:$("#memo").value},"BOUND 타깃 등록");
-}
-
 function call(){
-  return `
-  <div class="card"><h2>콜팀 배정/결과</h2>
-  <p class="small">콜팀은 결과만 입력. 콜상태 최종 변경은 운영지원 권한.</p>
-  ${table(db.boundDB,[["requestId","Request ID"],["biz","업체명"],["phone","연락처"],["status","콜상태"]])}
-  </div>
-  <div class="card"><h3>콜결과 등록</h3>
-  <div class="grid">
-    <input id="callReq" placeholder="Request ID">
-    <select id="callResult"><option>동의</option><option>거절</option><option>부재</option><option>재접촉</option><option>차단</option></select>
-    <input id="caller" placeholder="콜담당자">
-    <input id="callMemo" placeholder="콜메모">
-  </div><br><button class="primary" onclick="addCall()">콜결과 저장</button></div>
-  <div class="card">${table(db.call,[["requestId","Request ID"],["result","콜결과"],["caller","콜담당자"],["memo","메모"],["time","일시"]])}</div>`;
+ layout(`<div class="card"><h2>콜팀</h2><p class="muted">콜팀은 결과만 입력. DB 수정 금지.</p><div class="grid"><input id="rid" placeholder="Request ID"><select id="res"><option>동의</option><option>거절</option><option>부재</option><option>재접촉</option><option>차단</option></select><input id="caller" placeholder="콜담당자"><input id="memo" placeholder="콜메모"></div><br><button class="primary" onclick="add('call',{requestId:val('rid'),result:val('res'),caller:val('caller'),memo:val('memo'),time:now()},'콜결과 입력')">저장</button></div>
+ <div class="card">${table(state.call,[["requestId","Request ID"],["result","콜결과"],["caller","담당"],["memo","메모"],["time","일시"]])}</div>`);
 }
-function addCall(){
-  addRow("call",{requestId:$("#callReq").value,result:$("#callResult").value,caller:$("#caller").value,memo:$("#callMemo").value,time:today()},"콜결과 입력");
-}
-
 function consent(){
-  const agreed = db.call.filter(x=>x.result==="동의");
-  return `<div class="card"><h2>동의자 작업요청</h2>
-  <p class="small">콜결과 동의 건만 토큰화 후보. Request ID 유지.</p>
-  ${table(agreed,[["requestId","Request ID"],["caller","콜담당자"],["time","동의일시"]])}
-  <hr/><div class="grid">
-    <input id="consReq" placeholder="Request ID">
-    <input id="consWork" placeholder="요청내용">
-    <input id="consUser" placeholder="요청자">
-    <select id="consAgree"><option>Y</option><option>N</option></select>
-  </div><br><button class="primary" onclick="addConsent()">동의자 요청 등록</button>
-  </div>
-  <div class="card">${table(db.consent,[["requestId","Request ID"],["work","요청내용"],["agree","동의확인"],["user","요청자"],["status","상태"]])}</div>`;
+ layout(`<div class="card"><h2>동의자 작업요청</h2><div class="grid"><input id="rid" placeholder="Request ID"><input id="work" placeholder="요청내용"><input id="user" placeholder="요청자"><select id="agree"><option>Y</option><option>N</option></select></div><br><button class="primary" onclick="add('consent',{requestId:val('rid'),work:val('work'),user:val('user'),agree:val('agree'),status:'승인대기'},'동의자 작업요청')">등록</button></div>
+ <div class="card">${table(state.consent,[["requestId","Request ID"],["work","요청내용"],["agree","동의"],["user","요청자"],["status","상태"]])}</div>`);
 }
-function addConsent(){
-  addRow("consent",{requestId:$("#consReq").value,work:$("#consWork").value,user:$("#consUser").value,agree:$("#consAgree").value,status:"승인대기"},"동의자 작업요청 등록");
-}
-
 function token(){
-  return `<div class="card"><h2>대표 토큰·승인</h2>
-  <p class="small">토큰ID는 승인된 유닛 1개당 1개. 데이터는 수동 입력. 판단 자동화 금지.</p>
-  <div class="grid">
-    <input id="tokReq" placeholder="Request ID 또는 IN-Request ID">
-    <input id="unitId" placeholder="유닛ID 예: U-2026-001">
-    <select id="unitType"><option>고객단위</option><option>상품단위</option></select>
-    <select id="approve"><option>대기</option><option>승인</option><option>반려</option><option>보류</option></select>
-    <input id="ceoref" placeholder="CEO Reference">
-  </div><br><button class="primary" onclick="addToken()">승인/토큰 기록</button></div>
-  <div class="card">${table(db.token,[["requestId","Request ID"],["unitId","유닛ID"],["tokenId","토큰ID"],["unitType","유닛기준"],["approval","승인상태"],["tokenStatus","토큰상태"],["ceo","CEO Reference"]])}</div>`;
+ layout(`<div class="card"><h2>대표 토큰·승인</h2><p class="muted">토큰=실행 허가증. 승인된 유닛 1개당 1개.</p><div class="grid"><input id="rid" placeholder="Request ID / IN-Request ID"><input id="unit" placeholder="유닛ID"><select id="ut"><option>고객단위</option><option>상품단위</option></select><select id="ap"><option>대기</option><option>승인</option><option>반려</option><option>보류</option></select><input id="ceo" placeholder="CEO Reference"></div><br><button class="primary" onclick="makeToken()">기록</button></div>
+ <div class="card">${table(state.token,[["requestId","ID"],["unitId","유닛ID"],["tokenId","토큰ID"],["unitType","기준"],["approval","승인"],["tokenStatus","토큰상태"],["ceo","CEO Ref"]])}</div>`);
 }
-function addToken(){
-  const approval=$("#approve").value;
-  const tokenId = approval==="승인" ? uid("TK") : "";
-  addRow("token",{requestId:$("#tokReq").value,unitId:$("#unitId").value,unitType:$("#unitType").value,approval,tokenId,tokenStatus:approval==="승인"?"사용중":"대기",ceo:$("#ceoref").value},"대표 승인/토큰 기록");
-}
-
-function execution(){
-  return `<div class="card"><h2>실행팀 통합</h2>
-  <p class="small">1차=시안, 2차=진행. 같은 Request ID라도 작업구분별 행 분리. 전무 승인 없는 진행 금지.</p>
-  <div class="grid">
-    <input id="exReq" placeholder="Request ID / IN-Request ID">
-    <input id="exToken" placeholder="토큰ID">
-    <input id="exUnit" placeholder="유닛ID">
-    <select id="exType"><option>시안</option><option>진행</option><option>유지관리</option></select>
-    <select id="exDept"><option>디자인팀</option><option>마케팅영업팀</option><option>Web/App개발팀</option><option>프로듀서팀</option></select>
-    <select id="exStatus"><option>작업요청</option><option>처리중</option><option>제출완료</option><option>반려</option><option>프로젝트오피스 처리</option></select>
-    <input id="exOutput" placeholder="산출물">
-    <input id="exPath" placeholder="저장경로">
-  </div><br><button class="primary" onclick="addExecution()">실행 행 추가</button></div>
-  <div class="card">${table(db.execution,[["requestId","Request ID"],["tokenId","토큰ID"],["unitId","유닛ID"],["workType","작업유형"],["dept","현재부서"],["status","USB/상태"],["output","산출물"],["path","경로"]])}</div>`;
-}
-function addExecution(){
-  if(!$("#exToken").value) return alert("토큰ID 없는 실행 금지");
-  addRow("execution",{requestId:$("#exReq").value,tokenId:$("#exToken").value,unitId:$("#exUnit").value,workType:$("#exType").value,dept:$("#exDept").value,status:$("#exStatus").value,output:$("#exOutput").value,path:$("#exPath").value},"실행팀 작업 등록");
-}
-
-function po(){
-  return `<div class="card"><h2>프로젝트오피스 PO</h2>
-  <p class="small">PO는 원본 보관/검수/출고. 기존 행 수정 금지, 시안·진행 행 분리.</p>
-  <div class="grid">
-    <input id="poReq" placeholder="Request ID / IN-Request ID">
-    <input id="poToken" placeholder="토큰ID">
-    <input id="poUnit" placeholder="유닛ID">
-    <select id="poType"><option>시안</option><option>진행</option><option>유지관리</option></select>
-    <input id="poFile" placeholder="산출물 파일명">
-    <input id="poPath" placeholder="저장경로">
-    <select id="poCheck"><option>검수대기</option><option>PO적재</option><option>출고대기</option><option>출고완료</option><option>반려</option></select>
-    <input id="poMemo" placeholder="특이사항">
-  </div><br><button class="primary" onclick="addPO()">PO 적재</button></div>
-  <div class="card">${table(db.po,[["requestId","Request ID"],["tokenId","토큰ID"],["unitId","유닛ID"],["workType","작업유형"],["file","파일"],["path","경로"],["status","출고상태"],["memo","특이사항"]])}</div>`;
-}
-function addPO(){
-  addRow("po",{requestId:$("#poReq").value,tokenId:$("#poToken").value,unitId:$("#poUnit").value,workType:$("#poType").value,file:$("#poFile").value,path:$("#poPath").value,status:$("#poCheck").value,memo:$("#poMemo").value},"PO 적재");
-}
-
-function sales(){
-  return `<div class="card"><h2>마케팅·영업</h2>
-  <p class="small">아웃바운드/인바운드 공용. 영업은 전환·견적요청·계약요청까지 담당.</p>
-  <div class="grid">
-    <select id="salesType"><option>아웃바운드</option><option>인바운드</option></select>
-    <input id="salesReq" placeholder="Request ID / IN-Request ID">
-    <input id="salesUnit" placeholder="유닛ID">
-    <input id="salesCustomer" placeholder="고객 식별명/코드">
-    <select id="salesStatus"><option>미접촉</option><option>상담중</option><option>견적요청</option><option>계약요청</option><option>보류</option><option>거절</option></select>
-    <select id="quote"><option>견적요청서 N</option><option>견적요청서 Y</option></select>
-    <input id="salesOwner" placeholder="담당 영업자">
-    <input id="salesMemo" placeholder="비고">
-  </div><br><button class="primary" onclick="addSales()">영업 기록</button></div>
-  <div class="card">${table(db.sales,[["type","유입"],["requestId","ID"],["unitId","유닛ID"],["customer","고객"],["status","진행상태"],["quote","견적"],["owner","담당"],["memo","비고"]])}</div>`;
-}
-function addSales(){
-  addRow("sales",{type:$("#salesType").value,requestId:$("#salesReq").value,unitId:$("#salesUnit").value,customer:$("#salesCustomer").value,status:$("#salesStatus").value,quote:$("#quote").value,owner:$("#salesOwner").value,memo:$("#salesMemo").value},"영업 기록");
-}
-
-function hqManager(){
- return `<div class="card"><h2>사업본부 본부장</h2>
- <p class="small">고객용 견적요청서를 회사용 견적요청서로 치환. 실행지시 단계 아님.</p>
- <div class="grid">
-  <input id="mReq" placeholder="Request ID / IN-Request ID">
-  <input id="mUnit" placeholder="유닛ID">
-  <textarea id="customerReq" placeholder="고객용 요청 원본"></textarea>
-  <textarea id="companyReq" placeholder="회사용 견적요청서 치환 결과"></textarea>
-  <input id="scope" placeholder="계약 범위 확정">
-  <input id="exclude" placeholder="제외 범위">
-  <select id="toVp"><option>부대표 전달 N</option><option>부대표 전달 Y</option></select>
- </div><br><button class="primary" onclick="addManager()">본부장 치환 기록</button></div>
- <div class="card">${table(db.hqManager,[["requestId","ID"],["unitId","유닛ID"],["customerReq","고객요청"],["companyReq","회사용 치환"],["scope","범위"],["exclude","제외"],["toVp","부대표전달"]])}</div>`;
-}
-function addManager(){
- addRow("hqManager",{requestId:$("#mReq").value,unitId:$("#mUnit").value,customerReq:$("#customerReq").value,companyReq:$("#companyReq").value,scope:$("#scope").value,exclude:$("#exclude").value,toVp:$("#toVp").value},"본부장 치환");
-}
-
-function contract(){
- return `<div class="card"><h2>부대표·경영지원·감사</h2>
- <p class="small">부대표=계약 확정/상신, 경영지원=입금, 감사=검증. 실행팀 직접 지시 금지.</p>
- <div class="grid">
-  <input id="cReq" placeholder="Request ID / IN-Request ID">
-  <input id="cToken" placeholder="토큰ID">
-  <input id="cUnit" placeholder="유닛ID">
-  <select id="contractState"><option>계약대기</option><option>계약완료</option><option>보류</option><option>반려</option></select>
-  <input id="amount" placeholder="계약금액">
-  <select id="deposit"><option>착수금 N</option><option>착수금 Y</option></select>
-  <select id="audit"><option>감사대기</option><option>검증완료</option><option>이슈</option></select>
-  <select id="toExec"><option>전무전달 N</option><option>전무전달 Y</option></select>
- </div><br><button class="primary" onclick="addContract()">계약/입금/감사 기록</button></div>
- <div class="card">${table(db.contract,[["requestId","ID"],["tokenId","토큰ID"],["unitId","유닛ID"],["state","계약"],["amount","금액"],["deposit","착수금"],["audit","감사"],["toExec","전무전달"]])}</div>`;
-}
-function addContract(){
- addRow("contract",{requestId:$("#cReq").value,tokenId:$("#cToken").value,unitId:$("#cUnit").value,state:$("#contractState").value,amount:$("#amount").value,deposit:$("#deposit").value,audit:$("#audit").value,toExec:$("#toExec").value},"계약/입금/감사 기록");
-}
-
-function executive(){
- return `<div class="card"><h2>전무이사 실행통제</h2>
- <p class="small">계약+착수금+감사검증+토큰 확인 후 전무가 직접 실행판정. 자동 승인 금지.</p>
- <div class="grid">
-  <input id="eReq" placeholder="Request ID / IN-Request ID">
-  <input id="eToken" placeholder="토큰ID">
-  <input id="eUnit" placeholder="유닛ID">
-  <select id="execJudge"><option>대기</option><option>승인</option><option>보류</option><option>차단</option></select>
-  <select id="workOrder"><option>작업지시 N</option><option>작업지시 O</option></select>
-  <select id="execStatus"><option>대기</option><option>작업요청</option><option>진행중</option><option>완료</option></select>
-  <input id="nextLoc" placeholder="다음위치">
-  <input id="execMemo" placeholder="메모">
- </div><br><button class="primary" onclick="addExecutive()">전무 판정 기록</button></div>
- <div class="card">${table(db.executive,[["requestId","ID"],["tokenId","토큰ID"],["unitId","유닛ID"],["judge","판정"],["workOrder","작업지시"],["status","상태"],["next","다음위치"],["memo","메모"]])}</div>`;
-}
-function addExecutive(){
- if(!$("#eToken").value) return alert("토큰ID 없는 전무 승인 금지");
- addRow("executive",{requestId:$("#eReq").value,tokenId:$("#eToken").value,unitId:$("#eUnit").value,judge:$("#execJudge").value,workOrder:$("#workOrder").value,status:$("#execStatus").value,next:$("#nextLoc").value,memo:$("#execMemo").value},"전무 실행판정");
-}
-
+function makeToken(){const ap=val("ap");add("token",{requestId:val("rid"),unitId:val("unit"),unitType:val("ut"),approval:ap,tokenId:ap==="승인"?gen("TK"):"",tokenStatus:ap==="승인"?"사용중":"대기",ceo:val("ceo")},"대표 승인/토큰 기록")}
 function inbound(){
- return `<div class="card"><h2>인바운드 접수처</h2>
- <p class="small">IN-Request ID는 인바운드 전용 추적 ID. 아웃바운드 Request ID와 합치지 않음.</p>
- <div class="grid">
-  <input id="inCode" placeholder="고객코드">
-  <select id="inType"><option>A</option><option>B</option></select>
-  <input id="channel" placeholder="유입경로">
-  <input id="inIndustry" placeholder="업종">
-  <input id="product" placeholder="상품코드">
-  <textarea id="inSummary" placeholder="요청요약 비식별"></textarea>
-  <select id="urgent"><option>낮음</option><option>보통</option><option>긴급</option></select>
- </div><br><button class="primary" onclick="addInbound()">인바운드 접수</button></div>
- <div class="card">${table(db.inbound,[["inRequestId","IN-Request ID"],["code","고객코드"],["type","유형"],["channel","유입경로"],["industry","업종"],["product","상품"],["summary","요약"],["status","기획조정상태"]])}</div>`;
+ layout(`<div class="card"><h2>인바운드 접수처</h2><div class="grid"><input id="code" placeholder="고객코드"><select id="type"><option>A</option><option>B</option></select><input id="ch" placeholder="유입경로"><input id="prod" placeholder="상품코드"><textarea id="sum" placeholder="요청요약"></textarea></div><br><button class="primary" onclick="add('inbound',{inRequestId:gen('IN'),code:val('code'),type:val('type'),channel:val('ch'),product:val('prod'),summary:val('sum'),status:'대기'},'인바운드 접수')">접수</button></div>
+ <div class="card">${table(state.inbound,[["inRequestId","IN-Request ID"],["code","고객코드"],["type","유형"],["channel","경로"],["product","상품"],["summary","요약"],["status","상태"]])}</div>`);
 }
-function addInbound(){
- addRow("inbound",{inRequestId:uid("IN"),code:$("#inCode").value,type:$("#inType").value,channel:$("#channel").value,industry:$("#inIndustry").value,product:$("#product").value,summary:$("#inSummary").value,urgent:$("#urgent").value,status:"대기"},"인바운드 접수");
-}
-
 function planning(){
- return `<div class="card"><h2>기획조정팀</h2>
- <p class="small">인바운드 문의를 영업/본부장/부대표/보류/제외로 라우팅.</p>
- <div class="grid">
-  <input id="pIn" placeholder="IN-Request ID">
-  <select id="route"><option>영업</option><option>본부장</option><option>부대표</option><option>보류</option><option>제외</option></select>
-  <input id="score" placeholder="우선순위점수 1~100">
-  <input id="reason" placeholder="판단근거">
-  <input id="owner" placeholder="담당자">
-  <select id="pStatus"><option>검토중</option><option>분배완료</option><option>보류</option><option>제외</option></select>
- </div><br><button class="primary" onclick="addPlanning()">분배 기록</button></div>
- <div class="card">${table(db.planning,[["inRequestId","IN-Request ID"],["route","분배유형"],["score","점수"],["reason","판단근거"],["owner","담당자"],["status","상태"]])}</div>`;
+ layout(`<div class="card"><h2>기획조정팀</h2><div class="grid"><input id="inid" placeholder="IN-Request ID"><select id="route"><option>영업</option><option>본부장</option><option>부대표</option><option>보류</option><option>제외</option></select><input id="score" placeholder="우선순위점수"><input id="reason" placeholder="판단근거"><input id="owner" placeholder="담당자"></div><br><button class="primary" onclick="add('planning',{inRequestId:val('inid'),route:val('route'),score:val('score'),reason:val('reason'),owner:val('owner'),status:'분배완료'},'기획조정 분배')">분배</button></div>
+ <div class="card">${table(state.planning,[["inRequestId","IN-Request ID"],["route","분배"],["score","점수"],["reason","근거"],["owner","담당"],["status","상태"]])}</div>`);
 }
-function addPlanning(){
- addRow("planning",{inRequestId:$("#pIn").value,route:$("#route").value,score:$("#score").value,reason:$("#reason").value,owner:$("#owner").value,status:$("#pStatus").value},"기획조정 분배");
+function sales(){
+ layout(`<div class="card"><h2>마케팅·영업</h2><div class="grid"><select id="type"><option>아웃바운드</option><option>인바운드</option></select><input id="rid" placeholder="Request ID / IN-Request ID"><input id="unit" placeholder="유닛ID"><input id="cust" placeholder="고객 식별"><select id="st"><option>미접촉</option><option>상담중</option><option>견적요청</option><option>계약요청</option><option>보류</option><option>거절</option></select><select id="quote"><option>견적요청서 N</option><option>견적요청서 Y</option></select><input id="owner" placeholder="담당 영업자"></div><br><button class="primary" onclick="add('sales',{type:val('type'),requestId:val('rid'),unitId:val('unit'),customer:val('cust'),status:val('st'),quote:val('quote'),owner:val('owner')},'영업 기록')">저장</button></div>
+ <div class="card">${table(state.sales,[["type","유입"],["requestId","ID"],["unitId","유닛"],["customer","고객"],["status","상태"],["quote","견적"],["owner","담당"]])}</div>`);
 }
-
+function hq(){
+ layout(`<div class="card"><h2>사업본부 본부장</h2><p class="muted">고객용 견적요청서 → 회사용 견적요청서 치환.</p><div class="grid"><input id="rid" placeholder="ID"><input id="unit" placeholder="유닛ID"><textarea id="raw" placeholder="고객용 요청"></textarea><textarea id="fix" placeholder="회사용 치환 결과"></textarea><input id="scope" placeholder="계약범위"><input id="exclude" placeholder="제외범위"><select id="to"><option>부대표 전달 N</option><option>부대표 전달 Y</option></select></div><br><button class="primary" onclick="add('hq',{requestId:val('rid'),unitId:val('unit'),raw:val('raw'),fixed:val('fix'),scope:val('scope'),exclude:val('exclude'),toVp:val('to')},'본부장 치환')">저장</button></div>
+ <div class="card">${table(state.hq,[["requestId","ID"],["unitId","유닛"],["raw","고객요청"],["fixed","회사치환"],["scope","범위"],["exclude","제외"],["toVp","부대표"]])}</div>`);
+}
+function contract(){
+ layout(`<div class="card"><h2>부대표·경영지원·감사</h2><div class="grid"><input id="rid" placeholder="ID"><input id="tok" placeholder="토큰ID"><input id="unit" placeholder="유닛ID"><select id="cs"><option>계약대기</option><option>계약완료</option><option>보류</option><option>반려</option></select><input id="amt" placeholder="계약금액"><select id="dep"><option>착수금 N</option><option>착수금 Y</option></select><select id="aud"><option>감사대기</option><option>검증완료</option><option>이슈</option></select><select id="to"><option>전무전달 N</option><option>전무전달 Y</option></select></div><br><button class="primary" onclick="add('contract',{requestId:val('rid'),tokenId:val('tok'),unitId:val('unit'),contract:val('cs'),amount:val('amt'),deposit:val('dep'),audit:val('aud'),toExec:val('to')},'계약/입금/감사')">저장</button></div>
+ <div class="card">${table(state.contract,[["requestId","ID"],["tokenId","토큰"],["unitId","유닛"],["contract","계약"],["amount","금액"],["deposit","착수금"],["audit","감사"],["toExec","전무"]])}</div>`);
+}
+function executive(){
+ layout(`<div class="card"><h2>전무이사 실행통제</h2><div class="grid"><input id="rid" placeholder="ID"><input id="tok" placeholder="토큰ID"><input id="unit" placeholder="유닛ID"><select id="judge"><option>대기</option><option>승인</option><option>보류</option><option>차단</option></select><select id="order"><option>작업지시 N</option><option>작업지시 O</option></select><select id="st"><option>대기</option><option>작업요청</option><option>진행중</option><option>완료</option></select><input id="next" placeholder="다음위치"></div><br><button class="primary" onclick="if(!val('tok'))alert('토큰ID 필수');else add('executive',{requestId:val('rid'),tokenId:val('tok'),unitId:val('unit'),judge:val('judge'),order:val('order'),status:val('st'),next:val('next')},'전무 실행판정')">판정</button></div>
+ <div class="card">${table(state.executive,[["requestId","ID"],["tokenId","토큰"],["unitId","유닛"],["judge","판정"],["order","작업지시"],["status","상태"],["next","다음"]])}</div>`);
+}
+function execution(){
+ layout(`<div class="card"><h2>실행팀 통합</h2><div class="grid"><input id="rid" placeholder="ID"><input id="tok" placeholder="토큰ID"><input id="unit" placeholder="유닛ID"><select id="type"><option>시안</option><option>진행</option><option>유지관리</option></select><select id="dept"><option>디자인팀</option><option>마케팅영업팀</option><option>Web/App개발팀</option><option>프로듀서팀</option></select><select id="st"><option>작업요청</option><option>처리중</option><option>제출완료</option><option>반려</option><option>프로젝트오피스 처리</option></select><input id="out" placeholder="산출물"><input id="path" placeholder="저장경로"></div><br><button class="primary" onclick="if(!val('tok'))alert('토큰ID 없는 실행 금지');else add('execution',{requestId:val('rid'),tokenId:val('tok'),unitId:val('unit'),workType:val('type'),dept:val('dept'),status:val('st'),output:val('out'),path:val('path')},'실행팀 작업')">등록</button></div>
+ <div class="card">${table(state.execution,[["requestId","ID"],["tokenId","토큰"],["unitId","유닛"],["workType","작업"],["dept","부서"],["status","상태"],["output","산출"],["path","경로"]])}</div>`);
+}
+function po(){
+ layout(`<div class="card"><h2>프로젝트오피스 PO</h2><div class="grid"><input id="rid" placeholder="ID"><input id="tok" placeholder="토큰ID"><input id="unit" placeholder="유닛ID"><select id="type"><option>시안</option><option>진행</option><option>유지관리</option></select><input id="file" placeholder="파일명"><input id="path" placeholder="저장경로"><select id="st"><option>PO적재</option><option>출고대기</option><option>출고완료</option><option>회수완료</option><option>보류</option><option>반려</option></select></div><br><button class="primary" onclick="add('po',{requestId:val('rid'),tokenId:val('tok'),unitId:val('unit'),workType:val('type'),file:val('file'),path:val('path'),status:val('st')},'PO 적재')">적재</button></div>
+ <div class="card">${table(state.po,[["requestId","ID"],["tokenId","토큰"],["unitId","유닛"],["workType","작업"],["file","파일"],["path","경로"],["status","출고상태"]])}</div>`);
+}
 function logs(){
- return `<div class="card"><h2>시스템 로그</h2>
- <p class="small">모든 생성/변경 기록. 실제 서버 개발 시 DB audit log로 이전.</p>
- ${table(db.logs,[["time","일시"],["type","구분"],["msg","내용"],["ref","참조ID"]])}
- <br><button class="danger" onclick="if(confirm('전체 테스트 데이터를 삭제할까요?')){localStorage.removeItem(storeKey);location.reload()}">전체 초기화</button>
- </div>`;
+ layout(`<div class="card"><h2>감사 로그</h2>${table(state.logs,[["time","일시"],["user","사용자"],["role","권한"],["type","구분"],["msg","내용"],["ref","참조"]])}<br><button class="danger" onclick="if(confirm('초기화?')){localStorage.removeItem(KEY);location.reload()}">전체 초기화</button></div>`);
 }
-
 function render(){
-  const views = {dash,boundDB,call,consent,token,execution,po,sales,hqManager,contract,executive,inbound,planning,logs};
-  $("#app").innerHTML = views[current]();
+ if(!state.user)return login();
+ if(!allowed(state.view))state.view="dashboard";
+ ({dashboard,outbound,call,consent,token,inbound,planning,sales,hq,contract,executive,execution,po,logs}[state.view])();
 }
-renderNav();render();
+render();
 </script>
 </body>
 </html>
