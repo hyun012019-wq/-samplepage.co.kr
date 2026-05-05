@@ -1,0 +1,294 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>HVIRAL ERP·CRM</title>
+
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,'Noto Sans KR',sans-serif;background:linear-gradient(135deg,#eef3ff,#f8fafc);color:#202633}
+
+header{
+  height:64px;
+  background:rgba(255,255,255,.92);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 14px;
+  border-bottom:1px solid #e8ecf3;
+  position:sticky;top:0;z-index:10
+}
+
+.menu-btn{
+  font-size:22px;
+  background:none;
+  border:0;
+  cursor:pointer;
+}
+
+.sidebar{
+  position:fixed;
+  top:0;left:-270px;
+  width:260px;height:100%;
+  background:#111c36;
+  padding:14px;
+  transition:.3s;
+  z-index:20;
+}
+.sidebar.open{left:0}
+.sidebar button{
+  width:100%;
+  padding:13px;
+  margin:5px 0;
+  border:0;
+  border-radius:12px;
+  background:#263a60;
+  color:#fff;
+  text-align:left;
+}
+
+.overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.4);
+  display:none;
+  z-index:15;
+}
+.overlay.show{display:block}
+
+main{padding:18px}
+
+.card{
+  background:white;
+  border-radius:20px;
+  padding:18px;
+  margin-bottom:16px;
+  box-shadow:0 8px 20px rgba(0,0,0,.05)
+}
+
+input,select,textarea{
+  width:100%;
+  padding:12px;
+  margin-bottom:10px;
+  border:1px solid #ddd;
+  border-radius:12px
+}
+
+button.primary{
+  width:100%;
+  padding:14px;
+  border:0;
+  border-radius:12px;
+  background:#4f6dff;
+  color:white;
+  font-weight:bold
+}
+
+.badge{
+  padding:4px 8px;
+  border-radius:10px;
+  font-size:12px;
+  background:#eee
+}
+.ok{background:#dff7e8}
+.warn{background:#fff2c7}
+.bad{background:#ffe0e0}
+
+.table-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse}
+td,th{padding:8px;border-bottom:1px solid #eee}
+
+</style>
+</head>
+
+<body>
+
+<header>
+  <button class="menu-btn" onclick="toggleMenu()">☰</button>
+  <b>HVIRAL ERP</b>
+  <div id="userBox"></div>
+</header>
+
+<div class="sidebar" id="menu"></div>
+<div class="overlay" id="overlay" onclick="toggleMenu()"></div>
+
+<main id="root"></main>
+
+<script>
+
+/* =========================
+   기본 설정
+========================= */
+
+const KEY="HVIRAL_FINAL";
+let user=null,view="dash";
+
+let db=JSON.parse(localStorage.getItem(KEY)||"null")||{
+  sales:[],logs:[]
+};
+
+const save=()=>localStorage.setItem(KEY,JSON.stringify(db));
+const now=()=>new Date().toLocaleString();
+
+/* =========================
+   로그 강화
+========================= */
+
+function log(type,msg,id=""){
+  db.logs.unshift({
+    time:now(),
+    user:user?.name||"",
+    role:user?.role||"",
+    type,
+    msg,
+    id
+  });
+  save();
+}
+
+/* =========================
+   메뉴 (햄버거)
+========================= */
+
+const menus=[
+ ["dash","대시보드"],
+ ["sales","영업"],
+ ["logs","로그"]
+];
+
+function drawMenu(){
+  document.getElementById("menu").innerHTML=
+    menus.map(m=>`<button onclick="go('${m[0]}')">${m[1]}</button>`).join("");
+}
+
+function toggleMenu(){
+  document.getElementById("menu").classList.toggle("open");
+  document.getElementById("overlay").classList.toggle("show");
+}
+
+function go(v){
+  view=v;
+  toggleMenu();
+  render();
+}
+
+/* =========================
+   로그인
+========================= */
+
+function login(){
+  root.innerHTML=`
+  <div class="card">
+    <h2>로그인</h2>
+    <input id="name" placeholder="이름">
+    <select id="role">
+      <option>대표</option>
+      <option>영업</option>
+      <option>본부장</option>
+    </select>
+    <button class="primary" onclick="doLogin()">로그인</button>
+  </div>`;
+}
+
+function doLogin(){
+  user={
+    name:document.getElementById("name").value,
+    role:document.getElementById("role").value
+  };
+  log("LOGIN","로그인");
+  render();
+}
+
+/* =========================
+   화면
+========================= */
+
+function dash(){
+  root.innerHTML=`
+  <div class="card">
+    <h2>대시보드</h2>
+    <p>전체 흐름 정상</p>
+  </div>`;
+}
+
+function sales(){
+  root.innerHTML=`
+  <div class="card">
+    <h2>영업</h2>
+    <input id="rid" placeholder="Request ID">
+    <input id="customer" placeholder="고객명">
+    <button class="primary" onclick="addSale()">등록</button>
+  </div>
+
+  <div class="card">
+    ${table(db.sales,["rid","customer","time"])}
+  </div>`;
+}
+
+function addSale(){
+  let rid=document.getElementById("rid").value;
+  let customer=document.getElementById("customer").value;
+
+  db.sales.unshift({
+    rid,customer,time:now()
+  });
+
+  log("CREATE","영업 등록",rid);
+  save();
+  render();
+}
+
+/* =========================
+   로그 UI
+========================= */
+
+function logs(){
+  root.innerHTML=`
+  <div class="card">
+    <h2>로그</h2>
+    ${table(db.logs,["time","user","role","type","msg","id"])}
+  </div>`;
+}
+
+/* =========================
+   공통 테이블
+========================= */
+
+function table(rows,cols){
+  return `
+  <div class="table-wrap">
+  <table>
+  <tr>${cols.map(c=>`<th>${c}</th>`).join("")}</tr>
+  ${rows.map(r=>`
+    <tr>
+      ${cols.map(c=>`<td>${r[c]||""}</td>`).join("")}
+    </tr>`).join("")}
+  </table>
+  </div>`;
+}
+
+/* =========================
+   렌더
+========================= */
+
+function render(){
+  if(!user)return login();
+
+  document.getElementById("userBox").innerHTML=
+    user.name+" ("+user.role+")";
+
+  drawMenu();
+
+  ({
+    dash,
+    sales,
+    logs
+  }[view])();
+}
+
+render();
+
+</script>
+</body>
+</html>
