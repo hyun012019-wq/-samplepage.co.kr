@@ -1,1 +1,393 @@
-하비럴 웹 에이전시 ERP - CRM 必
+
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>HVIRAL ERP SYSTEM</title>
+
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#f4f6fb;font-family:'Segoe UI','Noto Sans KR',sans-serif;color:#222}
+
+header{
+height:60px;
+background:white;
+border-bottom:1px solid #e2e6f0;
+display:flex;
+align-items:center;
+justify-content:space-between;
+padding:0 20px;
+font-weight:600
+}
+
+.app{
+display:grid;
+grid-template-columns:240px 1fr;
+height:calc(100vh - 60px)
+}
+
+nav{
+background:#1e2a44;
+color:white;
+padding:10px;
+overflow:auto
+}
+
+nav button{
+width:100%;
+border:0;
+padding:10px;
+margin:4px 0;
+border-radius:8px;
+background:#2f3e63;
+color:white;
+cursor:pointer;
+text-align:left
+}
+
+nav button.active{background:#4c6fff}
+
+main{
+padding:20px;
+overflow:auto
+}
+
+.card{
+background:white;
+padding:16px;
+border-radius:12px;
+margin-bottom:16px;
+box-shadow:0 4px 12px rgba(0,0,0,0.04)
+}
+
+.grid{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:10px
+}
+
+input,select{
+padding:8px;
+border-radius:6px;
+border:1px solid #ddd
+}
+
+button.primary{
+background:#4c6fff;
+color:white;
+border:0;
+padding:10px;
+border-radius:8px;
+cursor:pointer
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+font-size:13px
+}
+
+th,td{
+padding:8px;
+border-bottom:1px solid #eee
+}
+
+th{
+background:#f0f3fa;
+position:sticky;
+top:0
+}
+
+.badge{
+padding:4px 8px;
+border-radius:999px;
+font-size:12px
+}
+
+.ok{background:#d4f5e2}
+.warn{background:#fff3cd}
+.bad{background:#f8d7da}
+
+.search{
+margin-bottom:10px;
+width:200px
+}
+
+</style>
+</head>
+
+<body>
+<div id="app"></div>
+
+<script>
+const storeKey="HVIRAL_FINAL_UI_V1"
+
+let db=JSON.parse(localStorage.getItem(storeKey)||"null")||{
+users:[],
+bound:[],
+call:[],
+consent:[],
+token:[],
+sales:[],
+hq:[],
+contract:[],
+exec:[],
+execution:[],
+po:[],
+inbound:[],
+planning:[],
+logs:[]
+}
+
+const save=()=>localStorage.setItem(storeKey,JSON.stringify(db))
+const now=()=>new Date().toLocaleString()
+
+function log(type,msg){
+db.logs.unshift({time:now(),type,msg})
+save()
+}
+
+let user=null
+let view="dashboard"
+
+const roles=["대표","전무","부대표","본부장","영업","실행팀","PO","운영"]
+
+function loginUI(){
+document.getElementById("app").innerHTML=`
+<div class="card" style="max-width:400px;margin:80px auto">
+<h2>로그인</h2>
+<input id="name" placeholder="이름"><br><br>
+<select id="role">${roles.map(r=>`<option>${r}</option>`).join("")}</select><br><br>
+<button class="primary" onclick="login()">입장</button>
+</div>`
+}
+
+function login(){
+user={
+name:document.getElementById("name").value,
+role:document.getElementById("role").value
+}
+render()
+}
+
+function layout(content){
+document.getElementById("app").innerHTML=`
+<header>
+<div>HVIRAL ERP</div>
+<div>${user.name} (${user.role})</div>
+</header>
+
+<div class="app">
+<nav>
+<button onclick="go('dashboard')">대시보드</button>
+<button onclick="go('bound')">아웃바운드 DB</button>
+<button onclick="go('call')">콜팀</button>
+<button onclick="go('token')">토큰</button>
+<button onclick="go('execution')">실행팀</button>
+<button onclick="go('po')">PO</button>
+<button onclick="go('inbound')">인바운드</button>
+<button onclick="go('planning')">기획조정</button>
+<button onclick="go('sales')">영업</button>
+<button onclick="go('hq')">본부장</button>
+<button onclick="go('contract')">계약</button>
+<button onclick="go('exec')">전무</button>
+<button onclick="go('logs')">로그</button>
+</nav>
+<main>${content}</main>
+</div>`
+}
+
+function go(v){view=v;render()}
+
+function badge(v){
+if(v=="승인"||v=="완료")return `<span class="badge ok">${v}</span>`
+if(v=="대기"||v=="진행")return `<span class="badge warn">${v}</span>`
+if(v=="반려")return `<span class="badge bad">${v}</span>`
+return v||""
+}
+
+function table(data,cols){
+return `
+<input class="search" placeholder="검색" onkeyup="filter(this)">
+<table>
+<thead><tr>${cols.map(c=>`<th>${c}</th>`).join("")}</tr></thead>
+<tbody>
+${data.map(r=>`
+<tr>
+${cols.map(c=>`<td>${badge(r[c]||"")}</td>`).join("")}
+</tr>`).join("")}
+</tbody>
+</table>`
+}
+
+function filter(el){
+let val=el.value.toLowerCase()
+let rows=el.parentElement.querySelectorAll("tbody tr")
+rows.forEach(r=>{
+r.style.display=r.innerText.toLowerCase().includes(val)?"":"none"
+})
+}
+
+function dashboard(){
+layout(`
+<div class="card">
+<h2>전체 흐름</h2>
+<p>아웃바운드 + 인바운드 통합 ERP 구조</p>
+</div>
+
+<div class="grid">
+<div class="card">아웃바운드 ${db.bound.length}</div>
+<div class="card">토큰 ${db.token.length}</div>
+<div class="card">실행 ${db.execution.length}</div>
+<div class="card">PO ${db.po.length}</div>
+</div>
+`)
+}
+
+function bound(){
+layout(`
+<div class="card">
+<h2>아웃바운드 DB</h2>
+<div class="grid">
+<input id="biz" placeholder="업체명">
+<input id="phone" placeholder="연락처">
+<input id="industry" placeholder="업종">
+<input id="memo" placeholder="메모">
+</div><br>
+<button class="primary" onclick="addBound()">등록</button>
+</div>
+
+<div class="card">
+${table(db.bound,["id","biz","phone","industry","status"])}
+</div>
+`)
+}
+
+function addBound(){
+db.bound.unshift({
+id:"OUT-"+Date.now(),
+biz:biz.value,
+phone:phone.value,
+industry:industry.value,
+status:"미연락"
+})
+save()
+render()
+}
+
+function token(){
+layout(`
+<div class="card">
+<h2>토큰</h2>
+<input id="rid" placeholder="Request ID">
+<input id="unit" placeholder="유닛ID">
+<select id="ap">
+<option>대기</option>
+<option>승인</option>
+<option>반려</option>
+</select><br><br>
+<button class="primary" onclick="addToken()">발급</button>
+</div>
+
+<div class="card">
+${table(db.token,["rid","unit","token","ap"])}
+</div>
+`)
+}
+
+function addToken(){
+db.token.unshift({
+rid:rid.value,
+unit:unit.value,
+token:ap.value=="승인"?"TK-"+Date.now():"",
+ap:ap.value
+})
+save()
+render()
+}
+
+function execution(){
+layout(`
+<div class="card">
+<h2>실행팀</h2>
+<input id="rid" placeholder="ID">
+<input id="tokenId" placeholder="토큰ID">
+<select id="type">
+<option>시안</option>
+<option>진행</option>
+</select>
+<button class="primary" onclick="addExec()">등록</button>
+</div>
+
+<div class="card">
+${table(db.execution,["rid","token","type","status"])}
+</div>
+`)
+}
+
+function addExec(){
+if(!tokenId.value)return alert("토큰없음")
+db.execution.unshift({
+rid:rid.value,
+token:tokenId.value,
+type:type.value,
+status:"작업요청"
+})
+save()
+render()
+}
+
+function po(){
+layout(`
+<div class="card">
+<h2>PO</h2>
+<input id="rid" placeholder="ID">
+<input id="file" placeholder="파일">
+<select id="st">
+<option>PO적재</option>
+<option>출고대기</option>
+<option>출고완료</option>
+</select>
+<button class="primary" onclick="addPO()">등록</button>
+</div>
+
+<div class="card">
+${table(db.po,["rid","file","st"])}
+</div>
+`)
+}
+
+function addPO(){
+db.po.unshift({
+rid:rid.value,
+file:file.value,
+st:st.value
+})
+save()
+render()
+}
+
+function logs(){
+layout(`
+<div class="card">
+<h2>로그</h2>
+${table(db.logs,["time","type","msg"])}
+</div>
+`)
+}
+
+function render(){
+if(!user)return loginUI()
+
+if(view=="dashboard")dashboard()
+if(view=="bound")bound()
+if(view=="token")token()
+if(view=="execution")execution()
+if(view=="po")po()
+if(view=="logs")logs()
+}
+render()
+</script>
+</body>
+</html>
