@@ -9,49 +9,37 @@
 body{margin:0;font-family:Arial,'Noto Sans KR',sans-serif;background:linear-gradient(135deg,#eef3ff,#f8fafc);color:#202633}
 #weather{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
 .drop,.snow{position:absolute;top:-20px;animation:fall linear infinite;opacity:.45}
-.drop{width:2px;height:18px;background:#6aa8ff}
-.snow{width:7px;height:7px;border-radius:50%;background:#fff;box-shadow:0 0 8px #fff}
+.drop{width:2px;height:18px;background:#6aa8ff}.snow{width:7px;height:7px;border-radius:50%;background:#fff;box-shadow:0 0 8px #fff}
 @keyframes fall{to{transform:translateY(110vh)}}
-header{height:64px;background:rgba(255,255,255,.9);backdrop-filter:blur(12px);display:flex;justify-content:space-between;align-items:center;padding:0 14px;border-bottom:1px solid #e8ecf3;position:sticky;top:0;z-index:5}
-.app{display:grid;grid-template-columns:260px 1fr;min-height:calc(100vh - 64px);position:relative;z-index:2}
+header{height:64px;background:rgba(255,255,255,.92);backdrop-filter:blur(12px);display:flex;justify-content:space-between;align-items:center;padding:0 14px;border-bottom:1px solid #e8ecf3;position:sticky;top:0;z-index:5}
+.app{display:grid;grid-template-columns:270px 1fr;min-height:calc(100vh - 64px);position:relative;z-index:2}
 nav{background:#111c36;padding:12px}
 nav button{width:100%;padding:13px;margin:5px 0;border:0;border-radius:15px;background:#263a60;color:white;text-align:left}
 main{padding:18px}
-.card{background:rgba(255,255,255,.94);border-radius:26px;padding:18px;margin:0 auto 18px;max-width:1050px;box-shadow:0 14px 36px rgba(40,60,120,.09)}
-.narrow{max-width:720px}
-.small{font-size:12px;color:#6b7280;line-height:1.7}
+.card{background:rgba(255,255,255,.95);border-radius:26px;padding:18px;margin:0 auto 18px;max-width:1100px;box-shadow:0 14px 36px rgba(40,60,120,.09)}
+.narrow{max-width:760px}.small{font-size:12px;color:#6b7280;line-height:1.7}
 input,select,textarea{width:100%;padding:14px;border:1px solid #dde3ef;border-radius:17px;margin-bottom:10px;font-size:15px;background:white}
 textarea{min-height:90px}
 button.primary{width:100%;padding:15px;border:0;border-radius:18px;background:#4f6dff;color:white;font-weight:800;font-size:16px;margin:8px 0}
 button.red{padding:9px 12px;border:0;border-radius:13px;background:#ef4444;color:white}
 button.ghost{padding:9px 11px;border:1px solid #dbe2ef;border-radius:13px;background:white;margin:3px}
-.kpi{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
-.kpi .card{margin:0}
+.kpi{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.kpi .card{margin:0}
 .badge{display:inline-block;padding:5px 9px;border-radius:999px;background:#edf1f7;font-size:12px}
 .ok{background:#dff7e8}.warn{background:#fff2c7}.bad{background:#ffe0e0}
-.flow{display:flex;gap:8px;flex-wrap:wrap}
-.flow span{background:#edf1f7;border-radius:999px;padding:8px 12px;font-size:13px}
-table{width:100%;border-collapse:collapse;font-size:12.5px}
-th,td{border-bottom:1px solid #e8ecf3;padding:9px;text-align:left;white-space:nowrap}
-th{background:#f0f3fa}
-.table-wrap{overflow-x:auto}
-.search{max-width:360px}
-.contract-paper{background:white;border:1px solid #ddd;border-radius:18px;padding:28px;max-width:850px;margin:auto;line-height:1.8}
-.contract-paper h1{text-align:center}
+.flow{display:flex;gap:8px;flex-wrap:wrap}.flow span{background:#edf1f7;border-radius:999px;padding:8px 12px;font-size:13px}
+table{width:100%;border-collapse:collapse;font-size:12.5px}th,td{border-bottom:1px solid #e8ecf3;padding:9px;text-align:left;white-space:nowrap}th{background:#f0f3fa}
+.table-wrap{overflow-x:auto}.search{max-width:360px}.linkbox{background:#f3f6ff;border-radius:16px;padding:10px;word-break:break-all}
+.contract-paper,.article-paper{background:white;border:1px solid #ddd;border-radius:18px;padding:28px;max-width:850px;margin:auto;line-height:1.8}
+.contract-paper h1,.article-paper h1{text-align:center}
 .signbox{border:1px dashed #aaa;border-radius:12px;background:#fafafa;width:100%;height:180px;touch-action:none}
+.review-card{border:1px solid #e8ecf3;border-radius:18px;padding:14px;margin:10px 0;background:#fff}
 @media(max-width:768px){
-.app{display:block}
-nav{display:flex;overflow:auto}
-nav button{min-width:150px}
-.kpi{grid-template-columns:1fr}
-.card{margin:12px;border-radius:22px}
-table,thead,tbody,tr,th,td{display:block;width:100%}
-thead{display:none}
+.app{display:block}nav{display:flex;overflow:auto}nav button{min-width:160px}.kpi{grid-template-columns:1fr}.card{margin:12px;border-radius:22px}
+table,thead,tbody,tr,th,td{display:block;width:100%}thead{display:none}
 tr{background:white;border:1px solid #e8ecf3;border-radius:18px;padding:12px;margin-bottom:12px}
-td{display:flex;justify-content:space-between;white-space:normal;border:0}
-td:before{content:attr(data-label);font-weight:bold;color:#6b7280}
+td{display:flex;justify-content:space-between;white-space:normal;border:0}td:before{content:attr(data-label);font-weight:bold;color:#6b7280}
 }
-@media print{header,nav,.no-print{display:none!important}.app{display:block}main{padding:0}.card{box-shadow:none}.contract-paper{border:0}}
+@media print{header,nav,.no-print{display:none!important}.app{display:block}main{padding:0}.card{box-shadow:none}.contract-paper,.article-paper{border:0}}
 </style>
 </head>
 <body>
@@ -59,14 +47,16 @@ td:before{content:attr(data-label);font-weight:bold;color:#6b7280}
 <div id="root"></div>
 
 <script>
-const KEY="HVIRAL_INDEX_MAX_FINAL_V1";
+const KEY="HVIRAL_INDEX_MAX_BOUND_REVIEW_FINAL_V1";
 const PW="2580";
 const SESSION="HVIRAL_SESSION";
 let unlocked=sessionStorage.getItem(SESSION)==="1";
 let user=null,view="dash",signPad=null;
 
 let db=JSON.parse(localStorage.getItem(KEY)||"null")||{
-  sales:[],hq:[],contract:[],exec:[],work:[],po:[],logs:[]
+  boundDB:[],callA:[],callB:[],callC:[],callD:[],callE:[],
+  consent:[],token:[],sales:[],hq:[],contract:[],exec:[],work:[],po:[],
+  reviews:[],contents:[],logs:[]
 };
 
 const save=()=>localStorage.setItem(KEY,JSON.stringify(db));
@@ -75,207 +65,141 @@ const seq=p=>`${p}-${new Date().getFullYear()}-${String(Date.now()).slice(-6)}`;
 const v=id=>document.getElementById(id)?.value?.trim()||"";
 const same=(r,id)=>r.id===id||r.rid===id||r.inid===id;
 
-function log(type,msg,id=""){
-  db.logs.unshift({time:now(),user:user?.name||"",role:user?.role||"",type,msg,id});
-  save();
-}
-function req(roles){
-  if(!roles.includes(user?.role)){
-    alert("권한 없음: "+roles.join(", "));
-    return false;
-  }
-  return true;
-}
-function copy(t){
-  navigator.clipboard?.writeText(t);
-  alert("복사 완료");
-}
-function kakao(t){
-  copy(t);
-  location.href="kakaotalk://launch";
-}
+function log(type,msg,id=""){db.logs.unshift({time:now(),user:user?.name||"",role:user?.role||"",type,msg,id});save()}
+function req(roles){if(!roles.includes(user?.role)){alert("권한 없음: "+roles.join(", "));return false}return true}
+function copy(t){navigator.clipboard?.writeText(t);alert("복사 완료")}
+function kakao(t){copy(t);location.href="kakaotalk://launch"}
 function badge(x){
-  let c=["완료","계약완료","서명완료","전달완료","PO적재","Y"].includes(x)?"ok":
-  ["대기","서명대기","작성대기","진행중","고객작성대기","본부장검토"].includes(x)?"warn":
-  ["N","차단","반려"].includes(x)?"bad":"";
+  let c=["완료","계약완료","서명완료","전달완료","PO적재","Y","예약완료","콘텐츠생성","노출페이지"].includes(x)?"ok":
+  ["대기","서명대기","작성대기","진행중","고객작성대기","본부장검토","미연락"].includes(x)?"warn":
+  ["N","차단","반려","거절"].includes(x)?"bad":"";
   return `<span class="badge ${c}">${x||""}</span>`;
 }
 function table(rows,cols){
-  return `
-  <input class="search no-print" placeholder="검색" onkeyup="filterRows(this)">
-  <div class="table-wrap">
-  <table>
-  <thead><tr>${cols.map(c=>`<th>${c}</th>`).join("")}</tr></thead>
-  <tbody>${rows.map(r=>`<tr>${cols.map(c=>`<td data-label="${c}">${badge(r[c])}</td>`).join("")}</tr>`).join("")}</tbody>
-  </table>
-  </div>`;
+  return `<input class="search no-print" placeholder="검색" onkeyup="filterRows(this)">
+  <div class="table-wrap"><table><thead><tr>${cols.map(c=>`<th>${c}</th>`).join("")}</tr></thead>
+  <tbody>${rows.map(r=>`<tr>${cols.map(c=>`<td data-label="${c}">${badge(r[c])}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`;
 }
-function filterRows(i){
-  let q=i.value.toLowerCase();
-  i.parentElement.querySelectorAll("tbody tr").forEach(tr=>tr.style.display=tr.innerText.toLowerCase().includes(q)?"":"none");
-}
+function filterRows(i){let q=i.value.toLowerCase();i.parentElement.querySelectorAll("tbody tr").forEach(tr=>tr.style.display=tr.innerText.toLowerCase().includes(q)?"":"none")}
 
 function routePublic(){
-  let u=new URL(location.href);
-  let q=u.searchParams.get("quote"),c=u.searchParams.get("contract");
+  let u=new URL(location.href),q=u.searchParams.get("quote"),c=u.searchParams.get("contract"),rv=u.searchParams.get("review"),art=u.searchParams.get("article");
   if(q){customerQuote(q);return true}
   if(c){customerContract(c);return true}
+  if(rv){customerReview(rv);return true}
+  if(art){publicArticle(art);return true}
   return false;
 }
-
-function render(){
-  if(routePublic())return;
-  if(!unlocked)return lock();
-  if(!user)return login();
-  ({dash,kpi,remind,sales,hq,contract,exec,work,po,logs}[view])();
-}
-
+function render(){if(routePublic())return;if(!unlocked)return lock();if(!user)return login();({dash,kpi,remind,boundDB,callA,callB,callC,callD,callE,consent,token,sales,hq,contract,exec,work,po,review,contents,logs}[view])()}
 function lock(){
-  root.innerHTML=`
-  <div style="min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px">
-    <div class="card narrow">
-      <h2>접근 제한</h2>
-      <input id="pw" type="password" placeholder="비밀번호 입력" autocomplete="off" onkeydown="if(event.key==='Enter')check()">
-      <button class="primary" onclick="check()">접속</button>
-      <p class="small">승인된 인원만 접근 가능합니다.</p>
-    </div>
-  </div>`;
+  root.innerHTML=`<div style="min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px">
+  <div class="card narrow"><h2>접근 제한</h2><input id="pw" type="password" placeholder="비밀번호 입력" autocomplete="off" onkeydown="if(event.key==='Enter')check()">
+  <button class="primary" onclick="check()">접속</button><p class="small">승인된 인원만 접근 가능합니다.</p></div></div>`;
 }
-function check(){
-  if(v("pw")===PW){
-    unlocked=true;
-    sessionStorage.setItem(SESSION,"1");
-    render();
-  }else alert("비밀번호 틀림");
-}
+function check(){if(v("pw")===PW){unlocked=true;sessionStorage.setItem(SESSION,"1");render()}else alert("비밀번호 틀림")}
 function login(){
-  root.innerHTML=`
-  <div style="min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px">
-    <div class="card narrow">
-      <h1>HVIRAL ERP 로그인</h1>
-      <input id="name" value="이재현">
-      <select id="role">
-        <option>대표</option><option>영업</option><option>본부장</option><option>부대표</option>
-        <option>전무이사</option><option>실행팀</option><option>PO</option><option>경영지원</option><option>감사</option>
-      </select>
-      <button class="primary" onclick="user={name:v('name'),role:v('role')};log('LOGIN','로그인');render()">입장</button>
-    </div>
-  </div>`;
+  root.innerHTML=`<div style="min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px">
+  <div class="card narrow"><h1>HVIRAL ERP 로그인</h1><input id="name" value="이재현">
+  <select id="role"><option>대표</option><option>운영지원</option><option>콜팀</option><option>영업</option><option>본부장</option><option>부대표</option><option>전무이사</option><option>실행팀</option><option>PO</option><option>경영지원</option><option>감사</option></select>
+  <button class="primary" onclick="user={name:v('name'),role:v('role')};log('LOGIN','로그인');render()">입장</button></div></div>`;
 }
-function logout(){
-  user=null;
-  sessionStorage.removeItem(SESSION);
-  unlocked=false;
-  render();
-}
+function logout(){user=null;sessionStorage.removeItem(SESSION);unlocked=false;render()}
 function layout(content){
   let m=[
-    ["dash","대시보드"],["kpi","KPI·병목"],["remind","리마인드"],["sales","마케팅·영업"],
-    ["hq","본부장"],["contract","부대표 계약"],["exec","전무 실행"],["work","실행팀"],
-    ["po","PO"],["logs","로그"]
+    ["dash","대시보드"],["kpi","KPI·병목"],["remind","리마인드"],
+    ["boundDB","BOUND 운영지원"],["callA","콜팀 A"],["callB","콜팀 B"],["callC","콜팀 C"],["callD","콜팀 D"],["callE","콜팀 E"],
+    ["consent","동의자"],["token","대표 토큰"],
+    ["sales","마케팅·영업"],["hq","본부장"],["contract","부대표 계약"],["exec","전무 실행"],["work","실행팀"],["po","PO"],
+    ["review","리뷰·검색콘텐츠"],["contents","콘텐츠 페이지"],["logs","로그"]
   ];
-  root.innerHTML=`
-  <header>
-    <b>HVIRAL ERP·CRM</b>
-    <div>${user.name} · ${user.role} <button class="red" onclick="logout()">로그아웃</button></div>
-  </header>
-  <div class="app">
-    <nav>${m.map(x=>`<button onclick="view='${x[0]}';render()">${x[1]}</button>`).join("")}</nav>
-    <main>${content}</main>
-  </div>`;
+  root.innerHTML=`<header><b>HVIRAL ERP·CRM</b><div>${user.name} · ${user.role} <button class="red" onclick="logout()">로그아웃</button></div></header>
+  <div class="app"><nav>${m.map(x=>`<button onclick="view='${x[0]}';render()">${x[1]}</button>`).join("")}</nav><main>${content}</main></div>`;
 }
 
 function metrics(){
-  let s=db.sales.length,h=db.hq.length,c=db.contract.length;
-  let signed=db.contract.filter(x=>x.signStatus==="서명완료").length,po=db.po.length;
+  let callN=["callA","callB","callC","callD","callE"].reduce((a,k)=>a+db[k].length,0);
+  let agree=["callA","callB","callC","callD","callE"].reduce((a,k)=>a+db[k].filter(x=>x.result==="동의").length,0);
+  let s=db.sales.length,h=db.hq.length,c=db.contract.length,signed=db.contract.filter(x=>x.signStatus==="서명완료").length,po=db.po.length,rv=db.reviews.length,ct=db.contents.length;
   let money=db.contract.reduce((a,x)=>a+(parseInt(String(x.amount||0).replace(/[^0-9]/g,""))||0),0);
-  return {
-    s,h,c,signed,po,money,
-    quoteRate:s?Math.round(h/s*100):0,
-    contractRate:h?Math.round(c/h*100):0,
-    signRate:c?Math.round(signed/c*100):0,
-    unitSales:po?Math.round(money/po):money
-  };
+  return {callN,agree,s,h,c,signed,po,rv,ct,money,agreeRate:callN?Math.round(agree/callN*100):0,quoteRate:s?Math.round(h/s*100):0,contractRate:h?Math.round(c/h*100):0,signRate:c?Math.round(signed/c*100):0,unitSales:po?Math.round(money/po):money};
 }
-
 function dash(){
   let m=metrics();
-  layout(`
-  <div class="card">
-    <h2>하비럴 운영 시스템</h2>
-    <div class="flow">
-      <span>영업 견적링크</span><span>고객 요청+착수금</span><span>본부장 치환</span>
-      <span>부대표 계약링크</span><span>전자서명</span><span>전무 승인</span><span>실행팀</span><span>PO</span>
-    </div>
-    <p class="small">카톡ID는 영업에서 수집되고, 부대표 계약 링크 발행 시 Request ID와 자동 매칭됩니다.</p>
-  </div>
-  <div class="kpi">
-    <div class="card"><b>견적 제출률</b><h2>${m.quoteRate}%</h2></div>
-    <div class="card"><b>계약률</b><h2>${m.contractRate}%</h2></div>
-    <div class="card"><b>서명률</b><h2>${m.signRate}%</h2></div>
-    <div class="card"><b>유닛당 매출</b><h2>${m.unitSales.toLocaleString()}</h2></div>
-  </div>
-  <div class="card">
-    <h2>날씨 효과</h2>
-    <button class="ghost" onclick="setWeather('rain')">비</button>
-    <button class="ghost" onclick="setWeather('snow')">눈</button>
-    <button class="ghost" onclick="setWeather('')">맑음</button>
-    <button class="ghost" onclick="autoWeather()">현재날씨 자동</button>
-  </div>`);
+  layout(`<div class="card"><h2>하비럴 운영 시스템</h2><div class="flow"><span>BOUND DB</span><span>콜팀 A~E</span><span>동의</span><span>대표 토큰</span><span>영업 링크</span><span>고객 예약금</span><span>본부장 치환</span><span>부대표 계약</span><span>전무 승인</span><span>실행</span><span>PO</span><span>리뷰/검색콘텐츠</span></div></div>
+  <div class="kpi"><div class="card"><b>콜→동의율</b><h2>${m.agreeRate}%</h2></div><div class="card"><b>견적 제출률</b><h2>${m.quoteRate}%</h2></div><div class="card"><b>계약률</b><h2>${m.contractRate}%</h2></div><div class="card"><b>검색콘텐츠</b><h2>${m.ct}</h2></div></div>
+  <div class="card"><h2>날씨 효과</h2><button class="ghost" onclick="setWeather('rain')">비</button><button class="ghost" onclick="setWeather('snow')">눈</button><button class="ghost" onclick="setWeather('')">맑음</button><button class="ghost" onclick="autoWeather()">현재날씨 자동</button></div>`);
 }
-
 function kpi(){
-  let m=metrics();
-  let issues=[];
-  if(m.s>=3&&m.quoteRate<50)issues.push("견적링크 발행 대비 고객 제출이 낮음 → 카톡 안내문/전화 리마인드 필요");
+  let m=metrics(),issues=[];
+  if(m.callN>=5&&m.agreeRate<25)issues.push("콜 대비 동의율 낮음 → 콜 스크립트/타깃 품질 점검");
+  if(m.s>=3&&m.quoteRate<50)issues.push("견적링크 발행 대비 고객 제출 낮음 → 카톡 안내문/리마인드 필요");
   if(m.h>=3&&m.contractRate<50)issues.push("본부장 이후 계약 전환 낮음 → 견적 범위/가격 제안 점검");
   if(m.c>=3&&m.signRate<60)issues.push("계약 링크 발행 후 서명 정체 → 부대표 리마인드 필요");
   if(db.work.filter(x=>x.status==="작업요청").length>db.po.length+2)issues.push("실행팀 작업요청 대비 PO 적재 느림 → 실행팀 병목");
+  if(m.rv>=3&&m.ct<m.rv)issues.push("리뷰 대비 검색콘텐츠 생성 부족 → 콘텐츠 재가공 필요");
   if(!issues.length)issues.push("현재 큰 병목 없음");
-  layout(`
-  <div class="kpi">
-    <div class="card"><b>견적 제출률</b><h2>${m.quoteRate}%</h2></div>
-    <div class="card"><b>계약률</b><h2>${m.contractRate}%</h2></div>
-    <div class="card"><b>서명률</b><h2>${m.signRate}%</h2></div>
-    <div class="card"><b>총 계약금액</b><h2>${m.money.toLocaleString()}</h2></div>
-  </div>
-  <div class="card"><h2>병목 감지</h2>${issues.map(x=>`<p>${badge("검토중")} ${x}</p>`).join("")}</div>`);
+  layout(`<div class="kpi"><div class="card"><b>동의율</b><h2>${m.agreeRate}%</h2></div><div class="card"><b>계약률</b><h2>${m.contractRate}%</h2></div><div class="card"><b>서명률</b><h2>${m.signRate}%</h2></div><div class="card"><b>총 계약금액</b><h2>${m.money.toLocaleString()}</h2></div></div><div class="card"><h2>병목 감지</h2>${issues.map(x=>`<p>${badge("검토중")} ${x}</p>`).join("")}</div>`);
 }
-
 function remind(){
   let r=[];
-  db.sales.filter(x=>x.status==="고객작성대기").forEach(x=>r.push([x.rid,"고객 견적요청서 작성 대기"]));
+  db.sales.filter(x=>x.status==="고객작성대기").forEach(x=>r.push([x.rid,"고객 견적/예약금 입력 대기"]));
   db.hq.filter(x=>x.status==="본부장검토").forEach(x=>r.push([x.rid,"본부장 치환/부대표 전달 대기"]));
   db.contract.filter(x=>x.signStatus==="서명대기").forEach(x=>r.push([x.rid,"계약서 전자서명 대기"]));
   db.work.filter(x=>x.status==="작업요청").forEach(x=>r.push([x.rid||x.inid,"실행팀 작업 대기"]));
+  db.reviews.filter(x=>x.contentStatus!=="콘텐츠생성").forEach(x=>r.push([x.reviewId,"리뷰 콘텐츠 생성 대기"]));
   layout(`<div class="card"><h2>리마인드</h2>${r.length?r.map(x=>`<div class="card"><b>${x[0]}</b><p>${x[1]}</p>${badge("대기")}</div>`).join(""):"방치 건 없음"}</div>`);
 }
 
+function boundDB(){
+  layout(`<div class="card narrow"><h2>BOUND 운영지원</h2><input id="biz" placeholder="업체명"><input id="phone" placeholder="연락처"><input id="industry" placeholder="업종"><input id="area" placeholder="지역"><select id="assign"><option>callA</option><option>callB</option><option>callC</option><option>callD</option><option>callE</option></select><button class="primary" onclick="addBound()">타깃 등록</button></div><div class="card">${table(db.boundDB,["rid","biz","phone","industry","area","callTeam","status"])}</div>`);
+}
+function addBound(){
+  if(!req(["대표","운영지원"]))return;
+  let rid=seq("OUT"),team=v("assign");
+  db.boundDB.unshift({rid,biz:v("biz"),phone:v("phone"),industry:v("industry"),area:v("area"),callTeam:team,status:"미연락"});
+  db[team].unshift({rid,biz:v("biz"),phone:v("phone"),result:"미연락",memo:""});
+  log("AUTO","BOUND 타깃 등록 및 콜팀 배정",rid);save();render();
+}
+function callA(){callUI("callA","콜팀 A")}function callB(){callUI("callB","콜팀 B")}function callC(){callUI("callC","콜팀 C")}function callD(){callUI("callD","콜팀 D")}function callE(){callUI("callE","콜팀 E")}
+function callUI(team,title){
+  layout(`<div class="card narrow"><h2>${title}</h2><input id="rid" placeholder="Request ID"><select id="result"><option>동의</option><option>거절</option><option>부재</option><option>재접촉</option><option>차단</option></select><input id="memo" placeholder="콜메모"><button class="primary" onclick="saveCall('${team}')">콜결과 저장</button></div><div class="card">${table(db[team],["rid","biz","phone","result","memo"])}</div>`);
+}
+function saveCall(team){
+  if(!req(["대표","콜팀"]))return;
+  let id=v("rid"),row=db[team].find(x=>same(x,id));
+  if(!row)return alert("배정된 Request ID 없음");
+  row.result=v("result");row.memo=v("memo");
+  let b=db.boundDB.find(x=>same(x,id));if(b)b.status=v("result");
+  if(v("result")==="동의"&&!db.consent.some(x=>same(x,id))){
+    db.consent.unshift({rid:id,biz:row.biz,request:"1차 시안/체험 요청",status:"승인대기"});
+  }
+  log("AUTO","콜결과 저장 및 동의자 생성",id);save();render();
+}
+function consent(){layout(`<div class="card"><h2>동의자</h2>${table(db.consent,["rid","biz","request","status"])}</div>`)}
+function token(){
+  layout(`<div class="card narrow"><h2>대표 토큰 승인</h2><input id="rid" placeholder="Request ID 또는 IN-Request ID"><input id="customer" placeholder="고객/업체명"><input id="work" placeholder="요청내용"><select id="approve"><option>승인</option><option>반려</option><option>보류</option></select><button class="primary" onclick="makeToken()">토큰 처리</button></div><div class="card">${table(db.token,["rid","inid","token","unit","customer","request","status"])}</div>`);
+}
+function makeToken(){
+  if(!req(["대표"]))return;
+  let id=v("rid"),isIn=id.startsWith("IN-");
+  if(v("approve")==="승인"&&db.token.some(x=>same(x,id)&&x.status==="승인"))return alert("이미 승인 토큰 존재");
+  let token=seq("TK"),unit=seq("U");
+  db.token.unshift({rid:isIn?"":id,inid:isIn?id:"",token,unit,customer:v("customer"),request:v("work"),status:v("approve")});
+  if(v("approve")==="승인")db.work.unshift({rid:isIn?"":id,inid:isIn?id:"",token,unit,pipe:"1차-시안",type:"시안",status:"작업요청",file:"",po:"N"});
+  log("AUTO","대표 토큰 처리",id);save();render();
+}
+
 function sales(){
-  layout(`
-  <div class="card narrow">
-    <h2>마케팅·영업</h2>
-    <select id="kind"><option>아웃바운드</option><option>인바운드</option></select>
-    <input id="rid" placeholder="Request ID 또는 IN-Request ID">
-    <input id="customer" placeholder="고객 식별명">
-    <input id="kakao" placeholder="고객 카톡ID">
-    <input id="deposit" placeholder="착수금액">
-    <select id="pay"><option>삼성페이</option><option>카드</option><option>계좌이체</option><option>현금</option><option>상담 후 결정</option></select>
-    <button class="primary" onclick="makeQuote()">견적요청서 링크 발행 + 카톡복사</button>
-    <button class="primary" onclick="sendHQ()">본부장 자동전달</button>
-  </div>
-  <div class="card">${table(db.sales,["kind","rid","inid","customer","kakao","quoteLink","status","deposit","pay","hqSent"])}</div>`);
+  layout(`<div class="card narrow"><h2>마케팅·영업</h2><select id="kind"><option>아웃바운드</option><option>인바운드</option></select><input id="rid" placeholder="Request ID 또는 IN-Request ID"><input id="customer" placeholder="고객 식별명"><input id="kakao" placeholder="고객 카톡ID"><button class="primary" onclick="makeQuote()">고객용 예약/견적 링크 생성</button><button class="primary" onclick="sendHQ()">본부장 자동전달</button></div><div class="card">${table(db.sales,["kind","rid","inid","customer","kakao","quoteLink","status","reserve","pay","hqSent"])}</div>`);
 }
 function makeQuote(){
   if(!req(["대표","영업"]))return;
-  let kind=v("kind"),id=v("rid"),isIn=kind==="인바운드";
-  let link=location.origin+location.pathname+"?quote="+encodeURIComponent(id);
+  let kind=v("kind"),id=v("rid"),isIn=kind==="인바운드",link=location.origin+location.pathname+"?quote="+encodeURIComponent(id);
   if(!id)return alert("ID 필요");
   if(db.sales.some(x=>same(x,id)&&x.quoteLink))return alert("이미 링크 있음");
-  db.sales.unshift({kind,rid:isIn?"":id,inid:isIn?id:"",customer:v("customer"),kakao:v("kakao"),quoteLink:link,status:"고객작성대기",deposit:v("deposit"),pay:v("pay"),hqSent:"N",created:now()});
-  log("LINK","견적요청서 링크 발행",id);
-  save();
-  kakao(`[하비럴 견적요청서]\n카톡ID:${v("kakao")}\n링크:${link}`);
+  db.sales.unshift({kind,rid:isIn?"":id,inid:isIn?id:"",customer:v("customer"),kakao:v("kakao"),quoteLink:link,status:"고객작성대기",reserve:"",pay:"",hqSent:"N",created:now()});
+  log("LINK","고객용 예약/견적 링크 생성",id);save();
+  kakao(`[하비럴 예약/견적 링크]\n카톡ID:${v("kakao")}\n링크:${link}`);
   render();
 }
 function sendHQ(){
@@ -283,225 +207,140 @@ function sendHQ(){
   let id=v("rid"),sale=db.sales.find(x=>same(x,id));
   if(!sale)return alert("영업행 없음");
   if(db.hq.some(x=>same(x,id)))return alert("이미 본부장 전달됨");
-  db.hq.unshift({kind:sale.kind,rid:sale.rid,inid:sale.inid,customer:sale.customer,request:"영업 확인/견적요청 링크 발행",internal:"치환 대기",scope:"",amount:sale.deposit,status:"본부장검토",vpSent:"N"});
-  sale.hqSent="Y";
-  sale.status="본부장전달";
-  log("AUTO","본부장 자동전달",id);
-  save();
-  render();
+  db.hq.unshift({kind:sale.kind,rid:sale.rid,inid:sale.inid,customer:sale.customer,request:"영업 확인/고객 링크 발행",internal:"치환 대기",scope:"",amount:sale.reserve,status:"본부장검토",vpSent:"N"});
+  sale.hqSent="Y";sale.status="본부장전달";
+  log("AUTO","본부장 자동전달",id);save();render();
 }
 
 function customerQuote(id){
-  root.innerHTML=`
-  <div style="min-height:100vh;padding:20px">
-    <div class="card narrow">
-      <h2>고객용 견적요청서</h2>
-      <input id="qname" placeholder="고객명/상호">
-      <input id="qphone" placeholder="연락처">
-      <textarea id="qcontent" placeholder="요청내용"></textarea>
-      <input id="qdeposit" placeholder="착수금액">
-      <select id="qpay"><option>삼성페이</option><option>카드</option><option>계좌이체</option><option>현금</option><option>상담 후 결정</option></select>
-      <p class="small">현재는 결제수단/착수금 기록 구조입니다. 실제 결제창은 PG 연동 시 연결됩니다.</p>
-      <button class="primary" onclick="submitQuote('${id}')">견적요청서 제출</button>
-    </div>
-  </div>`;
+  root.innerHTML=`<div style="min-height:100vh;padding:20px">
+  <div class="card narrow"><h2>고객용 예약·견적 접수</h2><input id="qname" placeholder="고객명/상호"><input id="qphone" placeholder="연락처"><textarea id="qcontent" placeholder="요청내용"></textarea><input id="qreserve" placeholder="예약금"><select id="qpay"><option>삼성페이</option><option>카드결제</option><option>계좌이체</option><option>현금</option><option>상담 후 결정</option></select><button class="primary" onclick="simulatePay('${id}')">예약금 결제하기</button><p class="small">index 테스트용 결제 시뮬레이션입니다. 실제 결제는 PG 연동 시 연결됩니다.</p></div></div>`;
 }
-function submitQuote(id){
+function simulatePay(id){
   let sale=db.sales.find(x=>same(x,id))||{},isIn=id.startsWith("IN-");
-  sale.status="제출완료";
-  sale.deposit=v("qdeposit")||sale.deposit;
-  sale.pay=v("qpay")||sale.pay;
-  sale.customer=v("qname")||sale.customer;
-  sale.hqSent="Y";
-  if(!db.hq.some(x=>same(x,id))){
-    db.hq.unshift({kind:isIn?"인바운드":"아웃바운드",rid:isIn?"":id,inid:isIn?id:"",customer:v("qname"),request:`연락처:${v("qphone")} / 요청:${v("qcontent")} / 착수금:${v("qdeposit")} / 결제수단:${v("qpay")}`,internal:"치환 대기",scope:"",amount:v("qdeposit"),status:"본부장검토",vpSent:"N"});
-  }
-  log("CUSTOMER","고객 견적요청서 제출",id);
-  save();
-  alert("제출 완료");
-  location.href=location.origin+location.pathname;
+  sale.status="예약완료";sale.reserve=v("qreserve");sale.pay=v("qpay");sale.customer=v("qname");sale.hqSent="Y";
+  if(!db.sales.some(x=>same(x,id)))db.sales.unshift({kind:isIn?"인바운드":"아웃바운드",rid:isIn?"":id,inid:isIn?id:"",customer:v("qname"),kakao:"",quoteLink:location.href,status:"예약완료",reserve:v("qreserve"),pay:v("qpay"),hqSent:"Y",created:now()});
+  if(!db.hq.some(x=>same(x,id)))db.hq.unshift({kind:isIn?"인바운드":"아웃바운드",rid:isIn?"":id,inid:isIn?id:"",customer:v("qname"),request:`연락처:${v("qphone")} / 요청:${v("qcontent")} / 예약금:${v("qreserve")} / 결제수단:${v("qpay")}`,internal:"치환 대기",scope:"",amount:v("qreserve"),status:"본부장검토",vpSent:"N"});
+  log("PAY","고객 예약금 결제 시뮬레이션 완료",id);save();alert("예약금 결제 완료");location.href=location.origin+location.pathname;
 }
 
 function hq(){
-  layout(`
-  <div class="card narrow">
-    <h2>사업본부 본부장</h2>
-    <select id="kind"><option>아웃바운드</option><option>인바운드</option></select>
-    <input id="rid" placeholder="Request ID 또는 IN-Request ID">
-    <textarea id="internal" placeholder="회사 견적요청서 치환"></textarea>
-    <input id="scope" placeholder="계약 범위 확정">
-    <input id="amount" placeholder="예상/최종 금액">
-    <button class="primary" onclick="toContract()">부대표 자동전달</button>
-  </div>
-  <div class="card">${table(db.hq,["kind","rid","inid","customer","request","internal","scope","amount","status","vpSent"])}</div>`);
+  layout(`<div class="card narrow"><h2>사업본부 본부장</h2><select id="kind"><option>아웃바운드</option><option>인바운드</option></select><input id="rid" placeholder="Request ID 또는 IN-Request ID"><textarea id="internal" placeholder="회사 견적요청서 치환"></textarea><input id="scope" placeholder="계약 범위 확정"><input id="amount" placeholder="예상/최종 금액"><button class="primary" onclick="toContract()">부대표 자동전달</button></div><div class="card">${table(db.hq,["kind","rid","inid","customer","request","internal","scope","amount","status","vpSent"])}</div>`);
 }
 function toContract(){
   if(!req(["대표","본부장"]))return;
   let id=v("rid"),h=db.hq.find(x=>same(x,id)),sale=db.sales.find(x=>same(x,id))||{};
   if(!h)return alert("본부장 건 없음");
   if(db.contract.some(x=>same(x,id)))return alert("이미 계약대기 존재");
-  h.internal=v("internal");
-  h.scope=v("scope");
-  h.amount=v("amount")||h.amount;
-  h.vpSent="Y";
-  h.status="부대표전달";
-  db.contract.unshift({kind:h.kind,rid:h.rid,inid:h.inid,customer:h.customer||sale.customer,kakao:sale.kakao,status:"계약대기",contractNo:seq("CT"),contractLink:"",amount:h.amount,deposit:sale.deposit,pay:sale.pay,signStatus:"서명대기",signer:"",signedAt:""});
-  log("AUTO","부대표 계약대기 생성",id);
-  save();
-  render();
+  h.internal=v("internal");h.scope=v("scope");h.amount=v("amount")||h.amount;h.vpSent="Y";h.status="부대표전달";
+  db.contract.unshift({kind:h.kind,rid:h.rid,inid:h.inid,customer:h.customer||sale.customer,kakao:sale.kakao,status:"계약대기",contractNo:seq("CT"),contractLink:"",amount:h.amount,deposit:sale.reserve,pay:sale.pay,signStatus:"서명대기",signer:"",signedAt:""});
+  log("AUTO","부대표 계약대기 생성",id);save();render();
 }
-
 function contract(){
-  layout(`
-  <div class="card narrow">
-    <h2>부대표 계약</h2>
-    <input id="rid" placeholder="Request ID 또는 IN-Request ID">
-    <input id="amount" placeholder="최종 계약금액">
-    <input id="deposit" placeholder="착수금액">
-    <select id="pay"><option>삼성페이</option><option>카드</option><option>계좌이체</option><option>현금</option></select>
-    <button class="primary" onclick="issueContract()">계약서 링크 발행 + 카톡복사</button>
-    <button class="primary" onclick="toExec()">계약/입금/감사 완료 → 전무전달</button>
-  </div>
-  <div class="card">${table(db.contract,["rid","inid","customer","kakao","status","contractNo","contractLink","amount","deposit","pay","signStatus","signer","signedAt"])}</div>`);
+  layout(`<div class="card narrow"><h2>부대표 계약</h2><input id="rid" placeholder="Request ID 또는 IN-Request ID"><input id="amount" placeholder="최종 계약금액"><input id="deposit" placeholder="예약금/착수금"><button class="primary" onclick="issueContract()">계약서 링크 발행</button><button class="primary" onclick="toExec()">계약/입금/감사 완료 → 전무전달</button></div><div class="card">${table(db.contract,["rid","inid","customer","kakao","status","contractNo","contractLink","amount","deposit","pay","signStatus","signer","signedAt"])}</div>`);
 }
 function issueContract(){
   if(!req(["대표","부대표"]))return;
-  let id=v("rid"),c=db.contract.find(x=>same(x,id));
-  if(!c)return alert("계약대기 건 없음");
+  let id=v("rid"),c=db.contract.find(x=>same(x,id));if(!c)return alert("계약대기 건 없음");
   let link=location.origin+location.pathname+"?contract="+encodeURIComponent(id);
-  c.contractLink=link;
-  c.status="계약링크발행";
-  c.amount=v("amount")||c.amount;
-  c.deposit=v("deposit")||c.deposit;
-  c.pay=v("pay")||c.pay;
-  log("LINK","부대표 계약서 링크 발행",id);
-  save();
-  kakao(`[하비럴 계약서]\n카톡ID:${c.kakao||""}\nRequest ID:${id}\n링크:${link}`);
-  render();
+  c.contractLink=link;c.status="계약링크발행";c.amount=v("amount")||c.amount;c.deposit=v("deposit")||c.deposit;
+  log("LINK","부대표 계약서 링크 발행",id);save();kakao(`[하비럴 계약서]\n카톡ID:${c.kakao||""}\nRequest ID:${id}\n링크:${link}`);render();
 }
 function toExec(){
   if(!req(["대표","부대표","경영지원","감사"]))return;
-  let id=v("rid"),c=db.contract.find(x=>same(x,id));
-  if(!c)return alert("계약 건 없음");
+  let id=v("rid"),c=db.contract.find(x=>same(x,id));if(!c)return alert("계약 건 없음");
   if(db.exec.some(x=>same(x,id)))return alert("이미 전무 전달됨");
-  c.status="계약완료";
-  c.amount=v("amount")||c.amount;
-  c.deposit=v("deposit")||c.deposit;
-  c.pay=v("pay")||c.pay;
+  c.status="계약완료";c.amount=v("amount")||c.amount;c.deposit=v("deposit")||c.deposit;
   db.exec.unshift({rid:c.rid,inid:c.inid,status:"계약완료",depositOk:c.deposit?"Y":"N",execSent:"Y",workOrder:"N",possible:"가능",judge:"대기"});
-  log("AUTO","전무이사 전달",id);
-  save();
-  render();
+  log("AUTO","전무이사 전달",id);save();render();
 }
-
 function customerContract(id){
   let c=db.contract.find(x=>same(x,id))||{};
-  root.innerHTML=`
-  <main style="padding:20px">
-    <div class="contract-paper">
-      <h1>계약서</h1>
-      <p><b>계약번호:</b> ${c.contractNo||""}</p>
-      <p><b>Request ID:</b> ${id}</p>
-      <p><b>고객:</b> ${c.customer||""}</p>
-      <p><b>계약금액:</b> ${c.amount||"-"}</p>
-      <p><b>착수금:</b> ${c.deposit||"-"} / ${c.pay||""}</p>
-      <hr>
-      <p>본 계약은 고객 요청에 따른 디지털 마케팅/웹/콘텐츠/운영 업무 수행을 목적으로 합니다.</p>
-      <input id="signer" placeholder="서명자 이름">
-      <canvas id="signCanvas" class="signbox"></canvas>
-      <button class="ghost no-print" onclick="clearSign()">서명 지우기</button>
-      <button class="primary no-print" onclick="finishSign('${id}')">전자서명 완료</button>
-      <button class="primary no-print" onclick="window.print()">PDF 저장/인쇄</button>
-    </div>
-  </main>`;
-  initCanvas();
+  root.innerHTML=`<main style="padding:20px"><div class="contract-paper"><h1>계약서</h1><p><b>계약번호:</b> ${c.contractNo||""}</p><p><b>Request ID:</b> ${id}</p><p><b>고객:</b> ${c.customer||""}</p><p><b>계약금액:</b> ${c.amount||"-"}</p><p><b>예약금:</b> ${c.deposit||"-"} / ${c.pay||""}</p><hr><p>본 계약은 고객 요청에 따른 디지털 마케팅/웹/콘텐츠/운영 업무 수행을 목적으로 합니다.</p><input id="signer" placeholder="서명자 이름"><canvas id="signCanvas" class="signbox"></canvas><button class="ghost no-print" onclick="clearSign()">서명 지우기</button><button class="primary no-print" onclick="finishSign('${id}')">전자서명 완료</button><button class="primary no-print" onclick="window.print()">PDF 저장/인쇄</button></div></main>`;initCanvas();
 }
 function initCanvas(){
-  let c=document.getElementById("signCanvas"),ctx=c.getContext("2d");
-  c.width=c.offsetWidth;c.height=c.offsetHeight;ctx.lineWidth=3;ctx.lineCap="round";
+  let c=document.getElementById("signCanvas"),ctx=c.getContext("2d");c.width=c.offsetWidth;c.height=c.offsetHeight;ctx.lineWidth=3;ctx.lineCap="round";
   let d=false,p=e=>{let r=c.getBoundingClientRect(),t=e.touches?e.touches[0]:e;return{x:t.clientX-r.left,y:t.clientY-r.top}};
   c.onmousedown=c.ontouchstart=e=>{d=true;let q=p(e);ctx.beginPath();ctx.moveTo(q.x,q.y);e.preventDefault()};
   c.onmousemove=c.ontouchmove=e=>{if(!d)return;let q=p(e);ctx.lineTo(q.x,q.y);ctx.stroke();e.preventDefault()};
-  c.onmouseup=c.onmouseleave=c.ontouchend=()=>d=false;
-  signPad=c;
+  c.onmouseup=c.onmouseleave=c.ontouchend=()=>d=false;signPad=c;
 }
 function clearSign(){signPad.getContext("2d").clearRect(0,0,signPad.width,signPad.height)}
 function finishSign(id){
-  let c=db.contract.find(x=>same(x,id));
-  c.status="계약완료";
-  c.signStatus="서명완료";
-  c.signer=v("signer");
-  c.signedAt=now();
-  c.signature=signPad.toDataURL("image/png");
-  log("SIGN","고객 전자서명 완료",id);
-  save();
-  alert("서명 완료. PDF 저장/인쇄 버튼으로 저장하세요.");
+  let c=db.contract.find(x=>same(x,id));c.status="계약완료";c.signStatus="서명완료";c.signer=v("signer");c.signedAt=now();c.signature=signPad.toDataURL("image/png");
+  log("SIGN","고객 전자서명 완료",id);save();alert("서명 완료. PDF 저장/인쇄 버튼으로 저장하세요.");
 }
 
 function exec(){
-  layout(`
-  <div class="card narrow">
-    <h2>전무이사 실행통제</h2>
-    <input id="rid" placeholder="Request ID 또는 IN-Request ID">
-    <input id="token" placeholder="토큰ID">
-    <input id="unit" placeholder="유닛ID">
-    <select id="judge"><option>승인</option><option>보류</option><option>차단</option></select>
-    <button class="primary" onclick="execWork()">전무 승인 → 실행팀 자동생성</button>
-  </div>
-  <div class="card">${table(db.exec,["rid","inid","status","depositOk","execSent","workOrder","possible","judge"])}</div>`);
+  layout(`<div class="card narrow"><h2>전무이사 실행통제</h2><input id="rid" placeholder="Request ID 또는 IN-Request ID"><input id="token" placeholder="토큰ID"><input id="unit" placeholder="유닛ID"><select id="judge"><option>승인</option><option>보류</option><option>차단</option></select><button class="primary" onclick="execWork()">전무 승인 → 실행팀 자동생성</button></div><div class="card">${table(db.exec,["rid","inid","status","depositOk","execSent","workOrder","possible","judge"])}</div>`);
 }
 function execWork(){
   if(!req(["대표","전무이사"]))return;
-  let id=v("rid"),e=db.exec.find(x=>same(x,id));
-  if(!e)return alert("전무 전달 건 없음");
-  if(db.work.some(x=>same(x,id)))return alert("이미 실행행 존재");
+  let id=v("rid"),e=db.exec.find(x=>same(x,id));if(!e)return alert("전무 전달 건 없음");
+  if(db.work.some(x=>same(x,id)&&x.type==="진행"))return alert("이미 실행행 존재");
   e.workOrder="Y";e.judge=v("judge");
   db.work.unshift({rid:e.rid,inid:e.inid,token:v("token"),unit:v("unit"),pipe:"2차-진행",type:"진행",status:"작업요청",file:"",po:"N"});
-  log("AUTO","전무 승인 및 실행팀 생성",id);
-  save();
-  render();
+  log("AUTO","전무 승인 및 실행팀 생성",id);save();render();
 }
-
 function work(){
-  layout(`
-  <div class="card narrow">
-    <h2>실행팀</h2>
-    <input id="rid" placeholder="Request ID">
-    <input id="inid" placeholder="IN-Request ID">
-    <input id="file" placeholder="산출물 파일명">
-    <input id="path" placeholder="저장경로">
-    <button class="primary" onclick="finishWork()">완료 → PO 자동적재</button>
-  </div>
-  <div class="card">${table(db.work,["rid","inid","token","unit","pipe","type","status","file","po"])}</div>`);
+  layout(`<div class="card narrow"><h2>실행팀</h2><input id="rid" placeholder="Request ID"><input id="inid" placeholder="IN-Request ID"><input id="file" placeholder="산출물 파일명"><input id="path" placeholder="저장경로"><button class="primary" onclick="finishWork()">완료 → PO 자동적재</button></div><div class="card">${table(db.work,["rid","inid","token","unit","pipe","type","status","file","po"])}</div>`);
 }
 function finishWork(){
   if(!req(["대표","전무이사","실행팀"]))return;
-  let id=v("rid")||v("inid"),w=db.work.find(x=>same(x,id));
-  if(!w)return alert("실행행 없음");
-  if(db.po.some(x=>same(x,id)))return alert("이미 PO 적재");
+  let id=v("rid")||v("inid"),w=db.work.find(x=>same(x,id));if(!w)return alert("실행행 없음");
+  if(db.po.some(x=>same(x,id)&&x.type===w.type))return alert("이미 PO 적재");
   w.status="완료";w.file=v("file");w.po="Y";
   db.po.unshift({rid:w.rid,inid:w.inid,job:seq("JOB"),type:w.type,file:v("file"),path:v("path"),status:"PO적재"});
-  log("AUTO","실행 완료 및 PO 적재",id);
-  save();
-  render();
+  log("AUTO","실행 완료 및 PO 적재",id);save();render();
 }
 function po(){layout(`<div class="card"><h2>프로젝트오피스 PO</h2>${table(db.po,["rid","inid","job","type","file","path","status"])}</div>`)}
+
+function review(){
+  layout(`<div class="card narrow"><h2>리뷰·검색콘텐츠 생성</h2><input id="store" placeholder="매장/업체명"><input id="rid" placeholder="Request ID"><button class="primary" onclick="makeReviewLink()">고객 리뷰 링크 생성</button><hr><input id="reviewId" placeholder="Review ID"><button class="primary" onclick="makeContent()">리뷰 → 검색콘텐츠 생성</button><p class="small">네이버 리뷰 직접 업로드가 아니라, 홈페이지 내 검색 노출용 콘텐츠 페이지를 생성하는 구조입니다.</p></div><div class="card"><h2>리뷰 목록</h2>${table(db.reviews,["reviewId","rid","store","customer","rating","review","status","contentStatus","reviewLink"])}</div>`);
+}
+function makeReviewLink(){
+  if(!req(["대표","영업","본부장"]))return;
+  let reviewId=seq("RV"),link=location.origin+location.pathname+"?review="+encodeURIComponent(reviewId);
+  db.reviews.unshift({reviewId,rid:v("rid"),store:v("store"),customer:"",rating:"",review:"",status:"작성대기",contentStatus:"대기",reviewLink:link});
+  log("LINK","고객 리뷰 링크 생성",reviewId);save();kakao(`[리뷰 작성 링크]\n${v("store")}\n${link}`);render();
+}
+function customerReview(reviewId){
+  let r=db.reviews.find(x=>x.reviewId===reviewId)||{};
+  root.innerHTML=`<div style="min-height:100vh;padding:20px"><div class="card narrow"><h2>${r.store||"매장"} 리뷰 작성</h2><input id="rvName" placeholder="이름 또는 닉네임"><select id="rvRating"><option>5</option><option>4</option><option>3</option><option>2</option><option>1</option></select><textarea id="rvText" placeholder="방문 후기"></textarea><button class="primary" onclick="submitReview('${reviewId}')">리뷰 제출</button></div></div>`;
+}
+function submitReview(reviewId){
+  let r=db.reviews.find(x=>x.reviewId===reviewId);if(!r)return alert("리뷰 링크 오류");
+  r.customer=v("rvName");r.rating=v("rvRating");r.review=v("rvText");r.status="제출완료";
+  log("CUSTOMER","고객 리뷰 제출",reviewId);save();alert("리뷰가 제출되었습니다.");location.href=location.origin+location.pathname;
+}
+function makeContent(){
+  if(!req(["대표","영업","본부장"]))return;
+  let id=v("reviewId"),r=db.reviews.find(x=>x.reviewId===id);if(!r)return alert("Review ID 없음");
+  if(db.contents.some(x=>x.reviewId===id))return alert("이미 콘텐츠 생성됨");
+  let contentId=seq("ART"),title=`${r.store} 방문 후기｜${r.customer} 고객 리뷰 기반 콘텐츠`;
+  let body=`${r.store}에 방문한 고객은 전체적인 이용 경험에 대해 긍정적인 반응을 남겼습니다. 고객은 "${r.review}"라고 기록했으며, 이는 매장의 서비스와 상품 경험이 실제 방문자에게 어떻게 전달되는지 보여주는 자료입니다. 본 콘텐츠는 고객이 남긴 후기를 기반으로 검색 노출이 가능한 형태로 정리한 페이지입니다. 매장을 찾는 사람들은 단순 광고 문구보다 실제 방문자의 경험을 통해 더 구체적인 판단을 할 수 있습니다. ${r.store}는 고객 경험, 응대, 분위기, 상품 품질을 지속적으로 관리하며 방문 전환 가능성을 높이고 있습니다.`;
+  let link=location.origin+location.pathname+"?article="+encodeURIComponent(contentId);
+  db.contents.unshift({contentId,reviewId:id,rid:r.rid,store:r.store,title,body,link,status:"노출페이지",created:now()});
+  r.contentStatus="콘텐츠생성";
+  log("AUTO","리뷰 기반 검색콘텐츠 생성",contentId);save();copy(link);render();
+}
+function contents(){
+  layout(`<div class="card"><h2>검색콘텐츠 페이지</h2><p class="small">생성된 링크는 홈페이지 내 공개 콘텐츠 페이지입니다. 네이버 직접 등록은 아니며, 검색 수집 대상이 될 수 있는 페이지 구조입니다.</p>${table(db.contents,["contentId","reviewId","rid","store","title","link","status","created"])}</div>`);
+}
+function publicArticle(contentId){
+  let a=db.contents.find(x=>x.contentId===contentId);
+  if(!a){root.innerHTML=`<div class="card"><h2>콘텐츠 없음</h2></div>`;return}
+  document.title=a.title;
+  root.innerHTML=`<main style="padding:20px"><article class="article-paper"><h1>${a.title}</h1><p class="small">작성일: ${a.created} · HVIRAL 콘텐츠 페이지</p><hr><p>${a.body}</p><hr><p class="small">본 페이지는 고객 후기를 기반으로 정리된 검색형 콘텐츠입니다.</p></article></main>`;
+}
+
 function logs(){
   layout(`<div class="card"><h2>감사 로그</h2>${table(db.logs,["time","user","role","type","msg","id"])}<button class="red" onclick="if(confirm('초기화?')){localStorage.removeItem(KEY);location.reload()}">전체 초기화</button></div>`);
 }
-
 function setWeather(type){
-  let w=document.getElementById("weather");w.innerHTML="";
-  if(!type)return;
+  let w=document.getElementById("weather");w.innerHTML="";if(!type)return;
   let n=type==="rain"?90:55;
-  for(let i=0;i<n;i++){
-    let s=document.createElement("i");
-    s.className=type==="rain"?"drop":"snow";
-    s.style.left=Math.random()*100+"vw";
-    s.style.animationDuration=(type==="rain"?0.7+Math.random():4+Math.random()*4)+"s";
-    s.style.animationDelay=Math.random()*4+"s";
-    w.appendChild(s);
-  }
+  for(let i=0;i<n;i++){let s=document.createElement("i");s.className=type==="rain"?"drop":"snow";s.style.left=Math.random()*100+"vw";s.style.animationDuration=(type==="rain"?0.7+Math.random():4+Math.random()*4)+"s";s.style.animationDelay=Math.random()*4+"s";w.appendChild(s)}
 }
 function autoWeather(){
   navigator.geolocation?.getCurrentPosition(async p=>{
