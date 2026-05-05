@@ -3,34 +3,29 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
-<title>HVIRAL ERP·CRM BACKOFFICE</title>
+<title>HVIRAL ERP·CRM CONTRACT SYSTEM</title>
 <style>
-:root{
-  --bg:#f6f7fb;--card:#fff;--ink:#202633;--muted:#6b7280;
-  --nav:#1e2a44;--nav2:#2f3d60;--blue:#4f6dff;--red:#e14b42;
-  --line:#e8ecf3;--ok:#dff7e8;--warn:#fff2c7;--bad:#ffe0e0;--gray:#edf1f7;
-}
+:root{--bg:#f6f7fb;--card:#fff;--ink:#202633;--muted:#6b7280;--nav:#1e2a44;--nav2:#2f3d60;--blue:#4f6dff;--red:#e14b42;--line:#e8ecf3;--ok:#dff7e8;--warn:#fff2c7;--bad:#ffe0e0;--gray:#edf1f7}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);font-family:Arial,'Noto Sans KR',sans-serif;color:var(--ink)}
+body{margin:0;background:linear-gradient(135deg,#eef2ff,#f8fafc);font-family:Arial,'Noto Sans KR',sans-serif;color:var(--ink)}
 header{height:62px;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 14px;position:sticky;top:0;z-index:1000}
 .app{display:grid;grid-template-columns:260px 1fr;height:calc(100vh - 62px)}
 nav{background:var(--nav);padding:12px;overflow:auto}
 nav button{width:100%;padding:13px;margin:5px 0;border:0;border-radius:15px;background:var(--nav2);color:#fff;text-align:left;font-size:14px;cursor:pointer}
 nav button.on{background:var(--blue)}
 main{padding:18px;overflow:auto}
-.card{background:var(--card);border-radius:26px;padding:18px;margin:0 auto 18px;max-width:980px;box-shadow:0 8px 25px rgba(0,0,0,.055)}
-.narrow{max-width:620px}
+.card{background:var(--card);border-radius:26px;padding:18px;margin:0 auto 18px;max-width:1080px;box-shadow:0 10px 30px rgba(0,0,0,.07);animation:up .28s ease}
+@keyframes up{from{opacity:.2;transform:translateY(10px)}to{opacity:1;transform:none}}
+.narrow{max-width:680px}
 .small{font-size:12px;color:var(--muted);line-height:1.7}
 .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
 input,select,textarea{width:100%;padding:14px;border:1px solid #dde3ef;border-radius:17px;margin-bottom:10px;background:#fff;font-size:15px}
-textarea{min-height:82px;resize:vertical}
+textarea{min-height:92px;resize:vertical}
 button.primary{width:100%;padding:15px;border:0;border-radius:18px;background:var(--blue);color:#fff;font-size:16px;font-weight:700;cursor:pointer}
 button.red{padding:9px 12px;border:0;border-radius:13px;background:var(--red);color:#fff;cursor:pointer}
-button.ghost{padding:8px 10px;border:1px solid #dde3ef;border-radius:12px;background:#fff;cursor:pointer}
-.flow{display:flex;gap:8px;flex-wrap:wrap}
-.flow span{background:var(--gray);border-radius:999px;padding:8px 12px;font-size:13px}
-.kpi{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
-.kpi .card{margin:0;max-width:none}
+button.ghost{padding:10px 12px;border:1px solid #dde3ef;border-radius:13px;background:#fff;cursor:pointer;margin:2px}
+.flow{display:flex;gap:8px;flex-wrap:wrap}.flow span{background:var(--gray);border-radius:999px;padding:8px 12px;font-size:13px}
+.kpi{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.kpi .card{margin:0;max-width:none}
 .table-wrap{width:100%;overflow-x:auto}
 table{width:100%;border-collapse:collapse;font-size:12.5px}
 th,td{border-bottom:1px solid var(--line);padding:9px;text-align:left;vertical-align:top;white-space:nowrap}
@@ -39,20 +34,21 @@ th{background:#f0f3fa;position:sticky;top:0;z-index:1}
 .ok{background:var(--ok)}.warn{background:var(--warn)}.bad{background:var(--bad)}
 .search{max-width:360px}
 hr{border:0;border-top:1px solid var(--line);margin:16px 0}
+.contract-paper{background:#fff;border:1px solid #ddd;border-radius:18px;padding:28px;max-width:850px;margin:auto;line-height:1.8}
+.contract-paper h1{text-align:center;margin-top:0}
+.signbox{border:1px dashed #aaa;border-radius:12px;background:#fafafa;width:100%;height:180px;touch-action:none}
+.preview-img{max-width:160px;max-height:100px;border:1px solid #ddd;border-radius:10px;margin:6px 0}
 @media(max-width:768px){
-  .app{display:block;height:auto}
-  nav{position:fixed;top:0;left:-100%;width:280px;height:100%;z-index:2000;transition:.25s}
-  nav.open{left:0}
-  main{padding:14px}
-  .card{max-width:100%;border-radius:24px;padding:18px}
-  .grid,.kpi{grid-template-columns:1fr}
-  header b{font-size:16px}
-  header div:last-child{font-size:12px}
-  table,thead,tbody,tr,th,td{display:block;width:100%}
-  thead{display:none}
-  tbody tr{background:#fff;border:1px solid var(--line);border-radius:22px;padding:14px;margin-bottom:14px;box-shadow:0 6px 18px rgba(0,0,0,.05)}
-  td{border:0;display:flex;justify-content:space-between;gap:12px;padding:8px 0;white-space:normal;font-size:14px}
-  td::before{content:attr(data-label);font-weight:800;color:var(--muted);min-width:115px}
+.app{display:block;height:auto}nav{position:fixed;top:0;left:-100%;width:280px;height:100%;z-index:2000;transition:.25s}nav.open{left:0}
+main{padding:14px}.card{max-width:100%;border-radius:24px;padding:18px}.grid,.kpi{grid-template-columns:1fr}
+header b{font-size:15px}header div:last-child{font-size:12px}
+table,thead,tbody,tr,th,td{display:block;width:100%}thead{display:none}
+tbody tr{background:#fff;border:1px solid var(--line);border-radius:22px;padding:14px;margin-bottom:14px;box-shadow:0 6px 18px rgba(0,0,0,.05)}
+td{border:0;display:flex;justify-content:space-between;gap:12px;padding:8px 0;white-space:normal;font-size:14px}
+td::before{content:attr(data-label);font-weight:800;color:var(--muted);min-width:115px}
+}
+@media print{
+body{background:#fff}header,nav,.no-print,.app>nav{display:none!important}.app{display:block;height:auto}main{padding:0}.card{box-shadow:none;border:0}.contract-paper{border:0;border-radius:0}
 }
 </style>
 </head>
@@ -60,98 +56,34 @@ hr{border:0;border-top:1px solid var(--line);margin:16px 0}
 <div id="root"></div>
 
 <script>
-const KEY="HVIRAL_ERP_CRM_FINAL_REAL_USE_V1";
+const KEY="HVIRAL_ERP_CRM_CONTRACT_FULL_V1";
 const PW="2580";
-
 const now=()=>new Date().toLocaleString("ko-KR");
 const yr=()=>new Date().getFullYear();
 const seq=p=>`${p}-${yr()}-${String(Date.now()).slice(-6)}`;
 
-let unlocked=false;
-let user=null;
-let view="dash";
-
-const blank={
-  outDB:[],call:[],consent:[],token:[],execution:[],po:[],
-  inbound:[],planning:[],sales:[],hq:[],contract:[],executive:[],logs:[]
-};
-
+let unlocked=false,user=null,view="dash";
+const blank={outDB:[],call:[],consent:[],token:[],execution:[],po:[],inbound:[],planning:[],sales:[],hq:[],contract:[],executive:[],logs:[]};
 let db=JSON.parse(localStorage.getItem(KEY)||"null")||blank;
 
 const save=()=>localStorage.setItem(KEY,JSON.stringify(db));
 const v=id=>document.getElementById(id)?.value?.trim()||"";
-const find=(a,k,x)=>db[a].find(r=>r[k]===x);
-const update=(a,k,x,p)=>db[a].forEach(r=>{if(r[k]===x)Object.assign(r,p)});
-const exists=(a,pred)=>db[a].some(pred);
-
-function log(구분,내용,참조=""){
-  db.logs.unshift({일시:now(),사용자:user?.name||"",권한:user?.role||"",구분,내용,참조});
-  save();
-}
-
-function requireRole(roles){
-  if(!user || !roles.includes(user.role)){
-    alert("권한 없음: " + roles.join(", ") + " 권한 필요");
-    return false;
-  }
-  return true;
-}
-
-function keyOf(r){
-  return r["Request ID"] || r["IN-Request ID"] || "";
-}
-
-function sameFlow(row,id){
-  return row["Request ID"]===id || row["IN-Request ID"]===id;
-}
-
-function hasExecution(id,type,stage){
-  return db.execution.some(x => sameFlow(x,id) && x["작업구분"]===type && x["파이프라인단계"]===stage);
-}
-
-function hasPO(id,type){
-  return db.po.some(x => sameFlow(x,id) && x["작업유형"]===type);
-}
-
-function sync(id,patches){
-  Object.entries(patches).forEach(([arr,patch])=>{
-    db[arr].forEach(r=>{
-      if(sameFlow(r,id) || r["토큰ID"]===id || r["유닛ID"]===id) Object.assign(r,patch);
-    });
-  });
-}
-
-const cls=x=>{
-  if(["Y","승인","완료","사용중","가능","PO적재","출고완료","계약완료","검증완료","동의","분배완료","작업요청","PO전달완료","콜완료"].includes(x))return"ok";
-  if(["대기","보류","검토중","진행중","출고대기","미연락","감사대기","승인대기","계약대기"].includes(x))return"warn";
-  if(["N","반려","차단","이슈","거절","불가","제외"].includes(x))return"bad";
-  return "";
-};
+const byId=(arr,id)=>db[arr].find(r=>r.id==id||r["Request ID"]===id||r["IN-Request ID"]===id);
+const exists=(arr,p)=>db[arr].some(p);
+const update=(arr,k,x,p)=>db[arr].forEach(r=>{if(r[k]===x)Object.assign(r,p)});
+const sameFlow=(r,id)=>r["Request ID"]===id||r["IN-Request ID"]===id||r.id==id;
+const log=(구분,내용,참조="")=>{db.logs.unshift({일시:now(),사용자:user?.name||"",권한:user?.role||"",구분,내용,참조});save()};
+function requireRole(roles){if(!user||!roles.includes(user.role)){alert("권한 없음: "+roles.join(", ")+" 권한 필요");return false}return true}
+function sync(id,patches){Object.entries(patches).forEach(([arr,patch])=>db[arr].forEach(r=>{if(sameFlow(r,id)||r["토큰ID"]===id||r["유닛ID"]===id)Object.assign(r,patch)}))}
+function hasExecution(id,type,stage){return db.execution.some(x=>sameFlow(x,id)&&x["작업구분"]===type&&x["파이프라인단계"]===stage)}
+function hasPO(id,type){return db.po.some(x=>sameFlow(x,id)&&x["작업유형"]===type)}
+const cls=x=>["Y","승인","완료","사용중","가능","PO적재","출고완료","계약완료","검증완료","동의","분배완료","작업요청","콜완료","서명완료","발행완료"].includes(x)?"ok":["대기","보류","검토중","진행중","출고대기","미연락","감사대기","승인대기","계약대기","서명대기"].includes(x)?"warn":["N","반려","차단","이슈","거절","불가","제외"].includes(x)?"bad":"";
 const badge=x=>`<span class="badge ${cls(x)}">${x??""}</span>`;
-
-function filterRows(i){
-  let q=i.value.toLowerCase();
-  i.parentElement.querySelectorAll("tbody tr").forEach(tr=>tr.style.display=tr.innerText.toLowerCase().includes(q)?"":"none");
-}
-
-const table=(rows,cols)=>`
-<input class="search" placeholder="검색" onkeyup="filterRows(this)">
-<div class="table-wrap">
-<table>
-<thead><tr>${cols.map(c=>`<th>${c}</th>`).join("")}</tr></thead>
-<tbody>${rows.map(r=>`<tr>${cols.map(c=>`<td data-label="${c}">${badge(r[c])}</td>`).join("")}</tr>`).join("")}</tbody>
-</table>
-</div>`;
-
+function table(rows,cols){return`<input class="search no-print" placeholder="검색" onkeyup="filterRows(this)"><div class="table-wrap"><table><thead><tr>${cols.map(c=>`<th>${c}</th>`).join("")}</tr></thead><tbody>${rows.map(r=>`<tr>${cols.map(c=>`<td data-label="${c}">${badge(r[c])}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`}
+function filterRows(i){let q=i.value.toLowerCase();i.parentElement.querySelectorAll("tbody tr").forEach(tr=>tr.style.display=tr.innerText.toLowerCase().includes(q)?"":"none")}
 function toggleMenu(){document.querySelector("nav")?.classList.toggle("open")}
 function go(x){view=x;render()}
-
-function add(a,row,msg,ref){
-  db[a].unshift(row);
-  log("CREATE",msg,ref||keyOf(row)||row["토큰ID"]||row["유닛ID"]);
-  save();
-  render();
-}
+function add(arr,row,msg,ref){db[arr].unshift(row);log("CREATE",msg,ref||row["Request ID"]||row["IN-Request ID"]||row.id||"");save();render()}
 
 const C={
 outDB:["Request ID","수집일","업체명","연락처","업종","지역","콜상태","콜담당자","배정일시","차단여부","차단사유","재접촉금지","중복기준","메모"],
@@ -162,364 +94,72 @@ execution:["Request ID","IN-Request ID","토큰ID","유닛ID","CEO Reference","�
 po:["Request ID","IN-Request ID","토큰ID","유닛ID","유입경로","작업코드","상품명","고객 식별명","작업유형","요청내용","작업지시 확인","프로젝트 담당자","상품 담당자","외주 여부","산출물 파일명","산출물 형식","링크 생성 여부","링크","완료보고 수령","정합성","범위준수","원본저장","저장경로","출고상태","출고대상","출고일시","출고자","전달방식","확인여부","AS 여부","유지관리 여부","토큰연계 여부","특이사항"],
 inbound:["IN-Request ID","인바운드 유형","유입경로","고객코드","소개자코드","연락채널","업종","상품코드","상품옵션","요청요약","긴급도","우선순위점수","기획조정 전달","기획조정 상태","분배유형","토큰요청","토큰ID","접수일시","접수자","접촉로그","비고"],
 planning:["IN-Request ID","고객코드","업종","상품코드","상품옵션","요청요약","난이도","예상금액레벨","전환가능성","우선순위점수","판단근거","분배유형","담당팀","담당자","분배일시","처리기한","토큰요청","토큰ID","상태","기록자","로그"],
-sales:["유입구분","Request ID","IN-Request ID","토큰ID","유닛ID","고객 식별명","고객코드","업종","주소","시안 발송 여부","최초 접촉 여부","고객 반응 상태","견적 요청 유도 여부","견적요청서 수령","착수금 결제 여부","결제 금액","결제 일시","부대표 계약 요청","본부장 전달 여부","담당 영업자","진행 상태","특이사항"],
+sales:["유입구분","Request ID","IN-Request ID","토큰ID","유닛ID","고객 식별명","고객코드","업종","주소","시안 발송 여부","최초 접촉 여부","고객 반응 상태","견적 요청 유도 여부","견적요청서 수령","착수금 결제 여부","착수금액","결제 일시","견적요청 링크","견적요청 상태","부대표 계약 요청","본부장 전달 여부","담당 영업자","진행 상태","특이사항"],
 hq:["유입구분","Request ID","IN-Request ID","토큰ID","유닛ID","고객 식별명","고객코드","고객용 견적요청서 수령","고객 요청 원본","회사 견적요청서 치환","계약 범위 확정","제외 범위","예상 금액","특이사항","부대표 전달 여부","전달일시"],
-contract:["유입구분","IN-Request ID","Request ID","토큰ID","유닛ID","고객 식별명","고객코드","계약상태","계약일","계약서 번호","계약서 파일/경로","고객견적요청서 수령","내부견적서 확인","최종 계약금액","착수금액","입금확인","입금일시","결제방식","세금계산서 필요","세금계산서 발행상태","영수증/증빙 보관","경영지원 확인","부대표 회신","감사 확인상태","감사 검토사유","부대표 실행승인","전무이사 전달여부","작업지시 발급여부"],
+contract:["유입구분","IN-Request ID","Request ID","토큰ID","유닛ID","고객 식별명","고객코드","계약상태","계약일","계약서 번호","계약서 링크","계약서 파일/경로","고객견적요청서 수령","내부견적서 확인","최종 계약금액","착수금액","입금확인","입금일시","결제방식","경영지원 확인","감사 확인상태","부대표 실행승인","전무이사 전달여부","작업지시 발급여부","전자서명 상태","서명자","서명일시","도장저장","서명저장"],
 executive:["유입구분","IN-Request ID","Request ID","토큰ID","유닛ID","CEO Reference","계약상태","착수금 확인","입금확인","경영지원 확인","감사 확인상태","부대표 실행승인","전무이사 전달여부","작업지시 발급여부","실행시작 가능여부","전무이사 실행판정","코어상태","인터페이스 바구니함 상태","현재위치","다음위치","유닛 전달여부","PO 전달여부","PO 회수여부","완료보고 수령","토큰해제 요청","완료여부"],
 logs:["일시","사용자","권한","구분","내용","참조"]
 };
 
-function lockScreen(){
-  document.getElementById("root").innerHTML=`
-  <div style="min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px">
-    <div class="card narrow">
-      <h2>접근 제한</h2>
-      <p class="small">하비럴 ERP·CRM 테스트 백오피스입니다.</p>
-      <input id="pw" type="password" placeholder="비밀번호 입력" onkeydown="if(event.key==='Enter')checkPw()">
-      <button class="primary" onclick="checkPw()">접속</button>
-    </div>
-  </div>`;
-}
+function lockScreen(){document.getElementById("root").innerHTML=`<div style="min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px"><div class="card narrow"><h2>접근 제한</h2><p class="small">하비럴 ERP·CRM 테스트 백오피스입니다.</p><input id="pw" type="password" placeholder="비밀번호 입력" onkeydown="if(event.key==='Enter')checkPw()"><button class="primary" onclick="checkPw()">접속</button></div></div>`}
 function checkPw(){if(v("pw")===PW){unlocked=true;renderApp()}else alert("비밀번호 틀림")}
+function login(){document.getElementById("root").innerHTML=`<div style="min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px"><div class="card narrow"><h1>HVIRAL ERP 로그인</h1><p class="small">INDEX 단일파일 테스트용 로그인입니다. 실제 직원 동시사용은 서버/DB 버전으로 전환해야 합니다.</p><input id="loginName" value="이재현" placeholder="이름"><select id="loginRole"><option>대표</option><option>전무이사</option><option>부대표</option><option>본부장</option><option>운영지원</option><option>콜팀</option><option>영업</option><option>실행팀</option><option>PO</option><option>경영지원</option><option>감사</option></select><button class="primary" onclick="user={name:v('loginName'),role:v('loginRole')};log('LOGIN','로그인');render()">입장</button></div></div>`}
 
-function login(){
-  document.getElementById("root").innerHTML=`
-  <div style="min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px">
-    <div class="card narrow">
-      <h1>HVIRAL ERP 로그인</h1>
-      <p class="small">INDEX 단일파일 테스트용 로그인입니다. 실제 직원 동시사용은 서버/DB 버전으로 전환해야 합니다.</p>
-      <input id="loginName" value="이재현" placeholder="이름">
-      <select id="loginRole">
-        <option>대표</option><option>전무이사</option><option>부대표</option><option>본부장</option>
-        <option>운영지원</option><option>콜팀</option><option>영업</option><option>실행팀</option>
-        <option>PO</option><option>경영지원</option><option>감사</option>
-      </select>
-      <button class="primary" onclick="user={name:v('loginName'),role:v('loginRole')};log('LOGIN','로그인');render()">입장</button>
-    </div>
-  </div>`;
-}
+function layout(content){const menus=[["dash","대시보드"],["outDB","BOUND 운영지원 DB"],["call","콜팀"],["consent","동의자 작업요청"],["token","대표 토큰·승인"],["execution","실행팀 통합"],["po","프로젝트오피스 PO"],["inbound","인바운드 접수처"],["planning","기획조정팀"],["sales","마케팅·영업"],["hq","사업본부 본부장"],["contract","부대표·계약/서명"],["executive","전무이사 실행통제"],["logs","감사 로그"]];document.getElementById("root").innerHTML=`<header><div style="display:flex;align-items:center;gap:10px"><button class="red no-print" onclick="toggleMenu()">☰</button><b>HVIRAL ERP·CRM</b></div><div class="no-print">${user.name} · ${user.role} <button class="red" onclick="user=null;render()">로그아웃</button></div></header><div class="app"><nav class="no-print">${menus.map(m=>`<button class="${view===m[0]?'on':''}" onclick="view='${m[0]}';toggleMenu();render()">${m[1]}</button>`).join("")}</nav><main>${content}</main></div>`}
 
-function layout(content){
-  const menus=[
-    ["dash","대시보드"],["outDB","BOUND 운영지원 DB"],["call","콜팀"],["consent","동의자 작업요청"],
-    ["token","대표 토큰·승인"],["execution","실행팀 통합"],["po","프로젝트오피스 PO"],
-    ["inbound","인바운드 접수처"],["planning","기획조정팀"],["sales","마케팅·영업"],
-    ["hq","사업본부 본부장"],["contract","부대표·경영지원·감사"],["executive","전무이사 실행통제"],["logs","감사 로그"]
-  ];
-  document.getElementById("root").innerHTML=`
-  <header>
-    <div style="display:flex;align-items:center;gap:10px">
-      <button class="red" onclick="toggleMenu()">☰</button><b>HVIRAL ERP·CRM</b>
-    </div>
-    <div>${user.name} · ${user.role} <button class="red" onclick="user=null;render()">로그아웃</button></div>
-  </header>
-  <div class="app">
-    <nav>${menus.map(m=>`<button class="${view===m[0]?'on':''}" onclick="view='${m[0]}';toggleMenu();render()">${m[1]}</button>`).join("")}</nav>
-    <main>${content}</main>
-  </div>`;
-}
+function dash(){layout(`<div class="card"><h2>하비럴 전체 흐름 시스템</h2><div class="flow"><span>영업: 견적요청 링크</span><span>고객: 견적요청 작성</span><span>본부장: 회사용 치환</span><span>부대표: 계약링크 발행</span><span>고객: 전자서명/도장</span><span>전무: 실행통제</span><span>실행팀</span><span>PO</span></div><hr><p class="small">계약 링크 발행과 전자서명 관리는 부대표 권한입니다. PDF는 계약서 화면에서 브라우저 인쇄 → PDF 저장 방식입니다.</p></div><div class="kpi">${Object.keys(db).filter(k=>k!=="logs").map(k=>`<div class="card"><b>${k}</b><h2>${db[k].length}</h2></div>`).join("")}</div>`)}
 
-function dash(){
-  layout(`
-  <div class="card">
-    <h2>하비럴 전체 흐름 시스템</h2>
-    <div class="flow">
-      <span>BOUND DB</span><span>콜팀</span><span>동의자</span><span>대표 토큰</span>
-      <span>1차 시안 실행</span><span>PO</span><span>영업</span><span>본부장</span>
-      <span>계약/입금/감사</span><span>전무</span><span>2차 진행 실행</span><span>PO 완료</span>
-    </div>
-    <hr>
-    <div class="flow">
-      <span>인바운드 접수</span><span>기획조정</span><span>영업</span><span>본부장</span>
-      <span>부대표</span><span>전무</span><span>실행팀</span><span>PO</span>
-    </div>
-    <p class="small">권한통제 / 상태동기화 / 중복방지 적용. 단일파일 localStorage 기반 테스트본입니다.</p>
-  </div>
-  <div class="kpi">${Object.keys(db).filter(k=>k!=="logs").map(k=>`<div class="card"><b>${k}</b><h2>${db[k].length}</h2></div>`).join("")}</div>`);
-}
+function outDB(){layout(`<div class="card narrow"><h2>BOUND 운영지원 DB</h2><input id="biz" placeholder="업체명"><input id="phone" placeholder="연락처"><input id="industry" placeholder="업종"><input id="area" placeholder="지역(주소 아님)"><input id="memo" placeholder="메모"><button class="primary" onclick="addOut()">타깃 등록</button></div><div class="card">${table(db.outDB,C.outDB)}</div>`)}
+function addOut(){if(!requireRole(["대표","운영지원"]))return;add("outDB",{"Request ID":seq("OUT"),"수집일":now(),"업체명":v("biz"),"연락처":v("phone"),"업종":v("industry"),"지역":v("area"),"콜상태":"미연락","콜담당자":"","배정일시":"","차단여부":"N","차단사유":"","재접촉금지":"N","중복기준":"","메모":v("memo")},"아웃바운드 타깃 등록")}
 
-function outDB(){
-  layout(`
-  <div class="card narrow">
-    <h2>BOUND 운영지원 DB</h2>
-    <input id="biz" placeholder="업체명">
-    <input id="phone" placeholder="연락처">
-    <input id="industry" placeholder="업종">
-    <input id="area" placeholder="지역(주소 아님)">
-    <input id="memo" placeholder="메모">
-    <button class="primary" onclick="addOut()">타깃 등록</button>
-  </div>
-  <div class="card">${table(db.outDB,C.outDB)}</div>`);
-}
-function addOut(){
-  if(!requireRole(["대표","운영지원"]))return;
-  const row={"Request ID":seq("OUT"),"수집일":now(),"업체명":v("biz"),"연락처":v("phone"),"업종":v("industry"),"지역":v("area"),"콜상태":"미연락","콜담당자":"","배정일시":"","차단여부":"N","차단사유":"","재접촉금지":"N","중복기준":"","메모":v("memo")};
-  add("outDB",row,"아웃바운드 타깃 등록");
-}
+function call(){layout(`<div class="card narrow"><h2>콜팀 결과 입력</h2><input id="rid" placeholder="Request ID"><input id="caller" placeholder="콜담당자"><select id="result"><option>동의</option><option>거절</option><option>부재</option><option>재접촉</option><option>차단</option></select><input id="reject" placeholder="거부사유"><input id="memo" placeholder="콜메모"><button class="primary" onclick="addCall()">콜결과 저장</button></div><div class="card">${table(db.call,C.call)}</div>`)}
+function addCall(){if(!requireRole(["대표","콜팀","운영지원"]))return;const rid=v("rid"),isAgree=v("result")==="동의",base=byId("outDB",rid)||{};if(!rid)return alert("Request ID 필요");db.call.unshift({"Request ID":rid,"업체명":base["업체명"]||"","연락처":base["연락처"]||"","콜담당자":v("caller"),"연락결과":v("result"),"동의여부":isAgree?"Y":"N","거부사유":v("reject"),"재연락여부":v("result")==="재접촉"?"Y":"N","최초통화일시":now(),"콜메모":v("memo"),"시안상태":"","URL링크":"","토큰전달여부":"N","토큰전달일시":""});update("outDB","Request ID",rid,{"콜상태":"콜완료","콜담당자":v("caller"),"배정일시":now(),"차단여부":v("result")==="차단"?"Y":"N","차단사유":v("result")==="차단"?v("reject"):""});if(isAgree&&!exists("consent",x=>x["Request ID"]===rid)){db.consent.unshift({"Request ID":rid,"요청일자":now(),"요청번호":seq("REQ"),"고객/업체명":base["업체명"]||"","상품/작업유형":"시안","요청내용":"1차 시안 제작 요청","요청부서":"운영지원","요청자":user.name,"콜담당자":v("caller"),"동의확인":"Y","차단검토":"N","재접촉금지검토":"N","승인요청상태":"대기"});log("AUTO","동의자 작업요청 자동 생성",rid)}save();render()}
 
-function call(){
-  layout(`
-  <div class="card narrow">
-    <h2>콜팀 결과 입력</h2>
-    <input id="rid" placeholder="Request ID">
-    <input id="caller" placeholder="콜담당자">
-    <select id="result"><option>동의</option><option>거절</option><option>부재</option><option>재접촉</option><option>차단</option></select>
-    <input id="reject" placeholder="거부사유">
-    <input id="memo" placeholder="콜메모">
-    <button class="primary" onclick="addCall()">콜결과 저장</button>
-    <p class="small">동의 저장 시 동의자 작업요청 자동 생성 + BOUND DB 콜완료 변경.</p>
-  </div>
-  <div class="card">${table(db.call,C.call)}</div>`);
-}
-function addCall(){
-  if(!requireRole(["대표","콜팀","운영지원"]))return;
-  const rid=v("rid"),isAgree=v("result")==="동의",base=find("outDB","Request ID",rid)||{};
-  if(!rid)return alert("Request ID 필요");
-  if(exists("call",x=>x["Request ID"]===rid && x["연락결과"]===v("result")))return alert("동일 콜결과가 이미 존재합니다.");
-  db.call.unshift({"Request ID":rid,"업체명":base["업체명"]||"","연락처":base["연락처"]||"","콜담당자":v("caller"),"연락결과":v("result"),"동의여부":isAgree?"Y":"N","거부사유":v("reject"),"재연락여부":v("result")==="재접촉"?"Y":"N","최초통화일시":now(),"콜메모":v("memo"),"시안상태":"","URL링크":"","토큰전달여부":"N","토큰전달일시":""});
-  update("outDB","Request ID",rid,{"콜상태":"콜완료","콜담당자":v("caller"),"배정일시":now(),"차단여부":v("result")==="차단"?"Y":"N","차단사유":v("result")==="차단"?v("reject"):""});
-  log("UPDATE","BOUND DB 콜상태 자동 변경",rid);
-  if(isAgree && !exists("consent",x=>x["Request ID"]===rid)){
-    db.consent.unshift({"Request ID":rid,"요청일자":now(),"요청번호":seq("REQ"),"고객/업체명":base["업체명"]||"","상품/작업유형":"시안","요청내용":"1차 시안 제작 요청","요청부서":"운영지원","요청자":user.name,"콜담당자":v("caller"),"동의확인":"Y","차단검토":"N","재접촉금지검토":"N","승인요청상태":"대기"});
-    log("AUTO","동의자 작업요청 자동 생성",rid);
-  }
-  save();render();
-}
+function consent(){layout(`<div class="card"><h2>동의자 작업요청</h2></div><div class="card">${table(db.consent,C.consent)}</div>`)}
 
-function consent(){
-  layout(`<div class="card"><h2>동의자 작업요청</h2><p class="small">콜팀 동의 건이 자동으로 들어옵니다.</p></div><div class="card">${table(db.consent,C.consent)}</div>`);
-}
+function token(){layout(`<div class="card narrow"><h2>대표 토큰·승인</h2><input id="trid" placeholder="Request ID 또는 IN-Request ID"><input id="customer" placeholder="고객/업체명"><input id="work" placeholder="요청내용"><select id="unitType"><option>고객단위</option><option>상품단위</option></select><select id="approve"><option>승인</option><option>반려</option><option>보류</option></select><input id="reason" placeholder="반려/보류 사유"><button class="primary" onclick="addToken()">승인 처리</button></div><div class="card">${table(db.token,C.token)}</div>`)}
+function addToken(){if(!requireRole(["대표"]))return;const raw=v("trid"),ap=v("approve"),isIn=raw.startsWith("IN-"),cons=byId("consent",raw)||{};if(!raw)return alert("ID 필요");if(ap==="승인"&&exists("token",x=>sameFlow(x,raw)&&x["승인상태"]==="승인"))return alert("이미 승인 토큰이 존재합니다.");const tk=ap==="승인"?seq("TK"):"",unit=ap==="승인"?seq("U"):"";db.token.unshift({"Request ID":isIn?"":raw,"IN-Request ID":isIn?raw:"","CEO Reference":seq("CEO-REF"),"토큰ID":tk,"요청일자":now(),"요청번호":seq("REQ"),"유닛ID":unit,"유닛기준":v("unitType"),"고객/업체명":v("customer")||cons["고객/업체명"]||"","상품/작업유형":"시안","요청내용":v("work")||cons["요청내용"]||"","요청부서":isIn?"기획조정":"운영지원","요청자":user.name,"콜담당자":cons["콜담당자"]||"","동의확인":isIn?"":"Y","차단검토":"N","재접촉금지검토":"N","승인상태":ap,"승인일시":now(),"승인자":user.name,"토큰생성일시":ap==="승인"?now():"","토큰상태":ap==="승인"?"사용중":"대기","유효기한":"","반려사유":v("reason"),"프로젝트오피스 전달여부":"N","전달일시":"","완료보고수령":"N","토큰해제여부":"N","토큰해제일시":"","특이사항":""});if(!isIn)update("consent","Request ID",raw,{"승인요청상태":ap});if(ap==="승인"&&!hasExecution(raw,"시안","작업요청")){db.execution.unshift({"Request ID":isIn?"":raw,"IN-Request ID":isIn?raw:"","토큰ID":tk,"유닛ID":unit,"CEO Reference":seq("CEO-REF"),"파이프라인구분":"1차-시안","작업구분":"시안","파이프라인단계":"작업요청","고객/업체명":v("customer"),"상품명":"시안","요청내용":v("work"),"작업부서":"디자인팀","부서팀장":"","작업자":"","입력권한구분":"팀장입력","이전부서":"대표 토큰","현재부서":"실행팀","다음부서":"PO","USB 바구니함 상태":"작업요청","현재위치":"실행팀","다음위치":"PO","산출물 파일명":"","산출물 형식":"","저장경로":"","완료보고":"X","정합성":"X","범위준수":"X","원본저장":"X","팀장검수":"X","PO전달가능":"불가","PO전달여부":"N","PO전달일시":""});log("AUTO","1차 시안 실행팀 행 자동 생성",raw)}save();render()}
 
-function token(){
-  layout(`
-  <div class="card narrow">
-    <h2>대표 토큰·승인</h2>
-    <input id="trid" placeholder="Request ID 또는 IN-Request ID">
-    <input id="customer" placeholder="고객/업체명">
-    <input id="work" placeholder="요청내용">
-    <select id="unitType"><option>고객단위</option><option>상품단위</option></select>
-    <select id="approve"><option>승인</option><option>반려</option><option>보류</option></select>
-    <input id="reason" placeholder="반려/보류 사유">
-    <button class="primary" onclick="addToken()">승인 처리</button>
-  </div>
-  <div class="card">${table(db.token,C.token)}</div>`);
-}
-function addToken(){
-  if(!requireRole(["대표"]))return;
-  const raw=v("trid"),ap=v("approve"),isIn=raw.startsWith("IN-");
-  if(!raw)return alert("ID 필요");
-  if(ap==="승인" && exists("token",x=>sameFlow(x,raw)&&x["승인상태"]==="승인"))return alert("이미 승인 토큰이 존재합니다.");
-  const tk=ap==="승인"?seq("TK"):"",unit=ap==="승인"?seq("U"):"",cons=find("consent","Request ID",raw)||{};
-  db.token.unshift({"Request ID":isIn?"":raw,"IN-Request ID":isIn?raw:"","CEO Reference":seq("CEO-REF"),"토큰ID":tk,"요청일자":now(),"요청번호":seq("REQ"),"유닛ID":unit,"유닛기준":v("unitType"),"고객/업체명":v("customer")||cons["고객/업체명"]||"","상품/작업유형":"시안","요청내용":v("work")||cons["요청내용"]||"","요청부서":isIn?"기획조정":"운영지원","요청자":user.name,"콜담당자":cons["콜담당자"]||"","동의확인":isIn?"":"Y","차단검토":"N","재접촉금지검토":"N","승인상태":ap,"승인일시":now(),"승인자":user.name,"토큰생성일시":ap==="승인"?now():"","토큰상태":ap==="승인"?"사용중":"대기","유효기한":"","반려사유":v("reason"),"프로젝트오피스 전달여부":"N","전달일시":"","완료보고수령":"N","토큰해제여부":"N","토큰해제일시":"","특이사항":""});
-  if(!isIn)update("consent","Request ID",raw,{"승인요청상태":ap});
-  if(ap==="승인" && !hasExecution(raw,"시안","작업요청")){
-    db.execution.unshift({"Request ID":isIn?"":raw,"IN-Request ID":isIn?raw:"","토큰ID":tk,"유닛ID":unit,"CEO Reference":seq("CEO-REF"),"파이프라인구분":"1차-시안","작업구분":"시안","파이프라인단계":"작업요청","고객/업체명":v("customer"),"상품명":"시안","요청내용":v("work"),"작업부서":"디자인팀","부서팀장":"","작업자":"","입력권한구분":"팀장입력","이전부서":"대표 토큰","현재부서":"실행팀","다음부서":"PO","USB 바구니함 상태":"작업요청","현재위치":"실행팀","다음위치":"PO","산출물 파일명":"","산출물 형식":"","저장경로":"","완료보고":"X","정합성":"X","범위준수":"X","원본저장":"X","팀장검수":"X","PO전달가능":"불가","PO전달여부":"N","PO전달일시":""});
-    log("AUTO","1차 시안 실행팀 행 자동 생성",raw);
-  }
-  save();render();
-}
+function sales(){layout(`<div class="card narrow"><h2>마케팅·영업</h2><select id="kind"><option>아웃바운드</option><option>인바운드</option></select><input id="sid" placeholder="Request ID 또는 IN-Request ID"><input id="customer" placeholder="고객 식별명/코드"><input id="industry" placeholder="업종"><input id="addr" placeholder="주소"><input id="deposit" placeholder="착수금액"><button class="primary" onclick="makeQuoteLink()">고객용 견적요청서 링크 발행</button><button class="primary" onclick="salesToHQ()">견적요청 수령 확인 → 본부장 자동전달</button></div><div class="card">${table(db.sales,C.sales)}</div>`)}
+function makeQuoteLink(){if(!requireRole(["대표","영업"]))return;const kind=v("kind"),idv=v("sid"),isIn=kind==="인바운드";if(!idv)return alert("ID 필요");const link=location.origin+location.pathname+"?quote="+encodeURIComponent(idv);db.sales.unshift({"유입구분":kind,"Request ID":isIn?"":idv,"IN-Request ID":isIn?idv:"","토큰ID":"","유닛ID":"","고객 식별명":v("customer"),"고객코드":v("customer"),"업종":v("industry"),"주소":v("addr"),"시안 발송 여부":"Y","최초 접촉 여부":"Y","고객 반응 상태":"견적요청 링크발행","견적 요청 유도 여부":"Y","견적요청서 수령":"N","착수금 결제 여부":v("deposit")?"Y":"N","착수금액":v("deposit"),"결제 일시":v("deposit")?now():"","견적요청 링크":link,"견적요청 상태":"발행완료","부대표 계약 요청":"N","본부장 전달 여부":"N","담당 영업자":user.name,"진행 상태":"고객작성대기","특이사항":""});log("LINK","고객용 견적요청서 링크 발행",idv);save();alert("고객에게 전달할 견적요청서 링크:\\n"+link);render()}
+function salesToHQ(){if(!requireRole(["대표","영업"]))return;const kind=v("kind"),idv=v("sid"),isIn=kind==="인바운드";if(!idv)return alert("ID 필요");if(exists("hq",x=>sameFlow(x,idv)&&x["고객용 견적요청서 수령"]==="Y"))return alert("이미 본부장 단계로 전달된 건입니다.");db.hq.unshift({"유입구분":kind,"Request ID":isIn?"":idv,"IN-Request ID":isIn?idv:"","토큰ID":"","유닛ID":"","고객 식별명":v("customer"),"고객코드":v("customer"),"고객용 견적요청서 수령":"Y","고객 요청 원본":"고객 견적요청서 제출/영업 확인","회사 견적요청서 치환":"치환 대기","계약 범위 확정":"","제외 범위":"","예상 금액":"","특이사항":"","부대표 전달 여부":"N","전달일시":""});sync(idv,{sales:{"견적요청서 수령":"Y","본부장 전달 여부":"Y","진행 상태":"본부장전달"}});log("AUTO","영업 확인 및 본부장 자동전달",idv);save();render()}
 
-function execution(){
-  layout(`
-  <div class="card narrow">
-    <h2>실행팀 통합</h2>
-    <input id="erid" placeholder="Request ID">
-    <input id="ein" placeholder="IN-Request ID">
-    <input id="etk" placeholder="토큰ID">
-    <input id="eunit" placeholder="유닛ID">
-    <select id="etype"><option>시안</option><option>진행</option><option>유지관리</option></select>
-    <input id="dept" placeholder="작업부서">
-    <input id="worker" placeholder="작업자">
-    <input id="file" placeholder="산출물 파일명">
-    <input id="format" placeholder="산출물 형식">
-    <input id="path" placeholder="저장경로">
-    <button class="primary" onclick="completeExecution()">작업 완료 → PO 자동적재</button>
-  </div>
-  <div class="card">${table(db.execution,C.execution)}</div>`);
-}
-function completeExecution(){
-  if(!requireRole(["대표","전무이사","실행팀"]))return;
-  const rid=v("erid"),inid=v("ein"),idv=rid||inid,tk=v("etk"),unit=v("eunit"),type=v("etype");
-  if(!tk)return alert("토큰ID 없는 실행 금지");
-  if(!idv)return alert("Request ID 또는 IN-Request ID 필요");
-  if(hasPO(idv,type))return alert("이미 해당 작업유형이 PO에 적재되어 있습니다.");
-  db.execution.unshift({"Request ID":rid,"IN-Request ID":inid,"토큰ID":tk,"유닛ID":unit,"CEO Reference":"","파이프라인구분":type==="시안"?"1차-시안":type==="진행"?"2차-진행":"유지관리","작업구분":type,"파이프라인단계":"완료","고객/업체명":"","상품명":type,"요청내용":"","작업부서":v("dept")||"실행팀","부서팀장":"","작업자":v("worker"),"입력권한구분":"작업자입력","이전부서":"전무/토큰","현재부서":"실행팀","다음부서":"PO","USB 바구니함 상태":"제출완료","현재위치":"실행팀","다음위치":"PO","산출물 파일명":v("file"),"산출물 형식":v("format"),"저장경로":v("path"),"완료보고":"O","정합성":"O","범위준수":"O","원본저장":"O","팀장검수":"O","PO전달가능":"가능","PO전달여부":"Y","PO전달일시":now()});
-  db.po.unshift({"Request ID":rid,"IN-Request ID":inid,"토큰ID":tk,"유닛ID":unit,"유입경로":inid?"인바운드":"아웃바운드","작업코드":seq("JOB"),"상품명":type,"고객 식별명":"","작업유형":type,"요청내용":"","작업지시 확인":"O","프로젝트 담당자":user.name,"상품 담당자":"","외주 여부":"N","산출물 파일명":v("file"),"산출물 형식":v("format"),"링크 생성 여부":"N","링크":"","완료보고 수령":"O","정합성":"O","범위준수":"O","원본저장":"O","저장경로":v("path"),"출고상태":"PO적재","출고대상":"","출고일시":"","출고자":"","전달방식":"","확인여부":"N","AS 여부":"N","유지관리 여부":"N","토큰연계 여부":"Y","특이사항":""});
-  update("token","토큰ID",tk,{"프로젝트오피스 전달여부":"Y","전달일시":now(),"완료보고수령":"Y"});
-  sync(idv,{executive:{"PO 전달여부":"Y","완료보고 수령":"Y"}});
-  log("AUTO","실행 완료 및 PO 자동 적재",idv);
-  save();render();
-}
+function customerQuotePage(id){document.getElementById("root").innerHTML=`<div style="min-height:100vh;padding:20px"><div class="card narrow"><h2>고객용 견적요청서</h2><p class="small">요청 내용을 작성하면 하비럴 담당자에게 전달됩니다.</p><input id="qname" placeholder="고객명/상호"><input id="qphone" placeholder="연락처"><textarea id="qcontent" placeholder="요청내용"></textarea><button class="primary" onclick="submitQuote('${id}')">견적요청서 제출</button></div></div>`}
+function submitQuote(id){const isIn=id.startsWith("IN-");db.hq.unshift({"유입구분":isIn?"인바운드":"아웃바운드","Request ID":isIn?"":id,"IN-Request ID":isIn?id:"","토큰ID":"","유닛ID":"","고객 식별명":v("qname"),"고객코드":v("qname"),"고객용 견적요청서 수령":"Y","고객 요청 원본":`연락처:${v("qphone")} / 요청:${v("qcontent")}`,"회사 견적요청서 치환":"치환 대기","계약 범위 확정":"","제외 범위":"","예상 금액":"","특이사항":"고객 링크 제출","부대표 전달 여부":"N","전달일시":""});sync(id,{sales:{"견적요청서 수령":"Y","견적요청 상태":"제출완료","본부장 전달 여부":"Y","진행 상태":"본부장전달"}});log("CUSTOMER","고객 견적요청서 제출",id);save();alert("제출 완료되었습니다.");location.href=location.origin+location.pathname}
 
-function po(){
-  layout(`<div class="card"><h2>프로젝트오피스 PO</h2><p class="small">시안/진행/유지관리 모두 행 분리. 기존 행 수정 금지 원칙.</p></div><div class="card">${table(db.po,C.po)}</div>`);
-}
+function hq(){layout(`<div class="card narrow"><h2>사업본부 본부장</h2><select id="kind"><option>아웃바운드</option><option>인바운드</option></select><input id="hid" placeholder="Request ID 또는 IN-Request ID"><input id="token" placeholder="토큰ID"><input id="unit" placeholder="유닛ID"><textarea id="raw" placeholder="고객 요청 원본"></textarea><textarea id="fixed" placeholder="회사 견적요청서 치환"></textarea><input id="scope" placeholder="계약 범위 확정"><input id="exclude" placeholder="제외 범위"><input id="amount" placeholder="예상 금액"><button class="primary" onclick="hqToContract()">치환 완료 → 부대표 자동전달</button></div><div class="card">${table(db.hq,C.hq)}</div>`)}
+function hqToContract(){if(!requireRole(["대표","본부장"]))return;const kind=v("kind"),idv=v("hid"),isIn=kind==="인바운드";if(!idv)return alert("ID 필요");if(exists("contract",x=>sameFlow(x,idv)&&x["계약상태"]==="계약대기"))return alert("이미 계약대기 건이 존재합니다.");db.contract.unshift({"유입구분":kind,"IN-Request ID":isIn?idv:"","Request ID":isIn?"":idv,"토큰ID":v("token"),"유닛ID":v("unit"),"고객 식별명":"","고객코드":"","계약상태":"계약대기","계약일":"","계약서 번호":seq("CT"),"계약서 링크":"","계약서 파일/경로":"","고객견적요청서 수령":"Y","내부견적서 확인":"Y","최종 계약금액":v("amount"),"착수금액":"","입금확인":"N","입금일시":"","결제방식":"","경영지원 확인":"N","감사 확인상태":"감사대기","부대표 실행승인":"N","전무이사 전달여부":"N","작업지시 발급여부":"N","전자서명 상태":"서명대기","서명자":"","서명일시":"","도장저장":"N","서명저장":"N"});db.hq.unshift({"유입구분":kind,"Request ID":isIn?"":idv,"IN-Request ID":isIn?idv:"","토큰ID":v("token"),"유닛ID":v("unit"),"고객 식별명":"","고객코드":"","고객용 견적요청서 수령":"Y","고객 요청 원본":v("raw"),"회사 견적요청서 치환":v("fixed"),"계약 범위 확정":v("scope"),"제외 범위":v("exclude"),"예상 금액":v("amount"),"특이사항":"","부대표 전달 여부":"Y","전달일시":now()});log("AUTO","본부장 치환 및 부대표 계약대기 생성",idv);save();render()}
 
-function inbound(){
-  layout(`
-  <div class="card narrow">
-    <h2>인바운드 접수처</h2>
-    <select id="type"><option>A</option><option>B</option></select>
-    <input id="channel" placeholder="유입경로">
-    <input id="code" placeholder="고객코드">
-    <input id="intro" placeholder="소개자코드">
-    <input id="contact" placeholder="연락채널(마스킹)">
-    <input id="industry" placeholder="업종">
-    <input id="product" placeholder="상품코드">
-    <input id="option" placeholder="상품옵션">
-    <textarea id="summary" placeholder="요청요약(비식별)"></textarea>
-    <select id="urgent"><option>낮음</option><option>보통</option><option>긴급</option></select>
-    <button class="primary" onclick="addInbound()">접수 → 기획조정 자동대기</button>
-  </div>
-  <div class="card">${table(db.inbound,C.inbound)}</div>`);
-}
-function addInbound(){
-  if(!requireRole(["대표","영업","본부장","운영지원"]))return;
-  const inid=seq("IN");
-  db.inbound.unshift({"IN-Request ID":inid,"인바운드 유형":v("type"),"유입경로":v("channel"),"고객코드":v("code"),"소개자코드":v("intro"),"연락채널":v("contact"),"업종":v("industry"),"상품코드":v("product"),"상품옵션":v("option"),"요청요약":v("summary"),"긴급도":v("urgent"),"우선순위점수":"","기획조정 전달":"Y","기획조정 상태":"대기","분배유형":"","토큰요청":"N","토큰ID":"","접수일시":now(),"접수자":user.name,"접촉로그":"","비고":""});
-  db.planning.unshift({"IN-Request ID":inid,"고객코드":v("code"),"업종":v("industry"),"상품코드":v("product"),"상품옵션":v("option"),"요청요약":v("summary"),"난이도":"","예상금액레벨":"","전환가능성":"","우선순위점수":"","판단근거":"","분배유형":"","담당팀":"","담당자":"","분배일시":"","처리기한":"","토큰요청":"N","토큰ID":"","상태":"대기","기록자":user.name,"로그":"접수 자동 생성"});
-  log("AUTO","인바운드 접수 및 기획조정 대기 생성",inid);
-  save();render();
-}
+function contract(){layout(`<div class="card narrow"><h2>부대표 계약·전자서명 관리</h2><select id="kind"><option>아웃바운드</option><option>인바운드</option></select><input id="cid" placeholder="Request ID 또는 IN-Request ID"><input id="ctk" placeholder="토큰ID"><input id="cunit" placeholder="유닛ID"><input id="money" placeholder="최종 계약금액"><input id="deposit" placeholder="착수금액"><select id="audit"><option>검증완료</option><option>이슈</option><option>감사대기</option></select><button class="primary" onclick="issueContractLink()">부대표 계약서 링크 발행</button><button class="primary" onclick="contractToExecutive()">계약/입금/감사 완료 → 전무 자동전달</button></div><div class="card">${table(db.contract,C.contract)}</div>`)}
+function issueContractLink(){if(!requireRole(["대표","부대표"]))return;const idv=v("cid");if(!idv)return alert("ID 필요");const c=db.contract.find(x=>sameFlow(x,idv));if(!c)return alert("계약대기 건이 없습니다. 본부장 단계에서 먼저 부대표에게 전달해야 합니다.");const link=location.origin+location.pathname+"?contract="+encodeURIComponent(idv);Object.assign(c,{"계약서 링크":link,"계약상태":"계약링크발행","전자서명 상태":"서명대기","최종 계약금액":v("money")||c["최종 계약금액"],"착수금액":v("deposit")||c["착수금액"]});log("LINK","부대표 계약서 링크 발행",idv);save();alert("고객에게 전달할 계약서 링크:\\n"+link);render()}
+function contractToExecutive(){if(!requireRole(["대표","부대표","경영지원","감사"]))return;const kind=v("kind"),idv=v("cid"),isIn=kind==="인바운드";if(!idv)return alert("ID 필요");if(exists("executive",x=>sameFlow(x,idv)&&x["전무이사 전달여부"]==="Y"))return alert("이미 전무이사에게 전달된 건입니다.");const c=db.contract.find(x=>sameFlow(x,idv))||{};db.contract.unshift({"유입구분":kind,"IN-Request ID":isIn?idv:"","Request ID":isIn?"":idv,"토큰ID":v("ctk"),"유닛ID":v("cunit"),"고객 식별명":c["고객 식별명"]||"","고객코드":"","계약상태":"계약완료","계약일":now(),"계약서 번호":c["계약서 번호"]||seq("CT"),"계약서 링크":c["계약서 링크"]||"","계약서 파일/경로":"PDF는 계약서 화면에서 저장","고객견적요청서 수령":"Y","내부견적서 확인":"Y","최종 계약금액":v("money")||c["최종 계약금액"]||"","착수금액":v("deposit")||c["착수금액"]||"","입금확인":"Y","입금일시":now(),"결제방식":"","경영지원 확인":"Y","감사 확인상태":v("audit"),"부대표 실행승인":v("audit")==="검증완료"?"Y":"N","전무이사 전달여부":v("audit")==="검증완료"?"Y":"N","작업지시 발급여부":"N","전자서명 상태":c["전자서명 상태"]||"서명대기","서명자":c["서명자"]||"","서명일시":c["서명일시"]||"","도장저장":c["도장저장"]||"N","서명저장":c["서명저장"]||"N"});db.executive.unshift({"유입구분":kind,"IN-Request ID":isIn?idv:"","Request ID":isIn?"":idv,"토큰ID":v("ctk"),"유닛ID":v("cunit"),"CEO Reference":"","계약상태":"계약완료","착수금 확인":"Y","입금확인":"Y","경영지원 확인":"Y","감사 확인상태":v("audit"),"부대표 실행승인":v("audit")==="검증완료"?"Y":"N","전무이사 전달여부":v("audit")==="검증완료"?"Y":"N","작업지시 발급여부":"N","실행시작 가능여부":v("audit")==="검증완료"?"가능":"불가","전무이사 실행판정":"대기","코어상태":"대기","인터페이스 바구니함 상태":"작업요청","현재위치":"전무이사","다음위치":"실행팀","유닛 전달여부":"N","PO 전달여부":"N","PO 회수여부":"N","완료보고 수령":"N","토큰해제 요청":"N","완료여부":"N"});log("AUTO","계약/입금/감사 완료 및 전무 대기 생성",idv);save();render()}
 
-function planning(){
-  layout(`
-  <div class="card narrow">
-    <h2>기획조정팀</h2>
-    <input id="pin" placeholder="IN-Request ID">
-    <input id="score" placeholder="우선순위점수">
-    <input id="reason" placeholder="판단근거">
-    <select id="route"><option>영업</option><option>본부장</option><option>부대표</option><option>보류</option><option>제외</option></select>
-    <input id="owner" placeholder="담당자">
-    <button class="primary" onclick="routeInbound()">분배 처리</button>
-  </div>
-  <div class="card">${table(db.planning,C.planning)}</div>`);
-}
-function routeInbound(){
-  if(!requireRole(["대표","본부장"]))return;
-  const inid=v("pin"),route=v("route");
-  if(!inid)return alert("IN-Request ID 필요");
-  update("inbound","IN-Request ID",inid,{"기획조정 상태":"분배완료","분배유형":route});
-  db.planning.unshift({"IN-Request ID":inid,"고객코드":"","업종":"","상품코드":"","상품옵션":"","요청요약":"","난이도":"","예상금액레벨":"","전환가능성":"","우선순위점수":v("score"),"판단근거":v("reason"),"분배유형":route,"담당팀":route,"담당자":v("owner"),"분배일시":now(),"처리기한":"","토큰요청":"N","토큰ID":"","상태":"분배완료","기록자":user.name,"로그":"분배 처리"});
-  if(route==="영업" && !exists("sales",x=>x["IN-Request ID"]===inid)){
-    db.sales.unshift({"유입구분":"인바운드","Request ID":"","IN-Request ID":inid,"토큰ID":"","유닛ID":"","고객 식별명":"","고객코드":"","업종":"","주소":"","시안 발송 여부":"N","최초 접촉 여부":"N","고객 반응 상태":"미접촉","견적 요청 유도 여부":"N","견적요청서 수령":"N","착수금 결제 여부":"N","결제 금액":"","결제 일시":"","부대표 계약 요청":"N","본부장 전달 여부":"N","담당 영업자":v("owner"),"진행 상태":"미접촉","특이사항":""});
-    log("AUTO","인바운드 영업행 자동 생성",inid);
-  }
-  save();render();
-}
+function contractCustomerPage(id){const c=db.contract.find(x=>sameFlow(x,id))||{};document.getElementById("root").innerHTML=`<main style="padding:20px"><div class="contract-paper" id="paper"><h1>계약서</h1><p><b>계약번호:</b> ${c["계약서 번호"]||seq("CT")}</p><p><b>계약대상:</b> ${c["고객 식별명"]||id}</p><p><b>계약금액:</b> ${c["최종 계약금액"]||"-"}</p><p><b>착수금:</b> ${c["착수금액"]||"-"}</p><hr><p>본 계약은 고객 요청에 따른 디지털 마케팅/웹/콘텐츠/운영 관련 업무 수행을 목적으로 하며, 세부 범위는 견적요청서 및 회사 내부 확정 범위에 따릅니다.</p><p>고객은 본 계약 내용을 확인하고 전자서명 및 도장 이미지를 제출함으로써 계약 의사를 표시합니다.</p><hr><input id="signer" placeholder="서명자 이름"><p class="small">아래 칸에 손가락 또는 마우스로 서명하세요.</p><canvas id="signCanvas" class="signbox"></canvas><button class="ghost no-print" onclick="clearSign()">서명 지우기</button><p class="small">도장 이미지가 있다면 업로드하세요.</p><input class="no-print" type="file" id="stampFile" accept="image/*" onchange="loadStamp(event)"><div id="stampPreview"></div><button class="primary no-print" onclick="finishSign('${id}')">전자서명 완료</button><button class="primary no-print" onclick="window.print()">PDF 저장/인쇄</button></div></main>`;initCanvas()}
+let signPad=null,stampData="";
+function initCanvas(){const c=document.getElementById("signCanvas");const ctx=c.getContext("2d");function resize(){c.width=c.offsetWidth;c.height=c.offsetHeight;ctx.lineWidth=3;ctx.lineCap="round"}resize();let drawing=false;const pos=e=>{const r=c.getBoundingClientRect();const t=e.touches?e.touches[0]:e;return{x:t.clientX-r.left,y:t.clientY-r.top}};c.onmousedown=c.ontouchstart=e=>{drawing=true;const p=pos(e);ctx.beginPath();ctx.moveTo(p.x,p.y);e.preventDefault()};c.onmousemove=c.ontouchmove=e=>{if(!drawing)return;const p=pos(e);ctx.lineTo(p.x,p.y);ctx.stroke();e.preventDefault()};c.onmouseup=c.onmouseleave=c.ontouchend=()=>drawing=false;signPad=c}
+function clearSign(){const c=signPad;c.getContext("2d").clearRect(0,0,c.width,c.height)}
+function loadStamp(e){const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{stampData=r.result;document.getElementById("stampPreview").innerHTML=`<img class="preview-img" src="${stampData}">`};r.readAsDataURL(f)}
+function finishSign(id){const c=db.contract.find(x=>sameFlow(x,id));if(!c)return alert("계약 정보를 찾을 수 없습니다.");const signData=signPad.toDataURL("image/png");Object.assign(c,{"계약상태":"계약완료","전자서명 상태":"서명완료","서명자":v("signer"),"서명일시":now(),"서명저장":"Y","도장저장":stampData?"Y":"N","signatureData":signData,"stampData":stampData});log("SIGN","고객 전자서명 완료",id);save();alert("전자서명이 완료되었습니다. 필요 시 PDF 저장/인쇄 버튼으로 저장하세요.");}
 
-function sales(){
-  layout(`
-  <div class="card narrow">
-    <h2>마케팅·영업</h2>
-    <select id="kind"><option>아웃바운드</option><option>인바운드</option></select>
-    <input id="sid" placeholder="Request ID 또는 IN-Request ID">
-    <input id="customer" placeholder="고객 식별명/코드">
-    <input id="industry" placeholder="업종">
-    <input id="addr" placeholder="주소">
-    <select id="quote"><option>Y</option><option>N</option></select>
-    <input id="amount" placeholder="결제/예상 금액">
-    <button class="primary" onclick="salesToHQ()">견적요청 수령 → 본부장 자동전달</button>
-  </div>
-  <div class="card">${table(db.sales,C.sales)}</div>`);
-}
-function salesToHQ(){
-  if(!requireRole(["대표","영업"]))return;
-  const kind=v("kind"),idv=v("sid"),isIn=kind==="인바운드";
-  if(!idv)return alert("ID 필요");
-  if(exists("hq",x=>sameFlow(x,idv)&&x["고객용 견적요청서 수령"]==="Y"))return alert("이미 본부장 단계로 전달된 건입니다.");
-  db.sales.unshift({"유입구분":kind,"Request ID":isIn?"":idv,"IN-Request ID":isIn?idv:"","토큰ID":"","유닛ID":"","고객 식별명":v("customer"),"고객코드":v("customer"),"업종":v("industry"),"주소":v("addr"),"시안 발송 여부":"Y","최초 접촉 여부":"Y","고객 반응 상태":"견적요청","견적 요청 유도 여부":"Y","견적요청서 수령":v("quote"),"착수금 결제 여부":"N","결제 금액":v("amount"),"결제 일시":"","부대표 계약 요청":"N","본부장 전달 여부":"Y","담당 영업자":user.name,"진행 상태":"본부장전달","특이사항":""});
-  db.hq.unshift({"유입구분":kind,"Request ID":isIn?"":idv,"IN-Request ID":isIn?idv:"","토큰ID":"","유닛ID":"","고객 식별명":v("customer"),"고객코드":v("customer"),"고객용 견적요청서 수령":"Y","고객 요청 원본":"영업 전달 견적요청","회사 견적요청서 치환":"치환 대기","계약 범위 확정":"","제외 범위":"","예상 금액":v("amount"),"특이사항":"","부대표 전달 여부":"N","전달일시":""});
-  log("AUTO","영업 완료 및 본부장 자동전달",idv);
-  save();render();
-}
+function executive(){layout(`<div class="card narrow"><h2>전무이사 실행통제</h2><select id="kind"><option>아웃바운드</option><option>인바운드</option></select><input id="xid" placeholder="Request ID 또는 IN-Request ID"><input id="xtk" placeholder="토큰ID"><input id="xunit" placeholder="유닛ID"><select id="judge"><option>승인</option><option>보류</option><option>차단</option></select><button class="primary" onclick="execToExecution()">전무 승인 → 2차 진행 실행팀 자동생성</button></div><div class="card">${table(db.executive,C.executive)}</div>`)}
+function execToExecution(){if(!requireRole(["대표","전무이사"]))return;if(!v("xtk"))return alert("토큰ID 필수");const kind=v("kind"),idv=v("xid"),isIn=kind==="인바운드",ok=v("judge")==="승인";if(ok&&hasExecution(idv,"진행","작업요청"))return alert("이미 2차 진행 실행행이 존재합니다.");db.executive.unshift({"유입구분":kind,"IN-Request ID":isIn?idv:"","Request ID":isIn?"":idv,"토큰ID":v("xtk"),"유닛ID":v("xunit"),"CEO Reference":"","계약상태":"계약완료","착수금 확인":"Y","입금확인":"Y","경영지원 확인":"Y","감사 확인상태":"검증완료","부대표 실행승인":"Y","전무이사 전달여부":"Y","작업지시 발급여부":ok?"Y":"N","실행시작 가능여부":ok?"가능":"불가","전무이사 실행판정":v("judge"),"코어상태":"작업요청","인터페이스 바구니함 상태":"작업요청","현재위치":"전무이사","다음위치":"실행팀","유닛 전달여부":ok?"Y":"N","PO 전달여부":"N","PO 회수여부":"N","완료보고 수령":"N","토큰해제 요청":"N","완료여부":"N"});if(ok){db.execution.unshift({"Request ID":isIn?"":idv,"IN-Request ID":isIn?idv:"","토큰ID":v("xtk"),"유닛ID":v("xunit"),"CEO Reference":"","파이프라인구분":"2차-진행","작업구분":"진행","파이프라인단계":"작업요청","고객/업체명":"","상품명":"진행","요청내용":"","작업부서":"실행팀","부서팀장":"","작업자":"","입력권한구분":"팀장입력","이전부서":"전무이사","현재부서":"실행팀","다음부서":"PO","USB 바구니함 상태":"작업요청","현재위치":"실행팀","다음위치":"PO","산출물 파일명":"","산출물 형식":"","저장경로":"","완료보고":"X","정합성":"X","범위준수":"X","원본저장":"X","팀장검수":"X","PO전달가능":"불가","PO전달여부":"N","PO전달일시":""});log("AUTO","전무 승인 및 2차 진행 실행팀 자동 생성",idv)}save();render()}
 
-function hq(){
-  layout(`
-  <div class="card narrow">
-    <h2>사업본부 본부장</h2>
-    <select id="kind"><option>아웃바운드</option><option>인바운드</option></select>
-    <input id="hid" placeholder="Request ID 또는 IN-Request ID">
-    <input id="token" placeholder="토큰ID">
-    <input id="unit" placeholder="유닛ID">
-    <textarea id="raw" placeholder="고객 요청 원본"></textarea>
-    <textarea id="fixed" placeholder="회사 견적요청서 치환"></textarea>
-    <input id="scope" placeholder="계약 범위 확정">
-    <input id="exclude" placeholder="제외 범위">
-    <input id="amount" placeholder="예상 금액">
-    <button class="primary" onclick="hqToContract()">치환 완료 → 부대표 자동전달</button>
-  </div>
-  <div class="card">${table(db.hq,C.hq)}</div>`);
-}
-function hqToContract(){
-  if(!requireRole(["대표","본부장"]))return;
-  const kind=v("kind"),idv=v("hid"),isIn=kind==="인바운드";
-  if(!idv)return alert("ID 필요");
-  if(exists("contract",x=>sameFlow(x,idv)&&x["계약상태"]==="계약대기"))return alert("이미 계약대기 건이 존재합니다.");
-  db.hq.unshift({"유입구분":kind,"Request ID":isIn?"":idv,"IN-Request ID":isIn?idv:"","토큰ID":v("token"),"유닛ID":v("unit"),"고객 식별명":"","고객코드":"","고객용 견적요청서 수령":"Y","고객 요청 원본":v("raw"),"회사 견적요청서 치환":v("fixed"),"계약 범위 확정":v("scope"),"제외 범위":v("exclude"),"예상 금액":v("amount"),"특이사항":"","부대표 전달 여부":"Y","전달일시":now()});
-  db.contract.unshift({"유입구분":kind,"IN-Request ID":isIn?idv:"","Request ID":isIn?"":idv,"토큰ID":v("token"),"유닛ID":v("unit"),"고객 식별명":"","고객코드":"","계약상태":"계약대기","계약일":"","계약서 번호":"","계약서 파일/경로":"","고객견적요청서 수령":"Y","내부견적서 확인":"Y","최종 계약금액":v("amount"),"착수금액":"","입금확인":"N","입금일시":"","결제방식":"","세금계산서 필요":"","세금계산서 발행상태":"","영수증/증빙 보관":"","경영지원 확인":"N","부대표 회신":"","감사 확인상태":"감사대기","감사 검토사유":"","부대표 실행승인":"N","전무이사 전달여부":"N","작업지시 발급여부":"N"});
-  log("AUTO","본부장 치환 및 부대표 계약대기 생성",idv);
-  save();render();
-}
+function execution(){layout(`<div class="card narrow"><h2>실행팀 통합</h2><input id="erid" placeholder="Request ID"><input id="ein" placeholder="IN-Request ID"><input id="etk" placeholder="토큰ID"><input id="eunit" placeholder="유닛ID"><select id="etype"><option>시안</option><option>진행</option><option>유지관리</option></select><input id="dept" placeholder="작업부서"><input id="worker" placeholder="작업자"><input id="file" placeholder="산출물 파일명"><input id="format" placeholder="산출물 형식"><input id="path" placeholder="저장경로"><button class="primary" onclick="completeExecution()">작업 완료 → PO 자동적재</button></div><div class="card">${table(db.execution,C.execution)}</div>`)}
+function completeExecution(){if(!requireRole(["대표","전무이사","실행팀"]))return;const rid=v("erid"),inid=v("ein"),idv=rid||inid,tk=v("etk"),unit=v("eunit"),type=v("etype");if(!tk)return alert("토큰ID 없는 실행 금지");if(!idv)return alert("Request ID 또는 IN-Request ID 필요");if(hasPO(idv,type))return alert("이미 해당 작업유형이 PO에 적재되어 있습니다.");db.execution.unshift({"Request ID":rid,"IN-Request ID":inid,"토큰ID":tk,"유닛ID":unit,"CEO Reference":"","파이프라인구분":type==="시안"?"1차-시안":type==="진행"?"2차-진행":"유지관리","작업구분":type,"파이프라인단계":"완료","고객/업체명":"","상품명":type,"요청내용":"","작업부서":v("dept")||"실행팀","부서팀장":"","작업자":v("worker"),"입력권한구분":"작업자입력","이전부서":"전무/토큰","현재부서":"실행팀","다음부서":"PO","USB 바구니함 상태":"제출완료","현재위치":"실행팀","다음위치":"PO","산출물 파일명":v("file"),"산출물 형식":v("format"),"저장경로":v("path"),"완료보고":"O","정합성":"O","범위준수":"O","원본저장":"O","팀장검수":"O","PO전달가능":"가능","PO전달여부":"Y","PO전달일시":now()});db.po.unshift({"Request ID":rid,"IN-Request ID":inid,"토큰ID":tk,"유닛ID":unit,"유입경로":inid?"인바운드":"아웃바운드","작업코드":seq("JOB"),"상품명":type,"고객 식별명":"","작업유형":type,"요청내용":"","작업지시 확인":"O","프로젝트 담당자":user.name,"상품 담당자":"","외주 여부":"N","산출물 파일명":v("file"),"산출물 형식":v("format"),"링크 생성 여부":"N","링크":"","완료보고 수령":"O","정합성":"O","범위준수":"O","원본저장":"O","저장경로":v("path"),"출고상태":"PO적재","출고대상":"","출고일시":"","출고자":"","전달방식":"","확인여부":"N","AS 여부":"N","유지관리 여부":"N","토큰연계 여부":"Y","특이사항":""});update("token","토큰ID",tk,{"프로젝트오피스 전달여부":"Y","전달일시":now(),"완료보고수령":"Y"});sync(idv,{executive:{"PO 전달여부":"Y","완료보고 수령":"Y"}});log("AUTO","실행 완료 및 PO 자동 적재",idv);save();render()}
 
-function contract(){
-  layout(`
-  <div class="card narrow">
-    <h2>부대표·경영지원·감사</h2>
-    <select id="kind"><option>아웃바운드</option><option>인바운드</option></select>
-    <input id="cid" placeholder="Request ID 또는 IN-Request ID">
-    <input id="ctk" placeholder="토큰ID">
-    <input id="cunit" placeholder="유닛ID">
-    <input id="money" placeholder="최종 계약금액">
-    <input id="deposit" placeholder="착수금액">
-    <select id="audit"><option>검증완료</option><option>이슈</option><option>감사대기</option></select>
-    <button class="primary" onclick="contractToExecutive()">계약/입금/감사 완료 → 전무 자동전달</button>
-  </div>
-  <div class="card">${table(db.contract,C.contract)}</div>`);
-}
-function contractToExecutive(){
-  if(!requireRole(["대표","부대표","경영지원","감사"]))return;
-  const kind=v("kind"),idv=v("cid"),isIn=kind==="인바운드";
-  if(!idv)return alert("ID 필요");
-  if(exists("executive",x=>sameFlow(x,idv)&&x["전무이사 전달여부"]==="Y"))return alert("이미 전무이사에게 전달된 건입니다.");
-  db.contract.unshift({"유입구분":kind,"IN-Request ID":isIn?idv:"","Request ID":isIn?"":idv,"토큰ID":v("ctk"),"유닛ID":v("cunit"),"고객 식별명":"","고객코드":"","계약상태":"계약완료","계약일":now(),"계약서 번호":seq("CT"),"계약서 파일/경로":"","고객견적요청서 수령":"Y","내부견적서 확인":"Y","최종 계약금액":v("money"),"착수금액":v("deposit"),"입금확인":"Y","입금일시":now(),"결제방식":"","세금계산서 필요":"","세금계산서 발행상태":"","영수증/증빙 보관":"","경영지원 확인":"Y","부대표 회신":"","감사 확인상태":v("audit"),"감사 검토사유":"","부대표 실행승인":v("audit")==="검증완료"?"Y":"N","전무이사 전달여부":v("audit")==="검증완료"?"Y":"N","작업지시 발급여부":"N"});
-  db.executive.unshift({"유입구분":kind,"IN-Request ID":isIn?idv:"","Request ID":isIn?"":idv,"토큰ID":v("ctk"),"유닛ID":v("cunit"),"CEO Reference":"","계약상태":"계약완료","착수금 확인":"Y","입금확인":"Y","경영지원 확인":"Y","감사 확인상태":v("audit"),"부대표 실행승인":v("audit")==="검증완료"?"Y":"N","전무이사 전달여부":v("audit")==="검증완료"?"Y":"N","작업지시 발급여부":"N","실행시작 가능여부":v("audit")==="검증완료"?"가능":"불가","전무이사 실행판정":"대기","코어상태":"대기","인터페이스 바구니함 상태":"작업요청","현재위치":"전무이사","다음위치":"실행팀","유닛 전달여부":"N","PO 전달여부":"N","PO 회수여부":"N","완료보고 수령":"N","토큰해제 요청":"N","완료여부":"N"});
-  log("AUTO","계약/입금/감사 완료 및 전무 대기 생성",idv);
-  save();render();
-}
+function po(){layout(`<div class="card"><h2>프로젝트오피스 PO</h2></div><div class="card">${table(db.po,C.po)}</div>`)}
 
-function executive(){
-  layout(`
-  <div class="card narrow">
-    <h2>전무이사 실행통제</h2>
-    <select id="kind"><option>아웃바운드</option><option>인바운드</option></select>
-    <input id="xid" placeholder="Request ID 또는 IN-Request ID">
-    <input id="xtk" placeholder="토큰ID">
-    <input id="xunit" placeholder="유닛ID">
-    <select id="judge"><option>승인</option><option>보류</option><option>차단</option></select>
-    <button class="primary" onclick="execToExecution()">전무 승인 → 2차 진행 실행팀 자동생성</button>
-  </div>
-  <div class="card">${table(db.executive,C.executive)}</div>`);
-}
-function execToExecution(){
-  if(!requireRole(["대표","전무이사"]))return;
-  if(!v("xtk"))return alert("토큰ID 필수");
-  const kind=v("kind"),idv=v("xid"),isIn=kind==="인바운드",ok=v("judge")==="승인";
-  if(ok && hasExecution(idv,"진행","작업요청"))return alert("이미 2차 진행 실행행이 존재합니다.");
-  db.executive.unshift({"유입구분":kind,"IN-Request ID":isIn?idv:"","Request ID":isIn?"":idv,"토큰ID":v("xtk"),"유닛ID":v("xunit"),"CEO Reference":"","계약상태":"계약완료","착수금 확인":"Y","입금확인":"Y","경영지원 확인":"Y","감사 확인상태":"검증완료","부대표 실행승인":"Y","전무이사 전달여부":"Y","작업지시 발급여부":ok?"Y":"N","실행시작 가능여부":ok?"가능":"불가","전무이사 실행판정":v("judge"),"코어상태":"작업요청","인터페이스 바구니함 상태":"작업요청","현재위치":"전무이사","다음위치":"실행팀","유닛 전달여부":ok?"Y":"N","PO 전달여부":"N","PO 회수여부":"N","완료보고 수령":"N","토큰해제 요청":"N","완료여부":"N"});
-  if(ok){
-    db.execution.unshift({"Request ID":isIn?"":idv,"IN-Request ID":isIn?idv:"","토큰ID":v("xtk"),"유닛ID":v("xunit"),"CEO Reference":"","파이프라인구분":"2차-진행","작업구분":"진행","파이프라인단계":"작업요청","고객/업체명":"","상품명":"진행","요청내용":"","작업부서":"실행팀","부서팀장":"","작업자":"","입력권한구분":"팀장입력","이전부서":"전무이사","현재부서":"실행팀","다음부서":"PO","USB 바구니함 상태":"작업요청","현재위치":"실행팀","다음위치":"PO","산출물 파일명":"","산출물 형식":"","저장경로":"","완료보고":"X","정합성":"X","범위준수":"X","원본저장":"X","팀장검수":"X","PO전달가능":"불가","PO전달여부":"N","PO전달일시":""});
-    log("AUTO","전무 승인 및 2차 진행 실행팀 자동 생성",idv);
-  }
-  save();render();
-}
+function inbound(){layout(`<div class="card narrow"><h2>인바운드 접수처</h2><select id="type"><option>A</option><option>B</option></select><input id="channel" placeholder="유입경로"><input id="code" placeholder="고객코드"><input id="intro" placeholder="소개자코드"><input id="contact" placeholder="연락채널(마스킹)"><input id="industry" placeholder="업종"><input id="product" placeholder="상품코드"><input id="option" placeholder="상품옵션"><textarea id="summary" placeholder="요청요약(비식별)"></textarea><select id="urgent"><option>낮음</option><option>보통</option><option>긴급</option></select><button class="primary" onclick="addInbound()">접수 → 기획조정 자동대기</button></div><div class="card">${table(db.inbound,C.inbound)}</div>`)}
+function addInbound(){if(!requireRole(["대표","영업","본부장","운영지원"]))return;const inid=seq("IN");db.inbound.unshift({"IN-Request ID":inid,"인바운드 유형":v("type"),"유입경로":v("channel"),"고객코드":v("code"),"소개자코드":v("intro"),"연락채널":v("contact"),"업종":v("industry"),"상품코드":v("product"),"상품옵션":v("option"),"요청요약":v("summary"),"긴급도":v("urgent"),"우선순위점수":"","기획조정 전달":"Y","기획조정 상태":"대기","분배유형":"","토큰요청":"N","토큰ID":"","접수일시":now(),"접수자":user.name,"접촉로그":"","비고":""});db.planning.unshift({"IN-Request ID":inid,"고객코드":v("code"),"업종":v("industry"),"상품코드":v("product"),"상품옵션":v("option"),"요청요약":v("summary"),"난이도":"","예상금액레벨":"","전환가능성":"","우선순위점수":"","판단근거":"","분배유형":"","담당팀":"","담당자":"","분배일시":"","처리기한":"","토큰요청":"N","토큰ID":"","상태":"대기","기록자":user.name,"로그":"접수 자동 생성"});log("AUTO","인바운드 접수 및 기획조정 대기 생성",inid);save();render()}
 
-function logs(){
-  layout(`<div class="card"><h2>감사 로그</h2><p class="small">모든 자동 생성·상태 변경이 기록됩니다.</p>${table(db.logs,C.logs)}<br><button class="red" onclick="if(confirm('전체 데이터 초기화?')){localStorage.removeItem(KEY);location.reload()}">전체 초기화</button></div>`);
-}
+function planning(){layout(`<div class="card narrow"><h2>기획조정팀</h2><input id="pin" placeholder="IN-Request ID"><input id="score" placeholder="우선순위점수"><input id="reason" placeholder="판단근거"><select id="route"><option>영업</option><option>본부장</option><option>부대표</option><option>보류</option><option>제외</option></select><input id="owner" placeholder="담당자"><button class="primary" onclick="routeInbound()">분배 처리</button></div><div class="card">${table(db.planning,C.planning)}</div>`)}
+function routeInbound(){if(!requireRole(["대표","본부장"]))return;const inid=v("pin"),route=v("route");if(!inid)return alert("IN-Request ID 필요");update("inbound","IN-Request ID",inid,{"기획조정 상태":"분배완료","분배유형":route});db.planning.unshift({"IN-Request ID":inid,"고객코드":"","업종":"","상품코드":"","상품옵션":"","요청요약":"","난이도":"","예상금액레벨":"","전환가능성":"","우선순위점수":v("score"),"판단근거":v("reason"),"분배유형":route,"담당팀":route,"담당자":v("owner"),"분배일시":now(),"처리기한":"","토큰요청":"N","토큰ID":"","상태":"분배완료","기록자":user.name,"로그":"분배 처리"});if(route==="영업"&&!exists("sales",x=>x["IN-Request ID"]===inid)){db.sales.unshift({"유입구분":"인바운드","Request ID":"","IN-Request ID":inid,"토큰ID":"","유닛ID":"","고객 식별명":"","고객코드":"","업종":"","주소":"","시안 발송 여부":"N","최초 접촉 여부":"N","고객 반응 상태":"미접촉","견적 요청 유도 여부":"N","견적요청서 수령":"N","착수금 결제 여부":"N","착수금액":"","결제 일시":"","견적요청 링크":"","견적요청 상태":"","부대표 계약 요청":"N","본부장 전달 여부":"N","담당 영업자":v("owner"),"진행 상태":"미접촉","특이사항":""});log("AUTO","인바운드 영업행 자동 생성",inid)}save();render()}
 
-function renderApp(){if(!user)return login();({dash,outDB,call,consent,token,execution,po,inbound,planning,sales,hq,contract,executive,logs}[view])()}
-function render(){if(!unlocked){lockScreen();return}renderApp()}
+function logs(){layout(`<div class="card"><h2>감사 로그</h2>${table(db.logs,C.logs)}<br><button class="red" onclick="if(confirm('전체 데이터 초기화?')){localStorage.removeItem(KEY);location.reload()}">전체 초기화</button></div>`)}
+
+function routePublic(){const url=new URL(location.href);const q=url.searchParams.get("quote"),c=url.searchParams.get("contract");if(q){customerQuotePage(q);return true}if(c){contractCustomerPage(c);return true}return false}
+function renderApp(){if(routePublic())return;if(!user)return login();({dash,outDB,call,consent,token,execution,po,inbound,planning,sales,hq,contract,executive,logs}[view])()}
+function render(){if(routePublic())return;if(!unlocked){lockScreen();return}renderApp()}
 render();
 </script>
 </body>
