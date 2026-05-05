@@ -3,287 +3,259 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>HVIRAL ERP·CRM</title>
+<title>HVIRAL FINAL ERP</title>
 
 <style>
 *{box-sizing:border-box}
-body{margin:0;font-family:Arial,'Noto Sans KR',sans-serif;background:linear-gradient(135deg,#eef3ff,#f8fafc);color:#202633}
-
-header{
-  height:64px;
-  background:rgba(255,255,255,.92);
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:0 14px;
-  border-bottom:1px solid #e8ecf3;
-  position:sticky;top:0;z-index:10
-}
-
-.menu-btn{
-  font-size:22px;
-  background:none;
-  border:0;
-  cursor:pointer;
-}
-
-.sidebar{
-  position:fixed;
-  top:0;left:-270px;
-  width:260px;height:100%;
-  background:#111c36;
-  padding:14px;
-  transition:.3s;
-  z-index:20;
-}
+body{margin:0;font-family:Arial;background:#f6f7fb}
+header{height:60px;background:#fff;display:flex;align-items:center;justify-content:space-between;padding:0 12px;border-bottom:1px solid #ddd}
+.menu-btn{font-size:22px;border:0;background:none}
+.sidebar{position:fixed;left:-260px;top:0;width:250px;height:100%;background:#111c36;padding:10px;transition:.3s}
 .sidebar.open{left:0}
-.sidebar button{
-  width:100%;
-  padding:13px;
-  margin:5px 0;
-  border:0;
-  border-radius:12px;
-  background:#263a60;
-  color:#fff;
-  text-align:left;
-}
-
-.overlay{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.4);
-  display:none;
-  z-index:15;
-}
+.sidebar button{width:100%;padding:12px;margin:4px 0;background:#263a60;border:0;color:#fff;border-radius:10px;text-align:left}
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.4);display:none}
 .overlay.show{display:block}
-
-main{padding:18px}
-
-.card{
-  background:white;
-  border-radius:20px;
-  padding:18px;
-  margin-bottom:16px;
-  box-shadow:0 8px 20px rgba(0,0,0,.05)
-}
-
-input,select,textarea{
-  width:100%;
-  padding:12px;
-  margin-bottom:10px;
-  border:1px solid #ddd;
-  border-radius:12px
-}
-
-button.primary{
-  width:100%;
-  padding:14px;
-  border:0;
-  border-radius:12px;
-  background:#4f6dff;
-  color:white;
-  font-weight:bold
-}
-
-.badge{
-  padding:4px 8px;
-  border-radius:10px;
-  font-size:12px;
-  background:#eee
-}
-.ok{background:#dff7e8}
-.warn{background:#fff2c7}
-.bad{background:#ffe0e0}
-
-.table-wrap{overflow-x:auto}
-table{width:100%;border-collapse:collapse}
-td,th{padding:8px;border-bottom:1px solid #eee}
-
+main{padding:15px}
+.card{background:#fff;border-radius:16px;padding:16px;margin-bottom:12px}
+input,select,textarea{width:100%;padding:10px;margin-bottom:8px;border:1px solid #ddd;border-radius:10px}
+button.primary{width:100%;padding:12px;background:#4f6dff;color:#fff;border:0;border-radius:10px}
+table{width:100%;border-collapse:collapse;font-size:13px}
+td,th{border-bottom:1px solid #eee;padding:6px}
 </style>
 </head>
 
 <body>
 
 <header>
-  <button class="menu-btn" onclick="toggleMenu()">☰</button>
-  <b>HVIRAL ERP</b>
-  <div id="userBox"></div>
+<button class="menu-btn" onclick="toggleMenu()">☰</button>
+<b>HVIRAL ERP</b>
+<div id="userBox"></div>
 </header>
 
-<div class="sidebar" id="menu"></div>
-<div class="overlay" id="overlay" onclick="toggleMenu()"></div>
+<div id="menu" class="sidebar"></div>
+<div id="overlay" class="overlay" onclick="toggleMenu()"></div>
 
 <main id="root"></main>
 
 <script>
 
-/* =========================
-   기본 설정
-========================= */
-
-const KEY="HVIRAL_FINAL";
-let user=null,view="dash";
+/* ===== 기본 ===== */
+const PW="5858";
+const KEY="HVIRAL_FINAL_ALL";
+let unlocked=false,user=null,view="dash";
 
 let db=JSON.parse(localStorage.getItem(KEY)||"null")||{
-  sales:[],logs:[]
+  bound:[],callA:[],callB:[],callC:[],callD:[],callE:[],
+  sales:[],contract:[],reviews:[],contents:[],logs:[]
 };
 
 const save=()=>localStorage.setItem(KEY,JSON.stringify(db));
 const now=()=>new Date().toLocaleString();
+const seq=p=>p+"-"+Date.now();
 
-/* =========================
-   로그 강화
-========================= */
-
+/* ===== 로그 ===== */
 function log(type,msg,id=""){
-  db.logs.unshift({
-    time:now(),
-    user:user?.name||"",
-    role:user?.role||"",
-    type,
-    msg,
-    id
-  });
+  db.logs.unshift({time:now(),user:user?.name||"",role:user?.role||"",type,msg,id});
   save();
 }
 
-/* =========================
-   메뉴 (햄버거)
-========================= */
-
+/* ===== 메뉴 ===== */
 const menus=[
  ["dash","대시보드"],
+ ["bound","BOUND"],
+ ["callA","콜A"],["callB","콜B"],["callC","콜C"],["callD","콜D"],["callE","콜E"],
  ["sales","영업"],
+ ["contract","계약"],
+ ["review","리뷰"],
+ ["content","콘텐츠"],
  ["logs","로그"]
 ];
 
 function drawMenu(){
-  document.getElementById("menu").innerHTML=
-    menus.map(m=>`<button onclick="go('${m[0]}')">${m[1]}</button>`).join("");
+  menu.innerHTML=menus.map(m=>`<button onclick="go('${m[0]}')">${m[1]}</button>`).join("");
 }
-
 function toggleMenu(){
-  document.getElementById("menu").classList.toggle("open");
-  document.getElementById("overlay").classList.toggle("show");
+  menu.classList.toggle("open");
+  overlay.classList.toggle("show");
 }
+function go(v){view=v;toggleMenu();render();}
 
-function go(v){
-  view=v;
-  toggleMenu();
-  render();
+/* ===== 로그인 ===== */
+function lock(){
+  root.innerHTML=`
+  <div class="card">
+  <h2>접속 비밀번호</h2>
+  <input id="pw" type="password">
+  <button class="primary" onclick="check()">접속</button>
+  </div>`;
 }
-
-/* =========================
-   로그인
-========================= */
-
+function check(){
+  if(document.getElementById("pw").value===PW){
+    unlocked=true;render();
+  }else alert("틀림");
+}
 function login(){
   root.innerHTML=`
   <div class="card">
-    <h2>로그인</h2>
-    <input id="name" placeholder="이름">
-    <select id="role">
-      <option>대표</option>
-      <option>영업</option>
-      <option>본부장</option>
-    </select>
-    <button class="primary" onclick="doLogin()">로그인</button>
+  <h2>로그인</h2>
+  <input id="name" placeholder="이름">
+  <select id="role">
+  <option>대표</option><option>영업</option><option>콜팀</option>
+  </select>
+  <button class="primary" onclick="doLogin()">로그인</button>
   </div>`;
 }
-
 function doLogin(){
-  user={
-    name:document.getElementById("name").value,
-    role:document.getElementById("role").value
-  };
+  user={name:name.value,role:role.value};
   log("LOGIN","로그인");
   render();
 }
 
-/* =========================
-   화면
-========================= */
-
+/* ===== 대시보드 ===== */
 function dash(){
-  root.innerHTML=`
-  <div class="card">
-    <h2>대시보드</h2>
-    <p>전체 흐름 정상</p>
+  root.innerHTML=`<div class="card">
+  <h2>전체 흐름</h2>
+  BOUND → 콜 → 영업 → 계약 → 리뷰 → 콘텐츠
   </div>`;
 }
 
+/* ===== BOUND ===== */
+function bound(){
+  root.innerHTML=`
+  <div class="card">
+  <input id="biz" placeholder="업체명">
+  <select id="team">
+  <option>callA</option><option>callB</option><option>callC</option><option>callD</option><option>callE</option>
+  </select>
+  <button class="primary" onclick="addBound()">등록</button>
+  </div>
+  ${table(db.bound,["id","biz","team"])}
+  `;
+}
+function addBound(){
+  let id=seq("OUT");
+  db.bound.unshift({id,biz:biz.value,team:team.value});
+  db[team.value].unshift({id,biz:biz.value,result:"대기"});
+  log("CREATE","BOUND 등록",id);
+  save();render();
+}
+
+/* ===== 콜 ===== */
+function callUI(t){
+  root.innerHTML=`
+  <div class="card">
+  <input id="rid">
+  <select id="res"><option>동의</option><option>거절</option></select>
+  <button class="primary" onclick="saveCall('${t}')">저장</button>
+  </div>
+  ${table(db[t],["id","biz","result"])}
+  `;
+}
+function callA(){callUI("callA")}
+function callB(){callUI("callB")}
+function callC(){callUI("callC")}
+function callD(){callUI("callD")}
+function callE(){callUI("callE")}
+
+function saveCall(t){
+  let r=db[t].find(x=>x.id===rid.value);
+  if(!r)return alert("없음");
+  r.result=res.value;
+  log("CALL","콜결과",rid.value);
+  save();render();
+}
+
+/* ===== 영업 ===== */
 function sales(){
   root.innerHTML=`
   <div class="card">
-    <h2>영업</h2>
-    <input id="rid" placeholder="Request ID">
-    <input id="customer" placeholder="고객명">
-    <button class="primary" onclick="addSale()">등록</button>
+  <input id="rid">
+  <input id="cust">
+  <button class="primary" onclick="addSale()">등록</button>
   </div>
-
-  <div class="card">
-    ${table(db.sales,["rid","customer","time"])}
-  </div>`;
+  ${table(db.sales,["rid","cust"])}
+  `;
 }
-
 function addSale(){
-  let rid=document.getElementById("rid").value;
-  let customer=document.getElementById("customer").value;
-
-  db.sales.unshift({
-    rid,customer,time:now()
-  });
-
-  log("CREATE","영업 등록",rid);
-  save();
-  render();
+  db.sales.unshift({rid:rid.value,cust:cust.value});
+  log("SALE","영업등록",rid.value);
+  save();render();
 }
 
-/* =========================
-   로그 UI
-========================= */
-
-function logs(){
+/* ===== 계약 ===== */
+function contract(){
   root.innerHTML=`
   <div class="card">
-    <h2>로그</h2>
-    ${table(db.logs,["time","user","role","type","msg","id"])}
-  </div>`;
+  <input id="rid">
+  <button class="primary" onclick="addContract()">계약</button>
+  </div>
+  ${table(db.contract,["rid","status"])}
+  `;
+}
+function addContract(){
+  db.contract.unshift({rid:rid.value,status:"완료"});
+  log("CONTRACT","계약완료",rid.value);
+  save();render();
 }
 
-/* =========================
-   공통 테이블
-========================= */
+/* ===== 리뷰 ===== */
+function review(){
+  root.innerHTML=`
+  <div class="card">
+  <input id="rid">
+  <textarea id="txt"></textarea>
+  <button class="primary" onclick="addReview()">등록</button>
+  </div>
+  ${table(db.reviews,["rid","txt"])}
+  `;
+}
+function addReview(){
+  db.reviews.unshift({rid:rid.value,txt:txt.value});
+  log("REVIEW","리뷰등록",rid.value);
+  save();render();
+}
 
+/* ===== 콘텐츠 ===== */
+function content(){
+  root.innerHTML=`
+  <div class="card">
+  <input id="rid">
+  <button class="primary" onclick="makeContent()">생성</button>
+  </div>
+  ${table(db.contents,["rid","title"])}
+  `;
+}
+function makeContent(){
+  db.contents.unshift({rid:rid.value,title:"콘텐츠-"+rid.value});
+  log("CONTENT","콘텐츠생성",rid.value);
+  save();render();
+}
+
+/* ===== 로그 ===== */
+function logs(){
+  root.innerHTML=table(db.logs,["time","user","type","msg","id"]);
+}
+
+/* ===== 공통 ===== */
 function table(rows,cols){
-  return `
-  <div class="table-wrap">
-  <table>
+  return `<div class="card"><table>
   <tr>${cols.map(c=>`<th>${c}</th>`).join("")}</tr>
-  ${rows.map(r=>`
-    <tr>
-      ${cols.map(c=>`<td>${r[c]||""}</td>`).join("")}
-    </tr>`).join("")}
-  </table>
-  </div>`;
+  ${rows.map(r=>`<tr>${cols.map(c=>`<td>${r[c]||""}</td>`).join("")}</tr>`).join("")}
+  </table></div>`;
 }
 
-/* =========================
-   렌더
-========================= */
-
+/* ===== 렌더 ===== */
 function render(){
+  if(!unlocked)return lock();
   if(!user)return login();
 
-  document.getElementById("userBox").innerHTML=
-    user.name+" ("+user.role+")";
+  userBox.innerHTML=user.name;
 
   drawMenu();
 
   ({
-    dash,
-    sales,
-    logs
+    dash,bound,callA,callB,callC,callD,callE,
+    sales,contract,review,content,logs
   }[view])();
 }
 
