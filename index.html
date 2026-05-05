@@ -1,0 +1,410 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>HVIRAL ERP·CRM</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#f7f8fa;font-family:Arial,'Noto Sans KR',sans-serif;color:#222}
+header{height:62px;background:#fff;border-bottom:1px solid #eee;display:flex;align-items:center;justify-content:space-between;padding:0 16px;position:sticky;top:0;z-index:1000}
+.app{display:grid;grid-template-columns:250px 1fr;height:calc(100vh - 62px)}
+nav{background:#1f2a44;padding:12px;overflow:auto}
+nav button{width:100%;padding:13px;margin:5px 0;border:0;border-radius:14px;background:#2e3d5f;color:#fff;text-align:left;font-size:15px}
+nav button.on{background:#4f6dff}
+main{padding:18px;overflow:auto}
+.card{background:#fff;border-radius:22px;padding:18px;margin:0 auto 16px;max-width:760px;box-shadow:0 8px 25px rgba(0,0,0,.06)}
+input,select,textarea{width:100%;padding:13px;border:1px solid #ddd;border-radius:14px;margin-bottom:10px;font-size:15px;background:#fff}
+textarea{min-height:80px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+button.primary{width:100%;padding:14px;border:0;border-radius:16px;background:#4f6dff;color:#fff;font-size:16px}
+button.red{padding:9px 12px;border:0;border-radius:12px;background:#d43a2f;color:#fff}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th,td{border-bottom:1px solid #eee;padding:8px;text-align:left;vertical-align:top}
+th{background:#f0f3fa}
+.badge{display:inline-block;padding:5px 9px;border-radius:999px;font-size:12px;background:#edf1f7}
+.ok{background:#d8f7e6}.warn{background:#fff0c2}.bad{background:#ffd9d9}
+.small{font-size:12px;color:#667085;line-height:1.6}
+.flow{display:flex;gap:8px;flex-wrap:wrap}
+.flow span{background:#edf1f7;border-radius:999px;padding:8px 12px}
+@media(max-width:768px){
+.app{display:block;height:auto}
+nav{position:fixed;top:0;left:-100%;width:280px;height:100%;z-index:2000;transition:.25s}
+nav.open{left:0}
+main{padding:14px}
+.card{max-width:100%;border-radius:22px}
+.grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div id="root"></div>
+
+<script>
+const KEY="HVIRAL_AUTO_ERP_V1";
+const now=()=>new Date().toLocaleString();
+const makeId=p=>`${p}-${new Date().getFullYear()}-${String(Date.now()).slice(-6)}`;
+let view="dash", menuOpen=false, user=null;
+
+let db=JSON.parse(localStorage.getItem(KEY)||"null")||{
+  outDB:[], call:[], consent:[], token:[], execution:[], po:[],
+  inbound:[], planning:[], sales:[], hq:[], contract:[], executive:[], logs:[]
+};
+
+const save=()=>localStorage.setItem(KEY,JSON.stringify(db));
+const log=(type,msg,ref="")=>{
+  db.logs.unshift({일시:now(),사용자:user?.name||"",권한:user?.role||"",구분:type,내용:msg,참조:ref});
+  save();
+};
+const $=id=>document.getElementById(id);
+const v=id=>$(id)?.value||"";
+const badge=x=>{
+  let c=["Y","승인","완료","사용중","가능","PO적재","출고완료","계약완료","검증완료","동의"].includes(x)?"ok":
+        ["대기","보류","검토중","진행중","출고대기","미연락"].includes(x)?"warn":
+        ["N","반려","차단","이슈","거절","불가"].includes(x)?"bad":"";
+  return `<span class="badge ${c}">${x||""}</span>`;
+};
+const table=(rows,cols)=>`
+<table><thead><tr>${cols.map(c=>`<th>${c}</th>`).join("")}</tr></thead>
+<tbody>${rows.map(r=>`<tr>${cols.map(c=>`<td>${badge(r[c])}</td>`).join("")}</tr>`).join("")}</tbody></table>`;
+
+function add(key,row,msg,ref){
+  db[key].unshift(row);
+  log("CREATE",msg,ref||row["Request ID"]||row["IN-Request ID"]||row["토큰ID"]||"");
+  save(); render();
+}
+function toggleMenu(){document.querySelector("nav")?.classList.toggle("open")}
+
+function login(){
+document.getElementById("root").innerHTML=`
+<div style="min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px">
+  <div class="card">
+    <h1>HVIRAL ERP 로그인</h1>
+    <p class="small">INDEX 테스트용 로그인입니다. 서버 버전에서는 계정 DB/세션 인증으로 교체됩니다.</p>
+    <input id="loginName" value="이재현" placeholder="이름">
+    <select id="loginRole">
+      <option>대표</option><option>전무이사</option><option>부대표</option><option>본부장</option>
+      <option>운영지원</option><option>콜팀</option><option>영업</option><option>실행팀</option><option>PO</option><option>감사</option>
+    </select>
+    <button class="primary" onclick="user={name:v('loginName'),role:v('loginRole')};log('LOGIN','로그인');render()">입장</button>
+  </div>
+</div>`;
+}
+
+function layout(content){
+const menus=[
+["dash","대시보드"],["outDB","BOUND DB"],["call","콜팀"],["consent","동의자"],["token","대표 토큰"],
+["execution","실행팀"],["po","PO"],["inbound","인바운드"],["planning","기획조정"],["sales","영업"],
+["hq","본부장"],["contract","계약/입금/감사"],["executive","전무"],["logs","로그"]
+];
+document.getElementById("root").innerHTML=`
+<header>
+  <div style="display:flex;align-items:center;gap:10px">
+    <button class="red" onclick="toggleMenu()">☰</button>
+    <b>HVIRAL ERP·CRM</b>
+  </div>
+  <div>${user.name} · ${user.role} <button class="red" onclick="user=null;render()">로그아웃</button></div>
+</header>
+<div class="app">
+<nav>${menus.map(m=>`<button class="${view===m[0]?'on':''}" onclick="view='${m[0]}';toggleMenu();render()">${m[1]}</button>`).join("")}</nav>
+<main>${content}</main>
+</div>`;
+}
+
+function dash(){
+layout(`
+<div class="card">
+<h2>하비럴 전체 자동 흐름</h2>
+<div class="flow">
+<span>BOUND DB</span><span>콜팀</span><span>동의자 자동생성</span><span>대표 토큰 자동발급</span>
+<span>시안 실행 자동대기</span><span>PO 적재</span><span>영업</span><span>본부장</span>
+<span>계약/입금/감사</span><span>전무</span><span>진행 실행</span><span>PO 완료</span>
+</div>
+<hr>
+<p class="small">자동화 원칙: 데이터 생성은 자동 / 최종 승인 판단은 사람 / 로그는 자동 기록.</p>
+</div>
+<div class="grid">
+${Object.keys(db).filter(k=>k!=="logs").map(k=>`<div class="card"><b>${k}</b><h2>${db[k].length}</h2></div>`).join("")}
+</div>`);
+}
+
+function outDB(){
+layout(`
+<div class="card">
+<h2>BOUND 운영지원 DB</h2>
+<input id="biz" placeholder="업체명">
+<input id="phone" placeholder="연락처">
+<input id="industry" placeholder="업종">
+<input id="area" placeholder="지역">
+<button class="primary" onclick="addOut()">타깃 등록</button>
+</div>
+<div class="card">${table(db.outDB,["Request ID","수집일","업체명","연락처","업종","지역","콜상태","차단여부","재접촉금지"])}</div>`);
+}
+function addOut(){
+add("outDB",{
+"Request ID":makeId("OUT"),"수집일":now(),"업체명":v("biz"),"연락처":v("phone"),"업종":v("industry"),"지역":v("area"),
+"콜상태":"미연락","차단여부":"N","재접촉금지":"N"
+},"아웃바운드 타깃 등록");
+}
+
+function call(){
+layout(`
+<div class="card">
+<h2>콜팀 결과 입력</h2>
+<input id="rid" placeholder="Request ID">
+<input id="caller" placeholder="콜담당자">
+<select id="result"><option>동의</option><option>거절</option><option>부재</option><option>재접촉</option><option>차단</option></select>
+<input id="memo" placeholder="콜메모">
+<button class="primary" onclick="addCall()">콜결과 저장</button>
+<p class="small">동의 저장 시 동의자 작업요청이 자동 생성됩니다.</p>
+</div>
+<div class="card">${table(db.call,["Request ID","연락결과","동의여부","콜담당자","최초통화일시","콜메모"])}</div>`);
+}
+function addCall(){
+const isAgree=v("result")==="동의";
+const rid=v("rid");
+add("call",{"Request ID":rid,"연락결과":v("result"),"동의여부":isAgree?"Y":"N","콜담당자":v("caller"),"최초통화일시":now(),"콜메모":v("memo")},"콜결과 입력",rid);
+if(isAgree){
+  db.consent.unshift({"Request ID":rid,"요청일자":now(),"요청번호":makeId("REQ"),"요청내용":"시안 제작 요청","요청부서":"운영지원","요청자":user.name,"콜담당자":v("caller"),"동의확인":"Y","차단검토":"N","재접촉금지검토":"N","승인요청상태":"대기"});
+  log("AUTO","동의자 작업요청 자동 생성",rid);
+}
+save(); render();
+}
+
+function consent(){
+layout(`
+<div class="card"><h2>동의자 작업요청</h2><p class="small">콜팀 동의 결과가 자동 귀속됩니다.</p></div>
+<div class="card">${table(db.consent,["Request ID","요청일자","요청번호","요청내용","요청부서","요청자","콜담당자","동의확인","차단검토","재접촉금지검토","승인요청상태"])}</div>`);
+}
+
+function token(){
+layout(`
+<div class="card">
+<h2>대표 토큰·승인</h2>
+<input id="trid" placeholder="Request ID / IN-Request ID">
+<input id="customer" placeholder="고객/업체명">
+<input id="work" placeholder="요청내용">
+<select id="unitType"><option>고객단위</option><option>상품단위</option></select>
+<select id="approve"><option>승인</option><option>반려</option><option>보류</option></select>
+<button class="primary" onclick="addToken()">승인 처리</button>
+<p class="small">승인 시 토큰ID와 유닛ID가 자동 발급되고, 1차 시안 실행팀 대기행이 자동 생성됩니다.</p>
+</div>
+<div class="card">${table(db.token,["Request ID","CEO Reference","토큰ID","유닛ID","유닛기준","고객/업체명","요청내용","승인상태","승인일시","승인자","토큰상태","프로젝트오피스 전달여부"])}</div>`);
+}
+function addToken(){
+const ap=v("approve"), rid=v("trid");
+const tk=ap==="승인"?makeId("TK"):"";
+const unit=ap==="승인"?makeId("U"):"";
+db.token.unshift({"Request ID":rid,"CEO Reference":makeId("CEO-REF"),"토큰ID":tk,"유닛ID":unit,"유닛기준":v("unitType"),"고객/업체명":v("customer"),"요청내용":v("work"),"승인상태":ap,"승인일시":now(),"승인자":user.name,"토큰상태":ap==="승인"?"사용중":"대기","프로젝트오피스 전달여부":"N"});
+log("CREATE","대표 토큰 승인 처리",rid);
+if(ap==="승인"){
+ db.execution.unshift({"Request ID":rid,"토큰ID":tk,"유닛ID":unit,"파이프라인구분":"1차-시안","작업구분":"시안","파이프라인단계":"작업요청","작업부서":"디자인팀","USB 바구니함 상태":"작업요청","완료보고":"X","정합성":"X","범위준수":"X","원본저장":"X","팀장검수":"X","PO전달가능":"불가","PO전달여부":"N"});
+ log("AUTO","1차 시안 실행팀 대기행 자동 생성",rid);
+}
+save(); render();
+}
+
+function execution(){
+layout(`
+<div class="card">
+<h2>실행팀 통합</h2>
+<input id="erid" placeholder="Request ID">
+<input id="etk" placeholder="토큰ID">
+<input id="eunit" placeholder="유닛ID">
+<select id="etype"><option>시안</option><option>진행</option><option>유지관리</option></select>
+<input id="file" placeholder="산출물 파일명">
+<input id="path" placeholder="저장경로">
+<button class="primary" onclick="completeExecution()">작업 완료 → PO 자동적재</button>
+<p class="small">완료 처리 시 PO 행이 자동 생성됩니다. 시안/진행은 덮어쓰지 않고 별도 행으로 기록됩니다.</p>
+</div>
+<div class="card">${table(db.execution,["Request ID","토큰ID","유닛ID","파이프라인구분","작업구분","파이프라인단계","작업부서","USB 바구니함 상태","산출물 파일명","저장경로","PO전달가능","PO전달여부"])}</div>`);
+}
+function completeExecution(){
+const type=v("etype"), rid=v("erid"), tk=v("etk"), unit=v("eunit");
+if(!tk)return alert("토큰ID 없는 실행 금지");
+db.execution.unshift({"Request ID":rid,"토큰ID":tk,"유닛ID":unit,"파이프라인구분":type==="시안"?"1차-시안":"2차-진행","작업구분":type,"파이프라인단계":"완료","작업부서":"실행팀","USB 바구니함 상태":"제출완료","산출물 파일명":v("file"),"저장경로":v("path"),"완료보고":"O","정합성":"O","범위준수":"O","원본저장":"O","팀장검수":"O","PO전달가능":"가능","PO전달여부":"Y"});
+db.po.unshift({"Request ID":rid,"토큰ID":tk,"유닛ID":unit,"작업유형":type,"산출물 파일명":v("file"),"저장경로":v("path"),"출고상태":"PO적재","완료보고 수령":"O","정합성":"O","범위준수":"O","원본저장":"O","토큰연계 여부":"Y"});
+log("AUTO","실행 완료 및 PO 자동 적재",rid);
+save(); render();
+}
+
+function po(){
+layout(`
+<div class="card"><h2>프로젝트오피스 PO</h2><p class="small">실행팀 완료 건이 자동 적재됩니다. 기존 행 수정 금지 / 시안·진행 행 분리.</p></div>
+<div class="card">${table(db.po,["Request ID","토큰ID","유닛ID","작업유형","산출물 파일명","저장경로","출고상태","완료보고 수령","정합성","범위준수","원본저장","토큰연계 여부"])}</div>`);
+}
+
+function inbound(){
+layout(`
+<div class="card">
+<h2>인바운드 접수</h2>
+<input id="code" placeholder="고객코드">
+<input id="channel" placeholder="유입경로">
+<input id="product" placeholder="상품코드">
+<textarea id="summary" placeholder="요청요약"></textarea>
+<button class="primary" onclick="addInbound()">접수 → 기획조정 자동대기</button>
+</div>
+<div class="card">${table(db.inbound,["IN-Request ID","고객코드","유입경로","상품코드","요청요약","기획조정 전달","기획조정 상태","접수일시","접수자"])}</div>`);
+}
+function addInbound(){
+const inid=makeId("IN");
+db.inbound.unshift({"IN-Request ID":inid,"고객코드":v("code"),"유입경로":v("channel"),"상품코드":v("product"),"요청요약":v("summary"),"기획조정 전달":"Y","기획조정 상태":"대기","접수일시":now(),"접수자":user.name});
+db.planning.unshift({"IN-Request ID":inid,"상품코드":v("product"),"요청요약":v("summary"),"상태":"대기","기록자":user.name});
+log("AUTO","인바운드 접수 및 기획조정 대기 생성",inid);
+save(); render();
+}
+
+function planning(){
+layout(`
+<div class="card">
+<h2>기획조정팀</h2>
+<input id="pin" placeholder="IN-Request ID">
+<select id="route"><option>영업</option><option>본부장</option><option>부대표</option><option>보류</option><option>제외</option></select>
+<input id="reason" placeholder="판단근거">
+<button class="primary" onclick="routeInbound()">분배 → 영업 자동생성</button>
+</div>
+<div class="card">${table(db.planning,["IN-Request ID","상품코드","요청요약","분배유형","판단근거","담당팀","상태","기록자"])}</div>`);
+}
+function routeInbound(){
+const inid=v("pin"), route=v("route");
+db.planning.unshift({"IN-Request ID":inid,"분배유형":route,"판단근거":v("reason"),"담당팀":route,"상태":"분배완료","기록자":user.name});
+if(route==="영업"){
+ db.sales.unshift({"유입구분":"인바운드","IN-Request ID":inid,"최초 접촉 여부":"N","고객 반응 상태":"미접촉","견적요청서 수령":"N","착수금 결제 여부":"N","부대표 계약 요청":"N","본부장 전달 여부":"N","담당 영업자":"","진행 상태":"미접촉"});
+ log("AUTO","인바운드 영업행 자동 생성",inid);
+}
+save(); render();
+}
+
+function sales(){
+layout(`
+<div class="card">
+<h2>마케팅·영업</h2>
+<input id="sid" placeholder="Request ID / IN-Request ID">
+<select id="kind"><option>아웃바운드</option><option>인바운드</option></select>
+<input id="customer" placeholder="고객 식별명/코드">
+<select id="quote"><option>견적요청서 Y</option><option>견적요청서 N</option></select>
+<input id="amount" placeholder="예상 금액">
+<button class="primary" onclick="salesToHQ()">영업 완료 → 본부장 자동전달</button>
+</div>
+<div class="card">${table(db.sales,["유입구분","Request ID","IN-Request ID","고객 식별명","고객코드","고객 반응 상태","견적요청서 수령","착수금 결제 여부","본부장 전달 여부","담당 영업자","진행 상태"])}</div>`);
+}
+function salesToHQ(){
+const kind=v("kind"), idv=v("sid");
+db.sales.unshift({"유입구분":kind,[kind==="인바운드"?"IN-Request ID":"Request ID"]:idv,"고객 식별명":v("customer"),"고객코드":v("customer"),"고객 반응 상태":"견적요청","견적요청서 수령":v("quote").endsWith("Y")?"Y":"N","착수금 결제 여부":"N","본부장 전달 여부":"Y","담당 영업자":user.name,"진행 상태":"본부장전달"});
+db.hq.unshift({"유입구분":kind,[kind==="인바운드"?"IN-Request ID":"Request ID"]:idv,"고객 식별명":v("customer"),"고객용 견적요청서 수령":"Y","고객 요청 원본":"영업 전달 견적요청","회사 견적요청서 치환":"치환 대기","예상 금액":v("amount"),"부대표 전달 여부":"N"});
+log("AUTO","영업 완료 및 본부장 자동전달",idv);
+save(); render();
+}
+
+function hq(){
+layout(`
+<div class="card">
+<h2>사업본부 본부장</h2>
+<input id="hid" placeholder="Request ID / IN-Request ID">
+<select id="kind"><option>아웃바운드</option><option>인바운드</option></select>
+<textarea id="fixed" placeholder="회사 견적요청서 치환 결과"></textarea>
+<input id="scope" placeholder="계약 범위 확정">
+<input id="exclude" placeholder="제외 범위">
+<button class="primary" onclick="hqToContract()">치환 완료 → 부대표 자동전달</button>
+</div>
+<div class="card">${table(db.hq,["유입구분","Request ID","IN-Request ID","고객 식별명","고객용 견적요청서 수령","고객 요청 원본","회사 견적요청서 치환","계약 범위 확정","제외 범위","부대표 전달 여부"])}</div>`);
+}
+function hqToContract(){
+const kind=v("kind"), idv=v("hid");
+db.hq.unshift({"유입구분":kind,[kind==="인바운드"?"IN-Request ID":"Request ID"]:idv,"회사 견적요청서 치환":v("fixed"),"계약 범위 확정":v("scope"),"제외 범위":v("exclude"),"부대표 전달 여부":"Y","전달일시":now()});
+db.contract.unshift({"유입구분":kind,[kind==="인바운드"?"IN-Request ID":"Request ID"]:idv,"계약상태":"계약대기","고객견적요청서 수령":"Y","내부견적서 확인":"Y","경영지원 확인":"N","감사 확인상태":"감사대기","전무이사 전달여부":"N"});
+log("AUTO","본부장 치환 및 부대표 계약대기 생성",idv);
+save(); render();
+}
+
+function contract(){
+layout(`
+<div class="card">
+<h2>부대표·경영지원·감사</h2>
+<input id="cid" placeholder="Request ID / IN-Request ID">
+<select id="kind"><option>아웃바운드</option><option>인바운드</option></select>
+<input id="ctk" placeholder="토큰ID">
+<input id="cunit" placeholder="유닛ID">
+<input id="money" placeholder="최종 계약금액">
+<select id="audit"><option>검증완료</option><option>이슈</option></select>
+<button class="primary" onclick="contractToExecutive()">계약/입금/감사 완료 → 전무 자동전달</button>
+</div>
+<div class="card">${table(db.contract,["유입구분","Request ID","IN-Request ID","토큰ID","유닛ID","계약상태","최종 계약금액","입금확인","경영지원 확인","감사 확인상태","부대표 실행승인","전무이사 전달여부"])}</div>`);
+}
+function contractToExecutive(){
+const kind=v("kind"), idv=v("cid");
+db.contract.unshift({"유입구분":kind,[kind==="인바운드"?"IN-Request ID":"Request ID"]:idv,"토큰ID":v("ctk"),"유닛ID":v("cunit"),"계약상태":"계약완료","최종 계약금액":v("money"),"입금확인":"Y","경영지원 확인":"Y","감사 확인상태":v("audit"),"부대표 실행승인":"Y","전무이사 전달여부":"Y"});
+db.executive.unshift({"유입구분":kind,[kind==="인바운드"?"IN-Request ID":"Request ID"]:idv,"토큰ID":v("ctk"),"유닛ID":v("cunit"),"계약상태":"계약완료","착수금 확인":"Y","입금확인":"Y","경영지원 확인":"Y","감사 확인상태":v("audit"),"부대표 실행승인":"Y","전무이사 전달여부":"Y","실행시작 가능여부":v("audit")==="검증완료"?"가능":"불가","전무이사 실행판정":"대기"});
+log("AUTO","계약/입금/감사 완료 및 전무 대기 생성",idv);
+save(); render();
+}
+
+function executive(){
+layout(`
+<div class="card">
+<h2>전무이사 실행통제</h2>
+<input id="xid" placeholder="Request ID / IN-Request ID">
+<input id="xtk" placeholder="토큰ID">
+<input id="xunit" placeholder="유닛ID">
+<select id="judge"><option>승인</option><option>보류</option><option>차단</option></select>
+<button class="primary" onclick="execToExecution()">전무 승인 → 2차 진행 실행팀 자동생성</button>
+</div>
+<div class="card">${table(db.executive,["유입구분","Request ID","IN-Request ID","토큰ID","유닛ID","계약상태","착수금 확인","경영지원 확인","감사 확인상태","실행시작 가능여부","전무이사 실행판정","작업지시 발급여부"])}</div>`);
+}
+function execToExecution(){
+if(!v("xtk"))return alert("토큰ID 필수");
+const idv=v("xid");
+db.executive.unshift({"Request ID":idv,"토큰ID":v("xtk"),"유닛ID":v("xunit"),"계약상태":"계약완료","착수금 확인":"Y","입금확인":"Y","경영지원 확인":"Y","감사 확인상태":"검증완료","실행시작 가능여부":v("judge")==="승인"?"가능":"불가","전무이사 실행판정":v("judge"),"작업지시 발급여부":v("judge")==="승인"?"Y":"N"});
+if(v("judge")==="승인"){
+ db.execution.unshift({"Request ID":idv,"토큰ID":v("xtk"),"유닛ID":v("xunit"),"파이프라인구분":"2차-진행","작업구분":"진행","파이프라인단계":"작업요청","작업부서":"실행팀","USB 바구니함 상태":"작업요청","PO전달가능":"불가","PO전달여부":"N"});
+ log("AUTO","전무 승인 및 2차 진행 실행팀 자동 생성",idv);
+}
+save(); render();
+}
+
+function logs(){
+layout(`<div class="card"><h2>감사 로그</h2>${table(db.logs,["일시","사용자","권한","구분","내용","참조"])}<br><button class="red" onclick="if(confirm('초기화?')){localStorage.removeItem(KEY);location.reload()}">전체 초기화</button></div>`);
+}
+let unlocked = false;
+
+function lockScreen(){
+  document.getElementById("root").innerHTML = `
+  <div style="min-height:100vh;display:flex;align-items:center;justify-content:center">
+    <div class="card">
+      <h2>접근 제한</h2>
+      <p class="small">비밀번호 입력 후 접속 가능합니다</p>
+      <input id="pw" type="password" placeholder="비밀번호 입력">
+      <button class="primary" onclick="checkPw()">접속</button>
+    </div>
+  </div>
+  `;
+}
+
+function checkPw(){
+  const pw = document.getElementById("pw").value;
+  if(pw === "2580"){
+    unlocked = true;
+    renderApp();
+  }else{
+    alert("비밀번호 틀림");
+  }
+}
+
+function renderApp(){
+  if(!user) return login();
+  ({dash,outDB,call,consent,token,execution,po,
+    inbound,planning,sales,hq,contract,executive,logs}[view])();
+}
+
+function render(){
+  if(!unlocked){
+    lockScreen();
+    return;
+  }
+  renderApp();
+}
+
+render();
+</script>
+</body>
+</html>
